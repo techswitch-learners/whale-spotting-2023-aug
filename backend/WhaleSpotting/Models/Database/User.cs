@@ -6,6 +6,19 @@ public class User
 {
     public int Id { get; set; }
     public string? Username { get; set; }
+
+    public string? Email { get; set; }
+
+    public string? Name { get; set; }
+
+    public bool Admin { get; set; }
+
+    public DateTime DateCreated { get; set; }
+
+    public int Rating { get; set; }
+
+    public string? ProfileImageUrl { get; set; }
+
     public string? Password
     {
         set
@@ -15,6 +28,8 @@ public class User
         }
     }
     public string? HashedPassword { get; set; }
+
+    public string? Salt { get; set; }
 
     public bool IsCorrectPassword(string password)
     {
