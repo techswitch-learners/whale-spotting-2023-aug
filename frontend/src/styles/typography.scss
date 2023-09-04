@@ -1,0 +1,39 @@
+@use "./variables.scss" as *;
+@use "./mixins.scss" as *;
+
+h1 {
+  font-weight: $boldWeight;
+  font-size: $mobile-font-size-title;
+
+  @include devices(tablet) {
+    font-size: $tablet-font-size-title;
+  }
+  @include devices(desktop) {
+    font-size: $desktop-font-size-title;
+  }
+}
+
+h2 {
+  font-weight: $lighterWeight;
+  font-size: $mobile-font-size-subtitle;
+
+  @include devices(tablet) {
+    font-size: $tablet-font-size-subtitle;
+  }
+  @include devices(desktop) {
+    font-size: $desktop-font-size-subtitle;
+  }
+}
+
+p,
+span {
+  font-weight: $lighterWeight;
+  font-size: $mobile-font-size-body;
+
+  @include devices(tabletP) {
+    font-size: $tablet-font-size-body;
+  }
+  @include devices(desktop) {
+    font-size: $desktop-font-size-body;
+  }
+}

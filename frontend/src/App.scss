@@ -1,0 +1,22 @@
+// @use './styles/typography.scss' as *;
+@use "./styles/variables.scss" as *;
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+:root {
+  font-family: "Poiret One", sans-serif;
+  background-color: $color-background;
+}
