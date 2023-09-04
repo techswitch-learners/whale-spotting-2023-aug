@@ -1,0 +1,19 @@
+{
+  "name": "whale-spotting-2023-aug",
+  "version": "1.0.0",
+  "description": "TechSwitch August 2023 cohort's Whale Spotting project",
+  "scripts": {
+    "prepare": "husky install",
+    "lint": "eslint frontend/src --ext ts,tsx --fix --max-warnings=0",
+    "format": "prettier frontend/src --write"
+  },
+  "devDependencies": {
+    "husky": "^8.0.0",
+    "lint-staged": "^14.0.1"
+  },
+  "lint-staged": {
+    "*.cs": "dotnet csharpier",
+    "*.{ts,tsx}": "npm run lint",
+    "*.{ts,tsx,js,jsx,json,html,css,scss,md}": "npm run format"
+  }
+}
