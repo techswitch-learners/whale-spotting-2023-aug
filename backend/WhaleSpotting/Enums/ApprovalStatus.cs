@@ -5,6 +5,5 @@ namespace WhaleSpotting.Enums
         Pending,
         Approved,
         Rejected
-    
     }
 }
