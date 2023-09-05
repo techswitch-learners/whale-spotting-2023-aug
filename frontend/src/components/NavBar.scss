@@ -13,7 +13,7 @@
 }
 
 .whale-icon {
-  height: 5em;
+  height: 2.5em;
   color: $color-primary;
   cursor: pointer;
   display: block;
@@ -38,7 +38,7 @@
 .navbar-links.active {
   display: block;
   position: absolute;
-  top: 60px;
+  top: 80px;
   left: 0;
   right: 0;
   background-color: $color-secondary;
@@ -81,6 +81,35 @@
     text-decoration: none;
     color: $color-primary;
     font-size: $tablet-font-size-subtitle;
+    font-weight: $boldWeight;
+  }
+}
+
+@include devices(desktop) {
+  .whale-icon {
+    display: block;
+    font-size: $desktop-font-size-subtitle;
+    margin-right: $desktop-gutter;
+  }
+
+  .mobile-menu-icon {
+    display: none;
+  }
+  .navbar-wrapper {
+    padding: $desktop-card-padding;
+    margin: $desktop-gutter;
+    height: 5em;
+  }
+
+  .navbar-links {
+    display: flex;
+    color: $color-primary;
+  }
+
+  .navbar-links a {
+    text-decoration: none;
+    color: $color-primary;
+    font-size: $desktop-font-size-subtitle;
     font-weight: $boldWeight;
   }
 }
