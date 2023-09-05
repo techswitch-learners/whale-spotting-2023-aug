@@ -1,6 +1,6 @@
 ﻿using WhaleSpotting.Models.Database;
 using WhaleSpotting.Models.Request;
-using InvalidOperationException = System.InvalidOperationException;
+using WhaleSpotting.Enums;
 
 namespace WhaleSpotting.Repositories;
 
@@ -51,6 +51,11 @@ public class UserRepo : IUserRepo
             throw new ArgumentException($"The username {newUserRequest.Username} is already taken");
         }
 
+        if (_context.Users.Any(user => user.Email == newUserRequest.Email))
+        {
+            throw new ArgumentException($"The email {newUserRequest.Email} is already taken");
+        }
+
         var newUser = new User
         {
             Username =
@@ -65,7 +70,30 @@ public class UserRepo : IUserRepo
                     nameof(newUserRequest),
                     "Property \"Password\" must not be null"
                 ),
+            Email =
+                newUserRequest.Email
+                ?? throw new ArgumentNullException(
+                    nameof(newUserRequest),
+                    "Property \"Email\" must not be null"
+                ),
+            Name =
+                newUserRequest.Name
+                ?? throw new ArgumentNullException(
+                    nameof(newUserRequest),
+                    "Property \"Name\" must not be null"
+                ),
+            ProfileImageUrl =
+                newUserRequest.ProfileImageUrl
+                ?? throw new ArgumentNullException(
+                    nameof(newUserRequest),
+                    "Property \"ProfileImageUrl\" must not be null"
+                ),
+            Role = Role.User,
+            CreationTimestamp = DateTime.Now,
+            Posts = new List<Post>(),
+            Rating = 0,
         };
+        
         var insertedEntity = _context.Users.Add(newUser);
         _context.SaveChanges();
 
