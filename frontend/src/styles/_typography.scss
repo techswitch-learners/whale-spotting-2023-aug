@@ -2,14 +2,20 @@
 @use "./mixins" as *;
 
 h1 {
+  font-family: "Poiret One", sans-serif;
   font-weight: $boldWeight;
   font-size: $mobile-font-size-title;
 
+  text-align: center;
+  margin: $mobile-title-margin 0;
+
   @include devices(tablet) {
     font-size: $tablet-font-size-title;
+    margin: $tablet-title-margin 0;
   }
   @include devices(desktop) {
     font-size: $desktop-font-size-title;
+    margin: $desktop-title-margin 0;
   }
 }
 
@@ -17,11 +23,15 @@ h2 {
   font-weight: $lighterWeight;
   font-size: $mobile-font-size-subtitle;
 
+  margin: $mobile-subtitle-margin 0;
+
   @include devices(tablet) {
     font-size: $tablet-font-size-subtitle;
+    margin: $tablet-subtitle-margin 0;
   }
   @include devices(desktop) {
     font-size: $desktop-font-size-subtitle;
+    margin: $desktop-subtitle-margin 0;
   }
 }
 
@@ -30,7 +40,7 @@ span {
   font-weight: $lighterWeight;
   font-size: $mobile-font-size-body;
 
-  @include devices(tabletP) {
+  @include devices(tablet) {
     font-size: $tablet-font-size-body;
   }
   @include devices(desktop) {
