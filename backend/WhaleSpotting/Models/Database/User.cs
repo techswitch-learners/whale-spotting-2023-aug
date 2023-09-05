@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using WhaleSpotting.Enums;
 
 namespace WhaleSpotting.Models.Database;
 
@@ -6,6 +7,13 @@ public class User
 {
     public int Id { get; set; }
     public string? Username { get; set; }
+    public string? Email { get; set; }
+    public string? Name { get; set; }
+    public Role? Role { get; set; }
+    public DateTime? CreationTimestamp { get; set; }
+    public List<Post>? Posts { get; set; }
+    public int? Rating { get; set; }
+    public string? ProfileImageUrl { get; set; }
     public string? Password
     {
         set
