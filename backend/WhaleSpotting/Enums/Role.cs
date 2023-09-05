@@ -4,6 +4,5 @@ namespace WhaleSpotting.Enums
     {
         User,
         Admin
-
     }
 }

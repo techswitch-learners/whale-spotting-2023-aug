@@ -4,6 +4,6 @@ namespace WhaleSpotting.Models.Database
     {
         public int Id { get; set; }
         public string? Name { get; set; }
-        public List<Post>? Posts {get; set;}
+        public List<Post>? Posts { get; set; }
     }
 }

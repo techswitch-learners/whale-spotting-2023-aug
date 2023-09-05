@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 
-
 namespace WhaleSpotting.Models.Database
 {
     public class Whale
@@ -9,6 +8,6 @@ namespace WhaleSpotting.Models.Database
         public int TagNumber { get; set; }
         public string? Name { get; set; }
         public Species? Species { get; set; }
-        public List<Post>? Posts {get; set;}
+        public List<Post>? Posts { get; set; }
     }
 }
