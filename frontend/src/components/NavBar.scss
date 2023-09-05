@@ -1,48 +1,53 @@
 @use "../styles/mixins" as *;
-
-.nav {
-  background-color: #333; // Replace with your desired background color
-}
+@use "../styles/variables" as *;
+@use "../styles/typography" as *;
 
 .navbar-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: $mobile-card-padding;
+  border-radius: 1rem;
+  background-color: $color-secondary;
+  margin: $mobile-gutter;
 }
 
 .mobile-menu-icon {
-  font-size: 24px;
-  color: white;
+  font-size: $mobile-font-size-subtitle;
+  color: $color-primary;
   cursor: pointer;
   display: block;
   order: 2;
+  font-weight: $regularWeight;
 }
 
 .navbar-links {
   list-style-type: none;
-  margin: 0;
-  padding: 0;
+  margin: $mobile-gutter;
+  padding: $mobile-card-padding;
   display: none;
+  border-radius: 1rem;
 }
 
 .navbar-links.active {
   display: block;
   position: absolute;
-  top: 60px; // Adjust as needed to position the menu below the navbar
+  top: 60px;
   left: 0;
   right: 0;
-  background-color: #333;
+  background-color: $color-secondary;
   flex-direction: column;
 }
 
 .navbar-links li {
-  padding: 10px 20px;
+  padding: $mobile-card-padding;
 }
 
 .navbar-links a {
   text-decoration: none;
-  color: white;
+  color: $color-primary;
+  font-size: $mobile-font-size-subtitle;
+  font-weight: $boldWeight;
 }
 
 @include devices(tablet) {
@@ -51,6 +56,7 @@
   }
 
   .navbar-links {
-    display: flex; // Hide the desktop menu on smaller screens
+    display: flex;
+    color: $color-primary;
   }
 }
