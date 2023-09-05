@@ -1,0 +1,47 @@
+.submission-form-container {
+  max-width: 80%;
+  margin: 1rem auto;
+}
+
+.submission-form {
+  display: flex;
+  flex-direction: column;
+
+  .submission-form-children {
+    margin-top: 1rem;
+  }
+
+  input,
+  select {
+    padding: 0.5rem;
+  }
+
+  .image-upload {
+    padding: 0;
+  }
+}
+
+.w3w-logo {
+  width: 4rem;
+  bottom: 0;
+  margin-bottom: -0.3rem;
+  margin-left: 1rem;
+}
+
+.location-container {
+  display: flex;
+  justify-content: space-between;
+
+  .location-error-message {
+    display: none;
+  }
+}
+
+.latlon-container {
+  display: flex;
+  justify-content: space-between;
+
+  input {
+    width: 20rem;
+  }
+}
