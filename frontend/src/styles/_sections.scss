@@ -1,8 +1,8 @@
 @use "./variables" as *;
 @use "./mixins" as *;
 
-section > .section-content {
-  max-width: 1200px;
+.container {
+  max-width: 75rem;
   margin: auto;
   padding: 0 $mobile-gutter;
 
