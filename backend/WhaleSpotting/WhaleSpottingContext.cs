@@ -6,15 +6,12 @@ namespace WhaleSpotting;
 public class WhaleSpottingContext : DbContext
 {
     public DbSet<User> Users => Set<User>();
-    public DbSet<Whales> Whales => Set<Whales>();
+    public DbSet<Whale> Whales => Set<Whale>();
     public DbSet<Species> Species => Set<Species>();
-    public DbSet<Posts> Posts => Set<Posts>();
-    public DbSet<Events> Events => Set<Events>();
-    public DbSet<BodiesOfWater> BodiesOfWater => Set<BodiesOfWater>();
-
-
-
-
+    public DbSet<Post> Posts => Set<Post>();
+    public DbSet<Event> Events => Set<Event>();
+    public DbSet<BodyOfWater> BodiesOfWater => Set<BodyOfWater>();
+    
     public WhaleSpottingContext(DbContextOptions<WhaleSpottingContext> options)
         : base(options) { }
 }
