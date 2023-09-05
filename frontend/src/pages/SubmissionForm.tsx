@@ -1,10 +1,13 @@
 const SubmissionForm = () => {
+  // const DateTime now = DateTime.now();
+
+  // const today = DateTime(now.year, now.month, now.day)
   return (
     <>
       <form>
         <h1>Submit a sighting</h1>
         <label htmlFor="date">Date of sighting</label>
-        <input type="text" id="date" name="date" />
+        <input type="date" id="date" name="date" max={"05/09/2023"} />
 
         <label htmlFor="location">Location</label>
 
