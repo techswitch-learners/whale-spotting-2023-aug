@@ -1,5 +1,5 @@
-@use "./variables.scss" as *;
-@use "./mixins.scss" as *;
+@use "./variables" as *;
+@use "./mixins" as *;
 
 h1 {
   font-weight: $boldWeight;

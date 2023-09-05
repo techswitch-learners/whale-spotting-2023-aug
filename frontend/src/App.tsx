@@ -1,7 +1,6 @@
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import "./App.scss";
-import "./styles/typography.scss";
 
 export const App = () => {
   return (
