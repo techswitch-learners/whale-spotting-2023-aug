@@ -1,0 +1,56 @@
+// Navbar.scss
+
+nav {
+  background-color: #333; // Replace with your desired background color
+}
+
+.navbar-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.mobile-menu-icon {
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+  display: none; // Initially hide the mobile menu icon
+}
+
+.navbar-links {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.navbar-links.active {
+  display: block; // Show the mobile menu when active
+  position: absolute;
+  top: 60px; // Adjust as needed to position the menu below the navbar
+  left: 0;
+  right: 0;
+  background-color: #333;
+  flex-direction: column;
+}
+
+.navbar-links li {
+  padding: 10px 20px;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  color: white;
+}
+
+@media only screen and (max-width: 768px) {
+  .mobile-menu-icon {
+    display: block;
+    order: 2;
+  }
+
+  .navbar-links {
+    display: none; // Hide the desktop menu on smaller screens
+  }
+}
