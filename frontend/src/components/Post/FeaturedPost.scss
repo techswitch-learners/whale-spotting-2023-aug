@@ -1,2 +1,62 @@
 @use "../../styles/variables" as *;
 @use "../../styles/mixins" as *;
+
+.FeaturedPost {
+  display: flex;
+  flex-direction: row;
+  background-color: $color-tertiary;
+
+  &__image {
+    width: 65%;
+    object-fit: cover;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: $mobile-card-padding;
+    color: $color-foreground-dark;
+    width: 35%;
+  }
+
+  &__user {
+    &__image-container {
+      height: 5rem;
+      width: 5rem;
+      position: relative;
+      border-radius: 50%;
+      overflow: hidden;
+      object-fit: cover;
+    }
+
+    &__image {
+      display: inline;
+      margin: 0 auto;
+      height: 100%;
+      width: auto;
+      min-width: 100%;
+    }
+  }
+
+  &__interactions {
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    span {
+      white-space: nowrap;
+    }
+
+    &__likes {
+      display: flex;
+      align-items: center;
+    }
+
+    img {
+      height: 1rem;
+      margin-right: 0.3rem;
+    }
+  }
+}
