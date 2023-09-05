@@ -12,12 +12,18 @@
   margin: $mobile-gutter;
 }
 
+.whale-icon {
+  height: 5em;
+  color: $color-primary;
+  cursor: pointer;
+  display: block;
+  font-weight: $regularWeight;
+}
+
 .mobile-menu-icon {
   font-size: $mobile-font-size-subtitle;
   color: $color-primary;
   cursor: pointer;
-  display: block;
-  order: 2;
   font-weight: $regularWeight;
 }
 
@@ -51,6 +57,12 @@
 }
 
 @include devices(tablet) {
+  .whale-icon {
+    display: block;
+    font-size: $tablet-font-size-subtitle;
+    margin-right: $tablet-gutter;
+  }
+
   .mobile-menu-icon {
     display: none;
   }
