@@ -8,7 +8,7 @@
   margin: 0;
 }
 
-main {
+section > .section-content {
   max-width: 1200px;
   margin: auto;
   padding: 0 $mobile-gutter;
@@ -36,6 +36,7 @@ li {
 }
 
 section {
+  width: 100vw;
   padding: $mobile-section-spacing 0;
 
   @include devices(tablet) {
