@@ -1,1 +1,35 @@
-@use "./styles/variables" as *;
+@use "../styles/variables" as *;
+@use "../styles/mixins" as *;
+
+@mixin gridGallery($gutter-size, $elements) {
+  gap: $gutter-size;
+  grid-template-columns: repeat($elements, 1fr);
+}
+
+.ProjectsGallery {
+  width: 100%;
+  display: grid;
+
+  @include gridGallery($mobile-gutter, 1);
+
+  @include devices(tablet) {
+    @include gridGallery($tablet-gutter, 2);
+  }
+  @include devices(tabletL) {
+    @include gridGallery($tablet-l-gutter, 2);
+  }
+
+  @include devices(desktop) {
+    @include gridGallery($desktop-gutter, 3);
+  }
+}
+
+.Post {
+  height: 300px;
+  background-color: red;
+}
+
+.Section-One {
+  background-color: $color-primary;
+  color: $color-foreground;
+}

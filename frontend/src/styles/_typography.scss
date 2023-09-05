@@ -23,15 +23,15 @@ h2 {
   font-weight: $lighterWeight;
   font-size: $mobile-font-size-subtitle;
 
-  margin: $mobile-subtitle-margin 0;
+  margin: 0 0 $mobile-subtitle-margin;
 
   @include devices(tablet) {
     font-size: $tablet-font-size-subtitle;
-    margin: $tablet-subtitle-margin 0;
+    margin: 0 0 $tablet-subtitle-margin;
   }
   @include devices(desktop) {
     font-size: $desktop-font-size-subtitle;
-    margin: $desktop-subtitle-margin 0;
+    margin: 0 0 $desktop-subtitle-margin;
   }
 }
 
@@ -46,4 +46,8 @@ span {
   @include devices(desktop) {
     font-size: $desktop-font-size-body;
   }
+}
+
+p {
+  text-align: justify;
 }

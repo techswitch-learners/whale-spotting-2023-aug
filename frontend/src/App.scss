@@ -1,5 +1,6 @@
 @use "./styles/typography" as *;
 @use "./styles/variables" as *;
+@use "./styles/mixins" as *;
 
 * {
   box-sizing: border-box;
@@ -7,9 +8,22 @@
   margin: 0;
 }
 
-body {
+main {
   max-width: 1200px;
   margin: auto;
+  padding: 0 $mobile-gutter;
+
+  @include devices(tablet) {
+    padding: 0 $tablet-gutter;
+  }
+
+  @include devices(tabletL) {
+    padding: 0 $tablet-l-gutter;
+  }
+
+  @include devices(desktop) {
+    padding: 0 $desktop-gutter;
+  }
 }
 
 a {
@@ -19,6 +33,22 @@ a {
 
 li {
   list-style: none;
+}
+
+section {
+  padding: $mobile-section-spacing 0;
+
+  @include devices(tablet) {
+    padding: $tablet-section-spacing 0;
+  }
+
+  // @include devices(tabletL) {
+  //   padding: $mobile-section-spacing 0;
+  // }
+
+  @include devices(desktop) {
+    padding: $desktop-section-spacing 0;
+  }
 }
 
 :root {

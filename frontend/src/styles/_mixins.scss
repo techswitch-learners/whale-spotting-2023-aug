@@ -4,6 +4,11 @@
       @content;
     }
   }
+  @if $breakpoint == tabletL {
+    @media only screen and (min-width: 768px) {
+      @content;
+    }
+  }
 
   @if $breakpoint == desktop {
     @media only screen and (min-width: 992px) {
