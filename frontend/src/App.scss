@@ -1,29 +1,12 @@
 @use "./styles/typography" as *;
 @use "./styles/variables" as *;
 @use "./styles/mixins" as *;
+@use "./styles/sections" as *;
 
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-}
-
-section > .section-content {
-  max-width: 1200px;
-  margin: auto;
-  padding: 0 $mobile-gutter;
-
-  @include devices(tablet) {
-    padding: 0 $tablet-gutter;
-  }
-
-  @include devices(tabletL) {
-    padding: 0 $tablet-l-gutter;
-  }
-
-  @include devices(desktop) {
-    padding: 0 $desktop-gutter;
-  }
 }
 
 a {
@@ -33,23 +16,6 @@ a {
 
 li {
   list-style: none;
-}
-
-section {
-  width: 100vw;
-  padding: $mobile-section-spacing 0;
-
-  @include devices(tablet) {
-    padding: $tablet-section-spacing 0;
-  }
-
-  // @include devices(tabletL) {
-  //   padding: $mobile-section-spacing 0;
-  // }
-
-  @include devices(desktop) {
-    padding: $desktop-section-spacing 0;
-  }
 }
 
 :root {

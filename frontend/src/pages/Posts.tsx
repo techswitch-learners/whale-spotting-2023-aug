@@ -1,6 +1,7 @@
+import CardPost from "../components/Post/CardPost";
 import "./Posts.scss";
 
-interface PostData {
+export interface PostData {
   imageUrl: string;
   species: string;
   username: string;
@@ -62,7 +63,7 @@ export const Posts = () => {
   return (
     <main>
       <h1>Whale Spotting Posts</h1>
-      <section className="Section-One">
+      <section className="section-dark">
         <div className="section-content">
           <h2>The Whale</h2>
           <p>
@@ -90,18 +91,9 @@ export const Posts = () => {
       </section>
 
       <section className="Section-Two">
-        <div className="section-content ProjectsGallery">
+        <div className="section-content PostsGallery">
           {postData.map((post) => {
-            return (
-              <div className="Post">
-                <div className="Post__image"></div>
-                <div className="Post__info">
-                  <p className="Post__title">{post.species}</p>
-                  <p className="Post__text">{post.username}</p>
-                  <p className="Post__text">{post.sightingDate}</p>
-                </div>
-              </div>
-            );
+            return <CardPost postData={post} />;
           })}
         </div>
       </section>
