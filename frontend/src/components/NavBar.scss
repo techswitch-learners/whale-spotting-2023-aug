@@ -66,9 +66,21 @@
   .mobile-menu-icon {
     display: none;
   }
+  .navbar-wrapper {
+    padding: $tablet-card-padding;
+    margin: $tablet-gutter;
+    height: 5em;
+  }
 
   .navbar-links {
     display: flex;
     color: $color-primary;
+  }
+
+  .navbar-links a {
+    text-decoration: none;
+    color: $color-primary;
+    font-size: $tablet-font-size-subtitle;
+    font-weight: $boldWeight;
   }
 }
