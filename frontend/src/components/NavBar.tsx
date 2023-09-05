@@ -1,16 +1,33 @@
 import { NavLink } from "react-router-dom";
-import { useState } from "react"; // Import useState from React
-import "./Navbar.scss"; // Import your SCSS file
+import { useState, useEffect } from "react";
+import "./Navbar.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 function Navbar() {
-  const [showMobileMenu, setShowMobileMenu] = useState(false); // State to control mobile menu visibility
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   const toggleMobileMenu = () => {
     setShowMobileMenu(!showMobileMenu);
   };
 
+  const closeMobileMenu = () => {
+    setShowMobileMenu(false);
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 600) {
+        closeMobileMenu();
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   return (
     <nav>
       <div className="navbar-wrapper">
