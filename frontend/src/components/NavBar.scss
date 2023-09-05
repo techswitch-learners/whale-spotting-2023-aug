@@ -1,6 +1,6 @@
-// Navbar.scss
+@use "../styles/mixins" as *;
 
-nav {
+.nav {
   background-color: #333; // Replace with your desired background color
 }
 
@@ -15,18 +15,19 @@ nav {
   font-size: 24px;
   color: white;
   cursor: pointer;
-  display: none; // Initially hide the mobile menu icon
+  display: block;
+  order: 2;
 }
 
 .navbar-links {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  display: flex;
+  display: none;
 }
 
 .navbar-links.active {
-  display: block; // Show the mobile menu when active
+  display: block;
   position: absolute;
   top: 60px; // Adjust as needed to position the menu below the navbar
   left: 0;
@@ -44,13 +45,12 @@ nav {
   color: white;
 }
 
-@media only screen and (max-width: 768px) {
+@include devices(tablet) {
   .mobile-menu-icon {
-    display: block;
-    order: 2;
+    display: none;
   }
 
   .navbar-links {
-    display: none; // Hide the desktop menu on smaller screens
+    display: flex; // Hide the desktop menu on smaller screens
   }
 }
