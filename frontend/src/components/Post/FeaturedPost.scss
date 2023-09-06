@@ -5,6 +5,8 @@
   display: flex;
   flex-direction: row;
   background-color: $color-tertiary;
+  border-radius: $mobile-border-radius;
+  overflow: hidden;
 
   &__image {
     width: 65%;
@@ -20,7 +22,37 @@
     width: 35%;
   }
 
+  &__heading {
+    margin: 0 auto;
+
+    &__title {
+      font-size: 2.5rem;
+    }
+
+    &__bodyofwater {
+      text-align: right;
+    }
+
+    &__date {
+      text-align: right;
+    }
+  }
+
+  &__description {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    line-clamp: 6;
+    -webkit-box-orient: vertical;
+  }
+
   &__user {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+
     &__image-container {
       height: 5rem;
       width: 5rem;
@@ -58,5 +90,17 @@
       height: 1rem;
       margin-right: 0.3rem;
     }
+  }
+
+  @include devices(tablet) {
+    border-radius: $tablet-border-radius;
+  }
+
+  @include devices(tabletLandscape) {
+    border-radius: $tablet-landscape-border-radius;
+  }
+
+  @include devices(desktop) {
+    border-radius: $desktop-border-radius;
   }
 }
