@@ -42,26 +42,52 @@ function Navbar() {
           </div>
           <ul className={`navbar-links ${showMobileMenu ? "active" : ""}`}>
             <li>
-              <NavLink to="/">Home</NavLink>
+              <NavLink
+                className={({ isActive }) => (isActive ? "active-page" : "")}
+                to="/"
+              >
+                Home
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/users">Users</NavLink>
+              <NavLink
+                className={({ isActive }) => (isActive ? "active-page" : "")}
+                to="/users"
+              >
+                Users
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/posts">Posts</NavLink>
+              <NavLink
+                className={({ isActive }) => (isActive ? "active-page" : "")}
+                to="/posts"
+              >
+                Posts
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/info">Info</NavLink>
+              <NavLink
+                className={({ isActive }) => (isActive ? "active-page" : "")}
+                to="/info"
+              >
+                Info
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/register">Register</NavLink>
+              <NavLink
+                className={({ isActive }) => (isActive ? "active-page" : "")}
+                to="/login"
+              >
+                Login
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/login">Login</NavLink>
-            </li>
-            <li>
-              <NavLink to="/search" aria-label="Search">
-                🔍
+              <NavLink
+                className={({ isActive }) => (isActive ? "active-page" : "")}
+                to="/search"
+                aria-label="Search"
+              >
+                🔎
               </NavLink>
             </li>
           </ul>
