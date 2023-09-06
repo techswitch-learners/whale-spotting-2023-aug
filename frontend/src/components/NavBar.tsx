@@ -30,7 +30,7 @@ function Navbar() {
   }, []);
 
   return (
-    <nav className="Navbar">
+    <nav>
       <div className="navbar-wrapper">
         <div className="navbar-left">
           <img
