@@ -28,6 +28,8 @@ public class PostRepo : IPostRepo
         try
         {
             return _context.Posts
+                .Include(post => post.User)
+                .Include(post => post.BodyOfWater)
                 .Include(post => post.Species)
                 .Where(post => post.Id == id)
                 .Single();
@@ -79,12 +81,12 @@ public class PostRepo : IPostRepo
 
         var newPost = new Post
         {
-            User =
-                user
-                ?? throw new ArgumentNullException(
-                    nameof(newPostRequest),
-                    "Property \"User\" must not be null"
-                ),
+            // User =
+            //     user
+            //     ?? throw new ArgumentNullException(
+            //         nameof(newPostRequest),
+            //         "Property \"User\" must not be null"
+            //     ),
             Latitude =
                 newPostRequest.Latitude
                 ?? throw new ArgumentNullException(
@@ -97,12 +99,12 @@ public class PostRepo : IPostRepo
                     nameof(newPostRequest),
                     "Property \"Longitude\" must not be null"
                 ),
-            Species =
-                species
-                ?? throw new ArgumentNullException(
-                    nameof(newPostRequest),
-                    "Property \"Species\" must not be null"
-                ),
+            // Species =
+            //     species
+            //     ?? throw new ArgumentNullException(
+            //         nameof(newPostRequest),
+            //         "Property \"Species\" must not be null"
+            //     ),
             ImageUrl =
                 newPostRequest.ImageUrl
                 ?? throw new ArgumentNullException(

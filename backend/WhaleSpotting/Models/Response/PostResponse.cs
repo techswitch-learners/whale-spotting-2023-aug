@@ -25,12 +25,9 @@ public class PostResponse
                 nameof(post),
                 "Property \"Timestamp\" must not be null"
             );
-        // User =
-        // post.User
-        // ?? throw new ArgumentNullException(
-        //     nameof(post),
-        //     "Property \"user\" must not be null"
-        //     );
+        User =
+            post.User
+            ?? throw new ArgumentNullException(nameof(post), "Property \"user\" must not be null");
         Species =
             post.Species
             ?? throw new ArgumentNullException(
