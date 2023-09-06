@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./LoginPage.scss"
+import "./LoginPage.scss";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -8,7 +8,6 @@ function LoginPage() {
 
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
 
     if (email === "user@example.com" && password === "password123") {
       setErrorMessage("");
