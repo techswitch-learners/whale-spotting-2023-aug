@@ -10,7 +10,7 @@ function RegisterPage() {
   const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // backemnd logic will add later
+    // backend logic will add later
 
     if (fullName && email && password) {
       setErrorMessage("");
