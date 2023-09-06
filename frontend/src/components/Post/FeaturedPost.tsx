@@ -1,4 +1,4 @@
-import { parseLikes } from "../../util/parses";
+import { convertLikesToString } from "../../util/LikeConversion";
 import { PostData } from "../../pages/Posts";
 
 import "./FeaturedPost.scss";
@@ -33,7 +33,7 @@ const FeaturedPost = ({ postData }: PostDataProps) => {
         <div className="FeaturedPost__interactions">
           <div className="FeaturedPost__interactions__likes">
             <img src="/post_icon.png" alt="whale icon" />
-            <span>{parseLikes(postData.likes)}</span>
+            <span>{convertLikesToString(postData.likes)}</span>
           </div>
           <div>
             <img src="/share_icon.png" alt="share post" />
