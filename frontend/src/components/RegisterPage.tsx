@@ -21,7 +21,7 @@ function RegisterPage() {
 
   return (
     <div className="register-page">
-      <h2>Register</h2>
+      <h2>Create Account</h2>
       <form onSubmit={handleRegister}>
         <div className="form-group">
           <label>Full Name</label>
@@ -54,7 +54,7 @@ function RegisterPage() {
           />
         </div>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
-        <button type="submit">Register</button>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
