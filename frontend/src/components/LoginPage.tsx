@@ -56,9 +56,9 @@ function LoginPage() {
         {errorMessage && <p className="error-message">{errorMessage}</p>}
       </form>
       <hr />
-      <div className="CreateAccount">
-        <p>Don't have an account? </p>
-        <p>
+      <div className="createContainer">
+        <p className="notRegistered">Don't have an account? </p>
+        <p className="createAccountLink">
           <NavLink to="/register">Create Account</NavLink>
         </p>
       </div>

@@ -99,4 +99,42 @@
       }
     }
   }
+
+  .createContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: $mobile-gutter;
+
+    .notRegistered {
+      font-size: $mobile-font-size-body;
+      font-weight: $regularWeight;
+      color: $color-primary;
+      //      margin: $mobile-gutter;
+
+      @include devices(tablet) {
+        font-size: $tablet-font-size-body;
+      }
+
+      @include devices(desktop) {
+        font-size: $desktop-font-size-body;
+      }
+    }
+
+    .createAccountLink {
+      font-size: $mobile-font-size-body;
+      font-weight: $regularWeight;
+      color: $color-primary;
+      margin: $mobile-card-padding;
+
+      @include devices(tablet) {
+        font-size: $tablet-font-size-body;
+      }
+
+      @include devices(desktop) {
+        font-size: $desktop-font-size-body;
+      }
+    }
+  }
 }
