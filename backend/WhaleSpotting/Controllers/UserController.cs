@@ -30,6 +30,21 @@ public class UserController : ControllerBase
         }
     }
 
+    // all users
+    // [HttpGet("")]
+    // public IActionResult GetAllUsers()
+    // {
+    //     try
+    //     {
+    //         var users = _userService.GetAllUsers();
+    //         return Ok(new UserResponse(users));
+    //     }
+    //     catch (ArgumentException)
+    //     {
+    //         return NotFound();
+    //     }
+    // }
+
     [HttpPost("")]
     public IActionResult Create([FromBody] UserRequest newUserRequest)
     {

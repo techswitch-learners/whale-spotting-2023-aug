@@ -8,6 +8,7 @@ public interface IUserRepo
 {
     public User GetById(int id);
     public User GetByUsername(string username);
+    public List<User> GetAllUsers();
     public User Create(UserRequest newUserRequest);
 }
 
@@ -41,6 +42,18 @@ public class UserRepo : IUserRepo
         catch (InvalidOperationException)
         {
             throw new ArgumentException($"User with username ${username} not found");
+        }
+    }
+
+    public List<User> GetAllUsers()
+    {
+        try
+        {
+            return _context.Users.Where(user => user.Role == Role.User).ToList();
+        }
+        catch (InvalidOperationException)
+        {
+            throw new ArgumentException($"Users not found");
         }
     }
 
@@ -93,7 +106,7 @@ public class UserRepo : IUserRepo
             Posts = new List<Post>(),
             Rating = 0,
         };
-        
+
         var insertedEntity = _context.Users.Add(newUser);
         _context.SaveChanges();
 

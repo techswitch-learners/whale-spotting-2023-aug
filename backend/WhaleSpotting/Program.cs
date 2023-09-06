@@ -20,9 +20,11 @@ builder.Services.AddControllers();
 // Services
 builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IPostService, PostService>();
 
 // Repositories
 builder.Services.AddTransient<IUserRepo, UserRepo>();
+builder.Services.AddTransient<IPostRepo, PostRepo>();
 
 // Context
 builder.Services.AddDbContext<WhaleSpottingContext>(options =>
