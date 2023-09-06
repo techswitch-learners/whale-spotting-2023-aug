@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: normal;
+  justify-content: center;
   height: 100vh; // Adjust as needed
 
   h2 {
@@ -27,7 +27,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 300px; // Adjust as needed
+    width: 66%; // 2/3 of the screen width
+    max-width: 400px; // Maximum width
     padding: $mobile-section-spacing;
     border: 1px solid $color-tertiary;
     border-radius: 8px;
@@ -86,10 +87,6 @@
       }
     }
 
-    // .textbox {
-
-    // }
-
     .error-message {
       color: red;
       margin-top: $mobile-subtitle-margin;
@@ -123,10 +120,6 @@
         padding: $desktop-card-padding;
         font-size: $desktop-font-size-button;
       }
-
-      // &:hover {
-      //   background-color: #0056b3;
-      // }
     }
   }
 }

@@ -3,6 +3,7 @@ import Navbar from "./components/NavBar.tsx";
 import Home from "./pages/Home";
 import Posts from "./pages/Posts";
 import LoginPage from "./components/LoginPage.tsx";
+import RegisterPage from "./components/RegisterPage.tsx";
 import "./App.scss";
 
 export const App = () => {
@@ -13,6 +14,7 @@ export const App = () => {
         <Route index element={<Home />} />
         <Route path="/posts" element={<Posts />} />
         <Route path="/login" Component={LoginPage} />
+        <Route path="/register" Component={RegisterPage} />
       </Routes>
     </Router>
   );
