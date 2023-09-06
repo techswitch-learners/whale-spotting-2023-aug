@@ -1,24 +1,12 @@
 import { PostData } from "../../pages/Posts";
 import shareIcon from "../../assets/share_icon.png";
 import postIcon from "../../assets/post_icon.png";
+import { convertLikesToString } from "../../utils/LikeConversion";
 import "./CardPost.scss";
 
 interface PostDataProps {
   postData: PostData;
 }
-
-const convertLikesToString = (likes: number) => {
-  if (likes > 1000) {
-    const thousands = Math.floor(likes / 1000);
-    const hundreds = Math.floor((likes / 1000 - thousands) * 10);
-    if (hundreds === 0) {
-      return `${thousands}k`;
-    } else {
-      return `${thousands}.${hundreds}k`;
-    }
-  }
-  return likes.toString();
-};
 
 const CardPost = ({ postData }: PostDataProps) => {
   return (
