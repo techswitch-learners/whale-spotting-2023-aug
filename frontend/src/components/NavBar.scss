@@ -10,6 +10,7 @@
   border-radius: 1rem;
   background-color: $color-secondary;
   margin: $mobile-gutter;
+  height: 4em;
 
   @include devices(tablet) {
     padding: $tablet-card-padding;
@@ -25,20 +26,20 @@
 }
 
 .whale-icon {
-  height: 2.5em;
+  height: 5em;
   color: $color-primary;
   cursor: pointer;
   display: block;
   font-weight: $regularWeight;
 
   @include devices(tablet) {
-    display: block;
+    height: 2.5em;
     font-size: $tablet-font-size-subtitle;
     margin-right: $tablet-gutter;
   }
 
   @include devices(desktop) {
-    display: block;
+    height: 2em;
     font-size: $desktop-font-size-subtitle;
     margin-right: $desktop-gutter;
   }
@@ -49,10 +50,6 @@
   color: $color-primary;
   cursor: pointer;
   font-weight: $regularWeight;
-
-  @include devices(tablet) {
-    display: none;
-  }
 
   @include devices(desktop) {
     display: none;
@@ -67,8 +64,8 @@
   border-radius: 1rem;
 
   @include devices(tablet) {
-    display: flex;
-    color: $color-primary;
+    margin: $tablet-gutter;
+    padding: $tablet-card-padding;
   }
 
   @include devices(desktop) {
@@ -80,34 +77,54 @@
 .navbar-links.active {
   display: block;
   position: absolute;
-  top: 80px;
+  top: 5.5rem;
   left: 0;
   right: 0;
   background-color: $color-secondary;
   flex-direction: column;
+
+  @include devices(tablet) {
+    top: 6rem;
+    width: 40%;
+    left: unset;
+  }
 }
 
 .navbar-links li {
-  padding: $mobile-card-padding;
+  padding: 0.5rem 1rem;
+  text-align: center;
+
+  @include devices(desktop) {
+    padding: 0;
+  }
 }
 
 .navbar-links a {
+  padding: 0.25rem 1rem;
   text-decoration: none;
   color: $color-primary;
-  font-size: $mobile-font-size-subtitle;
+  font-size: $mobile-font-size-navbar;
   font-weight: $boldWeight;
 
   @include devices(tablet) {
+    padding: 0.35rem 1rem;
     text-decoration: none;
     color: $color-primary;
-    font-size: $tablet-font-size-subtitle;
+    font-size: $tablet-font-size-navbar;
     font-weight: $boldWeight;
   }
 
   @include devices(desktop) {
+    padding: 0.5rem 1rem;
     text-decoration: none;
     color: $color-primary;
-    font-size: $desktop-font-size-subtitle;
+    font-size: $desktop-font-size-navbar;
     font-weight: $boldWeight;
   }
+}
+
+.navbar-links a.active-page {
+  color: white;
+  background-color: $color-primary;
+  border-radius: 2rem;
 }
