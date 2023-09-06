@@ -14,17 +14,26 @@ const SubmissionForm = () => {
       "-" +
       padTo2Digits(date.getMonth() + 1) +
       "-" +
-      padTo2Digits(date.getDate());
+      padTo2Digits(date.getDate()) +
+      "T" +
+      padTo2Digits(date.getHours()) +
+      ":" +
+      padTo2Digits(date.getMinutes()) +
+      ":" +
+      padTo2Digits(date.getSeconds()) +
+      "." +
+      padTo2Digits(date.getMilliseconds());
+
     return date_String;
   }
   const today = new Date();
   const todayDateString = dateToString(today);
 
   // useStates for form
-  const [date, setDate] = useState<string>();
+  const [date, setDate] = useState<Date>();
   const [w3w, setW3w] = useState<string>();
-  const [lat, setLat] = useState<string>();
-  const [lon, setLon] = useState<string>();
+  const [lat, setLat] = useState<number>();
+  const [lon, setLon] = useState<number>();
   const [species, setSpecies] = useState<string>();
   const [description, setDescription] = useState<string>();
   const [imageUrl, setImageUrl] = useState<string>();
@@ -95,12 +104,12 @@ const SubmissionForm = () => {
             Date of sighting
           </label>
           <input
-            type="date"
+            type="datetime-local"
             required
             id="date"
             name="date"
             max={todayDateString}
-            onChange={(event) => setDate(event.currentTarget.value)}
+            onChange={(event) => setDate(new Date(event.currentTarget.value))}
           />
 
           <div className="location-container submission-form-children">
@@ -134,20 +143,22 @@ const SubmissionForm = () => {
           <span>or</span>
           <div className="latlon-container">
             <input
-              type="text"
+              type="number"
               id="lat"
               name="lat"
               placeholder="Latitude"
-              value={lat}
-              onChange={(event) => setLat(event.currentTarget.value)}
+              onChange={(event) =>
+                setLat(new Number(event.currentTarget.value))
+              }
             />
             <input
-              type="text"
+              type="number"
               id="lon"
               name="lon"
               placeholder="Longitude"
-              value={lon}
-              onChange={(event) => setLon(event.currentTarget.value)}
+              onChange={(event) =>
+                setLon(new Number(event.currentTarget.value))
+              }
             />
           </div>
 
@@ -162,19 +173,19 @@ const SubmissionForm = () => {
             onChange={(event) => setSpecies(event.currentTarget.value)}
           >
             <option value="Options">Please select a species</option>
-            <option value="Blue Whale">Blue Whale</option>
-            <option value="Bowhead Whale">Bowhead Whale</option>
-            <option value="Bryde's Whale">Bryde's Whale</option>
-            <option value="False Killer Whale">False Killer Whale</option>
-            <option value="Fin whale">Fin whale</option>
-            <option value="Gray Whale">Gray Whale</option>
-            <option value="Hump Back Whale">Hump Back Whale</option>
-            <option value="Killer whale">Killer whale</option>
-            <option value="Minke Whale">Minke Whale</option>
-            <option value="Pilot Whale">Pilot Whale</option>
-            <option value="Right whale">Right whale</option>
-            <option value="Sei Whale">Sei Whale</option>
-            <option value="Sperm Whale">Sperm Whale</option>
+            <option value="1">Blue Whale</option>
+            <option value="2">Bowhead Whale</option>
+            <option value="3">Bryde's Whale</option>
+            <option value="4">False Killer Whale</option>
+            <option value="5">Fin whale</option>
+            <option value="6">Gray Whale</option>
+            <option value="7">Hump Back Whale</option>
+            <option value="8">Killer whale</option>
+            <option value="9">Minke Whale</option>
+            <option value="10">Pilot Whale</option>
+            <option value="11">Right whale</option>
+            <option value="12">Sei Whale</option>
+            <option value="13">Sperm Whale</option>
           </select>
 
           <label htmlFor="date" className="submission-form-children">
