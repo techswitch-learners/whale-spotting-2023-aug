@@ -1,5 +1,7 @@
 @use "./styles/typography" as *;
 @use "./styles/variables" as *;
+@use "./styles/mixins" as *;
+@use "./styles/sections" as *;
 
 * {
   box-sizing: border-box;
@@ -17,6 +19,6 @@ li {
 }
 
 :root {
-  font-family: "Poiret One", sans-serif;
+  font-family: "Forum", sans-serif;
   background-color: $color-background;
 }

@@ -1,0 +1,37 @@
+@use "./variables" as *;
+@use "./mixins" as *;
+
+.container {
+  max-width: 75rem;
+  margin: auto;
+  padding: 0 $mobile-gutter;
+
+  @include devices(tablet) {
+    padding: 0 $tablet-gutter;
+  }
+
+  @include devices(tabletLandscape) {
+    padding: 0 $tablet-landscape-gutter;
+  }
+
+  @include devices(desktop) {
+    padding: 0 $desktop-gutter;
+  }
+}
+
+section {
+  padding: $mobile-section-spacing 0;
+
+  @include devices(tablet) {
+    padding: $tablet-section-spacing 0;
+  }
+
+  @include devices(desktop) {
+    padding: $desktop-section-spacing 0;
+  }
+}
+
+.section-dark {
+  background-color: $color-primary;
+  color: $color-foreground;
+}
