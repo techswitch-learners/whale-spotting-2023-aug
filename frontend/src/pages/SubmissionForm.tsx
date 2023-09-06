@@ -109,7 +109,7 @@ const SubmissionForm = () => {
             id="date"
             name="date"
             max={todayDateString}
-            onChange={(event) => setDate(new Date(event.currentTarget.value))}
+            onChange={(event) => setDate(new Date(event.target.value))}
           />
 
           <div className="location-container submission-form-children">
@@ -138,7 +138,7 @@ const SubmissionForm = () => {
             name="w3w"
             placeholder="Enter your what3words"
             value={w3w}
-            onChange={(event) => setW3w(event.currentTarget.value)}
+            onChange={(event) => setW3w(event.target.value)}
           />
           <span>or</span>
           <div className="latlon-container">
@@ -147,18 +147,14 @@ const SubmissionForm = () => {
               id="lat"
               name="lat"
               placeholder="Latitude"
-              onChange={(event) =>
-                setLat(new Number(event.currentTarget.value))
-              }
+              onChange={(event) => setLat(parseFloat(event.target.value))}
             />
             <input
               type="number"
               id="lon"
               name="lon"
               placeholder="Longitude"
-              onChange={(event) =>
-                setLon(new Number(event.currentTarget.value))
-              }
+              onChange={(event) => setLon(parseFloat(event.target.value))}
             />
           </div>
 
@@ -170,7 +166,7 @@ const SubmissionForm = () => {
             name="species"
             id="species"
             required
-            onChange={(event) => setSpecies(event.currentTarget.value)}
+            onChange={(event) => setSpecies(event.target.value)}
           >
             <option value="Options">Please select a species</option>
             <option value="1">Blue Whale</option>
@@ -198,7 +194,7 @@ const SubmissionForm = () => {
             cols={50}
             name="description"
             value={description}
-            onChange={(event) => setDescription(event.currentTarget.value)}
+            onChange={(event) => setDescription(event.target.value)}
           >
             {""}
           </textarea>
@@ -213,7 +209,7 @@ const SubmissionForm = () => {
             className="image-url-link"
             required
             value={imageUrl}
-            onChange={(event) => setImageUrl(event.currentTarget.value)}
+            onChange={(event) => setImageUrl(event.target.value)}
           />
 
           <input type="submit" className="submission-form-children" />
