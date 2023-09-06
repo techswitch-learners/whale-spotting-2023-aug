@@ -14,38 +14,46 @@ $color-success: green;
 
 // Fonts
 
-$mobile-font-size-title: 1.7rem;
-$mobile-font-size-subtitle: 1.3rem;
+$mobile-font-size-title: 2rem;
+$mobile-font-size-subtitle: 1.6rem;
 $mobile-font-size-button: 0.85rem;
-$mobile-font-size-body: 1rem;
-$mobile-font-size-secondary: 0.4rem;
+$mobile-font-size-body: 0.9rem;
+$mobile-font-size-secondary: 0.75rem;
 
-$tablet-font-size-title: 1.8rem;
-$tablet-font-size-subtitle: 1.4rem;
+$tablet-font-size-title: 3.5rem;
+$tablet-font-size-subtitle: 2.5rem;
 $tablet-font-size-button: 1.25rem;
-$tablet-font-size-body: 1rem;
-$tablet-font-size-secondary: 0.635rem;
+$tablet-font-size-body: 1.2rem;
+$tablet-font-size-secondary: 0.9rem;
 
-$desktop-font-size-title: 2rem;
-$desktop-font-size-subtitle: 1.5rem;
+$desktop-font-size-title: 4rem;
+$desktop-font-size-subtitle: 3rem;
 $desktop-font-size-button: 1.5rem;
-$desktop-font-size-body: 1rem;
-$desktop-font-size-secondary: 0.75rem;
+$desktop-font-size-body: 1.3rem;
+$desktop-font-size-secondary: 1rem;
 
-$regularWeight: 400;
-$boldWeight: 600;
-$lighterWeight: 300;
+$regularWeight: 600;
+$boldWeight: 1000;
+$lighterWeight: 200;
 
 // Spacings
 
-$mobile-gutter: 1rem;
-$mobile-section-spacing: 2.5rem;
+$mobile-gutter: 2rem;
+$mobile-section-spacing: 2rem;
 $mobile-card-padding: 1rem;
+$mobile-title-margin: 1rem;
+$mobile-subtitle-margin: 0.5rem;
 
-$tablet-gutter: 2rem;
+$tablet-gutter: 3rem;
 $tablet-section-spacing: 3rem;
 $tablet-card-padding: 1rem;
+$tablet-title-margin: 1.8rem;
+$tablet-subtitle-margin: 0.8rem;
 
-$desktop-gutter: 3rem;
+$tablet-landscape-gutter: 4rem;
+
+$desktop-gutter: 4rem;
 $desktop-section-spacing: 5rem;
 $desktop-card-padding: 1.5rem;
+$desktop-title-margin: 2rem;
+$desktop-subtitle-margin: 1rem;
