@@ -1,5 +1,8 @@
 import w3w_logo from "../assets/w3w_logo.png";
-import { getLatitudeLongitude } from "../clients/backendApiClient";
+import {
+  createWhalePost,
+  getLatitudeLongitude,
+} from "../clients/backendApiClient";
 import "./SubmissionForm.scss";
 import { useEffect, useState } from "react";
 import { FormEvent } from "react";
@@ -14,11 +17,12 @@ const SubmissionForm = () => {
   const [w3w, setW3w] = useState<string>("");
   const [lat, setLat] = useState<number>(NaN);
   const [lon, setLon] = useState<number>(NaN);
-  const [species, setSpecies] = useState<string>("");
+  const [species, setSpecies] = useState<number>(NaN);
   const [description, setDescription] = useState<string>("");
   const [imageUrl, setImageUrl] = useState<string>("");
   const [locationErrorMessage, setLocationErrorMessage] = useState<string>("");
   const [speciesErrorMessage, setSpeciesErrorMessage] = useState<string>("");
+  const [successMessage, setSuccessMessage] = useState<string>("");
 
   const validW3wPattern = /^\/\/\/[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]+$/g;
 
@@ -74,7 +78,13 @@ const SubmissionForm = () => {
       console.log(data);
     }
     if (lat && lon) {
-      fetch(`https://localhost:7082/Post/`);
+      createWhalePost(date, lat, lon, species, description, imageUrl)
+        .then(() => {
+          setSuccessMessage("Thank you for your submission");
+        })
+        .catch(() => {
+          setSuccessMessage("Please check the information provided");
+        });
     }
   };
   useEffect(() => {
@@ -118,7 +128,7 @@ const SubmissionForm = () => {
                 (click to open what3words)
               </a>
             </p>
-            <span className="location-error-message">
+            <span className=" error-message location-error-message">
               {locationErrorMessage}
             </span>
           </div>
@@ -155,12 +165,14 @@ const SubmissionForm = () => {
           <label htmlFor="species" className="submission-form-children">
             Species
           </label>
-          <span className="species-error-message">{speciesErrorMessage}</span>
+          <span className="error-message  species-error-message">
+            {speciesErrorMessage}
+          </span>
           <select
             name="species"
             id="species"
             required
-            onChange={(event) => setSpecies(event.target.value)}
+            onChange={(event) => setSpecies(parseInt(event.target.value))}
           >
             <option value="Options">Please select a species</option>
             <option value="1">Blue Whale</option>
@@ -207,6 +219,7 @@ const SubmissionForm = () => {
           />
 
           <input type="submit" className="submission-form-children" />
+          <span className="error-message">{successMessage}</span>
         </form>
       </div>
     </>

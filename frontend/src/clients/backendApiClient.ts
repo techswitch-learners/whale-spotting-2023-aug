@@ -17,3 +17,25 @@ export const getLatitudeLongitude = async (
   const response = await fetch(`${backendUrl}/What3Words/?words=${words}`);
   return await response.json();
 };
+
+export const createWhalePost = async (
+  date: Date,
+  lat: number,
+  lon: number,
+  species: number,
+  description: string,
+  imageUrl: string,
+): Promise<boolean> => {
+  const response = await fetch(`${backendUrl}/Post`, {
+    method: "post",
+    body: JSON.stringify({
+      date,
+      lat,
+      lon,
+      species,
+      description,
+      imageUrl,
+    }),
+  });
+  return await response.json();
+};
