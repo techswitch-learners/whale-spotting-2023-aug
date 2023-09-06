@@ -1,5 +1,8 @@
+import { useState } from "react";
 import CardPost from "../components/Post/CardPost";
 import "./Posts.scss";
+import Modal from "../components/UI/Modal";
+import CardPostModal from "../components/Post/CardPostModal";
 
 export interface PostData {
   imageUrl: string;
@@ -77,6 +80,12 @@ const postData: PostData[] = [
 ];
 
 export const Posts = () => {
+  const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();
+
+  const modalOpenHandler = (post: PostData) => {
+    setSelectedPostDetails(post);
+  };
+
   return (
     <main>
       <h1>Whale Spotting Posts</h1>
@@ -110,10 +119,18 @@ export const Posts = () => {
       <section className="Section-Two">
         <div className="container PostsGallery">
           {postData.map((post) => {
-            return <CardPost postData={post} />;
+            return (
+              <CardPost postData={post} setPostDetails={modalOpenHandler} />
+            );
           })}
         </div>
       </section>
+
+      {selectedPostDetails && (
+        <Modal closeAction={() => setSelectedPostDetails(undefined)}>
+          <CardPostModal postData={selectedPostDetails} />
+        </Modal>
+      )}
     </main>
   );
 };

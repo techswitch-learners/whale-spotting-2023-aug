@@ -1,0 +1,43 @@
+@use "../../styles/_variables.scss" as *;
+
+.Modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  max-width: 95%;
+  max-height: 95%;
+  padding: 1rem;
+  background: white;
+
+  &__Backdrop {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #0008;
+  }
+
+  &__Close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: red;
+    border-radius: 0.125rem;
+    border: none;
+    height: 30px;
+    width: 30px;
+    font-size: 30px;
+    font-weight: bold;
+
+    &:hover {
+      background-color: orange;
+    }
+  }
+}

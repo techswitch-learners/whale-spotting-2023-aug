@@ -3,6 +3,7 @@ import "./CardPost.scss";
 
 interface PostDataProps {
   postData: PostData;
+  setPostDetails: (post: PostData) => void;
 }
 
 const convertLikesToString = (likes: number) => {
@@ -18,7 +19,11 @@ const convertLikesToString = (likes: number) => {
   return likes.toString();
 };
 
-const CardPost = ({ postData }: PostDataProps) => {
+const CardPost = ({ postData, setPostDetails }: PostDataProps) => {
+  const imageClickHandler = () => {
+    setPostDetails(postData);
+  };
+
   return (
     <div className="CardPost">
       <div className="CardPost__banner">
@@ -34,6 +39,7 @@ const CardPost = ({ postData }: PostDataProps) => {
         className="CardPost__image"
         src={postData.imageUrl}
         alt={`image of ${postData.species}`}
+        onClick={imageClickHandler}
       />
       <div className="CardPost__info">
         <p className="CardPost__title">{postData.species}</p>
