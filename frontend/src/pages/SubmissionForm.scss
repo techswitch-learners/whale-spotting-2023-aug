@@ -38,10 +38,11 @@
 }
 
 .latlon-container {
+  max-width: 100%;
   display: flex;
   justify-content: space-between;
 
   input {
-    width: 20rem;
+    width: 50%;
   }
 }

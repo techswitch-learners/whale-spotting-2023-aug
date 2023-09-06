@@ -1,56 +1,37 @@
 import w3w_logo from "../assets/w3w_logo.png";
+import { getLatitudeLongitude } from "../clients/backendApiClient";
 import "./SubmissionForm.scss";
 import { useEffect, useState } from "react";
 import { FormEvent } from "react";
 
 const SubmissionForm = () => {
   //function for today's date
-  function padTo2Digits(num: number) {
-    return num.toString().padStart(2, "0");
-  }
-  function dateToString(date: Date) {
-    const date_String =
-      date.getFullYear() +
-      "-" +
-      padTo2Digits(date.getMonth() + 1) +
-      "-" +
-      padTo2Digits(date.getDate()) +
-      "T" +
-      padTo2Digits(date.getHours()) +
-      ":" +
-      padTo2Digits(date.getMinutes()) +
-      ":" +
-      padTo2Digits(date.getSeconds()) +
-      "." +
-      padTo2Digits(date.getMilliseconds());
-
-    return date_String;
-  }
   const today = new Date();
-  const todayDateString = dateToString(today);
+  const todayDateString = today.toISOString().slice(0, -1);
 
   // useStates for form
-  const [date, setDate] = useState<Date>();
-  const [w3w, setW3w] = useState<string>();
-  const [lat, setLat] = useState<number>();
-  const [lon, setLon] = useState<number>();
-  const [species, setSpecies] = useState<string>();
-  const [description, setDescription] = useState<string>();
-  const [imageUrl, setImageUrl] = useState<string>();
+  const [date, setDate] = useState<Date>(new Date());
+  const [w3w, setW3w] = useState<string>("");
+  const [lat, setLat] = useState<number>(NaN);
+  const [lon, setLon] = useState<number>(NaN);
+  const [species, setSpecies] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [imageUrl, setImageUrl] = useState<string>("");
   const [locationErrorMessage, setLocationErrorMessage] = useState<string>("");
   const [speciesErrorMessage, setSpeciesErrorMessage] = useState<string>("");
 
   const validW3wPattern = /^\/\/\/[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]+$/g;
-  // const w3wArray = validW3wPattern.exec(w3w:string);
 
-  console.log(
-    date,
-    species,
-    description,
-    imageUrl,
-    locationErrorMessage,
-    speciesErrorMessage,
-  );
+  useEffect(() => {
+    const words = w3w?.slice(3);
+    getLatitudeLongitude(words)
+      .then((data) => {
+        setLat(data.lat);
+        setLon(data.lng);
+      })
+      .catch(() => setLocationErrorMessage("Please enter a valid what3words"));
+  }, [w3w]);
+
   // submit function
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -72,19 +53,28 @@ const SubmissionForm = () => {
 
     if (w3w && !validW3wPattern.test(w3w)) {
       setLocationErrorMessage("Please enter a valid what3words");
+    } else if (w3w && validW3wPattern.test(w3w)) {
+      const words = w3w?.slice(3);
+      console.log(words);
+      getLatitudeLongitude(words)
+        .then((data) => {
+          setLat(data.lat);
+          setLon(data.lng);
+          console.log(data.lat, data.lng);
+        })
+        .catch(() =>
+          setLocationErrorMessage("Please enter a valid what3words"),
+        );
 
       const data = {
-        date,
         w3w,
         lat,
         lon,
-        species,
-        description,
-        imageUrl,
-        locationErrorMessage,
-        speciesErrorMessage,
       };
       console.log(data);
+    }
+    if (lat && lon) {
+      fetch(`https://localhost:7082/Post/`);
     }
   };
   useEffect(() => {
@@ -108,13 +98,13 @@ const SubmissionForm = () => {
             required
             id="date"
             name="date"
+            value={date.toISOString().slice(0, 16)}
             max={todayDateString}
             onChange={(event) => setDate(new Date(event.target.value))}
           />
 
           <div className="location-container submission-form-children">
             <p>
-              {/* <span className='location-error-message' style={errorMessage}>Please enter location details</span> */}
               <label htmlFor="location">Location</label>
               <a
                 href="https://what3words.com/pretty.needed.chill"
@@ -138,7 +128,9 @@ const SubmissionForm = () => {
             name="w3w"
             placeholder="Enter your what3words"
             value={w3w}
-            onChange={(event) => setW3w(event.target.value)}
+            onChange={(event) => {
+              setW3w(event.target.value);
+            }}
           />
           <span>or</span>
           <div className="latlon-container">
@@ -147,6 +139,7 @@ const SubmissionForm = () => {
               id="lat"
               name="lat"
               placeholder="Latitude"
+              value={isNaN(lat) ? "" : lat}
               onChange={(event) => setLat(parseFloat(event.target.value))}
             />
             <input
@@ -154,6 +147,7 @@ const SubmissionForm = () => {
               id="lon"
               name="lon"
               placeholder="Longitude"
+              value={isNaN(lon) ? "" : lon}
               onChange={(event) => setLon(parseFloat(event.target.value))}
             />
           </div>
