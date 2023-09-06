@@ -30,7 +30,7 @@ public class UserController : ControllerBase
         }
     }
 
-    [HttpGet("")]
+    [HttpGet("{all}")]
     public IActionResult GetAllUsers()
     {
         try

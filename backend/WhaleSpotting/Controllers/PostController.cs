@@ -32,6 +32,23 @@ public class PostController : ControllerBase
         }
     }
 
+
+    [HttpGet("{all}")]
+    public IActionResult GetAllPosts()
+    {
+        try
+        {
+            var posts = _postService.GetAllPosts();
+            Console.WriteLine(posts.Count.ToString());
+            return Ok(new PostsResponse(posts));
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return NotFound();
+        }
+    }
+
     [HttpPost("")]
     public IActionResult Create([FromBody] PostRequest newPostRequest)
     {

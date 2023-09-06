@@ -9,6 +9,7 @@ public class UserResponse
     public string Email { get; set; }
     public string Name { get; set; }
     public string ProfileImageUrl { get; set; }
+    public List<Post> Posts {get; set;}
 
     public UserResponse(User user)
     {
@@ -36,6 +37,12 @@ public class UserResponse
             ?? throw new ArgumentNullException(
                 nameof(user),
                 "Property \"ProfileImageUrl\" must not be null"
+            );
+        Posts = 
+            user.Posts
+            ?? throw new ArgumentNullException(
+                nameof(user),
+                "Property \"Posts\" must not be null"
             );
     }
 }

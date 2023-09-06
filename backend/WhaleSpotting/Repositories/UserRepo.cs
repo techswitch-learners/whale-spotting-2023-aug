@@ -1,6 +1,7 @@
 ﻿using WhaleSpotting.Models.Database;
 using WhaleSpotting.Models.Request;
 using WhaleSpotting.Enums;
+using Microsoft.EntityFrameworkCore;
 
 namespace WhaleSpotting.Repositories;
 
@@ -8,8 +9,8 @@ public interface IUserRepo
 {
     public User GetById(int id);
     public User GetByUsername(string username);
-    public List<User> GetAllUsers();
     public User Create(UserRequest newUserRequest);
+    public List<User> GetAllUsers();
 }
 
 public class UserRepo : IUserRepo
@@ -25,7 +26,9 @@ public class UserRepo : IUserRepo
     {
         try
         {
-            return _context.Users.Single(user => user.Id == id);
+            return _context.Users
+                .Include(user => user.Posts)
+                .Single(user => user.Id == id);
         }
         catch (InvalidOperationException)
         {
@@ -49,7 +52,10 @@ public class UserRepo : IUserRepo
     {
         try
         {
-            return _context.Users.Where(user => user.Role == Role.User).ToList();
+            return _context.Users
+                .Include(user => user.Posts)
+                .Where(user => user.Role == Role.User)
+                .ToList();
         }
         catch (InvalidOperationException)
         {

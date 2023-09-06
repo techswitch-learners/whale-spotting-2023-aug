@@ -12,6 +12,7 @@ public interface IPostRepo
 
     // public Post GetByBodyOfWaterId(int id);
     public Post Create(PostRequest newPostRequest);
+    public List<Post> GetAllPosts();
 }
 
 public class PostRepo : IPostRepo
@@ -52,6 +53,24 @@ public class PostRepo : IPostRepo
         catch (InvalidOperationException)
         {
             throw new ArgumentException($"Post with userid ${userId} not found");
+        }
+    }
+
+
+    public List<Post> GetAllPosts()
+    {
+        try
+        {
+            return _context.Posts
+                .Include(post => post.User)
+                .Include(post => post.Species)
+                .Include(post => post.BodyOfWater)
+                .Where(post => post.ApprovalStatus == ApprovalStatus.Approved)
+                .ToList();
+        }
+        catch (InvalidOperationException)
+        {
+            throw new ArgumentException($"Posts not found");
         }
     }
 

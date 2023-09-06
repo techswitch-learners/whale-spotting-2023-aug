@@ -9,6 +9,7 @@ public interface IUserService
     public User Create(UserRequest newUserRequest);
     public User GetById(int id);
     public List<User> GetAllUsers();
+    
 }
 
 public class UserService : IUserService
