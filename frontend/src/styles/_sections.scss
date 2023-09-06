@@ -10,8 +10,8 @@
     padding: 0 $tablet-gutter;
   }
 
-  @include devices(tabletL) {
-    padding: 0 $tablet-l-gutter;
+  @include devices(tabletLandscape) {
+    padding: 0 $tablet-landscape-gutter;
   }
 
   @include devices(desktop) {
@@ -20,7 +20,6 @@
 }
 
 section {
-  width: 100vw;
   padding: $mobile-section-spacing 0;
 
   @include devices(tablet) {

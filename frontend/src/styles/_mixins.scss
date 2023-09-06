@@ -6,7 +6,8 @@
       @content;
     }
   }
-  @if $breakpoint == tabletL {
+
+  @if $breakpoint == tabletLandscape {
     @media only screen and (min-width: 768px) {
       @content;
     }
@@ -33,8 +34,9 @@
   @include devices(tablet) {
     @include gridGallery($tablet-gutter, 2);
   }
-  @include devices(tabletL) {
-    @include gridGallery($tablet-l-gutter, 2);
+
+  @include devices(tabletLandscape) {
+    @include gridGallery($tablet-landscape-gutter, 2);
   }
 
   @include devices(desktop) {
