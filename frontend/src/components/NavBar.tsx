@@ -28,6 +28,7 @@ function Navbar() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
   return (
     <nav>
       <div className="navbar-wrapper">
@@ -62,7 +63,9 @@ function Navbar() {
               <NavLink to="/login">Login</NavLink>
             </li>
             <li>
-              <NavLink to="/search">🔍</NavLink>
+              <NavLink to="/search" aria-label="Search">
+                🔍
+              </NavLink>
             </li>
           </ul>
         </div>

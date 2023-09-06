@@ -10,6 +10,18 @@
   border-radius: 1rem;
   background-color: $color-secondary;
   margin: $mobile-gutter;
+
+  @include devices(tablet) {
+    padding: $tablet-card-padding;
+    margin: $tablet-gutter;
+    height: 5em;
+  }
+
+  @include devices(desktop) {
+    padding: $desktop-card-padding;
+    margin: $desktop-gutter;
+    height: 5em;
+  }
 }
 
 .whale-icon {
@@ -18,6 +30,18 @@
   cursor: pointer;
   display: block;
   font-weight: $regularWeight;
+
+  @include devices(tablet) {
+    display: block;
+    font-size: $tablet-font-size-subtitle;
+    margin-right: $tablet-gutter;
+  }
+
+  @include devices(desktop) {
+    display: block;
+    font-size: $desktop-font-size-subtitle;
+    margin-right: $desktop-gutter;
+  }
 }
 
 .mobile-menu-icon {
@@ -25,6 +49,14 @@
   color: $color-primary;
   cursor: pointer;
   font-weight: $regularWeight;
+
+  @include devices(tablet) {
+    display: none;
+  }
+
+  @include devices(desktop) {
+    display: none;
+  }
 }
 
 .navbar-links {
@@ -33,6 +65,16 @@
   padding: $mobile-card-padding;
   display: none;
   border-radius: 1rem;
+
+  @include devices(tablet) {
+    display: flex;
+    color: $color-primary;
+  }
+
+  @include devices(desktop) {
+    display: flex;
+    color: $color-primary;
+  }
 }
 
 .navbar-links.active {
@@ -54,59 +96,15 @@
   color: $color-primary;
   font-size: $mobile-font-size-subtitle;
   font-weight: $boldWeight;
-}
 
-@include devices(tablet) {
-  .whale-icon {
-    display: block;
-    font-size: $tablet-font-size-subtitle;
-    margin-right: $tablet-gutter;
-  }
-
-  .mobile-menu-icon {
-    display: none;
-  }
-  .navbar-wrapper {
-    padding: $tablet-card-padding;
-    margin: $tablet-gutter;
-    height: 5em;
-  }
-
-  .navbar-links {
-    display: flex;
-    color: $color-primary;
-  }
-
-  .navbar-links a {
+  @include devices(tablet) {
     text-decoration: none;
     color: $color-primary;
     font-size: $tablet-font-size-subtitle;
     font-weight: $boldWeight;
   }
-}
 
-@include devices(desktop) {
-  .whale-icon {
-    display: block;
-    font-size: $desktop-font-size-subtitle;
-    margin-right: $desktop-gutter;
-  }
-
-  .mobile-menu-icon {
-    display: none;
-  }
-  .navbar-wrapper {
-    padding: $desktop-card-padding;
-    margin: $desktop-gutter;
-    height: 5em;
-  }
-
-  .navbar-links {
-    display: flex;
-    color: $color-primary;
-  }
-
-  .navbar-links a {
+  @include devices(desktop) {
     text-decoration: none;
     color: $color-primary;
     font-size: $desktop-font-size-subtitle;
