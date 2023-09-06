@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import logo from "/logo.png";
 import "./Navbar.scss";
 
 function Navbar() {
@@ -33,11 +34,7 @@ function Navbar() {
     <nav>
       <div className="navbar-wrapper">
         <div className="navbar-left">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/4971/4971976.png"
-            alt="Whale Icon"
-            className="whale-icon"
-          />
+          <img src={logo} alt="Whale Icon" className="whale-icon" />
         </div>
         <div className="navbar-right">
           <div className="mobile-menu-icon" onClick={toggleMobileMenu}>
