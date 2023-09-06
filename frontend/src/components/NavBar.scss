@@ -1,0 +1,113 @@
+@use "../styles/mixins" as *;
+@use "../styles/variables" as *;
+@use "../styles/typography" as *;
+
+.navbar-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $mobile-card-padding;
+  border-radius: 1rem;
+  background-color: $color-secondary;
+  margin: $mobile-gutter;
+
+  @include devices(tablet) {
+    padding: $tablet-card-padding;
+    margin: $tablet-gutter;
+    height: 5em;
+  }
+
+  @include devices(desktop) {
+    padding: $desktop-card-padding;
+    margin: $desktop-gutter;
+    height: 5em;
+  }
+}
+
+.whale-icon {
+  height: 2.5em;
+  color: $color-primary;
+  cursor: pointer;
+  display: block;
+  font-weight: $regularWeight;
+
+  @include devices(tablet) {
+    display: block;
+    font-size: $tablet-font-size-subtitle;
+    margin-right: $tablet-gutter;
+  }
+
+  @include devices(desktop) {
+    display: block;
+    font-size: $desktop-font-size-subtitle;
+    margin-right: $desktop-gutter;
+  }
+}
+
+.mobile-menu-icon {
+  font-size: $mobile-font-size-subtitle;
+  color: $color-primary;
+  cursor: pointer;
+  font-weight: $regularWeight;
+
+  @include devices(tablet) {
+    display: none;
+  }
+
+  @include devices(desktop) {
+    display: none;
+  }
+}
+
+.navbar-links {
+  list-style-type: none;
+  margin: $mobile-gutter;
+  padding: $mobile-card-padding;
+  display: none;
+  border-radius: 1rem;
+
+  @include devices(tablet) {
+    display: flex;
+    color: $color-primary;
+  }
+
+  @include devices(desktop) {
+    display: flex;
+    color: $color-primary;
+  }
+}
+
+.navbar-links.active {
+  display: block;
+  position: absolute;
+  top: 80px;
+  left: 0;
+  right: 0;
+  background-color: $color-secondary;
+  flex-direction: column;
+}
+
+.navbar-links li {
+  padding: $mobile-card-padding;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  color: $color-primary;
+  font-size: $mobile-font-size-subtitle;
+  font-weight: $boldWeight;
+
+  @include devices(tablet) {
+    text-decoration: none;
+    color: $color-primary;
+    font-size: $tablet-font-size-subtitle;
+    font-weight: $boldWeight;
+  }
+
+  @include devices(desktop) {
+    text-decoration: none;
+    color: $color-primary;
+    font-size: $desktop-font-size-subtitle;
+    font-weight: $boldWeight;
+  }
+}
