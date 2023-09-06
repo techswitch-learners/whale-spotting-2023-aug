@@ -1,7 +1,8 @@
 import { useState } from "react";
-import "./LoginPage.scss";
 import { NavLink } from "react-router-dom";
 import { tryEmailAndPassword } from "../clients/backendApiClient";
+import Button from "./UI/Button";
+import "./LoginPage.scss";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -52,7 +53,7 @@ function LoginPage() {
             required
           />
         </div>
-        <button type="submit">Login</button>
+        <Button submit={true}>Login</Button>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
       </form>
       <hr />
