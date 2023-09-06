@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./LoginPage.scss";
 import { NavLink } from "react-router-dom";
+import { tryEmailAndPassword } from "../clients/backendApiClient";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -11,20 +12,14 @@ function LoginPage() {
     e.preventDefault();
 
     try {
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const result = await tryEmailAndPassword(email, password);
 
-      if (response.ok) {
+      if (result) {
         console.log("Login successful");
-        setErrorMessage("");
+        setErrorMessage("Login Successful"); //to be deleted
       } else {
-        const errorData = await response.json();
-        setErrorMessage(errorData.message);
+        console.log("Login failed");
+        setErrorMessage("Credentials not recognised. Please try again.");
       }
     } catch (error) {
       setErrorMessage("Login failed. Please try again later.");
@@ -57,8 +52,8 @@ function LoginPage() {
             required
           />
         </div>
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
         <button type="submit">Login</button>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
       </form>
       <hr />
       <div className="CreateAccount">
