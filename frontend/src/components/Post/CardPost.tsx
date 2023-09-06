@@ -1,7 +1,7 @@
 import { PostData } from "../../pages/Posts";
 import shareIcon from "../../assets/share_icon.png";
 import postIcon from "../../assets/post_icon.png";
-import { convertLikesToString } from "../../util/LikeConversion";
+import { convertLikesToString } from "../../utils/LikeConversion";
 import "./CardPost.scss";
 
 interface PostDataProps {

@@ -8,9 +8,26 @@
   border-radius: $mobile-border-radius;
   overflow: hidden;
 
+  @include devices(tablet) {
+    flex-direction: row;
+    border-radius: $tablet-border-radius;
+  }
+
+  @include devices(desktop) {
+    border-radius: $desktop-border-radius;
+  }
+
   &__image {
     width: 100%;
     object-fit: cover;
+
+    @include devices(tablet) {
+      width: 50%;
+    }
+
+    @include devices(desktop) {
+      width: 55%;
+    }
   }
 
   &__content {
@@ -21,6 +38,16 @@
     padding: $mobile-card-padding;
     color: $color-foreground-dark;
     width: 100%;
+
+    @include devices(tablet) {
+      width: 50%;
+      gap: 0.75rem;
+    }
+
+    @include devices(desktop) {
+      width: 45%;
+      gap: 1rem;
+    }
   }
 
   &__heading {
@@ -28,6 +55,10 @@
 
     &__title {
       font-size: 1.8rem;
+
+      @include devices(tablet) {
+        font-size: 2.5rem;
+      }
     }
 
     &__bodyofwater {
@@ -45,6 +76,14 @@
     -webkit-line-clamp: 5;
     line-clamp: 5;
     -webkit-box-orient: vertical;
+
+    @include devices(desktop) {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 7;
+      line-clamp: 7;
+      -webkit-box-orient: vertical;
+    }
   }
 
   &__user {
@@ -61,6 +100,16 @@
       border-radius: 50%;
       overflow: hidden;
       object-fit: cover;
+
+      @include devices(tablet) {
+        height: 3.5rem;
+        width: 3.5rem;
+      }
+
+      @include devices(desktop) {
+        height: 5rem;
+        width: 5rem;
+      }
     }
 
     &__image {
@@ -91,61 +140,6 @@
     img {
       height: 1rem;
       margin-right: 0.3rem;
-    }
-  }
-
-  @include devices(tablet) {
-    flex-direction: row;
-    border-radius: $tablet-border-radius;
-
-    &__image {
-      width: 50%;
-    }
-
-    &__content {
-      width: 50%;
-      gap: 0.75rem;
-    }
-
-    &__heading {
-      &__title {
-        font-size: 2.5rem;
-      }
-    }
-
-    &__user {
-      &__image-container {
-        height: 3.5rem;
-        width: 3.5rem;
-      }
-    }
-  }
-
-  @include devices(desktop) {
-    border-radius: $desktop-border-radius;
-
-    &__image {
-      width: 65%;
-    }
-
-    &__content {
-      width: 35%;
-      gap: 1rem;
-    }
-
-    &__description {
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 7;
-      line-clamp: 7;
-      -webkit-box-orient: vertical;
-    }
-
-    &__user {
-      &__image-container {
-        height: 5rem;
-        width: 5rem;
-      }
     }
   }
 }

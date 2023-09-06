@@ -1,5 +1,7 @@
-import { convertLikesToString } from "../../util/LikeConversion";
+import { convertLikesToString } from "../../utils/LikeConversion";
 import { PostData } from "../../pages/Posts";
+import shareIcon from "../../assets/share_icon.png";
+import postIcon from "../../assets/post_icon.png";
 
 import "./FeaturedPost.scss";
 
@@ -39,7 +41,7 @@ const FeaturedPost = ({ postData }: PostDataProps) => {
           Monodontidae (belugas and narwhals), Physeteridae (the sperm whale),
           Kogiidae (the dwarf and pygmy sperm whale), and Ziphiidae (the beaked
           whales), as well as the six families of dolphins and porpoises which
-          are not considered whales in the informal sense.{" "}
+          are not considered whales in the informal sense.
         </p>
         <div className="FeaturedPost__user">
           <p className="FeaturedPost__text">{postData.username}</p>
@@ -53,11 +55,11 @@ const FeaturedPost = ({ postData }: PostDataProps) => {
         </div>
         <div className="FeaturedPost__interactions">
           <div className="FeaturedPost__interactions__likes">
-            <img src="/post_icon.png" alt="whale icon" />
+            <img src={postIcon} alt="whale icon" />
             <span>{convertLikesToString(postData.likes)}</span>
           </div>
           <div>
-            <img src="/share_icon.png" alt="share post" />
+            <img src={shareIcon} alt="share post" />
           </div>
         </div>
       </div>
