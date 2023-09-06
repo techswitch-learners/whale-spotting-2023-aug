@@ -3,30 +3,31 @@
 
 .FeaturedPost {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   background-color: $color-tertiary;
   border-radius: $mobile-border-radius;
   overflow: hidden;
 
   &__image {
-    width: 65%;
+    width: 100%;
     object-fit: cover;
   }
 
   &__content {
     display: flex;
     flex-direction: column;
+    gap: 0.5rem;
     justify-content: space-between;
     padding: $mobile-card-padding;
     color: $color-foreground-dark;
-    width: 35%;
+    width: 100%;
   }
 
   &__heading {
     margin: 0 auto;
 
     &__title {
-      font-size: 2.5rem;
+      font-size: 1.8rem;
     }
 
     &__bodyofwater {
@@ -41,8 +42,8 @@
   &__description {
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 6;
-    line-clamp: 6;
+    -webkit-line-clamp: 5;
+    line-clamp: 5;
     -webkit-box-orient: vertical;
   }
 
@@ -54,8 +55,8 @@
     gap: 1rem;
 
     &__image-container {
-      height: 5rem;
-      width: 5rem;
+      height: 2.8rem;
+      width: 2.8rem;
       position: relative;
       border-radius: 50%;
       overflow: hidden;
@@ -93,14 +94,57 @@
   }
 
   @include devices(tablet) {
+    flex-direction: row;
     border-radius: $tablet-border-radius;
-  }
 
-  @include devices(tabletLandscape) {
-    border-radius: $tablet-landscape-border-radius;
+    &__image {
+      width: 50%;
+    }
+
+    &__content {
+      width: 50%;
+      gap: 0.75rem;
+    }
+
+    &__heading {
+      &__title {
+        font-size: 2.5rem;
+      }
+    }
+
+    &__user {
+      &__image-container {
+        height: 3.5rem;
+        width: 3.5rem;
+      }
+    }
   }
 
   @include devices(desktop) {
     border-radius: $desktop-border-radius;
+
+    &__image {
+      width: 65%;
+    }
+
+    &__content {
+      width: 35%;
+      gap: 1rem;
+    }
+
+    &__description {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 7;
+      line-clamp: 7;
+      -webkit-box-orient: vertical;
+    }
+
+    &__user {
+      &__image-container {
+        height: 5rem;
+        width: 5rem;
+      }
+    }
   }
 }
