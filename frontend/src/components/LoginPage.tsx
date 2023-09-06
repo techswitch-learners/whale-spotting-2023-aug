@@ -23,6 +23,7 @@ function LoginPage() {
         <div className="form-group">
           <label>Email</label>
           <input
+            className="textbox"
             type="email"
             placeholder="Email"
             value={email}
@@ -33,6 +34,7 @@ function LoginPage() {
         <div className="form-group">
           <label>Password</label>
           <input
+            className="textbox"
             type="password"
             placeholder="Password"
             value={password}

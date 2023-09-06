@@ -6,12 +6,21 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: normal;
   height: 100vh; // Adjust as needed
 
   h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
+    font-size: $mobile-font-size-subtitle;
+    font-weight: $regularWeight;
+    color: $color-primary;
+
+    @include devices(tablet) {
+      font-size: $tablet-font-size-subtitle;
+    }
+
+    @include devices(desktop) {
+      font-size: $desktop-font-size-subtitle;
+    }
   }
 
   form {
@@ -19,49 +28,105 @@
     flex-direction: column;
     align-items: center;
     width: 300px; // Adjust as needed
-    padding: 20px;
-    border: 1px solid #ccc;
+    padding: $mobile-section-spacing;
+    border: 1px solid $color-tertiary;
     border-radius: 8px;
-    background-color: $color-background;
+    background-color: $color-secondary;
+
+    @include devices(tablet) {
+      padding: $tablet-section-spacing;
+    }
+
+    @include devices(desktop) {
+      padding: $desktop-section-spacing;
+    }
 
     .form-group {
       width: 100%;
-      margin-bottom: 16px;
+      margin-bottom: $mobile-card-padding;
+
+      @include devices(tablet) {
+        margin-bottom: $tablet-card-padding;
+      }
+
+      @include devices(desktop) {
+        margin-bottom: $desktop-card-padding;
+      }
 
       label {
         display: block;
         font-weight: bold;
-        margin-bottom: 8px;
+        margin-bottom: $mobile-card-padding;
+
+        @include devices(tablet) {
+          margin-bottom: $tablet-card-padding;
+        }
+
+        @include devices(desktop) {
+          margin-bottom: $desktop-card-padding;
+        }
       }
 
       input {
         width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
+        padding: $mobile-card-padding;
+        border: 1px solid $color-tertiary;
         border-radius: 4px;
-        font-size: 16px;
+        font-size: $mobile-font-size-subtitle;
+
+        @include devices(tablet) {
+          padding: $tablet-card-padding;
+          font-size: $tablet-font-size-subtitle;
+        }
+
+        @include devices(desktop) {
+          padding: $desktop-card-padding;
+          font-size: $desktop-font-size-subtitle;
+        }
       }
     }
 
+    // .textbox {
+
+    // }
+
     .error-message {
       color: red;
-      margin-top: 10px;
+      margin-top: $mobile-subtitle-margin;
+
+      @include devices(tablet) {
+        margin-top: $tablet-subtitle-margin;
+      }
+
+      @include devices(desktop) {
+        margin-top: $desktop-subtitle-margin;
+      }
     }
 
     button {
       width: 100%;
-      padding: 10px;
+      padding: $mobile-card-padding;
       border: none;
       border-radius: 4px;
-      background-color: #007bff;
-      color: #fff;
-      font-size: 16px;
+      background-color: $color-primary;
+      color: $color-foreground;
+      font-size: $mobile-font-size-button;
       cursor: pointer;
       transition: background-color 0.3s ease;
 
-      &:hover {
-        background-color: #0056b3;
+      @include devices(tablet) {
+        padding: $tablet-card-padding;
+        font-size: $tablet-font-size-button;
       }
+
+      @include devices(desktop) {
+        padding: $desktop-card-padding;
+        font-size: $desktop-font-size-button;
+      }
+
+      // &:hover {
+      //   background-color: #0056b3;
+      // }
     }
   }
 }
