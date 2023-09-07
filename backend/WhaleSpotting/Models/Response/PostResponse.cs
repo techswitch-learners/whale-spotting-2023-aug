@@ -18,17 +18,19 @@ public class PostResponse
             ProfileImageUrl = user.ProfileImageUrl;
         }
     }
-    public class PostBodyWater
+
+    public class PostBodyOfWater
     {
         public int Id { get; set; }
         public string? Name { get; set; }
 
-        public PostBodyWater(BodyOfWater bodyOfWater)
+        public PostBodyOfWater(BodyOfWater bodyOfWater)
         {
             Id = bodyOfWater.Id;
             Name = bodyOfWater.Name;
         }
     }
+
     public class PostSpecies
     {
         public int Id { get; set; }
@@ -42,17 +44,17 @@ public class PostResponse
     }
 
     public int Id { get; set; }
-    public PostUser? User { get; set; }
+    public PostUser User { get; set; }
     public DateTime Timestamp { get; set; }
-    public PostSpecies? Species { get; set; }
+    public PostSpecies Species { get; set; }
     public string ImageUrl { get; set; }
     public string Description { get; set; }
     public ApprovalStatus ApprovalStatus { get; set; }
     public int Rating { get; set; }
-    public PostBodyWater? BodyOfWater { get; set; }
+    public PostBodyOfWater BodyOfWater { get; set; }
+
     public PostResponse(Post post)
     {
-
         Id = post.Id;
         Timestamp =
             post.Timestamp
@@ -60,20 +62,20 @@ public class PostResponse
                 nameof(post),
                 "Property \"Timestamp\" must not be null"
             );
-        if (post.User != null)
-        {
-            User =
-                new PostUser(post.User)
-                ?? throw new ArgumentNullException(
-                    nameof(post), "Property \"user\" must not be null");
-        }
-        if (post.Species != null)
-        {
-            Species =
-                new PostSpecies(post.Species)
-                ?? throw new ArgumentNullException(
-                    nameof(post), "Property \"PostSpecies\" must not be null");
-        }
+        User =
+            post.User != null
+                ? new PostUser(post.User)
+                : throw new ArgumentNullException(
+                    nameof(post),
+                    "Property \"user\" must not be null"
+                );
+        Species =
+            post.Species != null
+                ? new PostSpecies(post.Species)
+                : throw new ArgumentNullException(
+                    nameof(post),
+                    "Property \"PostSpecies\" must not be null"
+                );
         ImageUrl =
             post.ImageUrl
             ?? throw new ArgumentNullException(
@@ -98,12 +100,12 @@ public class PostResponse
                 nameof(post),
                 "Property \"Rating\" must not be null"
             );
-        if (post.BodyOfWater != null)
-        {
-            BodyOfWater =
-                new PostBodyWater(post.BodyOfWater)
-                ?? throw new ArgumentNullException(
-                    nameof(post), "Property \"PostBodyWater\" must not be null");
-        }
+        BodyOfWater =
+            post.BodyOfWater != null
+                ? new PostBodyOfWater(post.BodyOfWater)
+                : throw new ArgumentNullException(
+                    nameof(post),
+                    "Property \"PostBodyOfWater\" must not be null"
+                );
     }
 }

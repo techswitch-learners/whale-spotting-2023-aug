@@ -13,10 +13,11 @@ dotnet tool install dotnet-ef --global
 dotnet tool install csharpier --global
 ```
 
-Obtain What3Words Api Key, set it as a secret using
+Obtain What3Words and GeoReverse API key, set it as a secret using
 
 ```bash
 dotnet user-secrets set "What3WordsApiKey" "YOUR_API_KEY"
+dotnet user-secrets set "GeoReverseApiKey" "YOUR_API_KEY"
 ```
 
 ## Database

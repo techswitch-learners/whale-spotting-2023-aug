@@ -8,8 +8,7 @@ public interface IPostService
 {
     public Post Create(PostRequest newPostRequest);
     public Post GetById(int id);
-    public List<Post> GetAllPosts();
-
+    public List<Post> GetAll();
 }
 
 public class PostService : IPostService
@@ -31,11 +30,8 @@ public class PostService : IPostService
         return _posts.GetById(id);
     }
 
-    public List<Post> GetAllPosts()
+    public List<Post> GetAll()
     {
-        return _posts.GetAllPosts();
+        return _posts.GetAll();
     }
-
-
-
 }

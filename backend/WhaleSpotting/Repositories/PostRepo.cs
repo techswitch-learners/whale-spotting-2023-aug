@@ -12,7 +12,7 @@ public interface IPostRepo
     public Post GetById(int id);
     public Post GetByUserId(int id);
     public Post Create(PostRequest newPostRequest);
-    public List<Post> GetAllPosts();
+    public List<Post> GetAll();
 }
 
 public class PostRepo : IPostRepo
@@ -47,7 +47,7 @@ public class PostRepo : IPostRepo
         {
             return _context.Posts
                 .Include(post => post.User)
-                .Where(post => post.User.Id == userId)
+                .Where(post => post.User != null && post.User.Id == userId)
                 .Single();
         }
         catch (InvalidOperationException)
@@ -56,21 +56,14 @@ public class PostRepo : IPostRepo
         }
     }
 
-    public List<Post> GetAllPosts()
+    public List<Post> GetAll()
     {
-        try
-        {
-            return _context.Posts
-                .Include(post => post.User)
-                .Include(post => post.Species)
-                .Include(post => post.BodyOfWater)
-                .Where(post => post.ApprovalStatus == ApprovalStatus.Approved)
-                .ToList();
-        }
-        catch (InvalidOperationException)
-        {
-            throw new ArgumentException($"Posts not found");
-        }
+        return _context.Posts
+            .Include(post => post.User)
+            .Include(post => post.Species)
+            .Include(post => post.BodyOfWater)
+            .Where(post => post.ApprovalStatus == ApprovalStatus.Approved)
+            .ToList();
     }
 
     public Post Create(PostRequest newPostRequest)

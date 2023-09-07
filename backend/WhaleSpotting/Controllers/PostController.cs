@@ -22,29 +22,24 @@ public class PostController : ControllerBase
         try
         {
             var post = _postService.GetById(id);
-            Console.WriteLine(post.Description);
             return Ok(new PostResponse(post));
         }
-        catch (Exception ex)
+        catch (ArgumentException)
         {
-            Console.WriteLine(ex.Message);
             return NotFound();
         }
     }
 
-
-    [HttpGet("{all}")]
-    public IActionResult GetAllPosts()
+    [HttpGet("all")]
+    public IActionResult GetAll()
     {
         try
         {
-            var posts = _postService.GetAllPosts();
-            Console.WriteLine(posts.Count.ToString());
+            var posts = _postService.GetAll();
             return Ok(new PostsResponse(posts));
         }
-        catch (Exception ex)
+        catch (ArgumentException)
         {
-            Console.WriteLine(ex.Message);
             return NotFound();
         }
     }
