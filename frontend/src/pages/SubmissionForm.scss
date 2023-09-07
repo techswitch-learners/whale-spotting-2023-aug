@@ -1,13 +1,9 @@
 @import "../styles/variables";
 
-.submission-form-container {
-  max-width: 80%;
-  margin: 1rem auto;
-}
-
 .submission-form {
   display: flex;
   flex-direction: column;
+  margin-bottom: 1rem;
 
   .submission-form-children {
     margin-top: 1rem;

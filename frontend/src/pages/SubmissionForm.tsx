@@ -1,18 +1,16 @@
+import { useEffect, useState, FormEvent } from "react";
 import w3w_logo from "../assets/w3w_logo.png";
 import {
   createWhalePost,
   getLatitudeLongitude,
 } from "../clients/backendApiClient";
+import Button from "../components/UI/Button";
 import "./SubmissionForm.scss";
-import { useEffect, useState } from "react";
-import { FormEvent } from "react";
 
 const SubmissionForm = () => {
-  //function for today's date
   const today = new Date();
   const todayDateString = today.toISOString().slice(0, -1);
 
-  // useStates for form
   const [date, setDate] = useState<Date>(new Date());
   const [w3w, setW3w] = useState<string>("");
   const [lat, setLat] = useState<number>(NaN);
@@ -24,10 +22,15 @@ const SubmissionForm = () => {
   const [speciesErrorMessage, setSpeciesErrorMessage] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
 
-  const validW3wPattern = /^\/\/\/[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]+$/g;
+  const validW3wPattern = /^(\/\/\/)?[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]+$/g;
 
   useEffect(() => {
-    const words = w3w?.slice(3);
+    let words;
+    if (w3w.startsWith("///")) {
+      words = w3w.slice(3);
+    } else {
+      words = w3w;
+    }
     getLatitudeLongitude(words)
       .then((data) => {
         setLat(data.lat);
@@ -36,46 +39,43 @@ const SubmissionForm = () => {
       .catch(() => setLocationErrorMessage("Please enter a valid what3words"));
   }, [w3w]);
 
-  // submit function
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
     if (!w3w && !lat && !lon) {
       setLocationErrorMessage(
-        "Please provide either what3words or a latitude and longitude ",
+        "Please provide either what3words or a latitude and longitude",
       );
       return;
     }
+
     if ((!lat && lon) || (!lon && lat)) {
       setLocationErrorMessage("Please fill both latitude and longitude");
       return;
     }
 
-    if (species == undefined) {
+    if (isNaN(species)) {
       setSpeciesErrorMessage("Please select a species");
+      return;
     }
 
     if (w3w && !validW3wPattern.test(w3w)) {
       setLocationErrorMessage("Please enter a valid what3words");
     } else if (w3w && validW3wPattern.test(w3w)) {
-      const words = w3w?.slice(3);
-      console.log(words);
+      let words;
+      if (w3w.startsWith("///")) {
+        words = w3w.slice(3);
+      } else {
+        words = w3w;
+      }
       getLatitudeLongitude(words)
         .then((data) => {
           setLat(data.lat);
           setLon(data.lng);
-          console.log(data.lat, data.lng);
         })
         .catch(() =>
           setLocationErrorMessage("Please enter a valid what3words"),
         );
-
-      const data = {
-        w3w,
-        lat,
-        lon,
-      };
-      console.log(data);
     }
     if (lat && lon) {
       createWhalePost(date, lat, lon, species, description, imageUrl)
@@ -87,6 +87,7 @@ const SubmissionForm = () => {
         });
     }
   };
+
   useEffect(() => {
     setLocationErrorMessage("");
   }, [w3w, lat, lon]);
@@ -97,7 +98,7 @@ const SubmissionForm = () => {
 
   return (
     <>
-      <div className="submission-form-container">
+      <div className="container">
         <form className="submission-form" onSubmit={handleSubmit}>
           <h1>Submit a sighting</h1>
           <label htmlFor="date" className="submission-form-children">
@@ -174,7 +175,7 @@ const SubmissionForm = () => {
             required
             onChange={(event) => setSpecies(parseInt(event.target.value))}
           >
-            <option value="Options">Please select a species</option>
+            <option>Please select a species</option>
             <option value="1">Blue Whale</option>
             <option value="2">Bowhead Whale</option>
             <option value="3">Bryde's Whale</option>
@@ -218,7 +219,9 @@ const SubmissionForm = () => {
             onChange={(event) => setImageUrl(event.target.value)}
           />
 
-          <input type="submit" className="submission-form-children" />
+          <Button type="submit" className="submission-form-children">
+            Submit
+          </Button>
           <span className="error-message">{successMessage}</span>
         </form>
       </div>
