@@ -73,33 +73,11 @@ public class PostRepo : IPostRepo
         }
     }
 
-    // TODO
-    // public Post GetByBodyOfWater(int userId)
-    // {
-    //     try
-    //     {
-    //         return _context.Posts.Include(post => post.User).Where(post => post.User.Id == userId).Single();
-    //     }
-    //     catch (InvalidOperationException)
-    //     {
-    //         throw new ArgumentException($"Post with userid ${userId} not found");
-    //     }
-    // }
-
-
     public Post Create(PostRequest newPostRequest)
     {
         var user = _context.Users.SingleOrDefault(user => user.Id == newPostRequest.UserId);
 
-        if (newPostRequest.Latitude != null && newPostRequest.Longitude != null)
-        {
-            BodyOfWaterHelper.GetBodyOfWaterName((double)newPostRequest.Latitude, (double)newPostRequest.Longitude);
-     
-        }
-
-        var species = _context.Species.SingleOrDefault(
-            species => species.Id == newPostRequest.SpeciesId
-        );
+        var species = _context.Species.SingleOrDefault(species => species.Id == newPostRequest.SpeciesId);
 
         var newPost = new Post
         {
