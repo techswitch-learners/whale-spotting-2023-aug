@@ -20,3 +20,17 @@ export const tryEmailAndPassword = async (
   });
   return response.ok;
 };
+
+export const tryRegisterNewUser = async (
+  fullName: string,
+  username: string,
+  email: string,
+  password: string,
+): Promise<boolean> => {
+  const response = await fetch(`${backendUrl}/Register/`, {
+    headers: {
+      Authorization: `Basic ${btoa(email + ":" + password)}`, // Not sure if this needs to be here or something else as creating new user
+    },
+  });
+  return response.ok;
+};

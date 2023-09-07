@@ -1,23 +1,45 @@
 import { useState } from "react";
 import "./RegisterPage.scss";
+import { tryRegisterNewUser } from "../clients/backendApiClient";
+import Button from "./UI/Button";
 
 function RegisterPage() {
   const [fullName, setFullName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // backend logic will add later
 
-    if (fullName && email && password) {
-      setErrorMessage("");
-    } else {
-      setErrorMessage("Please fill in all fields.");
+    try {
+      const result = await tryRegisterNewUser(
+        fullName,
+        username,
+        email,
+        password,
+      );
+
+      if (result) {
+        console.log("Register New User successful"); //to be deleted
+        setErrorMessage("New User created successfully");
+      } else {
+        console.log("Failed to create new user");
+        setErrorMessage("Unsuccessful Create New user attempt");
+      }
+    } catch (error) {
+      setErrorMessage("Create user failed. Please try again later.");
     }
   };
+  //   if (fullName && email && password) {
+  //     setErrorMessage("");
+  //   } else {
+  //     setErrorMessage("Please fill in all fields.");
+  //   }
+  // };
 
   return (
     <div className="register-page">
@@ -30,6 +52,16 @@ function RegisterPage() {
             placeholder="Full Name"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label>Username</label>
+          <input
+            type="text"
+            placeholder="User Name"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             required
           />
         </div>
@@ -54,7 +86,7 @@ function RegisterPage() {
           />
         </div>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
-        <button type="submit">Submit</button>
+        <Button submit={true}>Submit</Button>
       </form>
     </div>
   );
