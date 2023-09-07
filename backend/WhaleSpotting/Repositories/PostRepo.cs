@@ -2,6 +2,7 @@
 using WhaleSpotting.Models.Request;
 using WhaleSpotting.Enums;
 using Microsoft.EntityFrameworkCore;
+using WhaleSpotting.Helpers;
 
 namespace WhaleSpotting.Repositories;
 
@@ -90,7 +91,14 @@ public class PostRepo : IPostRepo
     {
         var user = _context.Users.SingleOrDefault(user => user.Id == newPostRequest.UserId);
 
-        // var bodyOfWater = _context.BodiesOfWater.Single(bodyOfWater => newPostRequest. == newPostRequest.UserId);
+        string bodyOfWaterResponse;
+
+        if (newPostRequest.Latitude != null && newPostRequest.Longitude != null)
+        {
+            bodyOfWaterResponse = BodyOfWaterHelper.GetBodyOfWaterName((double)newPostRequest.Latitude, (double)newPostRequest.Longitude);
+            Console.WriteLine(bodyOfWaterResponse);
+        }
+
 
         var species = _context.Species.SingleOrDefault(
             species => species.Id == newPostRequest.SpeciesId
@@ -98,12 +106,12 @@ public class PostRepo : IPostRepo
 
         var newPost = new Post
         {
-            // User =
-            //     user
-            //     ?? throw new ArgumentNullException(
-            //         nameof(newPostRequest),
-            //         "Property \"User\" must not be null"
-            //     ),
+            User =
+                user
+                ?? throw new ArgumentNullException(
+                    nameof(newPostRequest),
+                    "Property \"User\" must not be null"
+                ),
             Latitude =
                 newPostRequest.Latitude
                 ?? throw new ArgumentNullException(
@@ -116,12 +124,12 @@ public class PostRepo : IPostRepo
                     nameof(newPostRequest),
                     "Property \"Longitude\" must not be null"
                 ),
-            // Species =
-            //     species
-            //     ?? throw new ArgumentNullException(
-            //         nameof(newPostRequest),
-            //         "Property \"Species\" must not be null"
-            //     ),
+            Species =
+                species
+                ?? throw new ArgumentNullException(
+                    nameof(newPostRequest),
+                    "Property \"Species\" must not be null"
+                ),
             ImageUrl =
                 newPostRequest.ImageUrl
                 ?? throw new ArgumentNullException(
