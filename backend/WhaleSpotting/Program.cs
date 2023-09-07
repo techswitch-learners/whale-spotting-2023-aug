@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using WhaleSpotting;
 using WhaleSpotting.Repositories;
@@ -15,14 +16,18 @@ builder.Services.AddCors(options =>
 });
 
 // Controllers
-builder.Services.AddControllers();
+builder.Services
+    .AddControllers()
+    .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 // Services
 builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IPostService, PostService>();
 
 // Repositories
 builder.Services.AddTransient<IUserRepo, UserRepo>();
+builder.Services.AddTransient<IPostRepo, PostRepo>();
 
 // Context
 builder.Services.AddDbContext<WhaleSpottingContext>(options =>
