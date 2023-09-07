@@ -1,17 +1,10 @@
 import { useState } from "react";
 import CardPost from "../components/Post/CardPost";
 import FeaturedPost from "../components/Post/FeaturedPost";
-import "./Posts.scss";
 import Modal from "../components/UI/Modal";
 import CardPostModal from "../components/Post/CardPostModal";
-
-export interface PostData {
-  imageUrl: string;
-  species: string;
-  username: string;
-  sightingDate: string;
-  likes: number;
-}
+import PostData from "../models/PostData";
+import "./Posts.scss";
 
 const postData: PostData[] = [
   {
@@ -83,10 +76,6 @@ const postData: PostData[] = [
 export const Posts = () => {
   const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();
 
-  const modalOpenHandler = (post: PostData) => {
-    setSelectedPostDetails(post);
-  };
-
   return (
     <main>
       <h1>Sightings</h1>
@@ -95,16 +84,19 @@ export const Posts = () => {
           <h2>Featured Sighting</h2>
           <FeaturedPost
             postData={postData[0]}
-            setPostDetails={modalOpenHandler}
+            openModalAction={() => setSelectedPostDetails(postData[0])}
           />
         </div>
       </section>
 
-      <section className="Section-Two">
+      <section>
         <div className="container PostsGallery">
           {postData.map((post) => {
             return (
-              <CardPost postData={post} setPostDetails={modalOpenHandler} />
+              <CardPost
+                postData={post}
+                openModalAction={() => setSelectedPostDetails(post)}
+              />
             );
           })}
         </div>

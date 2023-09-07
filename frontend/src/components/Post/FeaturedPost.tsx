@@ -1,5 +1,5 @@
 import { convertLikesToString } from "../../utils/LikeConversion";
-import { PostData } from "../../pages/Posts";
+import PostData from "../../models/PostData";
 import shareIcon from "../../assets/share_icon.png";
 import postIcon from "../../assets/post_icon.png";
 
@@ -8,14 +8,10 @@ import Button from "../UI/Button";
 
 interface PostDataProps {
   postData: PostData;
-  setPostDetails: (post: PostData) => void;
+  openModalAction: () => void;
 }
 
-const FeaturedPost = ({ postData, setPostDetails }: PostDataProps) => {
-  const imageClickHandler = () => {
-    setPostDetails(postData);
-  };
-
+const FeaturedPost = ({ postData, openModalAction }: PostDataProps) => {
   return (
     <div className="FeaturedPost">
       <img
@@ -50,10 +46,7 @@ const FeaturedPost = ({ postData, setPostDetails }: PostDataProps) => {
           are not considered whales in the informal sense.
         </p>
         <div className="FeaturedPost__sub-section">
-          <Button
-            className="FeaturedPost__view-more"
-            onClick={imageClickHandler}
-          >
+          <Button className="FeaturedPost__view-more" onClick={openModalAction}>
             View
           </Button>
           <div className="FeaturedPost__user">
