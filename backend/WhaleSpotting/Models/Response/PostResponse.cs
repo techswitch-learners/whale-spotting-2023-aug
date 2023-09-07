@@ -63,17 +63,19 @@ public class PostResponse
                 "Property \"Timestamp\" must not be null"
             );
         User =
-            post.User != null ? new PostUser(post.User)
-            : throw new ArgumentNullException(
-                nameof(post),
-                "Property \"user\" must not be null"
-            );
+            post.User != null
+                ? new PostUser(post.User)
+                : throw new ArgumentNullException(
+                    nameof(post),
+                    "Property \"user\" must not be null"
+                );
         Species =
-            post.Species != null ? new PostSpecies(post.Species)
-            : throw new ArgumentNullException(
-                nameof(post),
-                "Property \"PostSpecies\" must not be null"
-            );
+            post.Species != null
+                ? new PostSpecies(post.Species)
+                : throw new ArgumentNullException(
+                    nameof(post),
+                    "Property \"PostSpecies\" must not be null"
+                );
         ImageUrl =
             post.ImageUrl
             ?? throw new ArgumentNullException(
@@ -99,10 +101,11 @@ public class PostResponse
                 "Property \"Rating\" must not be null"
             );
         BodyOfWater =
-            post.BodyOfWater != null ? new PostBodyOfWater(post.BodyOfWater)
-            : throw new ArgumentNullException(
-                nameof(post),
-                "Property \"PostBodyOfWater\" must not be null"
-            );
+            post.BodyOfWater != null
+                ? new PostBodyOfWater(post.BodyOfWater)
+                : throw new ArgumentNullException(
+                    nameof(post),
+                    "Property \"PostBodyOfWater\" must not be null"
+                );
     }
 }

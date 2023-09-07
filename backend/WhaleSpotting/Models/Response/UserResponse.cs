@@ -15,7 +15,7 @@ public class UserResponse
         public int Id { get; set; }
         public string? ImageUrl { get; set; }
         public string? Description { get; set; }
-        
+
         public UserPost(Post post)
         {
             Id = post.Id;
@@ -23,7 +23,7 @@ public class UserResponse
             Description = post.Description;
         }
     }
-    
+
     public List<UserPost> Posts { get; set; }
 
     public UserResponse(User user)
@@ -48,10 +48,11 @@ public class UserResponse
                 "Property \"ProfileImageUrl\" must not be null"
             );
         Posts =
-            user.Posts != null ? user.Posts.Select(post => new UserPost(post)).ToList()
-            : throw new ArgumentNullException(
-                nameof(user.Posts),
-                "Property \"userPosts\" must not be null"
-            );
+            user.Posts != null
+                ? user.Posts.Select(post => new UserPost(post)).ToList()
+                : throw new ArgumentNullException(
+                    nameof(user.Posts),
+                    "Property \"userPosts\" must not be null"
+                );
     }
 }
