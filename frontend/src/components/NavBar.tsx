@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import logo from "/logo.png";
 import "./Navbar.scss";
 
 function Navbar() {
@@ -33,11 +34,7 @@ function Navbar() {
     <nav>
       <div className="navbar-wrapper">
         <div className="navbar-left">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/4971/4971976.png"
-            alt="Whale Icon"
-            className="whale-icon"
-          />
+          <img src={logo} alt="Whale Icon" className="whale-icon" />
         </div>
         <div className="navbar-right">
           <div className="mobile-menu-icon" onClick={toggleMobileMenu}>
@@ -45,26 +42,52 @@ function Navbar() {
           </div>
           <ul className={`navbar-links ${showMobileMenu ? "active" : ""}`}>
             <li>
-              <NavLink to="/">Home</NavLink>
+              <NavLink
+                className={({ isActive }) => (isActive ? "active-page" : "")}
+                to="/"
+              >
+                Home
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/users">Users</NavLink>
+              <NavLink
+                className={({ isActive }) => (isActive ? "active-page" : "")}
+                to="/users"
+              >
+                Users
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/posts">Posts</NavLink>
+              <NavLink
+                className={({ isActive }) => (isActive ? "active-page" : "")}
+                to="/posts"
+              >
+                Posts
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/info">Info</NavLink>
+              <NavLink
+                className={({ isActive }) => (isActive ? "active-page" : "")}
+                to="/info"
+              >
+                Info
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/register">Register</NavLink>
+              <NavLink
+                className={({ isActive }) => (isActive ? "active-page" : "")}
+                to="/login"
+              >
+                Login
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/login">Login</NavLink>
-            </li>
-            <li>
-              <NavLink to="/search" aria-label="Search">
-                🔍
+              <NavLink
+                className={({ isActive }) => (isActive ? "active-page" : "")}
+                to="/search"
+                aria-label="Search"
+              >
+                🔎
               </NavLink>
             </li>
           </ul>

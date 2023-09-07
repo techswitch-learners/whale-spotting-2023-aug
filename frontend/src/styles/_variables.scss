@@ -19,18 +19,21 @@ $mobile-font-size-subtitle: 1.6rem;
 $mobile-font-size-button: 0.85rem;
 $mobile-font-size-body: 0.9rem;
 $mobile-font-size-secondary: 0.75rem;
+$mobile-font-size-navbar: 1.6rem;
 
 $tablet-font-size-title: 3.5rem;
 $tablet-font-size-subtitle: 2.5rem;
 $tablet-font-size-button: 1.25rem;
 $tablet-font-size-body: 1.2rem;
 $tablet-font-size-secondary: 0.9rem;
+$tablet-font-size-navbar: 1.6rem;
 
 $desktop-font-size-title: 4rem;
 $desktop-font-size-subtitle: 3rem;
 $desktop-font-size-button: 1.5rem;
 $desktop-font-size-body: 1.3rem;
 $desktop-font-size-secondary: 1rem;
+$desktop-font-size-navbar: 1.5rem;
 
 $regularWeight: 600;
 $boldWeight: 1000;
@@ -57,3 +60,9 @@ $desktop-section-spacing: 5rem;
 $desktop-card-padding: 1.5rem;
 $desktop-title-margin: 2rem;
 $desktop-subtitle-margin: 1rem;
+
+// Borders
+
+$mobile-border-radius: 0.25rem;
+$tablet-border-radius: 0.5rem;
+$desktop-border-radius: 1rem;
