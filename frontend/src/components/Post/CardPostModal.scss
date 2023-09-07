@@ -6,14 +6,12 @@
   flex-direction: column;
   background-color: $color-tertiary;
   overflow-y: auto;
-  //   border-radius: $mobile-border-radius;
-  //   overflow: hidden;
-  //   max-height: 90%;
+  height: 100%;
 
   &__image {
     width: 100%;
-    max-height: 60%;
-    object-fit: contain;
+    height: 50%;
+    object-fit: cover;
   }
 
   &__content {
@@ -24,6 +22,7 @@
     padding: $mobile-card-padding;
     color: $color-foreground-dark;
     width: 100%;
+    height: 50%;
   }
 
   &__heading {
@@ -43,11 +42,9 @@
   }
 
   &__description {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 5;
-    line-clamp: 5;
-    -webkit-box-orient: vertical;
+    overflow-y: scroll;
+    max-height: 40%;
+    padding: 0 0.6rem;
   }
 
   &__user {
@@ -60,8 +57,8 @@
     &__image-container {
       height: 2.8rem;
       width: 2.8rem;
+      border-radius: 50%;
       position: relative;
-      //   border-radius: 50%;
       overflow: hidden;
       object-fit: cover;
     }
@@ -98,15 +95,7 @@
   }
 
   @include devices(tablet) {
-    flex-direction: row;
-    // border-radius: $tablet-border-radius;
-
-    &__image {
-      width: 50%;
-    }
-
     &__content {
-      width: 50%;
       gap: 0.75rem;
     }
 
@@ -122,26 +111,34 @@
         width: 3.5rem;
       }
     }
+
+    &__interactions {
+      img {
+        height: 2rem;
+      }
+
+      span {
+        margin-left: 0.3rem;
+      }
+    }
   }
 
   @include devices(desktop) {
-    // border-radius: $desktop-border-radius;
+    flex-direction: row;
 
     &__image {
-      width: 65%;
+      width: 55%;
+      height: 100%;
     }
 
     &__content {
-      width: 35%;
+      width: 45%;
+      height: 100%;
       gap: 1rem;
     }
 
     &__description {
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 7;
-      line-clamp: 7;
-      -webkit-box-orient: vertical;
+      max-height: 55%;
     }
 
     &__user {
