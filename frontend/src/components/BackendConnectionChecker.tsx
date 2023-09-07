@@ -4,6 +4,7 @@ import {
   checkBackendConnection,
 } from "../clients/backendApiClient";
 import Button from "./UI/Button";
+import { getAllPosts } from "../utils/api/ApiHandler";
 
 export const BackendConnectionChecker = () => {
   const [canConnect, setCanConnect] = useState<boolean>();
@@ -32,9 +33,12 @@ export const BackendConnectionChecker = () => {
 
   if (canConnect) {
     return (
-      <p>
-        Connection to backend established at <code>{backendUrl}</code>!
-      </p>
+      <>
+        <p>
+          Connection to backend established at <code>{backendUrl}</code>!
+        </p>
+        <Button onClick={() => getAllPosts()}>Log Posts</Button>
+      </>
     );
   }
 
