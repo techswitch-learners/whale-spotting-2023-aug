@@ -4,7 +4,6 @@ import "./Button.scss";
 interface ButtonProps {
   children?: ReactNode;
   className?: string;
-  submit?: boolean;
   onClick?: MouseEventHandler;
   type?: "button" | "submit" | "reset";
 }
