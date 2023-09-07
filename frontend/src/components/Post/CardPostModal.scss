@@ -1,32 +1,52 @@
 @use "../../styles/variables" as *;
 @use "../../styles/mixins" as *;
 
-.FeaturedPost {
+.CardPostModal {
   display: flex;
   flex-direction: column;
   background-color: $color-tertiary;
-  border-radius: $mobile-border-radius;
-  overflow: hidden;
-
-  @include devices(tablet) {
-    flex-direction: row;
-    border-radius: $tablet-border-radius;
-  }
+  height: 100%;
 
   @include devices(desktop) {
-    border-radius: $desktop-border-radius;
+    flex-direction: row;
+  }
+
+  &__image__container {
+    position: relative;
+    width: 100%;
+    height: 50%;
+
+    @include devices(desktop) {
+      width: 55%;
+      height: 100%;
+    }
   }
 
   &__image {
     width: 100%;
+    height: 100%;
     object-fit: cover;
+  }
+
+  &__fullscreen {
+    position: absolute;
+    height: 1rem;
+    width: 1rem;
+    right: 0.5rem;
+    bottom: 0.5rem;
 
     @include devices(tablet) {
-      width: 50%;
+      height: 1.5rem;
+      width: 1.5rem;
+      right: 1rem;
+      bottom: 1rem;
     }
 
     @include devices(desktop) {
-      width: 55%;
+      height: 2rem;
+      width: 2rem;
+      right: 1rem;
+      bottom: 1rem;
     }
   }
 
@@ -38,14 +58,15 @@
     padding: $mobile-card-padding;
     color: $color-foreground-dark;
     width: 100%;
+    height: 50%;
 
     @include devices(tablet) {
-      width: 50%;
       gap: 0.75rem;
     }
 
     @include devices(desktop) {
       width: 45%;
+      height: 100%;
       gap: 1rem;
     }
   }
@@ -71,18 +92,12 @@
   }
 
   &__description {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 5;
-    line-clamp: 5;
-    -webkit-box-orient: vertical;
+    overflow-y: scroll;
+    max-height: 40%;
+    padding: 0 0.6rem;
 
     @include devices(desktop) {
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 7;
-      line-clamp: 7;
-      -webkit-box-orient: vertical;
+      max-height: 55%;
     }
   }
 
@@ -96,8 +111,8 @@
     &__image-container {
       height: 2.8rem;
       width: 2.8rem;
-      position: relative;
       border-radius: 50%;
+      position: relative;
       overflow: hidden;
       object-fit: cover;
 
@@ -130,6 +145,10 @@
 
     span {
       white-space: nowrap;
+
+      @include devices(tablet) {
+        margin-left: 0.3rem;
+      }
     }
 
     &__likes {
@@ -140,6 +159,10 @@
     img {
       height: 1rem;
       margin-right: 0.3rem;
+
+      @include devices(tablet) {
+        height: 2rem;
+      }
     }
   }
 }
