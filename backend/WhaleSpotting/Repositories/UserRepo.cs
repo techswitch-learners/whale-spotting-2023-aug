@@ -40,7 +40,7 @@ public class UserRepo : IUserRepo
     {
         try
         {
-            return _context.Users.Single(user => user.Username == username);
+            return _context.Users.Include(user => user.Posts).Single(user => user.Username == username);
         }
         catch (InvalidOperationException)
         {
