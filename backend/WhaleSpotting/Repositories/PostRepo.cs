@@ -9,8 +9,6 @@ public interface IPostRepo
 {
     public Post GetById(int id);
     public Post GetByUserId(int id);
-
-    // public Post GetByBodyOfWaterId(int id);
     public Post Create(PostRequest newPostRequest);
     public List<Post> GetAllPosts();
 }

@@ -5,7 +5,6 @@ namespace WhaleSpotting.Models.Response;
 
 public class PostResponse
 {
-
     public class PostUser
     {
         public int Id { get; set; }
@@ -18,9 +17,7 @@ public class PostResponse
             Name = user.Name;
             ProfileImageUrl = user.ProfileImageUrl;
         }
-
     }
-
     public class PostBodyWater
     {
         public int Id { get; set; }
@@ -31,9 +28,7 @@ public class PostResponse
             Id = bodyOfWater.Id;
             Name = bodyOfWater.Name;
         }
-
     }
-
     public class PostSpecies
     {
         public int Id { get; set; }
@@ -44,7 +39,6 @@ public class PostResponse
             Id = species.Id;
             Name = species.Name;
         }
-
     }
 
     public int Id { get; set; }
@@ -56,7 +50,6 @@ public class PostResponse
     public ApprovalStatus ApprovalStatus { get; set; }
     public int Rating { get; set; }
     public PostBodyWater? BodyOfWater { get; set; }
-
     public PostResponse(Post post)
     {
 
@@ -67,8 +60,6 @@ public class PostResponse
                 nameof(post),
                 "Property \"Timestamp\" must not be null"
             );
-
-
         if (post.User != null)
         {
             User =
@@ -76,7 +67,6 @@ public class PostResponse
                 ?? throw new ArgumentNullException(
                     nameof(post), "Property \"user\" must not be null");
         }
-
         if (post.Species != null)
         {
             Species =
@@ -84,8 +74,6 @@ public class PostResponse
                 ?? throw new ArgumentNullException(
                     nameof(post), "Property \"PostSpecies\" must not be null");
         }
-
-
         ImageUrl =
             post.ImageUrl
             ?? throw new ArgumentNullException(
@@ -110,7 +98,6 @@ public class PostResponse
                 nameof(post),
                 "Property \"Rating\" must not be null"
             );
-
         if (post.BodyOfWater != null)
         {
             BodyOfWater =
@@ -118,6 +105,5 @@ public class PostResponse
                 ?? throw new ArgumentNullException(
                     nameof(post), "Property \"PostBodyWater\" must not be null");
         }
-
     }
 }
