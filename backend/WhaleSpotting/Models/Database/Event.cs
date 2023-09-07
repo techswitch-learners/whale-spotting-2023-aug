@@ -1,3 +1,5 @@
+using WhaleSpotting.Enums;
+
 namespace WhaleSpotting.Models.Database
 {
     public class Event
@@ -8,5 +10,6 @@ namespace WhaleSpotting.Models.Database
         public string? Location { get; set; }
         public string? EventLink { get; set; }
         public string? EventImageUrl { get; set; }
+        public Role Role { get; internal set; }
     }
 }
