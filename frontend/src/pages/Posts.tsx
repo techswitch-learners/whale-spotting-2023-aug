@@ -1,10 +1,13 @@
-import { useState } from "react";
-import CardPost from "../components/Post/CardPost";
 import "./Posts.scss";
+
+import { useState } from "react";
+
+import CardPost from "../components/Post/CardPost";
 import Modal from "../components/UI/Modal";
 import CardPostModal from "../components/Post/CardPostModal";
 import FeaturedFrame from "../components/UI/FeaturedFrame";
 import FeaturedPostContent from "../components/Post/FeaturedPostContent";
+import FeaturedCarousel from "../components/UI/FeaturedCarousel";
 
 export interface PostData {
   imageUrl: string;
@@ -100,6 +103,13 @@ export const Posts = () => {
               setPostDetails={modalOpenHandler}
             />
           </FeaturedFrame>
+        </div>
+      </section>
+
+      <section className="section-dark">
+        <div className="container">
+          <h2>Featured Sighting</h2>
+          <FeaturedCarousel />
         </div>
       </section>
 
