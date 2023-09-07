@@ -1,0 +1,40 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.Button {
+  align-items: center;
+  justify-content: center;
+
+  height: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  border: 0.125rem solid $color-foreground;
+  border-radius: 0.25rem;
+  background-color: $color-secondary;
+
+  font-size: $mobile-font-size-button;
+  text-align: center;
+  font-weight: 1000;
+  font-family: "Poiret One", sans-serif;
+
+  transition: background-color 0.25s;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: $color-primary;
+    border: 0.125rem solid $color-background;
+    color: $color-foreground;
+  }
+
+  @include devices(tablet) {
+    font-size: $tablet-font-size-button;
+    height: 2.5rem;
+  }
+
+  @include devices(desktop) {
+    font-size: $desktop-font-size-button;
+    height: 3rem;
+  }
+}
