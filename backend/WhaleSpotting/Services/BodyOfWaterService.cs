@@ -7,6 +7,8 @@ namespace WhaleSpotting.Services;
 public interface IBodyOfWaterService
 {
     public BodyOfWater GetByName(string name);
+
+    public List<BodyOfWater> GetAllWaters();
 }
 
 public class BodyOfWaterService : IBodyOfWaterService
@@ -21,5 +23,10 @@ public class BodyOfWaterService : IBodyOfWaterService
     public BodyOfWater GetByName(string name)
     {
         return _bodyOfWaters.GetByName(name);
+    }
+
+    public List<BodyOfWater> GetAllWaters()
+    {
+       return _bodyOfWaters.GetAllWaters();
     }
 }

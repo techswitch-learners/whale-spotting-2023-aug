@@ -24,10 +24,12 @@ builder.Services
 builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IPostService, PostService>();
+builder.Services.AddTransient<IBodyOfWaterService, BodyOfWaterService>();
 
 // Repositories
 builder.Services.AddTransient<IUserRepo, UserRepo>();
 builder.Services.AddTransient<IPostRepo, PostRepo>();
+builder.Services.AddTransient<IBodyOfWaterRepo, BodyOfWaterRepo>();
 
 // Context
 builder.Services.AddDbContext<WhaleSpottingContext>(options =>

@@ -8,6 +8,8 @@ namespace WhaleSpotting.Repositories;
 public interface IBodyOfWaterRepo
 {
     public BodyOfWater GetByName(string name);
+
+    public List<BodyOfWater> GetAllWaters();
 }
 
 public class BodyOfWaterRepo : IBodyOfWaterRepo
@@ -23,7 +25,9 @@ public class BodyOfWaterRepo : IBodyOfWaterRepo
     {
         try
         {
-            return _context.BodiesOfWater.Single(bodyOfWater => bodyOfWater.Name == name);
+            return _context.BodiesOfWater
+                .Include(b => b.Posts)
+                .Single(bodyOfWater => bodyOfWater.Name == name);
         }
         catch (InvalidOperationException)
         {
@@ -31,18 +35,17 @@ public class BodyOfWaterRepo : IBodyOfWaterRepo
         }
     }
 
-    // public List<User> GetAllUsers()
-    // {
-    //     try
-    //     {
-    //         return _context.Users
-    //             .Include(user => user.Posts)
-    //             .Where(user => user.Role == Role.User)
-    //             .ToList();
-    //     }
-    //     catch (InvalidOperationException)
-    //     {
-    //         throw new ArgumentException($"Users not found");
-    //     }
-    // }
+    public List<BodyOfWater> GetAllWaters()
+    {
+        try
+        {
+            return _context.BodiesOfWater
+                .Include(user => user.Posts)
+                .ToList();
+        }
+        catch (InvalidOperationException)
+        {
+            throw new ArgumentException($"Users not found");
+        }
+    }
 }
