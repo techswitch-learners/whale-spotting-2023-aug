@@ -96,7 +96,6 @@
       font-size: $mobile-font-size-body;
       font-weight: $regularWeight;
       color: $color-primary;
-      //      margin: $mobile-gutter;
 
       @include devices(tablet) {
         font-size: $tablet-font-size-body;
