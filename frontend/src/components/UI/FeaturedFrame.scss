@@ -1,0 +1,52 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.FeaturedFrame {
+  display: flex;
+  flex-direction: column;
+  background-color: $color-tertiary;
+  border-radius: $mobile-border-radius;
+  overflow: hidden;
+
+  @include devices(tablet) {
+    flex-direction: row;
+    border-radius: $tablet-border-radius;
+  }
+
+  @include devices(desktop) {
+    border-radius: $desktop-border-radius;
+  }
+
+  &__image {
+    width: 100%;
+    object-fit: cover;
+
+    @include devices(tablet) {
+      width: 50%;
+    }
+
+    @include devices(desktop) {
+      width: 55%;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: space-between;
+    padding: $mobile-card-padding;
+    color: $color-foreground-dark;
+    width: 100%;
+
+    @include devices(tablet) {
+      width: 50%;
+      gap: 0.75rem;
+    }
+
+    @include devices(desktop) {
+      width: 45%;
+      gap: 1rem;
+    }
+  }
+}
