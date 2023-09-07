@@ -25,14 +25,13 @@ function UserProfile() {
         />
       </p>
       <h1>{hardcodedUserInfo.userName}</h1>
-      <p className="spacefiller"></p>
-      <div className="user-info ">
-        <p>Name: {hardcodedUserInfo.name}</p>
-        <p>Email: {hardcodedUserInfo.email}</p>
+      {/* <p className="spacefiller"></p> */}
+      <div className="user-info container">
+        <p className="user-fullname">Name: {hardcodedUserInfo.name}</p>
+        <p className="user-">Email: {hardcodedUserInfo.email}</p>
         <p>Member since: {hardcodedUserInfo.memberSince}</p>
-        <p>Whale Expertise: {hardcodedUserInfo.ranking} </p>
+        <p>Rating: {hardcodedUserInfo.ranking} </p>
       </div>
-      {}
     </div>
   );
 }
