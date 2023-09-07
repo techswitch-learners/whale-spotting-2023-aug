@@ -1,7 +1,7 @@
 import { useState } from "react";
-import "./RegisterPage.scss";
-import { tryRegisterNewUser } from "../clients/backendApiClient";
-import Button from "./UI/Button";
+import { registerNewUser } from "../clients/backendApiClient";
+import Button from "../components/UI/Button";
+import "./Register.scss";
 
 function RegisterPage() {
   const [fullName, setFullName] = useState("");
@@ -21,7 +21,7 @@ function RegisterPage() {
     }
 
     try {
-      const result = await tryRegisterNewUser(
+      const result = await registerNewUser(
         fullName,
         username,
         email,
@@ -42,8 +42,8 @@ function RegisterPage() {
   };
 
   return (
-    <div className="register-page">
-      <h2>Create Account</h2>
+    <div className="register-page container">
+      <h1>Create Account</h1>
       <form onSubmit={handleRegister}>
         <div className="form-group">
           <label>Full Name</label>
@@ -85,8 +85,8 @@ function RegisterPage() {
             required
           />
         </div>
+        <Button type="submit">Submit</Button>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
-        <Button submit={true}>Submit</Button>
       </form>
     </div>
   );

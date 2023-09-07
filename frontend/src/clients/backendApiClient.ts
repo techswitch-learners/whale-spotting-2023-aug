@@ -1,3 +1,5 @@
+import LatitudeLongitude from "../models/LatitudeLongitude";
+
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 export const checkBackendConnection = async (): Promise<boolean> => {
@@ -21,7 +23,7 @@ export const tryEmailAndPassword = async (
   return response.ok;
 };
 
-export const tryRegisterNewUser = async (
+export const registerNewUser = async (
   fullName: string,
   username: string,
   email: string,
@@ -39,4 +41,33 @@ export const tryRegisterNewUser = async (
     }),
   });
   return response.ok;
+};
+
+export const getLatitudeLongitude = async (
+  words: string,
+): Promise<LatitudeLongitude> => {
+  const response = await fetch(`${backendUrl}/What3Words/?words=${words}`);
+  return await response.json();
+};
+
+export const createWhalePost = async (
+  date: Date,
+  lat: number,
+  lon: number,
+  species: number,
+  description: string,
+  imageUrl: string,
+): Promise<boolean> => {
+  const response = await fetch(`${backendUrl}/Post`, {
+    method: "post",
+    body: JSON.stringify({
+      date,
+      lat,
+      lon,
+      species,
+      description,
+      imageUrl,
+    }),
+  });
+  return await response.json();
 };

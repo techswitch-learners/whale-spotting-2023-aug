@@ -2,43 +2,27 @@
 @use "../styles/variables" as *;
 @use "../styles/typography" as *;
 
-.register-page {
+.login-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
-  h2 {
-    font-size: $mobile-font-size-subtitle;
-    font-weight: $regularWeight;
-    color: $color-primary;
-
-    @include devices(tablet) {
-      font-size: $tablet-font-size-subtitle;
-    }
-
-    @include devices(desktop) {
-      font-size: $desktop-font-size-subtitle;
-    }
-  }
-
   form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 66%;
-    max-width: 5;
-    padding: $mobile-section-spacing;
+    padding: $mobile-card-padding;
     border: 1px solid $color-tertiary;
     border-radius: 8px;
     background-color: $color-secondary;
 
     @include devices(tablet) {
-      padding: $tablet-section-spacing;
+      padding: $tablet-card-padding;
     }
 
     @include devices(desktop) {
-      padding: $desktop-section-spacing;
+      padding: $desktop-card-padding;
     }
 
     .form-group {
@@ -56,32 +40,32 @@
       label {
         display: block;
         font-weight: bold;
-        margin-bottom: $mobile-card-padding;
+        margin-bottom: $mobile-subtitle-margin;
 
         @include devices(tablet) {
-          margin-bottom: $tablet-card-padding;
+          margin-bottom: $tablet-subtitle-margin;
         }
 
         @include devices(desktop) {
-          margin-bottom: $desktop-card-padding;
+          margin-bottom: $desktop-subtitle-margin;
         }
       }
 
       input {
         width: 100%;
-        padding: $mobile-card-padding;
+        padding: $mobile-input-padding;
         border: 1px solid $color-tertiary;
         border-radius: 4px;
-        font-size: $mobile-font-size-subtitle;
+        font-size: $mobile-font-size-body;
 
         @include devices(tablet) {
-          padding: $tablet-card-padding;
-          font-size: $tablet-font-size-subtitle;
+          padding: $tablet-input-padding;
+          font-size: $tablet-font-size-body;
         }
 
         @include devices(desktop) {
-          padding: $desktop-card-padding;
-          font-size: $desktop-font-size-subtitle;
+          padding: $desktop-input-padding;
+          font-size: $desktop-font-size-body;
         }
       }
     }
@@ -96,6 +80,43 @@
 
       @include devices(desktop) {
         margin-top: $desktop-subtitle-margin;
+      }
+    }
+  }
+
+  .createContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: $mobile-gutter;
+
+    .notRegistered {
+      font-size: $mobile-font-size-body;
+      font-weight: $regularWeight;
+      color: $color-primary;
+
+      @include devices(tablet) {
+        font-size: $tablet-font-size-body;
+      }
+
+      @include devices(desktop) {
+        font-size: $desktop-font-size-body;
+      }
+    }
+
+    .createAccountLink {
+      font-size: $mobile-font-size-body;
+      font-weight: $regularWeight;
+      color: $color-primary;
+      margin: $mobile-card-padding;
+
+      @include devices(tablet) {
+        font-size: $tablet-font-size-body;
+      }
+
+      @include devices(desktop) {
+        font-size: $desktop-font-size-body;
       }
     }
   }
