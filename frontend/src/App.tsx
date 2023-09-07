@@ -5,6 +5,7 @@ import Posts from "./pages/Posts";
 import Login from "./pages/Login.tsx";
 import Register from "./pages/Register.tsx";
 import SubmissionForm from "./pages/SubmissionForm";
+import UserProfile from "./pages/UserProfile.tsx";
 import "./App.scss";
 
 export const App = () => {
@@ -16,6 +17,7 @@ export const App = () => {
         <Route path="/posts" element={<Posts />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/user" element={<UserProfile />} />
         <Route path="/submission-form" element={<SubmissionForm />} />
       </Routes>
     </Router>
