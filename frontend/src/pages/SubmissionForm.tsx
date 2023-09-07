@@ -3,9 +3,11 @@ import w3w_logo from "../assets/w3w_logo.png";
 import {
   createWhalePost,
   getLatitudeLongitude,
+  getAllSpecies,
 } from "../clients/backendApiClient";
 import Button from "../components/UI/Button";
 import "./SubmissionForm.scss";
+import SpeciesOptions from "../models/SpeciesOptions";
 
 const SubmissionForm = () => {
   const today = new Date();
@@ -21,6 +23,7 @@ const SubmissionForm = () => {
   const [locationErrorMessage, setLocationErrorMessage] = useState<string>("");
   const [speciesErrorMessage, setSpeciesErrorMessage] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
+  const [speciesOptions, setSpeciesOptions] = useState<[]>([]);
 
   const validW3wPattern = /^(\/\/\/)?[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]+$/g;
 
@@ -38,6 +41,12 @@ const SubmissionForm = () => {
       })
       .catch(() => setLocationErrorMessage("Please enter a valid what3words"));
   }, [w3w]);
+
+  useEffect(() => {
+    getAllSpecies().then((data) => {
+      setSpeciesOptions(data);
+    });
+  }, []);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -175,20 +184,11 @@ const SubmissionForm = () => {
             required
             onChange={(event) => setSpecies(parseInt(event.target.value))}
           >
-            <option>Please select a species</option>
-            <option value="1">Blue Whale</option>
-            <option value="2">Bowhead Whale</option>
-            <option value="3">Bryde's Whale</option>
-            <option value="4">False Killer Whale</option>
-            <option value="5">Fin whale</option>
-            <option value="6">Gray Whale</option>
-            <option value="7">Hump Back Whale</option>
-            <option value="8">Killer whale</option>
-            <option value="9">Minke Whale</option>
-            <option value="10">Pilot Whale</option>
-            <option value="11">Right whale</option>
-            <option value="12">Sei Whale</option>
-            <option value="13">Sperm Whale</option>
+            {speciesOptions
+              .sort((a: SpeciesOptions, b: SpeciesOptions) => a.id - b.id)
+              .map((species: SpeciesOptions) => (
+                <option value={species.id}>{species.name}</option>
+              ))}
           </select>
 
           <label htmlFor="date" className="submission-form-children">

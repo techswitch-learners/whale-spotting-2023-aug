@@ -18,6 +18,11 @@ export const getLatitudeLongitude = async (
   return await response.json();
 };
 
+export const getAllSpecies = async (): Promise<[]> => {
+  const response = await fetch(`${backendUrl}/Species`);
+  return await response.json();
+};
+
 export const createWhalePost = async (
   date: Date,
   lat: number,
