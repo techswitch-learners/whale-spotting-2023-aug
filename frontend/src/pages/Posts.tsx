@@ -1,14 +1,11 @@
-import "./Posts.scss";
-
 import { useState } from "react";
-
 import CardPost from "../components/Post/CardPost";
 import Modal from "../components/UI/Modal";
 import CardPostModal from "../components/Post/CardPostModal";
 import PostData from "../models/PostData";
-import "./Posts.scss";
 import FeaturedPostContent from "../components/Post/FeaturedPostContent";
 import FeaturedFrame from "../components/UI/FeaturedFrame";
+import "./Posts.scss";
 
 const postData: PostData[] = [
   {
