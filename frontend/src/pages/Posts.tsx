@@ -1,9 +1,10 @@
 import { useState } from "react";
 import CardPost from "../components/Post/CardPost";
-import FeaturedPost from "../components/Post/FeaturedPost";
 import Modal from "../components/UI/Modal";
 import CardPostModal from "../components/Post/CardPostModal";
 import PostData from "../models/PostData";
+import FeaturedPostContent from "../components/Post/FeaturedPostContent";
+import FeaturedFrame from "../components/UI/FeaturedFrame";
 import "./Posts.scss";
 
 const postData: PostData[] = [
@@ -82,10 +83,12 @@ export const Posts = () => {
       <section className="section-dark">
         <div className="container">
           <h2>Featured Sighting</h2>
-          <FeaturedPost
-            postData={postData[0]}
-            openModalAction={() => setSelectedPostDetails(postData[0])}
-          />
+          <FeaturedFrame imageUrl={postData[0].imageUrl}>
+            <FeaturedPostContent
+              postData={postData[0]}
+              openModalAction={() => setSelectedPostDetails(postData[0])}
+            />
+          </FeaturedFrame>
         </div>
       </section>
 
