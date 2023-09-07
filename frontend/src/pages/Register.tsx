@@ -14,12 +14,6 @@ function RegisterPage() {
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!profileImageUrl) {
-      setProfileImageUrl(
-        "https://t3.ftcdn.net/jpg/00/88/76/06/360_F_88760637_XGc6SZe1IsXRKTrqYa0Vr2lOintmCYzZ.jpg",
-      );
-    }
-
     try {
       const result = await registerNewUser(
         fullName,
@@ -30,11 +24,9 @@ function RegisterPage() {
       );
 
       if (result) {
-        console.log("Register New User successful"); //to be deleted
-        setErrorMessage("New User created successfully");
+        // Redirect
       } else {
-        console.log("Failed to create new user");
-        setErrorMessage("Unsuccessful Create New user attempt");
+        setErrorMessage("Please check the information provided");
       }
     } catch (error) {
       setErrorMessage("Create user failed. Please try again later.");
@@ -82,6 +74,16 @@ function RegisterPage() {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label>Profile Picture URL</label>
+          <input
+            type="url"
+            placeholder="Profile Picture URL"
+            value={profileImageUrl}
+            onChange={(e) => setProfileImageUrl(e.target.value)}
             required
           />
         </div>
