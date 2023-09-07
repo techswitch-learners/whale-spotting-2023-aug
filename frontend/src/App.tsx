@@ -8,7 +8,7 @@ export const App = () => {
     <Router>
       <Routes>
         <Route index element={<Home />} />
-        <Route path="/SubmissionForm" element={<SubmissionForm />} />
+        <Route path="/submission-form" element={<SubmissionForm />} />
       </Routes>
     </Router>
   );
