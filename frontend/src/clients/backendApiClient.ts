@@ -11,6 +11,18 @@ export const checkBackendConnection = async (): Promise<boolean> => {
   return true;
 };
 
+export const tryEmailAndPassword = async (
+  email: string,
+  password: string,
+): Promise<boolean> => {
+  const response = await fetch(`${backendUrl}/Auth/`, {
+    headers: {
+      Authorization: `Basic ${btoa(email + ":" + password)}`,
+    },
+  });
+  return response.ok;
+};
+
 export const getLatitudeLongitude = async (
   words: string,
 ): Promise<LatitudeLongitude> => {

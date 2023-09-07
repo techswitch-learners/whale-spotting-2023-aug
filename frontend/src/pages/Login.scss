@@ -1,0 +1,124 @@
+@use "../styles/mixins" as *;
+@use "../styles/variables" as *;
+@use "../styles/typography" as *;
+
+.login-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 5;
+    padding: $mobile-card-padding;
+    border: 1px solid $color-tertiary;
+    border-radius: 8px;
+    background-color: $color-secondary;
+
+    @include devices(tablet) {
+      padding: $tablet-card-padding;
+    }
+
+    @include devices(desktop) {
+      padding: $desktop-card-padding;
+    }
+
+    .form-group {
+      width: 100%;
+      margin-bottom: $mobile-card-padding;
+
+      @include devices(tablet) {
+        margin-bottom: $tablet-card-padding;
+      }
+
+      @include devices(desktop) {
+        margin-bottom: $desktop-card-padding;
+      }
+
+      label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: $mobile-subtitle-margin;
+
+        @include devices(tablet) {
+          margin-bottom: $tablet-subtitle-margin;
+        }
+
+        @include devices(desktop) {
+          margin-bottom: $desktop-subtitle-margin;
+        }
+      }
+
+      input {
+        width: 100%;
+        padding: $mobile-input-padding;
+        border: 1px solid $color-tertiary;
+        border-radius: 4px;
+        font-size: $mobile-font-size-body;
+
+        @include devices(tablet) {
+          padding: $tablet-input-padding;
+          font-size: $tablet-font-size-body;
+        }
+
+        @include devices(desktop) {
+          padding: $desktop-input-padding;
+          font-size: $desktop-font-size-body;
+        }
+      }
+    }
+
+    .error-message {
+      color: red;
+      margin-top: $mobile-subtitle-margin;
+
+      @include devices(tablet) {
+        margin-top: $tablet-subtitle-margin;
+      }
+
+      @include devices(desktop) {
+        margin-top: $desktop-subtitle-margin;
+      }
+    }
+  }
+
+  .createContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: $mobile-gutter;
+
+    .notRegistered {
+      font-size: $mobile-font-size-body;
+      font-weight: $regularWeight;
+      color: $color-primary;
+
+      @include devices(tablet) {
+        font-size: $tablet-font-size-body;
+      }
+
+      @include devices(desktop) {
+        font-size: $desktop-font-size-body;
+      }
+    }
+
+    .createAccountLink {
+      font-size: $mobile-font-size-body;
+      font-weight: $regularWeight;
+      color: $color-primary;
+      margin: $mobile-card-padding;
+
+      @include devices(tablet) {
+        font-size: $tablet-font-size-body;
+      }
+
+      @include devices(desktop) {
+        font-size: $desktop-font-size-body;
+      }
+    }
+  }
+}
