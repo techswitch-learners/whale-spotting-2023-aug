@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Http.Features;
 
 namespace WhaleSpotting.Models.Api;
 
-public class GeoapifyBOW
+public class GeoapifyBodyOfWater
 {
     public string? Type { get; set; }
     public List<Feature>? Features { get; set; }
@@ -56,7 +56,7 @@ public class Query
 
 public class Rank
 {
-    public double Popularity { get; set; }
+    public double? Popularity { get; set; }
 }
 
 public class Timezone

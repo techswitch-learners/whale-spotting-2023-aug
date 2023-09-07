@@ -8,11 +8,10 @@ public static class BowHelper
 {
     public static async Task<string> GetBodyOfWater(double lat, double lon)
     {
-        // var GeoapifyApiKey = _config["GeoapifyKey"];
-        var GeoapifyApiKey = "64b7a1f304834f5e807c987ad958d783";
+        var GeoapifyApiKey = _config["GeoapifyKey"];
 
         var _client = new HttpClient();
-        var response = await _client.GetFromJsonAsync<GeoapifyBOW>(
+        var response = await _client.GetFromJsonAsync<GeoapifyBodyOfWater>(
             $"https://api.geoapify.com/v1/geocode/reverse?lat={lat}&lon={lon}&apiKey={GeoapifyApiKey}"
         );
 

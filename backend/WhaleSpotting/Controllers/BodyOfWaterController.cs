@@ -46,5 +46,18 @@ public class BodyOfWaterController : ControllerBase
         }
     }
 
-
+    [HttpGet("")]
+    public IActionResult GetByLocation([FromQuery] string name)
+    {
+        try
+        {
+            var bodyOfWater = _bodyOfWaterService.GetByName(name);
+            return Ok(new BodyOfWaterResponse(bodyOfWater));
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return NotFound();
+        }
+    }
 }
