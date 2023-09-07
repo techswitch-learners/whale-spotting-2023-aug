@@ -26,7 +26,7 @@ function UserProfile() {
       </p>
       <h1>{hardcodedUserInfo.userName}</h1>
       <p className="spacefiller"></p>
-      <div className="user-info container">
+      <div className="user-info ">
         <p>Name: {hardcodedUserInfo.name}</p>
         <p>Email: {hardcodedUserInfo.email}</p>
         <p>Member since: {hardcodedUserInfo.memberSince}</p>
