@@ -1,24 +1,13 @@
-// import { convertLikesToString } from "../../util/LikeConversion";
+import { convertLikesToString } from "../../utils/LikeConversion";
 import { PostData } from "../../pages/Posts";
+import shareIcon from "../../assets/share_icon.png";
+import postIcon from "../../assets/post_icon.png";
 
 import "./CardPostModal.scss";
 
 interface PostDataProps {
   postData: PostData;
 }
-
-const convertLikesToString = (likes: number) => {
-  if (likes > 1000) {
-    const thousands = Math.floor(likes / 1000);
-    const hundreds = Math.floor((likes / 1000 - thousands) * 10);
-    if (hundreds === 0) {
-      return `${thousands}k`;
-    } else {
-      return `${thousands}.${hundreds}k`;
-    }
-  }
-  return likes.toString();
-};
 
 const CardPostModal = ({ postData }: PostDataProps) => {
   return (
@@ -66,11 +55,11 @@ const CardPostModal = ({ postData }: PostDataProps) => {
         </div>
         <div className="CardPostModal__interactions">
           <div className="CardPostModal__interactions__likes">
-            <img src="/post_icon.png" alt="whale icon" />
+            <img src={postIcon} alt="whale icon" />
             <span>{convertLikesToString(postData.likes)}</span>
           </div>
           <div>
-            <img src="/share_icon.png" alt="share post" />
+            <img src={shareIcon} alt="share post" />
           </div>
         </div>
       </div>
