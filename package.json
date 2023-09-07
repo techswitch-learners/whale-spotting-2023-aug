@@ -8,6 +8,7 @@
     "format": "prettier frontend/src --write"
   },
   "devDependencies": {
+    "@types/react-modal": "^3.16.0",
     "@typescript-eslint/eslint-plugin": "^6.5.0",
     "@typescript-eslint/parser": "^6.5.0",
     "eslint": "^8.48.0",
@@ -21,5 +22,8 @@
     "*.cs": "dotnet csharpier",
     "*.{ts,tsx}": "npm run lint",
     "*.{ts,tsx,js,jsx,json,html,css,scss,md}": "npm run format"
+  },
+  "dependencies": {
+    "react-modal": "^3.16.1"
   }
 }
