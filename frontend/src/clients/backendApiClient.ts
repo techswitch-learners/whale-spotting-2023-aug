@@ -26,11 +26,17 @@ export const tryRegisterNewUser = async (
   username: string,
   email: string,
   password: string,
+  profileImageUrl: string,
 ): Promise<boolean> => {
-  const response = await fetch(`${backendUrl}/Register/`, {
-    headers: {
-      Authorization: `Basic ${btoa(email + ":" + password)}`, // Not sure if this needs to be here or something else as creating new user
-    },
+  const response = await fetch(`${backendUrl}/User/`, {
+    method: "POST",
+    body: JSON.stringify({
+      Username: username,
+      Password: password,
+      Email: email,
+      Name: fullName,
+      ProfileImageUrl: profileImageUrl,
+    }),
   });
   return response.ok;
 };

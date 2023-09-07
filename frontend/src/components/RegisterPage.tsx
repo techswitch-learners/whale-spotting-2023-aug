@@ -8,12 +8,17 @@ function RegisterPage() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [profileImageUrl, setProfileImageUrl] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // backend logic will add later
+    const defaultProfileImageUrl =
+      "https://t3.ftcdn.net/jpg/00/88/76/06/360_F_88760637_XGc6SZe1IsXRKTrqYa0Vr2lOintmCYzZ.jpg";
+    if (!profileImageUrl) {
+      setProfileImageUrl(defaultProfileImageUrl);
+    }
 
     try {
       const result = await tryRegisterNewUser(
@@ -21,6 +26,7 @@ function RegisterPage() {
         username,
         email,
         password,
+        profileImageUrl,
       );
 
       if (result) {
@@ -34,12 +40,6 @@ function RegisterPage() {
       setErrorMessage("Create user failed. Please try again later.");
     }
   };
-  //   if (fullName && email && password) {
-  //     setErrorMessage("");
-  //   } else {
-  //     setErrorMessage("Please fill in all fields.");
-  //   }
-  // };
 
   return (
     <div className="register-page">
