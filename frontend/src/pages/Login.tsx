@@ -51,7 +51,7 @@ function LoginPage() {
             required
           />
         </div>
-        <Button submit={true}>Login</Button>
+        <Button type="submit">Login</Button>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
       </form>
       <hr />
