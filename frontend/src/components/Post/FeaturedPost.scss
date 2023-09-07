@@ -86,6 +86,19 @@
     }
   }
 
+  &__sub-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  @include devices(tablet) {
+    &__view-more {
+      font-size: 1rem;
+    }
+  }
+
   &__user {
     display: flex;
     flex-direction: row;
@@ -140,6 +153,9 @@
     img {
       height: 1rem;
       margin-right: 0.3rem;
+      @include devices(desktop) {
+        height: 1.5rem;
+      }
     }
   }
 }

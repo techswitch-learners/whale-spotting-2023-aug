@@ -2,6 +2,7 @@ import { convertLikesToString } from "../../utils/LikeConversion";
 import { PostData } from "../../pages/Posts";
 import shareIcon from "../../assets/share_icon.png";
 import postIcon from "../../assets/post_icon.png";
+import fullscreenIcon from "../../assets/fullscreen_icon.svg";
 
 import "./CardPostModal.scss";
 
@@ -12,11 +13,21 @@ interface PostDataProps {
 const CardPostModal = ({ postData }: PostDataProps) => {
   return (
     <div className="CardPostModal">
-      <img
-        className="CardPostModal__image"
-        src={postData.imageUrl}
-        alt={`image of ${postData.species}`}
-      />
+      <div className="CardPostModal__image__container">
+        <img
+          className="CardPostModal__image"
+          src={postData.imageUrl}
+          alt={`image of ${postData.species}`}
+        />
+        <a href={postData.imageUrl} target="_blank">
+          <img
+            className="CardPostModal__fullscreen"
+            src={fullscreenIcon}
+            alt="Show image fullscreen"
+          />
+        </a>
+      </div>
+
       <div className="CardPostModal__content">
         <div className="CardPostModal__heading">
           <h3 className="CardPostModal__heading__title">{postData.species}</h3>

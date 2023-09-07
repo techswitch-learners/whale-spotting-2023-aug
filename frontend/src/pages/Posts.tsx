@@ -17,7 +17,7 @@ const postData: PostData[] = [
   {
     imageUrl:
       "https://hips.hearstapps.com/hmg-prod/images/where-to-go-whale-watching-virginia-1522419979.jpg?resize=1200:*",
-    species: "humpback",
+    species: "Humpback",
     username: "Ariel",
     sightingDate: "04 September 2023",
     likes: 22100,
@@ -93,7 +93,10 @@ export const Posts = () => {
       <section className="section-dark">
         <div className="container">
           <h2>Featured Sighting</h2>
-          <FeaturedPost postData={postData[0]} />
+          <FeaturedPost
+            postData={postData[0]}
+            setPostDetails={modalOpenHandler}
+          />
         </div>
       </section>
 
