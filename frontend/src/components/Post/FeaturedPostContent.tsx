@@ -1,5 +1,5 @@
 import { convertLikesToString } from "../../utils/LikeConversion";
-import { PostData } from "../../pages/Posts";
+import PostData from "../../models/PostData";
 import shareIcon from "../../assets/share_icon.png";
 import postIcon from "../../assets/post_icon.png";
 
@@ -8,14 +8,10 @@ import Button from "../UI/Button";
 
 interface PostDataProps {
   postData: PostData;
-  setPostDetails: (post: PostData) => void;
+  openModalAction: () => void;
 }
 
-const FeaturedPostContent = ({ postData, setPostDetails }: PostDataProps) => {
-  const imageClickHandler = () => {
-    setPostDetails(postData);
-  };
-
+const FeaturedPostContent = ({ postData, openModalAction }: PostDataProps) => {
   return (
     <>
       <div className="FeaturedPostContent__heading">
@@ -50,7 +46,7 @@ const FeaturedPostContent = ({ postData, setPostDetails }: PostDataProps) => {
       <div className="FeaturedPostContent__sub-section">
         <Button
           className="FeaturedPostContent__view-more"
-          onClick={imageClickHandler}
+          onClick={openModalAction}
         >
           View
         </Button>

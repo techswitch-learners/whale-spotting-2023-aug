@@ -1,4 +1,4 @@
-import { PostData } from "../../pages/Posts";
+import PostData from "../../models/PostData";
 import shareIcon from "../../assets/share_icon.png";
 import postIcon from "../../assets/post_icon.png";
 import { convertLikesToString } from "../../utils/LikeConversion";
@@ -6,14 +6,10 @@ import "./CardPost.scss";
 
 interface PostDataProps {
   postData: PostData;
-  setPostDetails: (post: PostData) => void;
+  openModalAction: () => void;
 }
 
-const CardPost = ({ postData, setPostDetails }: PostDataProps) => {
-  const imageClickHandler = () => {
-    setPostDetails(postData);
-  };
-
+const CardPost = ({ postData, openModalAction }: PostDataProps) => {
   return (
     <div className="CardPost">
       <div className="CardPost__banner">
@@ -29,7 +25,7 @@ const CardPost = ({ postData, setPostDetails }: PostDataProps) => {
         className="CardPost__image"
         src={postData.imageUrl}
         alt={`image of ${postData.species}`}
-        onClick={imageClickHandler}
+        onClick={openModalAction}
       />
       <div className="CardPost__info">
         <p className="CardPost__title">{postData.species}</p>

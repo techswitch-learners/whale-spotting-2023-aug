@@ -5,17 +5,9 @@ import { useState } from "react";
 import CardPost from "../components/Post/CardPost";
 import Modal from "../components/UI/Modal";
 import CardPostModal from "../components/Post/CardPostModal";
-import FeaturedFrame from "../components/UI/FeaturedFrame";
+import PostData from "../models/PostData";
+import "./Posts.scss";
 import FeaturedPostContent from "../components/Post/FeaturedPostContent";
-import FeaturedCarousel from "../components/UI/FeaturedCarousel";
-
-export interface PostData {
-  imageUrl: string;
-  species: string;
-  username: string;
-  sightingDate: string;
-  likes: number;
-}
 
 const postData: PostData[] = [
   {
@@ -87,37 +79,27 @@ const postData: PostData[] = [
 export const Posts = () => {
   const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();
 
-  const modalOpenHandler = (post: PostData) => {
-    setSelectedPostDetails(post);
-  };
-
   return (
     <main>
       <h1>Sightings</h1>
       <section className="section-dark">
         <div className="container">
           <h2>Featured Sighting</h2>
-          <FeaturedFrame imageUrl={postData[0].imageUrl}>
-            <FeaturedPostContent
-              postData={postData[0]}
-              setPostDetails={modalOpenHandler}
-            />
-          </FeaturedFrame>
+          <FeaturedPostContent
+            postData={postData[0]}
+            openModalAction={() => setSelectedPostDetails(postData[0])}
+          />
         </div>
       </section>
 
-      <section className="section-dark">
-        <div className="container">
-          <h2>Featured Sighting</h2>
-          <FeaturedCarousel />
-        </div>
-      </section>
-
-      <section className="Section-Two">
+      <section>
         <div className="container PostsGallery">
           {postData.map((post) => {
             return (
-              <CardPost postData={post} setPostDetails={modalOpenHandler} />
+              <CardPost
+                postData={post}
+                openModalAction={() => setSelectedPostDetails(post)}
+              />
             );
           })}
         </div>
