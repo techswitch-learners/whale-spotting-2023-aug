@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { tryEmailAndPassword } from "../clients/backendApiClient";
-import Button from "./UI/Button";
-import "./LoginPage.scss";
+import Button from "../components/UI/Button";
+import "./Login.scss";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -16,10 +16,8 @@ function LoginPage() {
       const result = await tryEmailAndPassword(email, password);
 
       if (result) {
-        console.log("Login successful");
-        setErrorMessage("Login Successful"); //to be deleted
+        // redirect
       } else {
-        console.log("Login failed");
         setErrorMessage("Credentials not recognised. Please try again.");
       }
     } catch (error) {
@@ -28,8 +26,8 @@ function LoginPage() {
   };
 
   return (
-    <div className="login-page">
-      <h2>Login</h2>
+    <div className="login-page container">
+      <h1>Login</h1>
       <form onSubmit={handleLogin}>
         <div className="form-group">
           <label>Email</label>

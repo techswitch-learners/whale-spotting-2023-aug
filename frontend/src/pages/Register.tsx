@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./RegisterPage.scss";
+import "./Register.scss";
 
 function RegisterPage() {
   const [fullName, setFullName] = useState("");
