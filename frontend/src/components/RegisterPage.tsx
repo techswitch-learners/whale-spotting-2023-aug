@@ -14,10 +14,10 @@ function RegisterPage() {
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const defaultProfileImageUrl =
-      "https://t3.ftcdn.net/jpg/00/88/76/06/360_F_88760637_XGc6SZe1IsXRKTrqYa0Vr2lOintmCYzZ.jpg";
     if (!profileImageUrl) {
-      setProfileImageUrl(defaultProfileImageUrl);
+      setProfileImageUrl(
+        "https://t3.ftcdn.net/jpg/00/88/76/06/360_F_88760637_XGc6SZe1IsXRKTrqYa0Vr2lOintmCYzZ.jpg",
+      );
     }
 
     try {
