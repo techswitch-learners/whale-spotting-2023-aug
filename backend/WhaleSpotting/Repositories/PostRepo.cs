@@ -91,14 +91,11 @@ public class PostRepo : IPostRepo
     {
         var user = _context.Users.SingleOrDefault(user => user.Id == newPostRequest.UserId);
 
-        string bodyOfWaterResponse;
-
         if (newPostRequest.Latitude != null && newPostRequest.Longitude != null)
         {
-            bodyOfWaterResponse = BodyOfWaterHelper.GetBodyOfWaterName((double)newPostRequest.Latitude, (double)newPostRequest.Longitude);
-            Console.WriteLine(bodyOfWaterResponse);
+            BodyOfWaterHelper.GetBodyOfWaterName((double)newPostRequest.Latitude, (double)newPostRequest.Longitude);
+     
         }
-
 
         var species = _context.Species.SingleOrDefault(
             species => species.Id == newPostRequest.SpeciesId
