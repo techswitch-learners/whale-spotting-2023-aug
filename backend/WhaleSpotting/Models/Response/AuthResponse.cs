@@ -13,11 +13,6 @@ public class AuthResponse
         Id = user.Id;
         Role =
             user.Role
-            ?? throw new ArgumentNullException(
-                nameof(user),
-                "Property \"Role\" must not be null"
-            );
-
-
+            ?? throw new ArgumentNullException(nameof(user), "Property \"Role\" must not be null");
     }
 }

@@ -11,7 +11,7 @@ public class WhaleSpottingContext : DbContext
     public DbSet<Post> Posts => Set<Post>();
     public DbSet<Event> Events => Set<Event>();
     public DbSet<BodyOfWater> BodiesOfWater => Set<BodyOfWater>();
-    
+
     public WhaleSpottingContext(DbContextOptions<WhaleSpottingContext> options)
         : base(options) { }
 }

@@ -9,8 +9,7 @@ public interface IUserService
     public User Create(UserRequest newUserRequest);
     public User GetById(int id);
     public User GetByUsername(string username);
-    public List<User> GetAllUsers();
-
+    public List<User> GetAll();
 }
 
 public class UserService : IUserService
@@ -37,8 +36,8 @@ public class UserService : IUserService
         return _users.GetByUsername(username);
     }
 
-    public List<User> GetAllUsers()
+    public List<User> GetAll()
     {
-        return _users.GetAllUsers();
+        return _users.GetAll();
     }
 }

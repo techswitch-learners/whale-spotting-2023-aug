@@ -44,12 +44,12 @@ public class UserController : ControllerBase
         }
     }
 
-    [HttpGet("{all}")]
-    public IActionResult GetAllUsers()
+    [HttpGet("all")]
+    public IActionResult GetAll()
     {
         try
         {
-            var users = _userService.GetAllUsers();
+            var users = _userService.GetAll();
             return Ok(new UsersResponse(users));
         }
         catch (ArgumentException)

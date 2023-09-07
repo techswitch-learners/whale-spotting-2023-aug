@@ -10,7 +10,7 @@ public interface IUserRepo
     public User GetById(int id);
     public User GetByUsername(string username);
     public User Create(UserRequest newUserRequest);
-    public List<User> GetAllUsers();
+    public List<User> GetAll();
 }
 
 public class UserRepo : IUserRepo
@@ -26,9 +26,7 @@ public class UserRepo : IUserRepo
     {
         try
         {
-            return _context.Users
-                .Include(user => user.Posts)
-                .Single(user => user.Id == id);
+            return _context.Users.Include(user => user.Posts).Single(user => user.Id == id);
         }
         catch (InvalidOperationException)
         {
@@ -40,7 +38,9 @@ public class UserRepo : IUserRepo
     {
         try
         {
-            return _context.Users.Include(user => user.Posts).Single(user => user.Username == username);
+            return _context.Users
+                .Include(user => user.Posts)
+                .Single(user => user.Username == username);
         }
         catch (InvalidOperationException)
         {
@@ -48,19 +48,12 @@ public class UserRepo : IUserRepo
         }
     }
 
-    public List<User> GetAllUsers()
+    public List<User> GetAll()
     {
-        try
-        {
-            return _context.Users
-                .Include(user => user.Posts)
-                .Where(user => user.Role == Role.User)
-                .ToList();
-        }
-        catch (InvalidOperationException)
-        {
-            throw new ArgumentException($"Users not found");
-        }
+        return _context.Users
+            .Include(user => user.Posts)
+            .Where(user => user.Role == Role.User)
+            .ToList();
     }
 
     public User Create(UserRequest newUserRequest)
