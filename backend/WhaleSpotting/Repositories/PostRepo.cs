@@ -3,6 +3,7 @@ using WhaleSpotting.Models.Request;
 using WhaleSpotting.Enums;
 using Microsoft.EntityFrameworkCore;
 using WhaleSpotting.Helpers;
+using System.ComponentModel;
 
 namespace WhaleSpotting.Repositories;
 
@@ -55,7 +56,6 @@ public class PostRepo : IPostRepo
         }
     }
 
-
     public List<Post> GetAllPosts()
     {
         try
@@ -77,7 +77,17 @@ public class PostRepo : IPostRepo
     {
         var user = _context.Users.SingleOrDefault(user => user.Id == newPostRequest.UserId);
 
-        var species = _context.Species.SingleOrDefault(species => species.Id == newPostRequest.SpeciesId);
+        var species = _context.Species.SingleOrDefault(
+            species => species.Id == newPostRequest.SpeciesId
+        );
+
+        var marineArea = BowHelper
+            .GetBodyOfWater((double)newPostRequest.Latitude, (double)newPostRequest.Longitude)
+            .Result;
+
+        var bodyOfWater = _context.BodiesOfWater.SingleOrDefault(
+            bodyOfWater => bodyOfWater.Name == marineArea
+        );
 
         var newPost = new Post
         {
@@ -113,6 +123,12 @@ public class PostRepo : IPostRepo
                 ),
             Description =
                 newPostRequest.Description
+                ?? throw new ArgumentNullException(
+                    nameof(newPostRequest),
+                    "Property \"Description\" must not be null"
+                ),
+            BodyOfWater =
+                bodyOfWater
                 ?? throw new ArgumentNullException(
                     nameof(newPostRequest),
                     "Property \"Description\" must not be null"
