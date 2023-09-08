@@ -1,5 +1,5 @@
-import UserData from "../models/UserData";
 import LatitudeLongitude from "../models/LatitudeLongitude";
+import UsersData from "../models/UsersData";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -12,8 +12,8 @@ export const checkBackendConnection = async (): Promise<boolean> => {
   return true;
 };
 
-export const retrieveUsers = async (id: number): Promise<UserData> => {
-  const response = await fetch(`${backendUrl}/User/${id}`);
+export const getAllUsers = async (): Promise<UsersData> => {
+  const response = await fetch(`${backendUrl}/User/all`);
   return response.json();
 };
 

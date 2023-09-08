@@ -1,20 +1,22 @@
-import "../components/Post/CardPost.scss";
-import { retrieveUsers } from "../clients/backendApiClient";
+import { useState, useEffect } from "react";
+import { getAllUsers } from "../clients/backendApiClient";
 import CardUser from "../components/User/CardUser";
-import UserData from "../models/UserData";
-
-const userData: UserData[] = [];
-for (let i = 1; i < 21; i++) {
-  userData.push(await retrieveUsers(i));
-}
+import UsersData from "../models/UsersData";
+import "../components/Post/CardPost.scss";
 
 export const Users = () => {
+  const [usersData, setUsersData] = useState<UsersData>();
+
+  useEffect(() => {
+    getAllUsers().then(setUsersData);
+  }, []);
+
   return (
     <main>
       <h1>All users</h1>
       <section className="Section-Two">
         <div className="container PostsGallery">
-          {userData.map((user) => {
+          {usersData?.users.map((user) => {
             return <CardUser userData={user} />;
           })}
         </div>

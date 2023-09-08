@@ -1,5 +1,5 @@
 import UserData from "../../models/UserData";
-import "./Post/CardPost.scss";
+import "../Post/CardPost.scss";
 
 interface UserDataProps {
   userData: UserData;
