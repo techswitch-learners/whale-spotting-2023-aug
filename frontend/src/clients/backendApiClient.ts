@@ -85,3 +85,23 @@ export const createWhalePost = async (
   });
   return await response.json();
 };
+
+export const createEvent = async (
+  startDate: Date,
+  duration: number,
+  location: string,
+  eventLink: string,
+  eventImageUrl: string,
+): Promise<boolean> => {
+  const response = await fetch(`${backendUrl}/Event`, {
+    method: "post",
+    body: JSON.stringify({
+      startDate,
+      duration,
+      location,
+      eventLink,
+      eventImageUrl,
+    }),
+  });
+  return await response.json();
+};
