@@ -3,6 +3,7 @@ import {
   backendUrl,
   checkBackendConnection,
 } from "../clients/backendApiClient";
+import Button from "./UI/Button";
 
 export const BackendConnectionChecker = () => {
   const [canConnect, setCanConnect] = useState<boolean>();
@@ -43,7 +44,7 @@ export const BackendConnectionChecker = () => {
         <strong>Unable to connect to backend</strong> (tried connecting to{" "}
         <code>{backendUrl}</code>). Is it definitely running?
       </p>
-      <button onClick={checkAgain}>Check again</button>
+      <Button onClick={checkAgain}>Check again</Button>
     </>
   );
 };

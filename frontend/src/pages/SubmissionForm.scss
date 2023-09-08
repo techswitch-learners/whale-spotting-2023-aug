@@ -1,0 +1,50 @@
+@import "../styles/variables";
+
+.submission-form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+
+  .submission-form-children {
+    margin-top: 1rem;
+  }
+
+  input,
+  select {
+    padding: 0.5rem;
+  }
+
+  .image-upload {
+    padding: 0;
+  }
+}
+
+.w3w-logo {
+  width: 4rem;
+  bottom: 0;
+  margin-bottom: -0.3rem;
+  margin-left: 1rem;
+}
+
+.location-container {
+  display: flex;
+  justify-content: space-between;
+
+  .location-error-message {
+    display: block;
+  }
+}
+
+.latlon-container {
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  input {
+    width: 50%;
+  }
+}
+
+.error-message {
+  color: $color-error;
+}
