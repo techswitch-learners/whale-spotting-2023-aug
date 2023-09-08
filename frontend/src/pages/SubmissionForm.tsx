@@ -46,6 +46,9 @@ const SubmissionForm = () => {
     getAllSpecies().then(setSpeciesListData);
   }, []);
 
+  const openW3W = () =>
+    window.open("https://what3words.com/pretty.needed.chill", "_blank");
+
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
@@ -122,35 +125,31 @@ const SubmissionForm = () => {
           />
 
           <div className="location-container submission-form-children">
-            <p>
-              <label htmlFor="location">Location</label>
-              <a
-                href="https://what3words.com/pretty.needed.chill"
-                target="popup"
-              >
-                <img
-                  src={w3w_logo}
-                  className="w3w-logo"
-                  alt="what 3 words logo, click here to open the page"
-                />
-                (click to open what3words)
-              </a>
-            </p>
+            <label htmlFor="location">Location</label>
             <span className=" error-message location-error-message">
               {locationErrorMessage}
             </span>
           </div>
-          <input
-            type="text"
-            id="w3w"
-            name="w3w"
-            placeholder="Enter your what3words"
-            value={w3w}
-            onChange={(event) => {
-              setW3w(event.target.value);
-            }}
-          />
-          <span>or</span>
+          <div className="w3w-container">
+            <input
+              type="text"
+              id="w3w"
+              name="w3w"
+              placeholder="Enter your what3words"
+              value={w3w}
+              onChange={(event) => {
+                setW3w(event.target.value);
+              }}
+            />
+            <Button type="button" onClick={openW3W}>
+              <img
+                src={w3w_logo}
+                className="w3w-logo"
+                alt="what 3 words logo, click here to open the page"
+              />
+            </Button>
+          </div>
+          <p>or</p>
           <div className="latlon-container">
             <input
               type="number"
