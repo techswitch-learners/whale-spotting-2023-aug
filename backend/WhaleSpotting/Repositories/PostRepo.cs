@@ -2,7 +2,7 @@
 using WhaleSpotting.Models.Request;
 using WhaleSpotting.Enums;
 using Microsoft.EntityFrameworkCore;
-using WhaleSpotting.Helpers;
+using WhaleSpotting.Services;
 
 namespace WhaleSpotting.Repositories;
 
@@ -10,17 +10,19 @@ public interface IPostRepo
 {
     public Post GetById(int id);
     public Post GetByUserId(int id);
-    public Post Create(PostRequest newPostRequest);
+    public Task<Post> Create(PostRequest newPostRequest);
     public List<Post> GetAll();
 }
 
 public class PostRepo : IPostRepo
 {
     private readonly WhaleSpottingContext _context;
+    private readonly IBodyOfWaterService _bodyOfWaterService;
 
-    public PostRepo(WhaleSpottingContext context)
+    public PostRepo(WhaleSpottingContext context, IBodyOfWaterService bodyOfWaterService)
     {
         _context = context;
+        _bodyOfWaterService = bodyOfWaterService;
     }
 
     public Post GetById(int id)
@@ -65,12 +67,25 @@ public class PostRepo : IPostRepo
             .ToList();
     }
 
-    public Post Create(PostRequest newPostRequest)
+    public async Task<Post> Create(PostRequest newPostRequest)
     {
         var user = _context.Users.SingleOrDefault(user => user.Id == newPostRequest.UserId);
 
         var species = _context.Species.SingleOrDefault(
             species => species.Id == newPostRequest.SpeciesId
+        );
+
+        var bodyOfWater = _bodyOfWaterService.GetByLocation(
+            newPostRequest.Latitude
+                ?? throw new ArgumentNullException(
+                    nameof(newPostRequest),
+                    "Property \"Latitude\" must not be null"
+                ),
+            newPostRequest.Longitude
+                ?? throw new ArgumentNullException(
+                    nameof(newPostRequest),
+                    "Property \"Longitude\" must not be null"
+                )
         );
 
         var newPost = new Post
@@ -111,6 +126,7 @@ public class PostRepo : IPostRepo
                     nameof(newPostRequest),
                     "Property \"Description\" must not be null"
                 ),
+            BodyOfWater = await bodyOfWater,
             Timestamp = DateTime.Now,
             ApprovalStatus = ApprovalStatus.Pending,
             Rating = 0,

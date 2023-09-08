@@ -6,7 +6,7 @@ namespace WhaleSpotting.Services;
 
 public interface IPostService
 {
-    public Post Create(PostRequest newPostRequest);
+    public Task<Post> Create(PostRequest newPostRequest);
     public Post GetById(int id);
     public List<Post> GetAll();
 }
@@ -20,9 +20,9 @@ public class PostService : IPostService
         _posts = posts;
     }
 
-    public Post Create(PostRequest newPostRequest)
+    public async Task<Post> Create(PostRequest newPostRequest)
     {
-        return _posts.Create(newPostRequest);
+        return await _posts.Create(newPostRequest);
     }
 
     public Post GetById(int id)
