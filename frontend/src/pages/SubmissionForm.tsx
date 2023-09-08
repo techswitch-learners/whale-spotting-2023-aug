@@ -181,7 +181,7 @@ const SubmissionForm = () => {
             required
             onChange={(event) => setSpecies(parseInt(event.target.value))}
           >
-            <option>
+            <option selected disabled>
               {speciesListData ? "Choose species" : "Choose species (loading)"}
             </option>
             {speciesListData?.speciesList
