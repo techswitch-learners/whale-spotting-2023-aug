@@ -18,6 +18,7 @@ const SubmissionForm = () => {
   const [lat, setLat] = useState<number>(NaN);
   const [lon, setLon] = useState<number>(NaN);
   const [species, setSpecies] = useState<number>(NaN);
+  const [whaleName, setWhaleName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [imageUrl, setImageUrl] = useState<string>("");
   const [locationErrorMessage, setLocationErrorMessage] = useState<string>("");
@@ -65,6 +66,9 @@ const SubmissionForm = () => {
       setSpeciesErrorMessage("Please select a species");
       return;
     }
+    if (whaleName === "") {
+      setWhaleName("unknown");
+    }
 
     if (w3w && !validW3wPattern.test(w3w)) {
       setLocationErrorMessage("Please enter a valid what3words");
@@ -85,7 +89,7 @@ const SubmissionForm = () => {
         );
     }
     if (lat && lon) {
-      createWhalePost(date, lat, lon, species, description, imageUrl)
+      createWhalePost(date, lat, lon, species, whaleName, description, imageUrl)
         .then(() => {
           setSuccessMessage("Thank you for your submission");
         })
@@ -192,7 +196,17 @@ const SubmissionForm = () => {
               ))}
           </select>
 
-          <label htmlFor="date" className="submission-form-children">
+          <label className="submission-form-children" htmlFor="">
+            Whale Name
+          </label>
+          <input
+            type="text"
+            placeholder="Please enter whale name if known"
+            value={whaleName}
+            onChange={(event) => setWhaleName(event.target.value)}
+          />
+
+          <label htmlFor="description" className="submission-form-children">
             Description
           </label>
           <textarea

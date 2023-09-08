@@ -65,22 +65,24 @@ export const getAllSpecies = async (): Promise<SpeciesListData> => {
 };
 
 export const createWhalePost = async (
-  date: Date,
-  lat: number,
-  lon: number,
-  species: number,
-  description: string,
-  imageUrl: string,
+  Date: Date,
+  Latitude: number,
+  Longitude: number,
+  SpeciesId: number,
+  ImageUrl: string,
+  Description: string,
+  WhaleName: string,
 ): Promise<boolean> => {
   const response = await fetch(`${backendUrl}/Post`, {
     method: "post",
     body: JSON.stringify({
-      date,
-      lat,
-      lon,
-      species,
-      description,
-      imageUrl,
+      Date,
+      Latitude,
+      Longitude,
+      SpeciesId,
+      ImageUrl,
+      Description,
+      WhaleName,
     }),
   });
   return await response.json();
