@@ -1,6 +1,4 @@
 ﻿using WhaleSpotting.Models.Database;
-using WhaleSpotting.Models.Request;
-using WhaleSpotting.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace WhaleSpotting.Repositories;
@@ -8,9 +6,7 @@ namespace WhaleSpotting.Repositories;
 public interface IBodyOfWaterRepo
 {
     public BodyOfWater GetByName(string name);
-
     public BodyOfWater Create(BodyOfWater newBodyOfWater);
-
     public List<BodyOfWater> GetAll();
 }
 
@@ -39,14 +35,7 @@ public class BodyOfWaterRepo : IBodyOfWaterRepo
 
     public List<BodyOfWater> GetAll()
     {
-        try
-        {
-            return _context.BodiesOfWater.Include(user => user.Posts).ToList();
-        }
-        catch (InvalidOperationException)
-        {
-            throw new ArgumentException($"Users not found");
-        }
+        return _context.BodiesOfWater.Include(user => user.Posts).ToList();
     }
 
     public BodyOfWater Create(BodyOfWater newBodyOfWater)

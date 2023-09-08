@@ -19,7 +19,7 @@ public class BodyOfWaterController : ControllerBase
     public IActionResult GetAll()
     {
         var bodiesOfWater = _bodyOfWaterService.GetAll();
-        return Ok(new BodyOfWatersResponse(bodiesOfWater));
+        return Ok(new BodiesOfWaterResponse(bodiesOfWater));
     }
 
     [HttpGet("{name}")]

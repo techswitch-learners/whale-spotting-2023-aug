@@ -2,8 +2,6 @@
 using WhaleSpotting.Models.Request;
 using WhaleSpotting.Enums;
 using Microsoft.EntityFrameworkCore;
-using WhaleSpotting.Helpers;
-using System.ComponentModel;
 using WhaleSpotting.Services;
 
 namespace WhaleSpotting.Repositories;
