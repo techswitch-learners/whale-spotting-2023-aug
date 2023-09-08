@@ -7,14 +7,22 @@ import FeaturedPostContent from "../components/Post/FeaturedPostContent";
 import FeaturedFrame from "../components/UI/FeaturedFrame";
 import { getAllPosts } from "../clients/backendApiClient";
 import "./Posts.scss";
+import WhaleLoader from "../components/UI/WhaleLoader";
 
 export const Posts = () => {
   const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();
   const [postData, setPostData] = useState<PostData[]>();
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const fetchPosts = async () => {
     const posts = await getAllPosts();
-    setPostData(posts);
+    if (posts.length === 0) {
+      setErrorMessage("Unable to retrieve posts");
+    } else {
+      setPostData(posts);
+    }
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -24,7 +32,7 @@ export const Posts = () => {
   return (
     <main>
       <h1>Sightings</h1>
-      {postData ? (
+      {!isLoading && postData ? (
         <>
           <section className="section-dark">
             <div className="container">
@@ -58,7 +66,10 @@ export const Posts = () => {
           )}
         </>
       ) : (
-        <p>Loading...</p>
+        <WhaleLoader
+          isLoading={isLoading}
+          message={isLoading ? "loading" : errorMessage}
+        />
       )}
     </main>
   );

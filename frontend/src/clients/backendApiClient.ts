@@ -76,7 +76,11 @@ export const createWhalePost = async (
 };
 
 export const getAllPosts = async (): Promise<PostData[]> => {
-  const response = await fetch(`${backendUrl}/Post/all`);
-  const jsonResponse = await response.json();
-  return jsonResponse.posts;
+  try {
+    const response = await fetch(`${backendUrl}/Post/all`);
+    const jsonResponse = await response.json();
+    return jsonResponse.posts;
+  } catch {
+    return [];
+  }
 };

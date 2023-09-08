@@ -1,0 +1,144 @@
+$whaley-loader-diameter: 15rem;
+$whaley-gutter: 2rem;
+
+.WhaleLoader {
+  padding: $whaley-gutter;
+  width: calc($whaley-loader-diameter + 2 * $whaley-gutter);
+
+  display: flex;
+  flex-direction: column;
+  gap: $whaley-gutter;
+
+  margin: auto;
+
+  &__image {
+    &__container {
+      width: $whaley-loader-diameter;
+      height: $whaley-loader-diameter;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+
+    &__wave {
+      stroke-dasharray: 200;
+
+      &:nth-child(2) {
+        animation-delay: 0.5ms;
+      }
+      &:nth-child(3) {
+        animation-delay: 0.2s;
+      }
+    }
+
+    &__wavy-line {
+      transform-origin: center center;
+    }
+  }
+
+  &__animation {
+    &__shake {
+      animation: shake 2s cubic-bezier(0.38, 0.06, 0.22, 0.95) infinite;
+    }
+
+    &__wave-forwards {
+      stroke-dashoffset: 200;
+      animation: dashTo 1.7s cubic-bezier(0.38, 0.06, 0.22, 0.95) infinite;
+      animation-direction: alternate;
+      animation-fill-mode: both;
+    }
+
+    &__animate-sea {
+      animation: seaWave 2s cubic-bezier(0.38, 0.06, 0.22, 0.95) infinite;
+    }
+
+    &__close-eye {
+      animation: closeEye 4s infinite;
+    }
+
+    &__open-eye {
+      animation: openEye 4s infinite;
+    }
+  }
+
+  &__message {
+    text-align: center;
+  }
+}
+
+@keyframes closeEye {
+  0%,
+  10% {
+    opacity: 1;
+  }
+  11%,
+  90% {
+    opacity: 0;
+  }
+  91%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes openEye {
+  0%,
+  20% {
+    opacity: 0;
+  }
+  21%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes seaWave {
+  50% {
+    transform: scaleX(1.03);
+  }
+}
+
+@keyframes dashTo {
+  from {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes shake {
+  5%,
+  85% {
+    transform: translate3d(-2px, 0, 0);
+  }
+  10%,
+  90% {
+    transform: translate3d(2px, 0, 0);
+  }
+  15%,
+  75% {
+    transform: translate3d(-3px, 0, 0);
+  }
+  20%,
+  80% {
+    transform: translate3d(3px, 0, 0);
+  }
+  25%,
+  35%,
+  55%,
+  65% {
+    transform: translate3d(-4px, -1px, 0);
+  }
+  30%,
+  40%,
+  60%,
+  70% {
+    transform: translate3d(4px, 1px, 0);
+  }
+  45% {
+    transform: translate3d(-5px, -1px, 0);
+  }
+  50% {
+    transform: translate3d(5px, 1px, 0);
+  }
+  95% {
+    transform: translate3d(-1px, 0, 0);
+  }
+}
