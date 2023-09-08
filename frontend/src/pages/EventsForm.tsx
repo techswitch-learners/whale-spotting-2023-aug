@@ -15,6 +15,7 @@ const EventsForm = () => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
+    console.log(startDate, duration, location, eventLink, eventImageUrl);
     createEvent(startDate, duration, location, eventLink, eventImageUrl)
       .then(() => {
         setSuccessMessage("Thank you for your submission");
