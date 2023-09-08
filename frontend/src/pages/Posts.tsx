@@ -8,6 +8,7 @@ import FeaturedFrame from "../components/UI/FeaturedFrame";
 import { getAllPosts } from "../clients/backendApiClient";
 import WhaleLoader from "../components/UI/WhaleLoader";
 import "./Posts.scss";
+import Button from "../components/UI/Button";
 
 export const Posts = () => {
   const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();
@@ -16,8 +17,9 @@ export const Posts = () => {
   const [errorMessage, setErrorMessage] = useState<string>();
 
   const fetchPosts = async () => {
-    setErrorMessage(undefined);
     setIsLoading(true);
+    setPostData(undefined);
+    setErrorMessage(undefined);
 
     const { posts, status } = await getAllPosts();
 
@@ -43,10 +45,17 @@ export const Posts = () => {
   if (isLoading || errorMessage) {
     return (
       <main>
-        <WhaleLoader
-          isLoading={isLoading}
-          message={isLoading ? "loading" : errorMessage}
-        />
+        <section className="section-dark">
+          <div className="container Posts__loader">
+            <WhaleLoader
+              isLoading={isLoading}
+              message={isLoading ? "loading" : errorMessage}
+            />
+            {errorMessage && (
+              <Button onClick={() => fetchPosts()}>Try Again</Button>
+            )}
+          </div>
+        </section>
       </main>
     );
   }
@@ -54,7 +63,7 @@ export const Posts = () => {
   return (
     <main>
       <h1>Sightings</h1>
-      {postData && postData.length === 0 ? (
+      {postData && postData.length > 0 ? (
         <>
           <section className="section-dark">
             <div className="container">
@@ -88,7 +97,11 @@ export const Posts = () => {
           )}
         </>
       ) : (
-        <p>No posts found</p>
+        <section className="section-dark">
+          <div className="container">
+            <h2 className="Posts__None__heading">No Posts Found</h2>
+          </div>
+        </section>
       )}
     </main>
   );

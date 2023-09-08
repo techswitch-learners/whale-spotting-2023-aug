@@ -2,8 +2,7 @@ $whaley-loader-diameter: 15rem;
 $whaley-gutter: 2rem;
 
 .WhaleLoader {
-  padding: $whaley-gutter;
-  width: calc($whaley-loader-diameter + 2 * $whaley-gutter);
+  width: $whaley-loader-diameter;
 
   display: flex;
   flex-direction: column;
