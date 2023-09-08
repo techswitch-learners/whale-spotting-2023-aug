@@ -1,6 +1,7 @@
 import LatitudeLongitude from "../models/LatitudeLongitude";
 import SpeciesListData from "../models/SpeciesListData";
 import UsersData from "../models/UsersData";
+import UserData from "../models/UserData";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -28,6 +29,11 @@ export const tryEmailAndPassword = async (
     },
   });
   return response.ok;
+};
+
+export const GetById = async (id: number): Promise<UserData> => {
+  const response = await fetch(`${backendUrl}/User/${id}`);
+  return response.json();
 };
 
 export const registerNewUser = async (

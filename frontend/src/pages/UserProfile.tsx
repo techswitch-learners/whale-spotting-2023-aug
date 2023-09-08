@@ -1,38 +1,40 @@
-// import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./UserProfile.scss";
+import UserData from "../models/UserData";
+import { GetById } from "../clients/backendApiClient";
 
-function UserProfile() {
-  const hardcodedUserInfo = {
-    name: "Anthony Wilson",
-    email: "anthony.whale@gmail.com",
-    memberSince: "17th July 2222",
-    userName: "whalelover123",
-    profileImageUrl:
-      "https://t3.ftcdn.net/jpg/00/88/76/06/360_F_88760637_XGc6SZe1IsXRKTrqYa0Vr2lOintmCYzZ.jpg",
-    ranking: 5,
+export const UserProfile = () => {
+  const [userProfile, setUserProfile] = useState<UserData>();
+  const fetchUserProfile = async () => {
+    const profile = await GetById(1);
+    setUserProfile(profile);
   };
-
-  //   const userInfo = useState(hardcodedUserInfo);
-  //   const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    fetchUserProfile();
+  }, []);
 
   return (
-    <div className="user-page container">
-      <div className="Namepic container">
-        <img
-          src={hardcodedUserInfo.profileImageUrl}
-          alt="{hardcodedUserInfo.name}'s profile picture"
-          className="profileimage"
-        />
-        <h1>{hardcodedUserInfo.userName}</h1>
-      </div>
-      <div className="user-info container">
-        <p className="user-fullname">Name: {hardcodedUserInfo.name}</p>
-        <p className="user-">Email: {hardcodedUserInfo.email}</p>
-        <p>Member since: {hardcodedUserInfo.memberSince}</p>
-        <p>Rating: {hardcodedUserInfo.ranking} </p>
-      </div>
+    <div>
+      {userProfile ? (
+        <div className="user-page container">
+          <div className="Namepic container">
+            <img
+              src={userProfile.profileImageUrl}
+              alt="{hardcodedUserInfo.name}'s profile picture"
+              className="profileimage"
+            />
+            <h1>{userProfile.username}</h1>
+          </div>
+          <div className="user-info container">
+            <p className="user-fullname">Name: {userProfile.name}</p>
+            <p className="user-">Email: {userProfile.email}</p>
+          </div>
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
-}
+};
 
 export default UserProfile;
