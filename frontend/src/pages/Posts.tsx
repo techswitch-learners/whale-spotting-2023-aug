@@ -40,10 +40,21 @@ export const Posts = () => {
     fetchPosts();
   }, []);
 
+  if (isLoading || errorMessage) {
+    return (
+      <main>
+        <WhaleLoader
+          isLoading={isLoading}
+          message={isLoading ? "loading" : errorMessage}
+        />
+      </main>
+    );
+  }
+
   return (
     <main>
       <h1>Sightings</h1>
-      {!isLoading && postData ? (
+      {postData && postData.length === 0 ? (
         <>
           <section className="section-dark">
             <div className="container">
@@ -77,22 +88,7 @@ export const Posts = () => {
           )}
         </>
       ) : (
-        ""
-      )}
-
-      {!isLoading && postData && postData.length === 0 ? (
         <p>No posts found</p>
-      ) : (
-        ""
-      )}
-
-      {isLoading || errorMessage ? (
-        <WhaleLoader
-          isLoading={isLoading}
-          message={isLoading ? "loading" : errorMessage}
-        />
-      ) : (
-        ""
       )}
     </main>
   );
