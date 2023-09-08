@@ -32,9 +32,7 @@ public class BodyOfWaterResponse
         Name = bodyOfWater.Name;
         if (bodyOfWater.Posts != null)
         {
-            Posts =
-                bodyOfWater.Posts.Select(post => new BodyofWaterPost(post)).ToList();
-
+            Posts = bodyOfWater.Posts.Select(post => new BodyofWaterPost(post)).ToList();
         }
     }
 }

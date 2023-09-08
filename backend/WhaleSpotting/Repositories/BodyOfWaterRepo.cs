@@ -9,7 +9,9 @@ public interface IBodyOfWaterRepo
 {
     public BodyOfWater GetByName(string name);
 
-    public List<BodyOfWater> GetAllWaters();
+    public BodyOfWater Create(BodyOfWater newBodyOfWater);
+
+    public List<BodyOfWater> GetAll();
 }
 
 public class BodyOfWaterRepo : IBodyOfWaterRepo
@@ -35,17 +37,23 @@ public class BodyOfWaterRepo : IBodyOfWaterRepo
         }
     }
 
-    public List<BodyOfWater> GetAllWaters()
+    public List<BodyOfWater> GetAll()
     {
         try
         {
-            return _context.BodiesOfWater
-                .Include(user => user.Posts)
-                .ToList();
+            return _context.BodiesOfWater.Include(user => user.Posts).ToList();
         }
         catch (InvalidOperationException)
         {
             throw new ArgumentException($"Users not found");
         }
+    }
+
+    public BodyOfWater Create(BodyOfWater newBodyOfWater)
+    {
+        var insertedEntity = _context.BodiesOfWater.Add(newBodyOfWater);
+        _context.SaveChanges();
+
+        return insertedEntity.Entity;
     }
 }

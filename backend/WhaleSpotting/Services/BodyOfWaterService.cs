@@ -9,7 +9,11 @@ public interface IBodyOfWaterService
 {
     public BodyOfWater GetByName(string name);
 
-    public List<BodyOfWater> GetAllWaters();
+    public List<BodyOfWater> GetAll();
+
+    public BodyOfWater Create(BodyOfWater newBodyOfWater);
+
+    public Task<BodyOfWater?> GetByLocation(double lat, double lon);
 }
 
 public class BodyOfWaterService : IBodyOfWaterService
@@ -30,26 +34,43 @@ public class BodyOfWaterService : IBodyOfWaterService
         return _bodiesOfWater.GetByName(name);
     }
 
-    public List<BodyOfWater> GetAllWaters()
+    public List<BodyOfWater> GetAll()
     {
-        return _bodiesOfWater.GetAllWaters();
+        return _bodiesOfWater.GetAll();
     }
 
-    public async Task<BodyOfWater> GetByLocation(double lat, double lon)
+    public BodyOfWater Create(BodyOfWater newBodyOfWater)
     {
-        var GeoapifyApiKey = _config["GeoapifyKey"];
+        return _bodiesOfWater.Create(newBodyOfWater);
+    }
+
+    public async Task<BodyOfWater?> GetByLocation(double lat, double lon)
+    {
+        var GeoReverseApiKey = _config["GeoReverseApiKey"];
+        Console.WriteLine("GeoReverseApiKey");
+        Console.WriteLine(GeoReverseApiKey);
 
         var response = await _client.GetFromJsonAsync<GeoapifyBodyOfWater>(
-            $"https://api.geoapify.com/v1/geocode/reverse?lat={lat}&lon={lon}&apiKey={GeoapifyApiKey}"
+            $"https://api.geoapify.com/v1/geocode/reverse?lat={lat}&lon={lon}&apiKey={GeoReverseApiKey}"
         );
 
-        if (response?.Features?[0].Properties?.Name == null)
+        var waterName = response?.Features?[0].Properties?.Name;
+
+        if (waterName != null)
         {
-            return null;
+            BodyOfWater bodyOfWater;
+
+            bodyOfWater = GetByName(waterName);
+
+            if (bodyOfWater != null)
+            {
+                return bodyOfWater;
+            }
+            else
+            {
+                return Create(new BodyOfWater() { Name = waterName, Posts = new List<Post>() });
+            }
         }
-        else
-        {
-            return response?.Features[0]?.Properties?.Name;
-        }
+        return null;
     }
 }

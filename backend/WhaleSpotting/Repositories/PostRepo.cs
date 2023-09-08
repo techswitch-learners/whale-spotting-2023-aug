@@ -4,6 +4,7 @@ using WhaleSpotting.Enums;
 using Microsoft.EntityFrameworkCore;
 using WhaleSpotting.Helpers;
 using System.ComponentModel;
+using WhaleSpotting.Services;
 
 namespace WhaleSpotting.Repositories;
 
@@ -11,17 +12,19 @@ public interface IPostRepo
 {
     public Post GetById(int id);
     public Post GetByUserId(int id);
-    public Post Create(PostRequest newPostRequest);
+    public Task<Post> Create(PostRequest newPostRequest);
     public List<Post> GetAll();
 }
 
 public class PostRepo : IPostRepo
 {
     private readonly WhaleSpottingContext _context;
+    private readonly IBodyOfWaterService _bodyOfWaterService;
 
-    public PostRepo(WhaleSpottingContext context)
+    public PostRepo(WhaleSpottingContext context, IBodyOfWaterService bodyOfWaterService)
     {
         _context = context;
+        _bodyOfWaterService = bodyOfWaterService;
     }
 
     public Post GetById(int id)
@@ -66,7 +69,7 @@ public class PostRepo : IPostRepo
             .ToList();
     }
 
-    public Post Create(PostRequest newPostRequest)
+    public async Task<Post> Create(PostRequest newPostRequest)
     {
         var user = _context.Users.SingleOrDefault(user => user.Id == newPostRequest.UserId);
 
@@ -74,12 +77,17 @@ public class PostRepo : IPostRepo
             species => species.Id == newPostRequest.SpeciesId
         );
 
-        var marineArea = BowHelper
-            .GetBodyOfWater((double)newPostRequest.Latitude, (double)newPostRequest.Longitude)
-            .Result;
-
-        var bodyOfWater = _context.BodiesOfWater.SingleOrDefault(
-            bodyOfWater => bodyOfWater.Name == marineArea
+        var bodyOfWater = _bodyOfWaterService.GetByLocation(
+            newPostRequest.Latitude
+                ?? throw new ArgumentNullException(
+                    nameof(newPostRequest),
+                    "Property \"Latitude\" must not be null"
+                ),
+            newPostRequest.Longitude
+                ?? throw new ArgumentNullException(
+                    nameof(newPostRequest),
+                    "Property \"Longitude\" must not be null"
+                )
         );
 
         var newPost = new Post
@@ -120,12 +128,7 @@ public class PostRepo : IPostRepo
                     nameof(newPostRequest),
                     "Property \"Description\" must not be null"
                 ),
-            BodyOfWater =
-                bodyOfWater
-                ?? throw new ArgumentNullException(
-                    nameof(newPostRequest),
-                    "Property \"Description\" must not be null"
-                ),
+            BodyOfWater = await bodyOfWater,
             Timestamp = DateTime.Now,
             ApprovalStatus = ApprovalStatus.Pending,
             Rating = 0,

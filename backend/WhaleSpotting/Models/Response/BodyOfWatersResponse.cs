@@ -8,6 +8,8 @@ public class BodyOfWatersResponse
 
     public BodyOfWatersResponse(List<BodyOfWater> bodyOfWaters)
     {
-        BodyOfWaters = bodyOfWaters.Select(bodyOfWater => new BodyOfWaterResponse(bodyOfWater)).ToList();
+        BodyOfWaters = bodyOfWaters
+            .Select(bodyOfWater => new BodyOfWaterResponse(bodyOfWater))
+            .ToList();
     }
 }

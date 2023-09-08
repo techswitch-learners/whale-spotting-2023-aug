@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using WhaleSpotting.Models.Request;
 using WhaleSpotting.Models.Response;
 using WhaleSpotting.Services;
 
@@ -17,18 +16,10 @@ public class BodyOfWaterController : ControllerBase
     }
 
     [HttpGet("all")]
-    public IActionResult GetAllWaters()
+    public IActionResult GetAll()
     {
-        try
-        {
-            var bodyOfWaters = _bodyOfWaterService.GetAllWaters();
-            return Ok(new BodyOfWatersResponse(bodyOfWaters));
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-            return NotFound();
-        }
+        var bodiesOfWater = _bodyOfWaterService.GetAll();
+        return Ok(new BodyOfWatersResponse(bodiesOfWater));
     }
 
     [HttpGet("{name}")]
@@ -39,24 +30,8 @@ public class BodyOfWaterController : ControllerBase
             var bodyOfWater = _bodyOfWaterService.GetByName(name);
             return Ok(new BodyOfWaterResponse(bodyOfWater));
         }
-        catch (Exception ex)
+        catch (ArgumentException)
         {
-            Console.WriteLine(ex.Message);
-            return NotFound();
-        }
-    }
-
-    [HttpGet("")]
-    public IActionResult GetByLocation([FromQuery] string name)
-    {
-        try
-        {
-            var bodyOfWater = _bodyOfWaterService.GetByName(name);
-            return Ok(new BodyOfWaterResponse(bodyOfWater));
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
             return NotFound();
         }
     }
