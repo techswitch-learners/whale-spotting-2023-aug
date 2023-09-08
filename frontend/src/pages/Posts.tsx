@@ -13,15 +13,26 @@ export const Posts = () => {
   const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();
   const [postData, setPostData] = useState<PostData[]>();
   const [isLoading, setIsLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState<string>();
 
   const fetchPosts = async () => {
-    const posts = await getAllPosts();
-    if (posts.length === 0) {
-      setErrorMessage("Unable to retrieve posts");
+    setErrorMessage(undefined);
+    setIsLoading(true);
+
+    const { posts, status } = await getAllPosts();
+
+    if (!status.ok) {
+      let errorMessage = "";
+      if (status.code) {
+        errorMessage = `Status Code: ${status.code}, `;
+      }
+      errorMessage += `Error Message: ${status.text}`;
+      setErrorMessage(errorMessage);
     } else {
+      setErrorMessage(undefined);
       setPostData(posts);
     }
+
     setIsLoading(false);
   };
 
@@ -66,10 +77,22 @@ export const Posts = () => {
           )}
         </>
       ) : (
+        ""
+      )}
+
+      {!isLoading && postData && postData.length === 0 ? (
+        <p>No posts found</p>
+      ) : (
+        ""
+      )}
+
+      {isLoading || errorMessage ? (
         <WhaleLoader
           isLoading={isLoading}
           message={isLoading ? "loading" : errorMessage}
         />
+      ) : (
+        ""
       )}
     </main>
   );

@@ -1,5 +1,5 @@
 import LatitudeLongitude from "../models/LatitudeLongitude";
-import PostData from "../models/PostData";
+import PostDataResponse from "../models/PostDataResponse";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -75,12 +75,30 @@ export const createWhalePost = async (
   return await response.json();
 };
 
-export const getAllPosts = async (): Promise<PostData[]> => {
+export const getAllPosts = async (): Promise<PostDataResponse> => {
   try {
     const response = await fetch(`${backendUrl}/Post/all`);
+
+    if (!response.ok) {
+      return {
+        status: {
+          ok: response.ok,
+          code: response.status,
+          text: response.statusText,
+        },
+      };
+    }
+
     const jsonResponse = await response.json();
-    return jsonResponse.posts;
+    return {
+      posts: jsonResponse.posts,
+      status: {
+        ok: response.ok,
+        code: response.status,
+        text: response.statusText,
+      },
+    };
   } catch {
-    return [];
+    return { status: { ok: false, text: "Fetch request failed" } };
   }
 };
