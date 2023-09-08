@@ -172,7 +172,6 @@ const WhaleLoader = ({ isLoading, message }: WhaleLoaderProps) => {
                 <path
                   d="M395.6,267.2c-1.4,6.1-7.7,10.7-15.1,10.7s-13.1-4.2-14.9-9.8"
                   fill="#9bb0d4"
-                  // style="mix-blend-mode: multiply"
                 />
                 <path
                   d="M393.1,264.2c-1.2,3.6-6.4,6.2-12.6,6.2s-10.9-2.4-12.4-5.7"
