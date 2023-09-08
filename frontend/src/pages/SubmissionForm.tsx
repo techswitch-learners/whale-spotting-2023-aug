@@ -6,8 +6,8 @@ import {
   getAllSpecies,
 } from "../clients/backendApiClient";
 import Button from "../components/UI/Button";
+import SpeciesListData from "../models/SpeciesListData";
 import "./SubmissionForm.scss";
-import SpeciesOptions from "../models/SpeciesOptions";
 
 const SubmissionForm = () => {
   const today = new Date();
@@ -23,7 +23,7 @@ const SubmissionForm = () => {
   const [locationErrorMessage, setLocationErrorMessage] = useState<string>("");
   const [speciesErrorMessage, setSpeciesErrorMessage] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
-  const [speciesOptions, setSpeciesOptions] = useState<[]>([]);
+  const [speciesListData, setSpeciesListData] = useState<SpeciesListData>();
 
   const validW3wPattern = /^(\/\/\/)?[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]+$/g;
 
@@ -43,9 +43,7 @@ const SubmissionForm = () => {
   }, [w3w]);
 
   useEffect(() => {
-    getAllSpecies().then((data) => {
-      setSpeciesOptions(data);
-    });
+    getAllSpecies().then(setSpeciesListData);
   }, []);
 
   const handleSubmit = (event: FormEvent) => {
@@ -184,9 +182,12 @@ const SubmissionForm = () => {
             required
             onChange={(event) => setSpecies(parseInt(event.target.value))}
           >
-            {speciesOptions
-              .sort((a: SpeciesOptions, b: SpeciesOptions) => a.id - b.id)
-              .map((species: SpeciesOptions) => (
+            <option>
+              {speciesListData ? "Choose species" : "Choose species (loading)"}
+            </option>
+            {speciesListData?.speciesList
+              .sort((a, b) => a.id - b.id)
+              .map((species) => (
                 <option value={species.id}>{species.name}</option>
               ))}
           </select>

@@ -1,4 +1,5 @@
 import LatitudeLongitude from "../models/LatitudeLongitude";
+import SpeciesListData from "../models/SpeciesListData";
 import UsersData from "../models/UsersData";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -58,8 +59,8 @@ export const getLatitudeLongitude = async (
   return await response.json();
 };
 
-export const getAllSpecies = async (): Promise<[]> => {
-  const response = await fetch(`${backendUrl}/Species`);
+export const getAllSpecies = async (): Promise<SpeciesListData> => {
+  const response = await fetch(`${backendUrl}/Species/all`);
   return await response.json();
 };
 

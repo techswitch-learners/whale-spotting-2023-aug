@@ -16,10 +16,10 @@ public class SpeciesController : ControllerBase
         _speciesService = speciesService;
     }
 
-    [HttpGet("")]
-    public IActionResult GetAllSpecies()
+    [HttpGet("all")]
+    public IActionResult GetAll()
     {
-        List<Species> species = _speciesService.GetAllSpecies();
-        return Ok(species);
+        List<Species> species = _speciesService.GetAll();
+        return Ok(new SpeciesListResponse(species));
     }
 }

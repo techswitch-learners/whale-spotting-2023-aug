@@ -1,10 +1,11 @@
-﻿using WhaleSpotting.Models.Database;
+﻿using Microsoft.EntityFrameworkCore;
+using WhaleSpotting.Models.Database;
 
 namespace WhaleSpotting.Repositories;
 
 public interface ISpeciesRepo
 {
-    public List<Species> GetAllSpecies();
+    public List<Species> GetAll();
 }
 
 public class SpeciesRepo : ISpeciesRepo
@@ -16,8 +17,8 @@ public class SpeciesRepo : ISpeciesRepo
         _context = context;
     }
 
-    public List<Species> GetAllSpecies()
+    public List<Species> GetAll()
     {
-        return _context.Species.ToList();
+        return _context.Species.Include(species => species.Whales).ToList();
     }
 }
