@@ -5,10 +5,12 @@ import { GetById } from "../clients/backendApiClient";
 
 export const UserProfile = () => {
   const [userProfile, setUserProfile] = useState<UserData>();
+
   const fetchUserProfile = async () => {
-    const profile = await GetById(1);
+    const profile = await GetById(1); // need to amend hardcode
     setUserProfile(profile);
   };
+
   useEffect(() => {
     fetchUserProfile();
   }, []);

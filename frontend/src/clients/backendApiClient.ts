@@ -32,7 +32,7 @@ export const tryEmailAndPassword = async (
 };
 
 export const GetById = async (id: number): Promise<UserData> => {
-  const response = await fetch(`${backendUrl}/User/${id}`);
+  const response = await fetch(`${backendUrl}/User/${id}`); //need to change to {{id}}
   return response.json();
 };
 
