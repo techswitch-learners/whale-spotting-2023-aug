@@ -1,4 +1,5 @@
 import PostData from "../../models/PostData";
+import { toShortDate } from "../../utils/DateConversion";
 import shareIcon from "../../assets/share_icon.png";
 import postIcon from "../../assets/post_icon.png";
 import { convertLikesToString } from "../../utils/LikeConversion";
@@ -30,7 +31,7 @@ const CardPost = ({ postData, openModalAction }: PostDataProps) => {
       <div className="CardPost__info">
         <p className="CardPost__title">{postData.species.name}</p>
         <p className="CardPost__text">{postData.user.name}</p>
-        <p className="CardPost__text">{postData.timestamp}</p>
+        <p className="CardPost__text">{toShortDate(postData.timestamp)}</p>
       </div>
     </div>
   );
