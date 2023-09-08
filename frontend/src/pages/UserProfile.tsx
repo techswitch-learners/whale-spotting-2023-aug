@@ -17,15 +17,14 @@ function UserProfile() {
 
   return (
     <div className="user-page container">
-      <p>
+      <div className="Namepic container">
         <img
           src={hardcodedUserInfo.profileImageUrl}
           alt="{hardcodedUserInfo.name}'s profile picture"
           className="profileimage"
         />
-      </p>
-      <h1>{hardcodedUserInfo.userName}</h1>
-      {/* <p className="spacefiller"></p> */}
+        <h1>{hardcodedUserInfo.userName}</h1>
+      </div>
       <div className="user-info container">
         <p className="user-fullname">Name: {hardcodedUserInfo.name}</p>
         <p className="user-">Email: {hardcodedUserInfo.email}</p>
