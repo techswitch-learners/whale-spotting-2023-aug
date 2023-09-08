@@ -1,4 +1,4 @@
-import { UserData } from "../pages/Users";
+import UserData from "../models/UserData";
 import LatitudeLongitude from "../models/LatitudeLongitude";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;

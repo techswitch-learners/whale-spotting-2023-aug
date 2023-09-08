@@ -1,4 +1,4 @@
-import { UserData } from "../pages/Users";
+import UserData from "../../models/UserData";
 import "./Post/CardPost.scss";
 
 interface UserDataProps {

@@ -1,6 +1,6 @@
 import "../components/Post/CardPost.scss";
 import { retrieveUsers } from "../clients/backendApiClient";
-import CardUser from "../components/CardUser";
+import CardUser from "../components/User/CardUser";
 import UserData from "../models/UserData";
 
 const userData: UserData[] = [];
