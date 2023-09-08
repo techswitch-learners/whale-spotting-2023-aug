@@ -1,4 +1,5 @@
 import LatitudeLongitude from "../models/LatitudeLongitude";
+import PostData from "../models/PostData";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -72,4 +73,10 @@ export const createWhalePost = async (
     }),
   });
   return await response.json();
+};
+
+export const getAllPosts = async (): Promise<PostData[]> => {
+  const response = await fetch(`${backendUrl}/Post/all`);
+  const jsonResponse = await response.json();
+  return jsonResponse.posts;
 };
