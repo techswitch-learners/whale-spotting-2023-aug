@@ -6,6 +6,7 @@ import PostData from "../models/PostData";
 import FeaturedPostContent from "../components/Post/FeaturedPostContent";
 import FeaturedFrame from "../components/UI/FeaturedFrame";
 import "./Posts.scss";
+import FeaturedCarousel from "../components/UI/Carousel/FeaturedCarousel";
 
 const postData: PostData[] = [
   {
@@ -91,7 +92,33 @@ export const Posts = () => {
           </FeaturedFrame>
         </div>
       </section>
-
+      <section className="section-dark">
+        <div className="container">
+          <h2>Featured Carousel</h2>
+          <FeaturedCarousel
+            featuredItems={[
+              <FeaturedFrame imageUrl={postData[0].imageUrl}>
+                <FeaturedPostContent
+                  postData={postData[0]}
+                  openModalAction={() => setSelectedPostDetails(postData[0])}
+                />
+              </FeaturedFrame>,
+              <FeaturedFrame imageUrl={postData[1].imageUrl}>
+                <FeaturedPostContent
+                  postData={postData[1]}
+                  openModalAction={() => setSelectedPostDetails(postData[1])}
+                />
+              </FeaturedFrame>,
+              <FeaturedFrame imageUrl={postData[2].imageUrl}>
+                <FeaturedPostContent
+                  postData={postData[2]}
+                  openModalAction={() => setSelectedPostDetails(postData[2])}
+                />
+              </FeaturedFrame>,
+            ]}
+          />
+        </div>
+      </section>
       <section>
         <div className="container PostsGallery">
           {postData.map((post) => {
