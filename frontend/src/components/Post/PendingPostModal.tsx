@@ -1,16 +1,14 @@
-import { convertLikesToString } from "../../utils/LikeConversion";
 import PostData from "../../models/PostData";
-import shareIcon from "../../assets/share_icon.png";
-import postIcon from "../../assets/post_icon.png";
+import Button from "../UI/Button";
 import fullscreenIcon from "../../assets/fullscreen_icon.svg";
 
-import "./CardPostModal.scss";
+import "./PendingPostModal.scss";
 
 interface PostDataProps {
   postData: PostData;
 }
 
-const CardPostModal = ({ postData }: PostDataProps) => {
+const PendingPostModal = ({ postData }: PostDataProps) => {
   return (
     <div className="CardPostModal">
       <div className="CardPostModal__image__container">
@@ -67,12 +65,10 @@ const CardPostModal = ({ postData }: PostDataProps) => {
           </div>
         </div>
         <div className="CardPostModal__interactions">
-          <div className="CardPostModal__interactions__likes">
-            <img src={postIcon} alt="whale icon" />
-            <span>{convertLikesToString(postData.rating)}</span>
-          </div>
-          <div>
-            <img src={shareIcon} alt="share post" />
+          <div className="CardPostModal__admin__tools">
+            <Button className="Button__Approve">Approve</Button>
+            <Button className="Button__Modify">Modify</Button>
+            <Button className="Button__Reject">Reject</Button>
           </div>
         </div>
       </div>
@@ -80,4 +76,4 @@ const CardPostModal = ({ postData }: PostDataProps) => {
   );
 };
 
-export default CardPostModal;
+export default PendingPostModal;

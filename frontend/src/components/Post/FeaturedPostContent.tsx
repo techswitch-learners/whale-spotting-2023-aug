@@ -16,7 +16,7 @@ const FeaturedPostContent = ({ postData, openModalAction }: PostDataProps) => {
     <>
       <div className="FeaturedPostContent__heading">
         <h3 className="FeaturedPostContent__heading__title">
-          {postData.species}
+          {postData.species.name}
         </h3>
         <p className="FeaturedPostContent__heading__bodyofwater">
           South Atlantic
@@ -51,12 +51,12 @@ const FeaturedPostContent = ({ postData, openModalAction }: PostDataProps) => {
           View
         </Button>
         <div className="FeaturedPostContent__user">
-          <p className="FeaturedPostContent__text">{postData.username}</p>
+          <p className="FeaturedPostContent__text">{postData.user.name}</p>
           <div className="FeaturedPostContent__user__image-container">
             <img
               className="FeaturedPostContent__user__image"
               src="https://itsnotacareer.files.wordpress.com/2021/12/for-profile.jpg?w=816"
-              alt={`${postData.username}'s profile picture`}
+              alt={`${postData.user.name}'s profile picture`}
             />
           </div>
         </div>
@@ -65,7 +65,7 @@ const FeaturedPostContent = ({ postData, openModalAction }: PostDataProps) => {
       <div className="FeaturedPostContent__interactions">
         <div className="FeaturedPostContent__interactions__likes">
           <img src={postIcon} alt="whale icon" />
-          <span>{convertLikesToString(postData.likes)}</span>
+          <span>{convertLikesToString(postData.rating)}</span>
         </div>
         <div>
           <img src={shareIcon} alt="share post" />

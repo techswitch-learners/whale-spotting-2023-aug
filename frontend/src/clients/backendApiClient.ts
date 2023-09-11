@@ -1,6 +1,7 @@
 import LatitudeLongitude from "../models/LatitudeLongitude";
 import SpeciesListData from "../models/SpeciesListData";
 import UsersData from "../models/UsersData";
+import PostData from "../models/PostData";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -84,4 +85,14 @@ export const createWhalePost = async (
     }),
   });
   return await response.json();
+};
+
+export const getAllPendingPosts = async (): Promise<PostData[]> => {
+  try {
+    const response = await fetch(`${backendUrl}/Post/pending`);
+    const jsonResponse = await response.json();
+    return jsonResponse.posts;
+  } catch {
+    return [];
+  }
 };
