@@ -1,6 +1,7 @@
 ﻿using WhaleSpotting.Models.Database;
 using WhaleSpotting.Models.Request;
 using WhaleSpotting.Enums;
+using Microsoft.EntityFrameworkCore;
 
 namespace WhaleSpotting.Repositories;
 
@@ -8,6 +9,7 @@ public interface IEventRepo
 {
     public Event Create(EventRequest newEventRequest);
     Event GetById(int id);
+    List<Event> GetAll();
 }
 
 public class EventRepo : IEventRepo
@@ -52,8 +54,7 @@ public class EventRepo : IEventRepo
                 ?? throw new ArgumentNullException(
                     nameof(newEventRequest),
                     "Property \"EventImageUrl\" must not be null"
-                ),
-            Role = Role.Admin,
+                )
         };
 
         var insertedEntity = _context.Events.Add(newEvent);
@@ -64,6 +65,18 @@ public class EventRepo : IEventRepo
 
     public Event GetById(int id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            return _context.Events.Where(item => item.Id == id).Single();
+        }
+        catch (InvalidOperationException)
+        {
+            throw new ArgumentException($"Event with id ${id} not found");
+        }
+    }
+
+    public List<Event> GetAll()
+    {
+        return _context.Events.ToList();
     }
 }

@@ -8,6 +8,7 @@ public interface IEventService
 {
     public Event Create(EventRequest newEventRequest);
     public Event GetById(int id);
+    public List<Event> GetAll();
 }
 
 public class EventService : IEventService
@@ -27,5 +28,10 @@ public class EventService : IEventService
     public Event GetById(int id)
     {
         return _events.GetById(id);
+    }
+
+    public List<Event> GetAll()
+    {
+        return _events.GetAll();
     }
 }

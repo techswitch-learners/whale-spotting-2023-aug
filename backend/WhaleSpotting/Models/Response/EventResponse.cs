@@ -1,4 +1,5 @@
-﻿using WhaleSpotting.Models.Database;
+﻿using WhaleSpotting.Enums;
+using WhaleSpotting.Models.Database;
 
 namespace WhaleSpotting.Models.Response;
 

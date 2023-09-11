@@ -36,7 +36,7 @@ const EventsForm = () => {
           <input
             type="datetime-local"
             required
-            id="date"
+            id="startDate"
             name="date"
             value={startDate.toISOString().slice(0, 16)}
             min={todayDateString}
@@ -47,6 +47,7 @@ const EventsForm = () => {
           <input
             type="number"
             placeholder="Number of Days eg. 2"
+            id="duration"
             required
             onChange={(event) => {
               setDuration(parseInt(event.target.value));
@@ -57,6 +58,7 @@ const EventsForm = () => {
           <input
             type="text"
             placeholder="eg. John O' Groats"
+            id="location"
             required
             onChange={(event) => {
               setLocation(event.target.value);
@@ -66,6 +68,7 @@ const EventsForm = () => {
           <label htmlFor="eventLink">Event Url:</label>
           <input
             type="url"
+            id="eventLink"
             required
             onChange={(event) => {
               setEventLink(event.target.value);
@@ -75,6 +78,7 @@ const EventsForm = () => {
           <label htmlFor="eventImageUrl">Event Image Url:</label>
           <input
             type="url"
+            id="eventImageUrl"
             required
             onChange={(event) => {
               setEventImageUrl(event.target.value);

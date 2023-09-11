@@ -93,8 +93,11 @@ export const createEvent = async (
   eventLink: string,
   eventImageUrl: string,
 ): Promise<boolean> => {
-  const response = await fetch(`${backendUrl}/Event`, {
-    method: "post",
+  const response = await fetch(`${backendUrl}/event`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
     body: JSON.stringify({
       startDate,
       duration,
