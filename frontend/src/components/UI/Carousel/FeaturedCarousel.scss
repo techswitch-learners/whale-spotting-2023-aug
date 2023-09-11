@@ -19,9 +19,20 @@
     justify-content: center;
     gap: 1rem;
 
-    bottom: 2rem;
+    bottom: 0;
     left: 0;
     right: 0;
     margin: 0;
+  }
+
+  &__button {
+    border-radius: 5px;
+    height: 0.5rem;
+    width: 3rem;
+    background-color: rgba(0, 0, 0, 0.503);
+
+    &--active {
+      background-color: rgba(0, 0, 0, 0.814);
+    }
   }
 }

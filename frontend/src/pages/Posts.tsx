@@ -83,18 +83,7 @@ export const Posts = () => {
       <h1>Sightings</h1>
       <section className="section-dark">
         <div className="container">
-          <h2>Featured Sighting</h2>
-          <FeaturedFrame imageUrl={postData[0].imageUrl}>
-            <FeaturedPostContent
-              postData={postData[0]}
-              openModalAction={() => setSelectedPostDetails(postData[0])}
-            />
-          </FeaturedFrame>
-        </div>
-      </section>
-      <section className="section-dark">
-        <div className="container">
-          <h2>Featured Carousel</h2>
+          <h2>Featured Sightings</h2>
           <FeaturedCarousel
             featuredItems={[
               <FeaturedFrame imageUrl={postData[0].imageUrl}>

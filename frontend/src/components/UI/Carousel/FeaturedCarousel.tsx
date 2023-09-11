@@ -1,6 +1,6 @@
 import { useRef, ReactNode, useState, useEffect } from "react";
-import "./FeaturedCarousel.scss";
 import CarouselItem from "./CarouselItem";
+import "./FeaturedCarousel.scss";
 
 interface FeaturedCarouselProps {
   featuredItems?: ReactNode[];
@@ -8,6 +8,8 @@ interface FeaturedCarouselProps {
 
 const FeaturedCarousel = ({ featuredItems }: FeaturedCarouselProps) => {
   const slider = useRef<HTMLUListElement>(null);
+
+  const [activeSlide, setActiveSlide] = useState(0);
 
   const [sliderRefs, setSlideRefs] = useState<React.RefObject<HTMLLIElement>[]>(
     [],
@@ -34,14 +36,23 @@ const FeaturedCarousel = ({ featuredItems }: FeaturedCarouselProps) => {
             return <CarouselItem reference={sliderRefs[i]} children={item} />;
           })}
       </ul>
-      <div className="FeaturedCarousel__buttons">
+
+      <ul className="FeaturedCarousel__buttons">
         {featuredItems &&
           featuredItems.map((_, i) => {
             return (
-              <button onClick={() => scrollToSlide(sliderRefs[i])}>-</button>
+              <li
+                className={`FeaturedCarousel__button ${
+                  activeSlide === i ? "FeaturedCarousel__button--active" : ""
+                } `}
+                onClick={() => {
+                  setActiveSlide(i);
+                  scrollToSlide(sliderRefs[i]);
+                }}
+              ></li>
             );
           })}
-      </div>
+      </ul>
     </div>
   );
 };
