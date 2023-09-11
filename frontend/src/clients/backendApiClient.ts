@@ -1,3 +1,4 @@
+import { BodiesOfWater } from "../models/BodyOfWater";
 import LatitudeLongitude from "../models/LatitudeLongitude";
 import SpeciesListData from "../models/SpeciesListData";
 import UsersData from "../models/UsersData";
@@ -84,4 +85,9 @@ export const createWhalePost = async (
     }),
   });
   return await response.json();
+};
+
+export const getAllBodiesOfWater = async (): Promise<BodiesOfWater> => {
+  const response = await fetch(`${backendUrl}/BodyOfWater/all`);
+  return response.json();
 };

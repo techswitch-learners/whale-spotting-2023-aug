@@ -1,9 +1,26 @@
 import { BackendConnectionChecker } from "../components/BackendConnectionChecker";
+import SearchBySea from "../components/Home/SearchBySea";
 
 export const Home = () => {
   return (
     <>
-      <h1>Whale Spotting</h1>
+      {/* <section className="section-dark">
+        <div className="container">
+          <img src="./slider-placeholder.jpg" alt="" />
+        </div>
+      </section> */}
+
+      <SearchBySea />
+      {/* Search Component */}
+
+      {/* Latest Spottings */}
+
+      {/* Events */}
+
+      {/* LeaderBoard */}
+
+      {/* Footer */}
+
       <BackendConnectionChecker />
     </>
   );
