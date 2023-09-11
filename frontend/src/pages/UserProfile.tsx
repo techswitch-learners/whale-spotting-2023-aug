@@ -1,19 +1,18 @@
 import { useState, useEffect } from "react";
-import "./UserProfile.scss";
 import UserData from "../models/UserData";
 import { GetById } from "../clients/backendApiClient";
+import { useParams } from "react-router-dom";
+import "./UserProfile.scss";
 
 export const UserProfile = () => {
   const [userProfile, setUserProfile] = useState<UserData>();
-
-  const fetchUserProfile = async () => {
-    const profile = await GetById(1); // need to amend hardcode
-    setUserProfile(profile);
-  };
+  const { userId } = useParams<{ userId: string }>();
 
   useEffect(() => {
-    fetchUserProfile();
-  }, []);
+    if (userId) {
+      GetById(parseInt(userId)).then(setUserProfile);
+    }
+  }, [userId]);
 
   return (
     <div>
@@ -22,7 +21,7 @@ export const UserProfile = () => {
           <div className="Namepic container">
             <img
               src={userProfile.profileImageUrl}
-              alt="{hardcodedUserInfo.name}'s profile picture"
+              alt={`${userProfile.name}'s profile picture`}
               className="profileimage"
             />
             <h1>{userProfile.username}</h1>
@@ -30,6 +29,22 @@ export const UserProfile = () => {
           <div className="user-info container">
             <p className="user-fullname">Name: {userProfile.name}</p>
             <p className="user-">Email: {userProfile.email}</p>
+          </div>
+          <div className="user-posts container">
+            <ul>
+              {userProfile &&
+                userProfile.posts.map((post) => {
+                  return (
+                    <li>
+                      <img
+                        src={post.imageUrl}
+                        alt={`${userProfile.name}'s post picture`}
+                      />
+                      <p>{post.description}</p>
+                    </li>
+                  );
+                })}
+            </ul>
           </div>
         </div>
       ) : (
