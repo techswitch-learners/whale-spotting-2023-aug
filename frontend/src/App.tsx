@@ -7,6 +7,7 @@ import Login from "./pages/Login.tsx";
 import Register from "./pages/Register.tsx";
 import SubmissionForm from "./pages/SubmissionForm";
 import "./App.scss";
+import SearchResult from "./pages/SearchResult.tsx";
 
 export const App = () => {
   return (
@@ -17,6 +18,10 @@ export const App = () => {
         <Route path="/posts" element={<Posts />} />
         <Route path="/users" element={<Users />} />
         <Route path="/login" element={<Login />} />
+        <Route
+          path="/search-results/:bodyOfWaterName"
+          element={<SearchResult />}
+        />
         <Route path="/register" element={<Register />} />
         <Route path="/submission-form" element={<SubmissionForm />} />
       </Routes>
