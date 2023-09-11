@@ -9,6 +9,7 @@ public interface IPostService
     public Task<Post> Create(PostRequest newPostRequest);
     public Post GetById(int id);
     public List<Post> GetAll();
+    public List<Post> GetPending();
 }
 
 public class PostService : IPostService
@@ -33,5 +34,10 @@ public class PostService : IPostService
     public List<Post> GetAll()
     {
         return _posts.GetAll();
+    }
+
+    public List<Post> GetPending()
+    {
+        return _posts.GetPending();
     }
 }

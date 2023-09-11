@@ -12,6 +12,7 @@ public interface IPostRepo
     public Post GetByUserId(int id);
     public Task<Post> Create(PostRequest newPostRequest);
     public List<Post> GetAll();
+    public List<Post> GetPending();
 }
 
 public class PostRepo : IPostRepo
@@ -64,6 +65,16 @@ public class PostRepo : IPostRepo
             .Include(post => post.Species)
             .Include(post => post.BodyOfWater)
             .Where(post => post.ApprovalStatus == ApprovalStatus.Approved)
+            .ToList();
+    }
+
+    public List<Post> GetPending()
+    {
+        return _context.Posts
+            .Include(post => post.User)
+            .Include(post => post.Species)
+            .Include(post => post.BodyOfWater)
+            .Where(post => post.ApprovalStatus == ApprovalStatus.Pending)
             .ToList();
     }
 

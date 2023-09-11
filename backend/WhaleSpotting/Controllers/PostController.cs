@@ -44,6 +44,20 @@ public class PostController : ControllerBase
         }
     }
 
+    [HttpGet("pending")]
+    public IActionResult GetPending()
+    {
+        try
+        {
+            var posts = _postService.GetPending();
+            return Ok(new PostsResponse(posts));
+        }
+        catch (ArgumentException)
+        {
+            return NotFound();
+        }
+    }
+
     [HttpPost("")]
     public async Task<IActionResult> Create([FromBody] PostRequest newPostRequest)
     {
