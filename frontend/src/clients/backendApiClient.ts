@@ -1,10 +1,10 @@
 import { BodiesOfWater } from "../models/BodyOfWater";
 import LatitudeLongitude from "../models/LatitudeLongitude";
-import { NewPostData } from "../models/NewPostData";
 import SpeciesListData from "../models/SpeciesListData";
 import UserData from "../models/UserData";
 import UsersData from "../models/UsersData";
 import PostsData from "../models/PostsData";
+import PostData from "../models/PostData";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -100,11 +100,11 @@ export const getAllBodiesOfWater = async (): Promise<BodiesOfWater> => {
   return response.json();
 };
 
-export const getLatestPosts = async (): Promise<NewPostData[]> => {
+export const getLatestPosts = async (): Promise<PostData[]> => {
   const response = await fetch(`${backendUrl}/Post/all`);
   const allResponse = await response.json();
   if (allResponse) {
-    allResponse.posts.sort((a: NewPostData, b: NewPostData) => {
+    allResponse.posts.sort((a: PostData, b: PostData) => {
       return Date.parse(b.timestamp) - Date.parse(a.timestamp);
     });
   }

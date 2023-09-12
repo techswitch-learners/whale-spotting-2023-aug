@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { getLatestPosts } from "../../clients/backendApiClient";
-import { NewPostData } from "../../models/NewPostData";
+import PostData from "../../models/PostData";
 import "./LatestPosts.scss";
 
 export default function LatestPosts() {
-  const [latestPosts, setLatestPosts] = useState<NewPostData[]>();
+  const [latestPosts, setLatestPosts] = useState<PostData[]>();
 
   const getLatestPostsHandler = async () => {
     const response = await getLatestPosts();
@@ -32,7 +32,7 @@ export default function LatestPosts() {
           {latestPosts &&
             latestPosts.map((post) => {
               return (
-                <div className="LatestPostCard">
+                <div key={post.id} className="LatestPostCard">
                   <div className="LatestPostCard_ImgContainer">
                     <img
                       className="LatestPostCard__ImgContainer__Img"
