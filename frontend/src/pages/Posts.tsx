@@ -5,8 +5,8 @@ import CardPostModal from "../components/Post/CardPostModal";
 import PostData from "../models/PostData";
 import FeaturedPostContent from "../components/Post/FeaturedPostContent";
 import FeaturedFrame from "../components/UI/FeaturedFrame";
-import "./Posts.scss";
 import FeaturedCarousel from "../components/UI/Carousel/FeaturedCarousel";
+import "./Posts.scss";
 
 const postData: PostData[] = [
   {
@@ -85,38 +85,14 @@ export const Posts = () => {
         <div className="container">
           <h2>Featured Sightings</h2>
           <FeaturedCarousel
-            featuredItems={[
-              <FeaturedFrame imageUrl={postData[0].imageUrl}>
+            featuredItems={postData.slice(0, 5).map((post) => (
+              <FeaturedFrame imageUrl={post.imageUrl}>
                 <FeaturedPostContent
-                  postData={postData[0]}
-                  openModalAction={() => setSelectedPostDetails(postData[0])}
+                  postData={post}
+                  openModalAction={() => setSelectedPostDetails(post)}
                 />
-              </FeaturedFrame>,
-              <FeaturedFrame imageUrl={postData[1].imageUrl}>
-                <FeaturedPostContent
-                  postData={postData[1]}
-                  openModalAction={() => setSelectedPostDetails(postData[1])}
-                />
-              </FeaturedFrame>,
-              <FeaturedFrame imageUrl={postData[2].imageUrl}>
-                <FeaturedPostContent
-                  postData={postData[2]}
-                  openModalAction={() => setSelectedPostDetails(postData[2])}
-                />
-              </FeaturedFrame>,
-              <FeaturedFrame imageUrl={postData[3].imageUrl}>
-                <FeaturedPostContent
-                  postData={postData[3]}
-                  openModalAction={() => setSelectedPostDetails(postData[3])}
-                />
-              </FeaturedFrame>,
-              <FeaturedFrame imageUrl={postData[4].imageUrl}>
-                <FeaturedPostContent
-                  postData={postData[4]}
-                  openModalAction={() => setSelectedPostDetails(postData[4])}
-                />
-              </FeaturedFrame>,
-            ]}
+              </FeaturedFrame>
+            ))}
           />
         </div>
       </section>
