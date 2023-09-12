@@ -4,6 +4,11 @@ interface UserData {
   email: string;
   name: string;
   profileImageUrl: string;
+  posts: {
+    id: number;
+    imageUrl: string;
+    description: string;
+  }[];
 }
 
 export default UserData;

@@ -8,8 +8,8 @@ import FeaturedFrame from "../components/UI/FeaturedFrame";
 import { getAllPosts } from "../clients/backendApiClient";
 import WhaleLoader from "../components/UI/WhaleLoader";
 import FeaturedCarousel from "../components/UI/Carousel/FeaturedCarousel";
-import "./Posts.scss";
 import Button from "../components/UI/Button";
+import "./Posts.scss";
 
 export const Posts = () => {
   const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();

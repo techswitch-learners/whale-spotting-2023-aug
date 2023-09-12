@@ -6,6 +6,7 @@ import Events from "./pages/Events.tsx";
 import Users from "./pages/Users.tsx";
 import Login from "./pages/Login.tsx";
 import Register from "./pages/Register.tsx";
+import UserProfile from "./pages/UserProfile.tsx";
 import PostForm from "./pages/PostForm";
 import EventForm from "./pages/EventForm.tsx";
 import "./App.scss";
@@ -21,6 +22,7 @@ export const App = () => {
         <Route path="/users" element={<Users />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/users/:userId" element={<UserProfile />} />
         <Route path="/posts/create" element={<PostForm />} />
         <Route path="/events/create" element={<EventForm />} />
       </Routes>
