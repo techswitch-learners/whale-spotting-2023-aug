@@ -19,7 +19,7 @@ export const App = () => {
         <Route path="/users" element={<Users />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/user/:userId" element={<UserProfile />} />
+        <Route path="/users/:userId" element={<UserProfile />} />
         <Route path="/submission-form" element={<SubmissionForm />} />
       </Routes>
     </Router>

@@ -31,7 +31,7 @@ export const tryEmailAndPassword = async (
   return response.ok;
 };
 
-export const GetById = async (id: number): Promise<UserData> => {
+export const getUserById = async (id: number): Promise<UserData> => {
   const response = await fetch(`${backendUrl}/User/id/${id}`);
   return response.json();
 };

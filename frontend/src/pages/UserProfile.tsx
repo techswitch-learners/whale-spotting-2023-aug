@@ -1,44 +1,44 @@
 import { useState, useEffect } from "react";
 import UserData from "../models/UserData";
-import { GetById } from "../clients/backendApiClient";
+import { getUserById } from "../clients/backendApiClient";
 import { useParams } from "react-router-dom";
 import "./UserProfile.scss";
 
 export const UserProfile = () => {
-  const [userProfile, setUserProfile] = useState<UserData>();
+  const [user, setUser] = useState<UserData>();
   const { userId } = useParams<{ userId: string }>();
 
   useEffect(() => {
     if (userId) {
-      GetById(parseInt(userId)).then(setUserProfile);
+      getUserById(parseInt(userId)).then(setUser);
     }
   }, [userId]);
 
   return (
     <div>
-      {userProfile ? (
+      {user ? (
         <div className="user-page container">
-          <div className="Namepic container">
+          <div className="user-banner">
             <img
-              src={userProfile.profileImageUrl}
-              alt={`${userProfile.name}'s profile picture`}
-              className="profileimage"
+              src={user.profileImageUrl}
+              alt={`${user.name}'s profile picture`}
+              className="user-profile-image"
             />
-            <h1>{userProfile.username}</h1>
+            <h1>{user.username}</h1>
           </div>
-          <div className="user-info container">
-            <p className="user-fullname">Name: {userProfile.name}</p>
-            <p className="user-">Email: {userProfile.email}</p>
+          <div className="user-info">
+            <p>Name: {user.name}</p>
+            <p>Email: {user.email}</p>
           </div>
-          <div className="user-posts container">
+          <div>
             <ul>
-              {userProfile &&
-                userProfile.posts.map((post) => {
+              {user &&
+                user.posts.map((post) => {
                   return (
                     <li>
                       <img
                         src={post.imageUrl}
-                        alt={`${userProfile.name}'s post picture`}
+                        alt={`${user.name}'s post picture`}
                       />
                       <p>{post.description}</p>
                     </li>
