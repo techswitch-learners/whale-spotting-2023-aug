@@ -5,6 +5,7 @@ import CardPostModal from "../components/Post/CardPostModal";
 import PostData from "../models/PostData";
 import FeaturedPostContent from "../components/Post/FeaturedPostContent";
 import FeaturedFrame from "../components/UI/FeaturedFrame";
+import FeaturedCarousel from "../components/UI/Carousel/FeaturedCarousel";
 import "./Posts.scss";
 
 const postData: PostData[] = [
@@ -82,16 +83,19 @@ export const Posts = () => {
       <h1>Sightings</h1>
       <section className="section-dark">
         <div className="container">
-          <h2>Featured Sighting</h2>
-          <FeaturedFrame imageUrl={postData[0].imageUrl}>
-            <FeaturedPostContent
-              postData={postData[0]}
-              openModalAction={() => setSelectedPostDetails(postData[0])}
-            />
-          </FeaturedFrame>
+          <h2>Featured Sightings</h2>
+          <FeaturedCarousel
+            featuredItems={postData.slice(0, 5).map((post) => (
+              <FeaturedFrame imageUrl={post.imageUrl}>
+                <FeaturedPostContent
+                  postData={post}
+                  openModalAction={() => setSelectedPostDetails(post)}
+                />
+              </FeaturedFrame>
+            ))}
+          />
         </div>
       </section>
-
       <section>
         <div className="container PostsGallery">
           {postData.map((post) => {
