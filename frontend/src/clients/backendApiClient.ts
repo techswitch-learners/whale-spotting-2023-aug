@@ -2,7 +2,6 @@ import LatitudeLongitude from "../models/LatitudeLongitude";
 import PostDataResponse from "../models/PostsData";
 import SpeciesListData from "../models/SpeciesListData";
 import UsersData from "../models/UsersData";
-import UserData from "../models/UserData";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -32,9 +31,9 @@ export const tryEmailAndPassword = async (
   return response.ok;
 };
 
-export const getUserById = async (id: number): Promise<UserData> => {
+export const getUserById = async (id: number): Promise<Response> => {
   const response = await fetch(`${backendUrl}/User/id/${id}`);
-  return response.json();
+  return response;
 };
 
 export const registerNewUser = async (
