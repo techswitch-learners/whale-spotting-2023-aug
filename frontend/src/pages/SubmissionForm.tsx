@@ -141,7 +141,7 @@ const SubmissionForm = () => {
                 setW3w(event.target.value);
               }}
             />
-            <Button type="button" onClick={openW3W}>
+            <Button type="button" role="link" onClick={openW3W}>
               <img
                 src={w3w_logo}
                 className="w3w-logo"
