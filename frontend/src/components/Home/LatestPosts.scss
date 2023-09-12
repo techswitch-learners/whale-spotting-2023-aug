@@ -1,0 +1,29 @@
+@use "../../styles/mixins" as *;
+@use "../../styles/sections" as *;
+@use "../../styles/typography" as *;
+@use "../../styles/variables" as *;
+
+.LatestPosts {
+  margin-top: $mobile-gutter;
+}
+
+.LatestPostsRow {
+  display: flex;
+  flex-direction: row;
+  gap: $mobile-card-padding;
+  margin-top: $mobile-card-padding;
+}
+
+.LatestPostCard {
+  width: 350px;
+  position: relative;
+  border-radius: $mobile-border-radius;
+
+  &__ImgContainer {
+    overflow: hidden;
+
+    &__Img {
+      max-width: 100%;
+    }
+  }
+}

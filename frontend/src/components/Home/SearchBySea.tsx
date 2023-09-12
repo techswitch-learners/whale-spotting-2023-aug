@@ -44,6 +44,7 @@ export default function SearchBySea() {
               bodiesOfWater.map((bodyOfWater) => {
                 return (
                   <option
+                    key={bodyOfWater.id}
                     className="SearchBySea__select__option"
                     value={bodyOfWater.name}
                   >

@@ -1,4 +1,5 @@
 import { BackendConnectionChecker } from "../components/BackendConnectionChecker";
+import LatestPosts from "../components/Home/LatestPosts";
 import SearchBySea from "../components/Home/SearchBySea";
 
 export const Home = () => {
@@ -20,6 +21,8 @@ export const Home = () => {
       {/* LeaderBoard */}
 
       {/* Footer */}
+
+      <LatestPosts />
 
       <BackendConnectionChecker />
     </>

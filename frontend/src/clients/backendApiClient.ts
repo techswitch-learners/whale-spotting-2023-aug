@@ -1,5 +1,6 @@
 import { BodiesOfWater } from "../models/BodyOfWater";
 import LatitudeLongitude from "../models/LatitudeLongitude";
+import { NewPostData } from "../models/NewPostData";
 import SpeciesListData from "../models/SpeciesListData";
 import UsersData from "../models/UsersData";
 
@@ -90,4 +91,17 @@ export const createWhalePost = async (
 export const getAllBodiesOfWater = async (): Promise<BodiesOfWater> => {
   const response = await fetch(`${backendUrl}/BodyOfWater/all`);
   return response.json();
+};
+
+export const getLatestPosts = async (): Promise<NewPostData[]> => {
+  const response = await fetch(`${backendUrl}/Post/all`);
+  const allResponse = await response.json();
+  if (allResponse) {
+    allResponse.posts.sort((a: NewPostData, b: NewPostData) => {
+      return Date.parse(b.timestamp) - Date.parse(a.timestamp);
+    });
+  }
+  const filteredResponse = allResponse.posts.slice(0, 5);
+
+  return filteredResponse;
 };
