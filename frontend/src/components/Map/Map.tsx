@@ -1,6 +1,10 @@
-// import { useEffect } from 'react';
+import { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import PostDataMap from "../models/PostDataMap";
+import PostDataMap from "../../models/PostDataMap";
+import PostData from "../../models/PostData";
+import Modal from "../UI/Modal";
+import CardPostModal from "../Post/CardPostModal";
+
 // import FeaturedPostContent from "../components/Post/FeaturedPostContent";
 // import FeaturedFrame from "../components/UI/FeaturedFrame";
 import "./Map.scss";
@@ -39,6 +43,8 @@ const postDataMap: PostDataMap[] = [
 ];
 
 const Map: React.FC = () => {
+  const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();
+
   return (
     <div>
       <MapContainer
@@ -55,16 +61,27 @@ const Map: React.FC = () => {
             <Popup className="custom-popup">
               <div className="container">
                 <h2>Featured Sighting</h2>
-                <img src={data.imageUrl} alt={data.species} className="image" />
-                <p>Species: {data.species}</p>
+                <img
+                  src={data.imageUrl}
+                  alt={data.species}
+                  className="image"
+                  onClick={() => setSelectedPostDetails(data)}
+                />
+                {/* <p>Species: {data.species}</p>
                 <p className="username">Username: {data.username}</p>
                 <p className="date">Sighting Date: {data.sightingDate}</p>
-                <p className="likes">Likes: {data.likes}</p>
+                <p className="likes">Likes: {data.likes}</p> */}
               </div>
             </Popup>
           </Marker>
         ))}
       </MapContainer>
+
+      {selectedPostDetails && (
+        <Modal closeAction={() => setSelectedPostDetails(undefined)}>
+          <CardPostModal postData={selectedPostDetails} />
+        </Modal>
+      )}
     </div>
   );
 };

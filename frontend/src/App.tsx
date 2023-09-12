@@ -6,7 +6,7 @@ import Users from "./pages/Users.tsx";
 import Login from "./pages/Login.tsx";
 import Register from "./pages/Register.tsx";
 import SubmissionForm from "./pages/SubmissionForm";
-import Map from "./components/Map";
+import Map from "./components/Map/Map.tsx";
 import "./App.scss";
 
 export const App = () => {
