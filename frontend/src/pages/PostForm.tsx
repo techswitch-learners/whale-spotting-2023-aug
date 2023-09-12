@@ -7,9 +7,9 @@ import {
 } from "../clients/backendApiClient";
 import Button from "../components/UI/Button";
 import SpeciesListData from "../models/SpeciesListData";
-import "./SubmissionForm.scss";
+import "./PostForm.scss";
 
-const SubmissionForm = () => {
+const PostForm = () => {
   const today = new Date();
   const todayDateString = today.toISOString().slice(0, -1);
 
@@ -229,4 +229,4 @@ const SubmissionForm = () => {
   );
 };
 
-export default SubmissionForm;
+export default PostForm;
