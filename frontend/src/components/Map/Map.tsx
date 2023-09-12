@@ -23,13 +23,13 @@ const postDataMap: PostDataMap[] = [
   },
   {
     imageUrl:
-      "https://www.wildlifeworldwide.com/images/home/whale_watching_grey_baja.jpg",
+      "https://www.wildlifeworldwide.com/images/home/whale_watching_grey_baja.jpg?",
     username: "Ariel",
     species: "humpback",
     sightingDate: "04 September 2023",
     likes: 22234,
-    longitude: 15.824178,
-    latitude: -30.13351,
+    longitude: 0,
+    latitude: 0,
     whaleName: "Lucy",
   },
   {

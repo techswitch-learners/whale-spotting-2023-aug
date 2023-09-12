@@ -4,6 +4,9 @@
   object-position: center;
   width: 3rem;
   height: 3rem;
+  position: absolute;
+  left: -28px;
+  top: -18px;
 }
 
 MapContainer {
@@ -22,6 +25,7 @@ MapContainer {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .leaflet-popup-content-wrapper,
