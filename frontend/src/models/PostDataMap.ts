@@ -1,12 +1,25 @@
 interface PostDataMap {
+  id: number;
+  user: {
+    id: number;
+    name: string;
+    profileImageUrl: string;
+  };
+  timestamp: string;
+  species: {
+    id: number;
+    name: string;
+  };
   imageUrl: string;
-  species: string;
-  username: string;
-  sightingDate: string;
-  likes: number;
+  description: string;
+  approvalStatus: number;
+  rating: number;
+  bodyOfWater: {
+    id: number;
+    name: string;
+  };
   longitude: number;
   latitude: number;
-  whaleName: string;
 }
 
 export default PostDataMap;

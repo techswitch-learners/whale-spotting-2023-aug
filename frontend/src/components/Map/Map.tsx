@@ -57,26 +57,27 @@ const Map: React.FC = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
-        {postData.map((data, index) => (
-          <Marker key={index} position={[data.latitude, data.longitude]}>
-            <Popup className="custom-popup">
-              <div className="container">
-                <img
-                  src={data.imageUrl}
-                  alt={data.species}
-                  className="image"
-                  onClick={() => setSelectedPostDetails(data)}
-                />
-                {/* {<p className="whale-name">{data.whaleName}</p>} */}
-              </div>
-            </Popup>
-          </Marker>
-        ))}
+        {postData &&
+          postData.map((data, index) => (
+            <Marker key={index} position={[data.latitude, data.longitude]}>
+              <Popup className="custom-popup">
+                <div className="container">
+                  <img
+                    src={data.imageUrl}
+                    alt="{data.species}"
+                    className="image"
+                    onClick={() => setSelectedPostDetails(data)}
+                  />
+                </div>
+              </Popup>
+            </Marker>
+          ))}
+        ;
       </MapContainer>
 
       {selectedPostDetails && (
         <Modal closeAction={() => setSelectedPostDetails(undefined)}>
-          <CardPostModal postDataMap={selectedPostDetails} />
+          <CardPostModal postData={selectedPostDetails} />
         </Modal>
       )}
     </div>
