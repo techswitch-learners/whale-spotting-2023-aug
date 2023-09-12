@@ -3,12 +3,38 @@ import Button from "../UI/Button";
 import fullscreenIcon from "../../assets/fullscreen_icon.svg";
 
 import "./PendingPostModal.scss";
+import { approvePost } from "../../clients/backendApiClient";
+import { useState } from "react";
 
 interface PostDataProps {
   postData: PostData;
 }
 
 const PendingPostModal = ({ postData }: PostDataProps) => {
+  const [postId, setPostId] = useState<number>(NaN);
+  // const [errorMessage, setErrorMessage] = useState("");
+
+  const handleApprove = async (e: React.MouseEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setPostId(postData.id);
+
+    try {
+      const result = await approvePost(postId);
+
+      if (result) {
+        // Redirect
+      }
+      // else {
+      //   setErrorMessage("Please check the information provided");
+      // }
+    } catch (error) {
+      {
+        error;
+      }
+      // setErrorMessage("Create user failed. Please try again later.");
+    }
+  };
+
   return (
     <div className="CardPostModal">
       <div className="CardPostModal__image__container">
@@ -66,7 +92,13 @@ const PendingPostModal = ({ postData }: PostDataProps) => {
         </div>
         <div className="CardPostModal__interactions">
           <div className="CardPostModal__admin__tools">
-            <Button className="Button__Approve">Approve</Button>
+            <Button
+              className="Button__Approve"
+              type="submit"
+              onClick={handleApprove}
+            >
+              Approve
+            </Button>
             <Button className="Button__Modify">Modify</Button>
             <Button className="Button__Reject">Reject</Button>
           </div>

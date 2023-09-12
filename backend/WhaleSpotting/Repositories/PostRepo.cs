@@ -13,6 +13,8 @@ public interface IPostRepo
     public Task<Post> Create(PostRequest newPostRequest);
     public List<Post> GetAll();
     public List<Post> GetPending();
+    public void ApproveReject(Post post, ApprovalStatus approvalStatus);
+    // public Task<Post> Modify(Post post);
 }
 
 public class PostRepo : IPostRepo
@@ -148,4 +150,16 @@ public class PostRepo : IPostRepo
 
         return insertedEntity.Entity;
     }
+
+    public void ApproveReject(Post post, ApprovalStatus approvalStatus)
+    {
+        _context.Entry(post).Property("ApprovalStatus").CurrentValue = approvalStatus;
+        _context.Entry(post).Property("ApprovalStatus").IsModified = true;
+        _context.SaveChanges();
+    }
+
+    // public Task<Post> Modify(Post post)
+    // {
+    //     return _context.Posts.Update(post.ApprovalStatus == ApprovalStatus.Approved);
+    // }
 }

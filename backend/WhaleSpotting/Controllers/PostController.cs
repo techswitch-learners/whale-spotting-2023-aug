@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using WhaleSpotting.Enums;
 using WhaleSpotting.Models.Request;
 using WhaleSpotting.Models.Response;
 using WhaleSpotting.Services;
@@ -63,5 +64,21 @@ public class PostController : ControllerBase
     {
         var newPost = new PostResponse(await _postService.Create(newPostRequest));
         return CreatedAtAction(nameof(GetById), new { id = newPost.Id }, newPost);
+    }
+
+    [HttpPatch("")]
+    public IActionResult ApproveReject([FromBody] int id, int approvalStatus)
+    {
+        try
+        {
+            var post = _postService.GetById(id);
+            _postService.ApproveReject(post, (ApprovalStatus)approvalStatus);
+
+            return Ok();
+        }
+        catch (ArgumentException)
+        {
+            return NotFound();
+        }
     }
 }

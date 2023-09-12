@@ -96,3 +96,14 @@ export const getAllPendingPosts = async (): Promise<PostData[]> => {
     return [];
   }
 };
+
+export const approvePost = async (id: number): Promise<boolean> => {
+  const response = await fetch(`${backendUrl}/Post/`, {
+    method: "PATCH",
+    body: JSON.stringify({
+      Id: id,
+      ApprovalStatus: 1,
+    }),
+  });
+  return response.ok;
+};

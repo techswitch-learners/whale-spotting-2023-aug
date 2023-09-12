@@ -1,4 +1,5 @@
-﻿using WhaleSpotting.Models.Database;
+﻿using WhaleSpotting.Enums;
+using WhaleSpotting.Models.Database;
 using WhaleSpotting.Models.Request;
 using WhaleSpotting.Repositories;
 
@@ -10,6 +11,7 @@ public interface IPostService
     public Post GetById(int id);
     public List<Post> GetAll();
     public List<Post> GetPending();
+    public void ApproveReject(Post post, ApprovalStatus approvalStatus);
 }
 
 public class PostService : IPostService
@@ -39,5 +41,10 @@ public class PostService : IPostService
     public List<Post> GetPending()
     {
         return _posts.GetPending();
+    }
+
+    public void ApproveReject(Post post, ApprovalStatus approvalStatus)
+    {
+        _posts.ApproveReject(post, approvalStatus);
     }
 }
