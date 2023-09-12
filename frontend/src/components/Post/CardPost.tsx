@@ -1,4 +1,5 @@
 import PostData from "../../models/PostData";
+import { toShortDate } from "../../utils/DateConversion";
 import shareIcon from "../../assets/share_icon.png";
 import postIcon from "../../assets/post_icon.png";
 import { convertLikesToString } from "../../utils/LikeConversion";
@@ -15,7 +16,7 @@ const CardPost = ({ postData, openModalAction }: PostDataProps) => {
       <div className="CardPost__banner">
         <div className="CardPost__banner__likes">
           <img src={postIcon} alt="whale icon" />
-          <span>{convertLikesToString(postData.likes)}</span>
+          <span>{convertLikesToString(postData.rating)}</span>
         </div>
         <div>
           <img src={shareIcon} alt="share post" />
@@ -24,13 +25,13 @@ const CardPost = ({ postData, openModalAction }: PostDataProps) => {
       <img
         className="CardPost__image"
         src={postData.imageUrl}
-        alt={`image of ${postData.species}`}
+        alt={`image of ${postData.species.name}`}
         onClick={openModalAction}
       />
       <div className="CardPost__info">
-        <p className="CardPost__title">{postData.species}</p>
-        <p className="CardPost__text">{postData.username}</p>
-        <p className="CardPost__text">{postData.sightingDate}</p>
+        <p className="CardPost__title">{postData.species.name}</p>
+        <p className="CardPost__text">{postData.user.name}</p>
+        <p className="CardPost__text">{toShortDate(postData.timestamp)}</p>
       </div>
     </div>
   );

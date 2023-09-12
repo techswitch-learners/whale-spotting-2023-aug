@@ -1,4 +1,5 @@
 import LatitudeLongitude from "../models/LatitudeLongitude";
+import PostDataResponse from "../models/PostsData";
 import SpeciesListData from "../models/SpeciesListData";
 import UsersData from "../models/UsersData";
 import UserData from "../models/UserData";
@@ -89,5 +90,33 @@ export const createWhalePost = async (
       imageUrl,
     }),
   });
+  return await response.json();
+};
+
+export const createEvent = async (
+  startDate: Date,
+  duration: number,
+  location: string,
+  eventLink: string,
+  eventImageUrl: string,
+): Promise<boolean> => {
+  const response = await fetch(`${backendUrl}/event`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+    body: JSON.stringify({
+      startDate,
+      duration,
+      location,
+      eventLink,
+      eventImageUrl,
+    }),
+  });
+  return response.ok;
+};
+
+export const getAllPosts = async (): Promise<PostDataResponse> => {
+  const response = await fetch(`${backendUrl}/Post/all`);
   return await response.json();
 };

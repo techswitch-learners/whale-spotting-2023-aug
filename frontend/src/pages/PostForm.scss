@@ -19,11 +19,17 @@
   }
 }
 
+.w3w-container {
+  display: flex;
+  justify-content: space-between;
+
+  input {
+    width: 90%;
+  }
+}
 .w3w-logo {
-  width: 4rem;
-  bottom: 0;
+  max-height: 2rem;
   margin-bottom: -0.3rem;
-  margin-left: 1rem;
 }
 
 .location-container {
