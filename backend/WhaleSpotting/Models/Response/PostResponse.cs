@@ -51,6 +51,7 @@ public class PostResponse
     public string Description { get; set; }
     public ApprovalStatus ApprovalStatus { get; set; }
     public int Rating { get; set; }
+    public int Likes { get; set; }
     public PostBodyOfWater? BodyOfWater { get; set; }
 
     public PostResponse(Post post)
@@ -100,6 +101,7 @@ public class PostResponse
                 nameof(post),
                 "Property \"Rating\" must not be null"
             );
+        Likes = post.Likes != null ? post.Likes.Count : 0;
         BodyOfWater = post.BodyOfWater != null ? new PostBodyOfWater(post.BodyOfWater) : null;
     }
 }

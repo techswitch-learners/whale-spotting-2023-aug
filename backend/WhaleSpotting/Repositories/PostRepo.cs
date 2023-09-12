@@ -33,6 +33,7 @@ public class PostRepo : IPostRepo
                 .Include(post => post.User)
                 .Include(post => post.BodyOfWater)
                 .Include(post => post.Species)
+                .Include(post => post.Likes)
                 .Where(post => post.Id == id)
                 .Single();
         }
@@ -62,6 +63,7 @@ public class PostRepo : IPostRepo
         return _context.Posts
             .Include(post => post.User)
             .Include(post => post.Species)
+            .Include(post => post.Likes)
             .Include(post => post.BodyOfWater)
             .Where(post => post.ApprovalStatus == ApprovalStatus.Approved)
             .ToList();
@@ -130,6 +132,7 @@ public class PostRepo : IPostRepo
             Timestamp = DateTime.Now,
             ApprovalStatus = ApprovalStatus.Pending,
             Rating = 0,
+            Likes = new List<Interaction>(),
         };
 
         var insertedEntity = _context.Posts.Add(newPost);
