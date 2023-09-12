@@ -32,6 +32,11 @@ export const tryEmailAndPassword = async (
   return response.ok;
 };
 
+export const getUserById = async (id: number): Promise<Response> => {
+  const response = await fetch(`${backendUrl}/User/id/${id}`);
+  return response;
+};
+
 export const registerNewUser = async (
   fullName: string,
   username: string,
@@ -86,6 +91,29 @@ export const createWhalePost = async (
     }),
   });
   return await response.json();
+};
+
+export const createEvent = async (
+  startDate: Date,
+  duration: number,
+  location: string,
+  eventLink: string,
+  eventImageUrl: string,
+): Promise<boolean> => {
+  const response = await fetch(`${backendUrl}/event`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+    body: JSON.stringify({
+      startDate,
+      duration,
+      location,
+      eventLink,
+      eventImageUrl,
+    }),
+  });
+  return response.ok;
 };
 
 export const getAllPosts = async (): Promise<PostDataResponse> => {
