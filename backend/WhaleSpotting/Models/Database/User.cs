@@ -11,7 +11,7 @@ public class User
     public string? Name { get; set; }
     public Role? Role { get; set; }
     public DateTime? CreationTimestamp { get; set; }
-    public List<Post>? Posts { get; set; }
+    public List<Post> Posts { get; set; } = new List<Post>();
     public List<Interaction>? PostUserLiked { get; set; }
     public int? Rating { get; set; }
     public string? ProfileImageUrl { get; set; }

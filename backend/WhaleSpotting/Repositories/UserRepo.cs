@@ -26,7 +26,10 @@ public class UserRepo : IUserRepo
     {
         try
         {
-            return _context.Users.Include(user => user.Posts).Single(user => user.Id == id);
+            return _context.Users
+                .Include(user => user.Posts)
+                .ThenInclude(post => post.Likes)
+                .Single(user => user.Id == id);
         }
         catch (InvalidOperationException)
         {
