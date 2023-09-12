@@ -12,16 +12,20 @@ const EventForm = () => {
   const [location, setLocation] = useState<string>("");
   const [eventLink, setEventLink] = useState<string>("");
   const [eventImageUrl, setEventImageUrl] = useState<string>("");
-  const [successMessage, setSuccessMessage] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     createEvent(startDate, duration, location, eventLink, eventImageUrl)
-      .then(() => {
-        setSuccessMessage("Thank you for your submission");
+      .then((success) => {
+        if (success) {
+          setMessage("Thank you for your submission");
+        } else {
+          setMessage("Please check the information provided");
+        }
       })
       .catch(() => {
-        setSuccessMessage("Please check the information provided");
+        setMessage("Unable to create event at this time");
       });
   };
 
@@ -96,7 +100,7 @@ const EventForm = () => {
           <Button type="submit" className="submission-form-children">
             Submit
           </Button>
-          <span className="error-message">{successMessage}</span>
+          <span className="error-message">{message}</span>
         </form>
       </div>
     </>
