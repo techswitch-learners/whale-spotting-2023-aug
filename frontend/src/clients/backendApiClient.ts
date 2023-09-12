@@ -4,6 +4,7 @@ import { NewPostData } from "../models/NewPostData";
 import SpeciesListData from "../models/SpeciesListData";
 import UserData from "../models/UserData";
 import UsersData from "../models/UsersData";
+import PostsData from "../models/PostsData";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -31,6 +32,11 @@ export const tryEmailAndPassword = async (
     },
   });
   return response.ok;
+};
+
+export const getUserById = async (id: number): Promise<Response> => {
+  const response = await fetch(`${backendUrl}/User/id/${id}`);
+  return response;
 };
 
 export const registerNewUser = async (
@@ -116,4 +122,32 @@ export const getLeaderboard = async (): Promise<UserData[]> => {
   }
 
   return response.users.slice(0, 10);
+};
+
+export const createEvent = async (
+  startDate: Date,
+  duration: number,
+  location: string,
+  eventLink: string,
+  eventImageUrl: string,
+): Promise<boolean> => {
+  const response = await fetch(`${backendUrl}/event`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+    body: JSON.stringify({
+      startDate,
+      duration,
+      location,
+      eventLink,
+      eventImageUrl,
+    }),
+  });
+  return response.ok;
+};
+
+export const getAllPosts = async (): Promise<PostsData> => {
+  const response = await fetch(`${backendUrl}/Post/all`);
+  return await response.json();
 };

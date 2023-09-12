@@ -5,6 +5,11 @@ interface UserData {
   name: string;
   profileImageUrl: string;
   rating: number;
+  posts: {
+    id: number;
+    imageUrl: string;
+    description: string;
+  }[];
 }
 
 export default UserData;

@@ -6,14 +6,16 @@ interface ButtonProps {
   className?: string;
   onClick?: MouseEventHandler;
   type?: "button" | "submit" | "reset";
+  role?: string;
 }
 
-const Button = ({ children, className, onClick, type }: ButtonProps) => {
+const Button = ({ children, className, onClick, type, role }: ButtonProps) => {
   return (
     <button
       type={type}
       className={`Button ${className ?? ""}`}
       onClick={onClick}
+      role={role}
     >
       {children}
     </button>

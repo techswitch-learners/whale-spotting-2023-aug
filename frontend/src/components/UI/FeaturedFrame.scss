@@ -20,6 +20,7 @@
   &__image {
     width: 100%;
     object-fit: cover;
+    aspect-ratio: 21/16;
 
     @include devices(tablet) {
       width: 50%;
