@@ -18,6 +18,8 @@ interface PostData {
     id: number;
     name: string;
   };
+  lat: string;
+  lon: string;
 }
 
 export default PostData;

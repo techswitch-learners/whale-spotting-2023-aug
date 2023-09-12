@@ -9,6 +9,7 @@ import Register from "./pages/Register.tsx";
 import UserProfile from "./pages/UserProfile.tsx";
 import PostForm from "./pages/PostForm";
 import EventForm from "./pages/EventForm.tsx";
+import PendingPosts from "./pages/PendingPosts.tsx";
 import "./App.scss";
 
 export const App = () => {

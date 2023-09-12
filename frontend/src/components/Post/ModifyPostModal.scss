@@ -1,10 +1,19 @@
 @use "../../styles/variables" as *;
 @use "../../styles/mixins" as *;
 
-.container {
+.modify-form-container {
+  padding: 1rem;
   background-color: $color-secondary;
   height: 100%;
   width: 100%;
+
+  @include devices(tablet) {
+    padding: 2rem;
+  }
+
+  @include devices(desktop) {
+    padding: 3rem;
+  }
 }
 
 .post-description {

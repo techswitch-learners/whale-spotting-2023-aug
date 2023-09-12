@@ -4,9 +4,9 @@ import { useState, useEffect, FormEvent } from "react";
 import SpeciesListData from "../../models/SpeciesListData";
 import w3w_logo from "../../assets/w3w_logo.png";
 import {
-  createWhalePost,
   getLatitudeLongitude,
   getAllSpecies,
+  modifyPost,
 } from "../../clients/backendApiClient";
 
 import "./ModifyPostModal.scss";
@@ -19,7 +19,8 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
   const today = new Date();
   const todayDateString = today.toISOString().slice(0, -1);
 
-  const [date, setDate] = useState<Date>(new Date());
+  const id = postData.id;
+  const [date, setDate] = useState<Date>(new Date(postData.timestamp));
   const [w3w, setW3w] = useState<string>("");
   const [lat, setLat] = useState<number>(NaN);
   const [lon, setLon] = useState<number>(NaN);
@@ -91,7 +92,7 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
         );
     }
     if (lat && lon) {
-      createWhalePost(date, lat, lon, speciesId, description, imageUrl)
+      modifyPost(id, date, lat, lon, speciesId, description, imageUrl)
         .then(() => {
           setSuccessMessage("Thank you for your submission");
         })
@@ -111,7 +112,7 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
 
   return (
     <>
-      <div className="container">
+      <div className="modify-form-container">
         <form className="submission-form" onSubmit={handleSubmit}>
           <h1>Update Sighting Information</h1>
           <label htmlFor="date" className="submission-form-children">
