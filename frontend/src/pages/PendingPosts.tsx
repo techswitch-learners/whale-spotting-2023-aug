@@ -4,7 +4,7 @@ import Modal from "../components/UI/Modal";
 import PendingPostModal from "../components/Post/PendingPostModal";
 import PostData from "../models/PostData";
 import { getAllPendingPosts } from "../clients/backendApiClient";
-//import WhaleLoader from "../components/UI/WhaleLoader";
+import WhaleLoader from "../components/UI/WhaleLoader";
 import "./PendingPosts.scss";
 
 export const PendingPosts = () => {
@@ -52,11 +52,10 @@ export const PendingPosts = () => {
           )}
         </>
       ) : (
-        <p className="error-message">{errorMessage}</p>
-        // <WhaleLoader
-        //   isLoading={isLoading}
-        //   message={isLoading ? "loading" : errorMessage}
-        // />
+        <WhaleLoader
+          isLoading={isLoading}
+          message={isLoading ? "loading" : errorMessage}
+        />
       )}
     </main>
   );

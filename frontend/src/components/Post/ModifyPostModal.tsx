@@ -9,7 +9,7 @@ import {
   getAllSpecies,
 } from "../../clients/backendApiClient";
 
-import "./PendingPostModal.scss";
+import "./ModifyPostModal.scss";
 
 interface PostDataProps {
   postData: PostData;
@@ -113,7 +113,7 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
     <>
       <div className="container">
         <form className="submission-form" onSubmit={handleSubmit}>
-          <h1>Submit a sighting</h1>
+          <h1>Update Sighting Information</h1>
           <label htmlFor="date" className="submission-form-children">
             Date of sighting
           </label>
@@ -202,9 +202,10 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
             Description
           </label>
           <textarea
+            className="post-description"
             id="description"
             required
-            rows={4}
+            rows={8}
             cols={50}
             name="description"
             value={description}
@@ -226,9 +227,14 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
             onChange={(event) => setImageUrl(event.target.value)}
           />
 
-          <Button type="submit" className="submission-form-children">
-            Submit
-          </Button>
+          <div className="button-container">
+            <Button
+              type="submit"
+              className="submission-form-children submit-button"
+            >
+              Submit
+            </Button>
+          </div>
           <span className="error-message">{successMessage}</span>
         </form>
       </div>

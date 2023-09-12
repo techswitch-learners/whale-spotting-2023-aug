@@ -1,0 +1,23 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.container {
+  background-color: $color-secondary;
+  height: 100%;
+  width: 100%;
+}
+
+.post-description {
+  height: 25%;
+}
+
+.button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.submit-button {
+  border-color: $color-primary;
+  width: 25%;
+}
