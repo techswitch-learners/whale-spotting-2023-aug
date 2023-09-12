@@ -107,7 +107,6 @@ export const approveRejectPost = async (
   id: number,
   approvalStatus: number,
 ): Promise<boolean> => {
-  console.log(id, approvalStatus);
   const response = await fetch(`${backendUrl}/post/`, {
     method: "PATCH",
     headers: {
@@ -118,6 +117,32 @@ export const approveRejectPost = async (
       ApprovalStatus: approvalStatus,
     }),
   });
-  console.log(response);
+  return response.ok;
+};
+
+export const modifyPost = async (
+  id: number,
+  date: Date,
+  lat: number,
+  lon: number,
+  species: number,
+  description: string,
+  imageUrl: string,
+): Promise<boolean> => {
+  const response = await fetch(`${backendUrl}/post/`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      Id: id,
+      Date: date,
+      Lat: lat,
+      Lon: lon,
+      Species: species,
+      Description: description,
+      ImageUrl: imageUrl,
+    }),
+  });
   return response.ok;
 };
