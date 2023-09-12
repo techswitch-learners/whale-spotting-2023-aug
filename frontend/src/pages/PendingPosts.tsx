@@ -16,7 +16,7 @@ export const PendingPosts = () => {
   const fetchPendingPosts = async () => {
     const posts = await getAllPendingPosts();
     if (posts.length === 0) {
-      setErrorMessage("Unable to retrieve posts");
+      setErrorMessage("You're all up to date!");
     } else {
       setPostData(posts);
     }
@@ -52,7 +52,7 @@ export const PendingPosts = () => {
           )}
         </>
       ) : (
-        <p>{errorMessage}</p>
+        <p className="error-message">{errorMessage}</p>
         // <WhaleLoader
         //   isLoading={isLoading}
         //   message={isLoading ? "loading" : errorMessage}

@@ -4,3 +4,8 @@
 .PostsGallery {
   @include cardGallery();
 }
+
+.error-message {
+  text-align: center;
+  color: $color-foreground-dark !important;
+}

@@ -67,12 +67,13 @@ public class PostController : ControllerBase
     }
 
     [HttpPatch("")]
-    public IActionResult ApproveReject([FromBody] int id, int approvalStatus)
+    public IActionResult ApproveReject([FromBody] ApproveRejectRequest newApproveRejectRequest)
     {
         try
         {
-            var post = _postService.GetById(id);
-            _postService.ApproveReject(post, (ApprovalStatus)approvalStatus);
+            var newRequest = newApproveRejectRequest;
+            var post = _postService.GetById(newRequest.id);
+            _postService.ApproveReject(post, (ApprovalStatus)newRequest.approvalStatus);
 
             return Ok();
         }
