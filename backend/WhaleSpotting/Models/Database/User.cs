@@ -12,6 +12,7 @@ public class User
     public Role? Role { get; set; }
     public DateTime? CreationTimestamp { get; set; }
     public List<Post>? Posts { get; set; }
+    public List<Interaction>? PostUserLiked { get; set; }
     public int? Rating { get; set; }
     public string? ProfileImageUrl { get; set; }
     public string? Password
