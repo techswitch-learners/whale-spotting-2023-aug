@@ -1,8 +1,9 @@
 import { useState, FormEvent } from "react";
 import Button from "../components/UI/Button";
 import { createEvent } from "../clients/backendApiClient";
+import "./EventForm.scss";
 
-const EventsForm = () => {
+const EventForm = () => {
   const today = new Date();
   const todayDateString = today.toISOString().slice(0, -4);
 
@@ -15,7 +16,6 @@ const EventsForm = () => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    console.log(startDate, duration, location, eventLink, eventImageUrl);
     createEvent(startDate, duration, location, eventLink, eventImageUrl)
       .then(() => {
         setSuccessMessage("Thank you for your submission");
@@ -43,7 +43,9 @@ const EventsForm = () => {
             onChange={(event) => setStartDate(new Date(event.target.value))}
           />
 
-          <label htmlFor="duration">Duration:</label>
+          <label htmlFor="duration" className="submission-form-children">
+            Duration:
+          </label>
           <input
             type="number"
             placeholder="Number of Days eg. 2"
@@ -54,7 +56,9 @@ const EventsForm = () => {
             }}
           ></input>
 
-          <label htmlFor="location">Location:</label>
+          <label htmlFor="location" className="submission-form-children">
+            Location:
+          </label>
           <input
             type="text"
             placeholder="eg. John O' Groats"
@@ -65,7 +69,9 @@ const EventsForm = () => {
             }}
           />
 
-          <label htmlFor="eventLink">Event Url:</label>
+          <label htmlFor="eventLink" className="submission-form-children">
+            Event Url:
+          </label>
           <input
             type="url"
             id="eventLink"
@@ -75,7 +81,9 @@ const EventsForm = () => {
             }}
           ></input>
 
-          <label htmlFor="eventImageUrl">Event Image Url:</label>
+          <label htmlFor="eventImageUrl" className="submission-form-children">
+            Event Image Url:
+          </label>
           <input
             type="url"
             id="eventImageUrl"
@@ -95,4 +103,4 @@ const EventsForm = () => {
   );
 };
 
-export default EventsForm;
+export default EventForm;

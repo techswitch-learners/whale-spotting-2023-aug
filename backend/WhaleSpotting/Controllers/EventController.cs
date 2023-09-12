@@ -33,21 +33,13 @@ public class EventController : ControllerBase
     [HttpGet("all")]
     public IActionResult GetAll()
     {
-        try
-        {
-            var events = _eventService.GetAll();
-            return Ok(new EventsListResponse(events));
-        }
-        catch (ArgumentException)
-        {
-            return NotFound();
-        }
+        var events = _eventService.GetAll();
+        return Ok(new EventsResponse(events));
     }
 
     [HttpPost("")]
     public IActionResult Create([FromBody] EventRequest newEventRequest)
     {
-        Console.WriteLine(newEventRequest);
         var newEvent = new EventResponse(_eventService.Create(newEventRequest));
         return CreatedAtAction(nameof(GetById), new { id = newEvent.Id }, newEvent);
     }

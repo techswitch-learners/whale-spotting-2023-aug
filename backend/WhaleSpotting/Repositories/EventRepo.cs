@@ -7,7 +7,7 @@ namespace WhaleSpotting.Repositories;
 
 public interface IEventRepo
 {
-    public Event Create(EventRequest newEventRequest);
+    Event Create(EventRequest newEventRequest);
     Event GetById(int id);
     List<Event> GetAll();
 }
