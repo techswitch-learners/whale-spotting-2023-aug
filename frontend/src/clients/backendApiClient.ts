@@ -1,5 +1,5 @@
 import LatitudeLongitude from "../models/LatitudeLongitude";
-import PostDataResponse from "../models/PostsData";
+import PostDataResponse from "../models/PostsDataMap";
 import SpeciesListData from "../models/SpeciesListData";
 import UsersData from "../models/UsersData";
 

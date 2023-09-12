@@ -1,88 +1,87 @@
-import { useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import PostDataMap from "../../models/PostDataMap";
-import PostData from "../../models/PostData";
-import Modal from "../UI/Modal";
-import CardPostModal from "../Post/CardPostModal";
+// import { useState, useEffect } from "react";
+// import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+// import PostDataMap from "../../models/PostDataMap";
+// import Modal from "../UI/Modal";
+// import CardPostModal from "../Post/CardPostModal";
+// import "./Map.scss";
+// import { getAllPosts } from "../../clients/backendApiClient";
+// import Button from "../UI/Button";
+// import WhaleLoader from "../UI/WhaleLoader";
 
-// import FeaturedPostContent from "../components/Post/FeaturedPostContent";
-// import FeaturedFrame from "../components/UI/FeaturedFrame";
-import "./Map.scss";
+// const Map: React.FC = () => {
 
-const postDataMap: PostDataMap[] = [
-  {
-    imageUrl:
-      "https://hips.hearstapps.com/hmg-prod/images/where-to-go-whale-watching-virginia-1522419979.jpg?resize=1200:*",
-    species: "Humpback",
-    username: "Ariel",
-    sightingDate: "04 September 2023",
-    likes: 22100,
-    longitude: -42.170334,
-    latitude: 35.208618,
-    whaleName: "Tom",
-  },
-  {
-    imageUrl:
-      "https://www.wildlifeworldwide.com/images/home/whale_watching_grey_baja.jpg?",
-    username: "Ariel",
-    species: "humpback",
-    sightingDate: "04 September 2023",
-    likes: 22234,
-    longitude: 0,
-    latitude: 0,
-    whaleName: "Lucy",
-  },
-  {
-    imageUrl:
-      "https://hips.hearstapps.com/hmg-prod/images/where-to-go-whale-watching-virginia-1522419979.jpg?resize=1200:*",
-    username: "Nemo",
-    species: "humpback",
-    sightingDate: "03 September 2023",
-    likes: 22399,
-    longitude: -2.016773,
-    latitude: 45.462697,
-    whaleName: "Bob",
-  },
-];
+//   const [selectedPostDetails, setSelectedPostDetails] = useState<PostDataMap>();
+//   const [postData, setPostData] = useState<PostDataMap[]>();
+//   const [isLoading, setIsLoading] = useState(true);
+//   const [errorMessage, setErrorMessage] = useState<string>();
 
-const Map: React.FC = () => {
-  const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();
+//   const fetchPosts = async () => {
+//     setIsLoading(true);
+//     setPostData(undefined);
+//     setErrorMessage(undefined);
 
-  return (
-    <div>
-      <MapContainer
-        center={[51.505, -0.09]}
-        zoom={3}
-        style={{ height: "500px" }}
-      >
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        />
-        {postDataMap.map((data, index) => (
-          <Marker key={index} position={[data.latitude, data.longitude]}>
-            <Popup className="custom-popup">
-              <div className="container">
-                <img
-                  src={data.imageUrl}
-                  alt={data.species}
-                  className="image"
-                  onClick={() => setSelectedPostDetails(data)}
-                />
-                {/* {<p className="whale-name">{data.whaleName}</p>} */}
-              </div>
-            </Popup>
-          </Marker>
-        ))}
-      </MapContainer>
+//     await getAllPosts()
+//       .then((data) => setPostData(data.posts)
+//         .catch(() => setErrorMessage("Unable to load posts"));
 
-      {selectedPostDetails && (
-        <Modal closeAction={() => setSelectedPostDetails(undefined)}>
-          <CardPostModal postData={selectedPostDetails} />
-        </Modal>
-      )}
-    </div>
-  );
-};
+//     setIsLoading(false);
+//   };
 
-export default Map;
+//   useEffect(() => {
+//     fetchPosts();
+//   }, []);
+
+//   if (isLoading || errorMessage) {
+//     return (
+//       <main>
+//         <section className="section-dark">
+//           <div className="container Posts__loader">
+//             <WhaleLoader
+//               isLoading={isLoading}
+//               message={isLoading ? "Loading..." : errorMessage}
+//             />
+//             {errorMessage && <Button onClick={fetchPosts}>Try Again</Button>}
+//           </div>
+//         </section>
+//       </main>
+//     );
+//   }
+
+//   return (
+//     <div>
+//       <MapContainer
+//         center={[51.505, -0.09]}
+//         zoom={3}
+//         style={{ height: "500px" }}
+//       >
+//         <TileLayer
+//           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+//           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+//         />
+//         {postData.map((data, index) => (
+//           <Marker key={index} position={[data., data.longitude]}>
+//             <Popup className="custom-popup">
+//               <div className="container">
+//                 <img
+//                   src={data.imageUrl}
+//                   alt={data.species}
+//                   className="image"
+//                   onClick={() => setSelectedPostDetails(data)}
+//                 />
+//                 {/* {<p className="whale-name">{data.whaleName}</p>} */}
+//               </div>
+//             </Popup>
+//           </Marker>
+//         ))}
+//       </MapContainer>
+
+//       {selectedPostDetails && (
+//         <Modal closeAction={() => setSelectedPostDetails(undefined)}>
+//           <CardPostModal postData={selectedPostDetails} />
+//         </Modal>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default Map;
