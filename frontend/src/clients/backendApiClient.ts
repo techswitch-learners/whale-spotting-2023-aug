@@ -2,6 +2,7 @@ import { BodiesOfWater } from "../models/BodyOfWater";
 import LatitudeLongitude from "../models/LatitudeLongitude";
 import { NewPostData } from "../models/NewPostData";
 import SpeciesListData from "../models/SpeciesListData";
+import UserData from "../models/UserData";
 import UsersData from "../models/UsersData";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -104,4 +105,15 @@ export const getLatestPosts = async (): Promise<NewPostData[]> => {
   const filteredResponse = allResponse.posts.slice(0, 5);
 
   return filteredResponse;
+};
+
+export const getLeaderboard = async (): Promise<UserData[]> => {
+  const response = await getAllUsers();
+  if (response) {
+    response.users.sort((a: UserData, b: UserData) => {
+      return b.rating - a.rating;
+    });
+  }
+
+  return response.users.slice(0, 10);
 };

@@ -10,7 +10,6 @@ export default function LatestPosts() {
     const response = await getLatestPosts();
     if (response) {
       setLatestPosts(response);
-      console.log(response);
     }
   };
 

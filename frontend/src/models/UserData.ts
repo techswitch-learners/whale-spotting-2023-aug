@@ -4,6 +4,7 @@ interface UserData {
   email: string;
   name: string;
   profileImageUrl: string;
+  rating: number;
 }
 
 export default UserData;
