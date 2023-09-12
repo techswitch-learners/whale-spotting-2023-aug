@@ -51,7 +51,10 @@ const Map: React.FC = () => {
       <MapContainer
         center={[51.505, -0.09]}
         zoom={3}
-        style={{ height: "500px" }}
+        style={{
+          width: "100%",
+          height: "60vh",
+        }}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -64,7 +67,7 @@ const Map: React.FC = () => {
                 <div className="container">
                   <img
                     src={data.imageUrl}
-                    alt="{data.species}"
+                    alt={data.species.name}
                     className="image"
                     onClick={() => setSelectedPostDetails(data)}
                   />
@@ -72,7 +75,6 @@ const Map: React.FC = () => {
               </Popup>
             </Marker>
           ))}
-        ;
       </MapContainer>
 
       {selectedPostDetails && (

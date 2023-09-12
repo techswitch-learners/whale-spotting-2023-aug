@@ -45,6 +45,8 @@ public class PostResponse
 
     public int Id { get; set; }
     public PostUser User { get; set; }
+    public double Latitude { get; set; }
+    public double Longitude { get; set; }
     public DateTime Timestamp { get; set; }
     public PostSpecies Species { get; set; }
     public string ImageUrl { get; set; }
@@ -69,6 +71,18 @@ public class PostResponse
                     nameof(post),
                     "Property \"user\" must not be null"
                 );
+        Latitude =
+            post.Latitude
+            ?? throw new ArgumentNullException(
+                nameof(post),
+                "Property \"Latitude\" must not be null"
+            );
+        Longitude =
+            post.Longitude
+            ?? throw new ArgumentNullException(
+                nameof(post),
+                "Property \"Longitude\" must not be null"
+            );
         Species =
             post.Species != null
                 ? new PostSpecies(post.Species)
