@@ -6,6 +6,7 @@ interface PostDataMap {
   likes: number;
   longitude: number;
   latitude: number;
+  whaleName: string;
 }
 
 export default PostDataMap;

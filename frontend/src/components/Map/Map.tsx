@@ -19,6 +19,7 @@ const postDataMap: PostDataMap[] = [
     likes: 22100,
     longitude: -42.170334,
     latitude: 35.208618,
+    whaleName: "Tom",
   },
   {
     imageUrl:
@@ -29,6 +30,7 @@ const postDataMap: PostDataMap[] = [
     likes: 22234,
     longitude: 15.824178,
     latitude: -30.13351,
+    whaleName: "Lucy",
   },
   {
     imageUrl:
@@ -39,6 +41,7 @@ const postDataMap: PostDataMap[] = [
     likes: 22399,
     longitude: -2.016773,
     latitude: 45.462697,
+    whaleName: "Bob",
   },
 ];
 
@@ -60,17 +63,13 @@ const Map: React.FC = () => {
           <Marker key={index} position={[data.latitude, data.longitude]}>
             <Popup className="custom-popup">
               <div className="container">
-                <h2>Featured Sighting</h2>
                 <img
                   src={data.imageUrl}
                   alt={data.species}
                   className="image"
                   onClick={() => setSelectedPostDetails(data)}
                 />
-                {/* <p>Species: {data.species}</p>
-                <p className="username">Username: {data.username}</p>
-                <p className="date">Sighting Date: {data.sightingDate}</p>
-                <p className="likes">Likes: {data.likes}</p> */}
+                {/* {<p className="whale-name">{data.whaleName}</p>} */}
               </div>
             </Popup>
           </Marker>
