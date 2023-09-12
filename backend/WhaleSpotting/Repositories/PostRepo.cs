@@ -14,7 +14,7 @@ public interface IPostRepo
     public List<Post> GetAll();
     public List<Post> GetPending();
     public void ApproveReject(Post post, ApprovalStatus approvalStatus);
-    // public Task<Post> Modify(Post post);
+    public void Modify(Post post, ModifyPostRequest modifyPostRequest);
 }
 
 public class PostRepo : IPostRepo
@@ -158,8 +158,14 @@ public class PostRepo : IPostRepo
         _context.SaveChanges();
     }
 
-    // public Task<Post> Modify(Post post)
-    // {
-    //     return _context.Posts.Update(post.ApprovalStatus == ApprovalStatus.Approved);
-    // }
+    public void Modify(Post post, ModifyPostRequest modifyPostRequest)
+    {
+        _context.Entry(post).Property("Latitude").CurrentValue = modifyPostRequest.lat;
+        _context.Entry(post).Property("Longitude").CurrentValue = modifyPostRequest.lon;
+        _context.Entry(post).Property("Timestamp").CurrentValue = modifyPostRequest.date;
+        _context.Entry(post).Property("Species").CurrentValue = modifyPostRequest.species;
+        _context.Entry(post).Property("ImageUrl").CurrentValue = modifyPostRequest.imageUrl;
+        _context.Entry(post).Property("Description").CurrentValue = modifyPostRequest.description;
+        _context.SaveChanges();
+    }
 }

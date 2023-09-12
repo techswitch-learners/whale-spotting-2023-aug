@@ -82,4 +82,21 @@ public class PostController : ControllerBase
             return NotFound();
         }
     }
+
+    [HttpPatch("modify")]
+    public IActionResult Modify([FromBody] ModifyPostRequest newModifyPostRequest)
+    {
+        try
+        {
+            var newRequest = newModifyPostRequest;
+            var post = _postService.GetById(newRequest.id);
+            _postService.Modify(post, newRequest);
+
+            return Ok();
+        }
+        catch (ArgumentException)
+        {
+            return NotFound();
+        }
+    }
 }
