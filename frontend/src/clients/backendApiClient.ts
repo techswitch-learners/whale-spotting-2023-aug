@@ -1,4 +1,5 @@
 import LatitudeLongitude from "../models/LatitudeLongitude";
+import PostDataResponse from "../models/PostsData";
 import SpeciesListData from "../models/SpeciesListData";
 import UsersData from "../models/UsersData";
 
@@ -83,5 +84,10 @@ export const createWhalePost = async (
       imageUrl,
     }),
   });
+  return await response.json();
+};
+
+export const getAllPosts = async (): Promise<PostDataResponse> => {
+  const response = await fetch(`${backendUrl}/Post/all`);
   return await response.json();
 };
