@@ -1,6 +1,7 @@
 @use "../../styles/_variables.scss" as *;
 
 .Modal {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -8,6 +9,8 @@
   position: relative;
   max-width: 95%;
   height: 90%;
+
+  z-index: 50;
 
   &__Backdrop {
     display: flex;

@@ -1,5 +1,4 @@
-import { useRef, ReactNode, useState, useEffect } from "react";
-import CarouselItem from "./CarouselItem";
+import { ReactNode, useState } from "react";
 import "./FeaturedCarousel.scss";
 
 interface FeaturedCarouselProps {
@@ -7,49 +6,50 @@ interface FeaturedCarouselProps {
 }
 
 const FeaturedCarousel = ({ featuredItems }: FeaturedCarouselProps) => {
-  const slider = useRef<HTMLUListElement>(null);
-
+  const [lastSlide, setLastSlide] = useState(1);
   const [activeSlide, setActiveSlide] = useState(0);
 
-  const [sliderRefs, setSlideRefs] = useState<React.RefObject<HTMLLIElement>[]>(
-    [],
-  );
-
-  const firstSlide = useRef<HTMLLIElement>(null);
-  const secondSlide = useRef<HTMLLIElement>(null);
-  const thirdSlide = useRef<HTMLLIElement>(null);
-
-  useEffect(() => {
-    setSlideRefs([firstSlide, secondSlide, thirdSlide]);
-  }, []);
-
-  const scrollToSlide = (reference: React.RefObject<HTMLLIElement>) => {
-    const leftOffset = reference.current?.offsetLeft;
-    slider.current?.scrollTo({ left: leftOffset, behavior: "smooth" });
-  };
+  const [moving, setMoving] = useState(false);
 
   return (
     <div className="FeaturedCarousel">
-      <ul ref={slider} className="FeaturedCarousel__items">
+      <ul className="FeaturedCarousel__items">
         {featuredItems &&
           featuredItems.map((item, i) => {
-            return <CarouselItem reference={sliderRefs[i]} children={item} />;
+            return (
+              <li
+                className={`FeaturedCarousel__item ${
+                  activeSlide === i
+                    ? "FeaturedCarousel__item--active"
+                    : lastSlide === i
+                    ? "FeaturedCarousel__item--out"
+                    : ""
+                }`}
+              >
+                {item}
+              </li>
+            );
           })}
       </ul>
 
-      <ul className="FeaturedCarousel__buttons">
+      <ul className="FeaturedCarousel__buttons ">
         {featuredItems &&
           featuredItems.map((_, i) => {
             return (
-              <li
+              <button
                 className={`FeaturedCarousel__button ${
                   activeSlide === i ? "FeaturedCarousel__button--active" : ""
                 } `}
+                disabled={moving}
                 onClick={() => {
+                  setMoving(true);
+                  setTimeout(() => {
+                    setMoving(false);
+                  }, 1800);
+                  setLastSlide(activeSlide);
                   setActiveSlide(i);
-                  scrollToSlide(sliderRefs[i]);
                 }}
-              ></li>
+              ></button>
             );
           })}
       </ul>

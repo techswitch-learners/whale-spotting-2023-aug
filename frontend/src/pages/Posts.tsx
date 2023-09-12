@@ -104,6 +104,18 @@ export const Posts = () => {
                   openModalAction={() => setSelectedPostDetails(postData[2])}
                 />
               </FeaturedFrame>,
+              <FeaturedFrame imageUrl={postData[3].imageUrl}>
+                <FeaturedPostContent
+                  postData={postData[3]}
+                  openModalAction={() => setSelectedPostDetails(postData[3])}
+                />
+              </FeaturedFrame>,
+              <FeaturedFrame imageUrl={postData[4].imageUrl}>
+                <FeaturedPostContent
+                  postData={postData[4]}
+                  openModalAction={() => setSelectedPostDetails(postData[4])}
+                />
+              </FeaturedFrame>,
             ]}
           />
         </div>
