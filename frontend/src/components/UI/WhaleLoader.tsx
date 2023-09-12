@@ -221,9 +221,11 @@ const WhaleLoader = ({ isLoading, message }: WhaleLoaderProps) => {
           </g>
         </svg>
       </div>
-      <div className="WhaleLoader__message">
-        <h3>{message}</h3>
-      </div>
+      {message && (
+        <div className="WhaleLoader__message">
+          <h3>{message}</h3>
+        </div>
+      )}
     </div>
   );
 };

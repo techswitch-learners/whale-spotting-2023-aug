@@ -1,5 +1,7 @@
 import LatitudeLongitude from "../models/LatitudeLongitude";
-import PostDataResponse from "../models/PostDataResponse";
+import PostDataResponse from "../models/PostsData";
+import SpeciesListData from "../models/SpeciesListData";
+import UsersData from "../models/UsersData";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -10,6 +12,11 @@ export const checkBackendConnection = async (): Promise<boolean> => {
     return false;
   }
   return true;
+};
+
+export const getAllUsers = async (): Promise<UsersData> => {
+  const response = await fetch(`${backendUrl}/User/all`);
+  return response.json();
 };
 
 export const tryEmailAndPassword = async (
@@ -53,6 +60,11 @@ export const getLatitudeLongitude = async (
   return await response.json();
 };
 
+export const getAllSpecies = async (): Promise<SpeciesListData> => {
+  const response = await fetch(`${backendUrl}/Species/all`);
+  return await response.json();
+};
+
 export const createWhalePost = async (
   date: Date,
   lat: number,
@@ -76,29 +88,6 @@ export const createWhalePost = async (
 };
 
 export const getAllPosts = async (): Promise<PostDataResponse> => {
-  try {
-    const response = await fetch(`${backendUrl}/Post/all`);
-
-    if (!response.ok) {
-      return {
-        status: {
-          ok: response.ok,
-          code: response.status,
-          text: response.statusText,
-        },
-      };
-    }
-
-    const jsonResponse = await response.json();
-    return {
-      posts: jsonResponse.posts,
-      status: {
-        ok: response.ok,
-        code: response.status,
-        text: response.statusText,
-      },
-    };
-  } catch {
-    return { status: { ok: false, text: "Fetch request failed" } };
-  }
+  const response = await fetch(`${backendUrl}/Post/all`);
+  return await response.json();
 };

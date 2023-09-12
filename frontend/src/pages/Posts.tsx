@@ -7,6 +7,7 @@ import FeaturedPostContent from "../components/Post/FeaturedPostContent";
 import FeaturedFrame from "../components/UI/FeaturedFrame";
 import { getAllPosts } from "../clients/backendApiClient";
 import WhaleLoader from "../components/UI/WhaleLoader";
+import FeaturedCarousel from "../components/UI/Carousel/FeaturedCarousel";
 import "./Posts.scss";
 import Button from "../components/UI/Button";
 
@@ -21,19 +22,9 @@ export const Posts = () => {
     setPostData(undefined);
     setErrorMessage(undefined);
 
-    const { posts, status } = await getAllPosts();
-
-    if (!status.ok) {
-      let errorMessage = "";
-      if (status.code) {
-        errorMessage = `Status Code: ${status.code}, `;
-      }
-      errorMessage += `Error Message: ${status.text}`;
-      setErrorMessage(errorMessage);
-    } else {
-      setErrorMessage(undefined);
-      setPostData(posts);
-    }
+    await getAllPosts()
+      .then((data) => setPostData(data.posts))
+      .catch(() => setErrorMessage("Unable to load posts"));
 
     setIsLoading(false);
   };
@@ -49,11 +40,9 @@ export const Posts = () => {
           <div className="container Posts__loader">
             <WhaleLoader
               isLoading={isLoading}
-              message={isLoading ? "loading" : errorMessage}
+              message={isLoading ? "Loading..." : errorMessage}
             />
-            {errorMessage && (
-              <Button onClick={() => fetchPosts()}>Try Again</Button>
-            )}
+            {errorMessage && <Button onClick={fetchPosts}>Try Again</Button>}
           </div>
         </section>
       </main>
@@ -67,13 +56,17 @@ export const Posts = () => {
         <>
           <section className="section-dark">
             <div className="container">
-              <h2>Featured Sighting</h2>
-              <FeaturedFrame imageUrl={postData[0].imageUrl}>
-                <FeaturedPostContent
-                  postData={postData[0]}
-                  openModalAction={() => setSelectedPostDetails(postData[0])}
-                />
-              </FeaturedFrame>
+              <h2>Featured Sightings</h2>
+              <FeaturedCarousel
+                featuredItems={postData.slice(0, 5).map((post) => (
+                  <FeaturedFrame imageUrl={post.imageUrl}>
+                    <FeaturedPostContent
+                      postData={post}
+                      openModalAction={() => setSelectedPostDetails(post)}
+                    />
+                  </FeaturedFrame>
+                ))}
+              />
             </div>
           </section>
 
