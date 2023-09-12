@@ -10,20 +10,37 @@
 .LatestPostsRow {
   display: flex;
   flex-direction: row;
-  gap: $mobile-card-padding;
-  margin-top: $mobile-card-padding;
+  //  gap: $mobile-card-padding;
+  //  margin-top: $mobile-card-padding;
+  overflow: auto;
+  width: 100%;
 }
 
 .LatestPostCard {
   width: 350px;
   position: relative;
   border-radius: $mobile-border-radius;
+  padding: $mobile-card-padding;
 
   &__ImgContainer {
-    overflow: hidden;
-
     &__Img {
-      max-width: 100%;
+      max-width: 50vw;
+
+      @include devices(tablet) {
+        max-width: 38vw;
+      }
+
+      @include devices(desktop) {
+        max-width: 15vw;
+      }
     }
+  }
+
+  @include devices(tablet) {
+    padding: $tablet-card-padding;
+  }
+
+  @include devices(desktop) {
+    padding: $desktop-card-padding;
   }
 }
