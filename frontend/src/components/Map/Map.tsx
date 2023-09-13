@@ -34,7 +34,7 @@ const Map: React.FC = () => {
     return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
   });
 
-  const recentSightings = sortedData?.slice(0, 15);
+  const recentSightings = sortedData?.slice(0, 5);
 
   if (isLoading || errorMessage) {
     return (
