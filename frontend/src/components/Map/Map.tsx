@@ -14,6 +14,7 @@ const Map: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string>();
   const [sortMethod, setSortMethod] = useState<"date" | "rating">("date");
+  const [mapStyle, setMapStyle] = useState<"street" | "satellite">("street");
 
   const fetchPosts = async () => {
     setIsLoading(true);
@@ -33,6 +34,10 @@ const Map: React.FC = () => {
 
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSortMethod(e.target.value as "date" | "rating");
+  };
+
+  const handleMapStyleChange = (style: "street" | "satellite") => {
+    setMapStyle(style);
   };
 
   let sortedData = postData;
@@ -75,6 +80,25 @@ const Map: React.FC = () => {
         </select>
       </div>
 
+      <div className="map-style-options">
+        <button
+          onClick={() => handleMapStyleChange("street")}
+          className={`map-style-button ${
+            mapStyle === "street" ? "active" : ""
+          }`}
+        >
+          Street
+        </button>
+        <button
+          onClick={() => handleMapStyleChange("satellite")}
+          className={`map-style-button ${
+            mapStyle === "satellite" ? "active" : ""
+          }`}
+        >
+          Satellite
+        </button>
+      </div>
+
       <MapContainer
         center={[51.505, -0.09]}
         zoom={3}
@@ -84,8 +108,23 @@ const Map: React.FC = () => {
         }}
       >
         <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url={
+            mapStyle === "satellite"
+              ? "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}"
+              : "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          }
+          attribution={
+            mapStyle === "satellite"
+              ? '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> contributors'
+              : '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          }
+          maxZoom={18}
+          id={mapStyle === "satellite" ? "mapbox/satellite-streets-v11" : ""}
+          accessToken={
+            mapStyle === "satellite"
+              ? "pk.eyJ1IjoicmFmZWIiLCJhIjoiY2xtaG5kbWM4MmlsNjNjanIyMngxOHN3ZSJ9.u9SjYQOB5BXuSEt5RGif_Q"
+              : undefined
+          }
         />
         {limitedData &&
           limitedData.map((data, index) => (
