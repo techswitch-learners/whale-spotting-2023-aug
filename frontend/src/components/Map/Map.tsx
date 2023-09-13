@@ -13,7 +13,7 @@ const Map: React.FC = () => {
   const [postData, setPostData] = useState<PostDataMap[]>();
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string>();
-  const [sortMethod, setSortMethod] = useState<"date" | "rating">("date"); // Default sorting by date
+  const [sortMethod, setSortMethod] = useState<"date" | "rating">("date");
 
   const fetchPosts = async () => {
     setIsLoading(true);
@@ -46,6 +46,8 @@ const Map: React.FC = () => {
       return b.rating - a.rating;
     });
   }
+
+  const limitedData = sortedData?.slice(0, 3);
 
   if (isLoading || errorMessage) {
     return (
@@ -85,8 +87,8 @@ const Map: React.FC = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
-        {sortedData &&
-          sortedData.map((data, index) => (
+        {limitedData &&
+          limitedData.map((data, index) => (
             <Marker key={index} position={[data.latitude, data.longitude]}>
               <Popup className="custom-popup">
                 <div className="container">
