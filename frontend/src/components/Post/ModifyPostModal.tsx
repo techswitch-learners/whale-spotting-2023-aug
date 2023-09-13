@@ -7,6 +7,7 @@ import {
   getLatitudeLongitude,
   getAllSpecies,
   modifyPost,
+  approveRejectPost,
 } from "../../clients/backendApiClient";
 
 import "./ModifyPostModal.scss";
@@ -31,6 +32,7 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
   const [speciesErrorMessage, setSpeciesErrorMessage] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [speciesListData, setSpeciesListData] = useState<SpeciesListData>();
+  // const [toApprove, setToApprove] = useState<Boolean>(false);
 
   const validW3wPattern = useMemo(() => {
     return { pattern: /^(\/\/\/)?[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]+$/g };
@@ -107,11 +109,30 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
 
     modifyPost(id, date, lat, lon, speciesId, description, imageUrl)
       .then(() => {
-        setSuccessMessage("Thank you for your submission");
+        setSuccessMessage("Post successfully updated");
       })
-      .catch(() => {
-        setSuccessMessage("Please check the information provided");
+      .then(() => {
+        try {
+          approveRejectPost(id, 1).then(() => {
+            setSuccessMessage("Post update and approval successful");
+            window.location.reload();
+          });
+        } catch (error) {
+          setSuccessMessage("Unable to approve post, please try again");
+        }
       });
+    //   if (toApprove) {
+    //     try {
+    //       approveRejectPost(id, 1);
+    //     } catch (error) {
+    //       setSuccessMessage("Try again later");
+    //     }
+    //   }
+    //   window.location.reload();
+    // })
+    // .catch(() => {
+    //   setSuccessMessage("Please check the information provided");
+    // });
   };
 
   useEffect(() => {
@@ -248,8 +269,15 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
               type="submit"
               className="submission-form-children submit-button"
             >
-              Submit
+              Submit and Approve
             </Button>
+            {/* <Button
+              type="submit"
+              className="submission-form-children submit-button"
+              onClick={() => setToApprove(true)}
+            >
+              Submit and Approve
+            </Button> */}
           </div>
           <span className="error-message">{successMessage}</span>
         </form>
