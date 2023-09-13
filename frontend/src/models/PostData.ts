@@ -5,6 +5,8 @@ interface PostData {
     name: string;
     profileImageUrl: string;
   };
+  latitude: number;
+  longitude: number;
   timestamp: string;
   species: {
     id: number;
@@ -18,8 +20,6 @@ interface PostData {
     id: number;
     name: string;
   };
-  lat: string;
-  lon: string;
 }
 
 export default PostData;

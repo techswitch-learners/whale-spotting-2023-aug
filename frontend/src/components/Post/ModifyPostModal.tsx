@@ -22,8 +22,8 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
   const id = postData.id;
   const [date, setDate] = useState<Date>(new Date(postData.timestamp));
   const [w3w, setW3w] = useState<string>("");
-  const [lat, setLat] = useState<number>(NaN);
-  const [lon, setLon] = useState<number>(NaN);
+  const [lat, setLat] = useState<number>(postData.latitude);
+  const [lon, setLon] = useState<number>(postData.longitude);
   const [speciesId, setSpeciesId] = useState<number>(postData.species.id);
   const [description, setDescription] = useState<string>(postData.description);
   const [imageUrl, setImageUrl] = useState<string>(postData.imageUrl);
@@ -164,7 +164,7 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
               id="lat"
               name="lat"
               placeholder="Latitude"
-              value={isNaN(lat) ? "" : lat}
+              value={lat}
               onChange={(event) => setLat(parseFloat(event.target.value))}
             />
             <input
@@ -172,7 +172,7 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
               id="lon"
               name="lon"
               placeholder="Longitude"
-              value={isNaN(lon) ? "" : lon}
+              value={lon}
               onChange={(event) => setLon(parseFloat(event.target.value))}
             />
           </div>
@@ -195,7 +195,16 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
             {speciesListData?.speciesList
               .sort((a, b) => a.id - b.id)
               .map((species) => (
-                <option value={species.id}>{species.name}</option>
+                <>
+                  {species.id === postData.species.id && (
+                    <option value={species.id} selected>
+                      {species.name}
+                    </option>
+                  )}
+                  {species.id !== postData.species.id && (
+                    <option value={species.id}>{species.name}</option>
+                  )}
+                </>
               ))}
           </select>
 
