@@ -12,8 +12,8 @@ using WhaleSpotting;
 namespace WhaleSpotting.Migrations
 {
     [DbContext(typeof(WhaleSpottingContext))]
-    [Migration("20230912134654_add_interactions_table")]
-    partial class add_interactions_table
+    [Migration("20230913123505_addInteractionsTable")]
+    partial class addInteractionsTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -60,8 +60,8 @@ namespace WhaleSpotting.Migrations
                     b.Property<string>("Location")
                         .HasColumnType("text");
 
-                    b.Property<DateOnly?>("StartDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime?>("StartDate")
+                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
 
@@ -88,7 +88,7 @@ namespace WhaleSpotting.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Interaction");
+                    b.ToTable("Interactions");
                 });
 
             modelBuilder.Entity("WhaleSpotting.Models.Database.Post", b =>

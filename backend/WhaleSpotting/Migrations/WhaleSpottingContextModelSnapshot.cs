@@ -58,8 +58,8 @@ namespace WhaleSpotting.Migrations
                     b.Property<string>("Location")
                         .HasColumnType("text");
 
-                    b.Property<DateOnly?>("StartDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime?>("StartDate")
+                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
 
@@ -86,7 +86,7 @@ namespace WhaleSpotting.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Interaction");
+                    b.ToTable("Interactions");
                 });
 
             modelBuilder.Entity("WhaleSpotting.Models.Database.Post", b =>
