@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getLatestPosts } from "../../clients/backendApiClient";
 import PostData from "../../models/PostData";
+import { toShortDate } from "../../utils/DateConversion";
 import "./LatestPosts.scss";
 
 export default function LatestPosts() {
@@ -16,12 +17,6 @@ export default function LatestPosts() {
   useEffect(() => {
     getLatestPostsHandler();
   }, []);
-
-  function formatDate(timestamp: string) {
-    const date = Date.parse(timestamp);
-    const newDateFormat = new Date(date);
-    return newDateFormat.toLocaleDateString();
-  }
 
   return (
     <section className="LatestPosts section-dark">
@@ -41,7 +36,7 @@ export default function LatestPosts() {
                     />
                   </div>
                   <p>Spotter: {post.user.name}</p>
-                  <p>Date : {formatDate(post.timestamp)}</p>
+                  <p>Date : {toShortDate(post.timestamp)}</p>
                 </div>
               );
             })}

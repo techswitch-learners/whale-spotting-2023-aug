@@ -5,6 +5,7 @@ import UserData from "../models/UserData";
 import UsersData from "../models/UsersData";
 import PostsData from "../models/PostsData";
 import PostData from "../models/PostData";
+import EventData from "../models/EventData";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -158,4 +159,14 @@ export const createEvent = async (
 export const getAllPosts = async (): Promise<PostsData> => {
   const response = await fetch(`${backendUrl}/Post/all`);
   return await response.json();
+};
+
+export const getEvents = async (): Promise<EventData[]> => {
+  const response = await fetch(`${backendUrl}/event/all`);
+  const data = await response.json();
+  let events;
+  if (data) {
+    events = data.events;
+  }
+  return events;
 };

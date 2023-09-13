@@ -1,56 +1,56 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import UserData from "../../models/UserData";
-import { getLeaderboard } from "../../clients/backendApiClient";
+import { getEvents } from "../../clients/backendApiClient";
+import EventData from "../../models/EventData";
+import { toShortDate } from "../../utils/DateConversion";
 import "./EventandLeaderboardSection.scss";
+import { Link } from "react-router-dom";
 
-export default function Leaderboard() {
-  const [leaderboard, setLeaderboard] = useState<UserData[]>();
+export default function Events() {
+  const [events, setEvents] = useState<EventData[]>();
 
-  const getLeaderboardHandler = async () => {
-    const response = await getLeaderboard();
+  const getEventsHandler = async () => {
+    const response = await getEvents();
     if (response) {
-      setLeaderboard(response);
+      setEvents(response);
       //      console.log(response);
     }
   };
 
   useEffect(() => {
-    getLeaderboardHandler();
+    getEventsHandler();
   }, []);
 
   return (
     <>
       <div className="Board">
-        <h3 className="Board__Title">Leaderboard</h3>
+        <h3 className="Board__Title">Events</h3>
         <hr className="Board__Divider" />
         <div>
           <table className="Board__Table">
             <tr>
-              <th>User</th>
               <th>Name</th>
-              <th>Posts</th>
-              <th>Rating</th>
+              <th>Location</th>
+              <th>Date</th>
               <th>Link</th>
             </tr>
-            {leaderboard &&
-              leaderboard.map((user) => {
+            {events &&
+              events.map((event) => {
                 return (
                   <tr className="Board__Item">
                     <td>
-                      <Link to={`/users/${user.id}`}>
+                      <a href={`${event.eventLink}`} target="_blank">
                         <img
                           className="Item_Thumbnail"
-                          src={user.profileImageUrl}
+                          src={event.eventImageUrl}
                           alt=""
                         />
-                      </Link>
+                      </a>
                     </td>
-                    <td>{user.name}</td>
-                    <td>{user.posts.length}</td>
-                    <td>{user.rating ? user.rating : "9732"}</td>
+                    <td>{event.location}</td>
+                    <td>{toShortDate(event.startDate)}</td>
+
                     <td className="Board__Item__svg">
-                      <Link to={`/users/${user.id}`}>
+                      <Link to={`/users/`}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
