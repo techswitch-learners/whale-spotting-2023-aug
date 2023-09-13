@@ -1,4 +1,6 @@
 import { useState } from "react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import { registerNewUser } from "../clients/backendApiClient";
 import Button from "../components/UI/Button";
 import "./Register.scss";
@@ -10,6 +12,8 @@ function RegisterPage() {
   const [password, setPassword] = useState("");
   const [profileImageUrl, setProfileImageUrl] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  const navigate = useNavigate();
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -24,7 +28,7 @@ function RegisterPage() {
       );
 
       if (result) {
-        // Redirect
+        navigate("/");
       } else {
         setErrorMessage("Please check the information provided");
       }
