@@ -14,7 +14,12 @@
 
   @include devices(desktop) {
     padding: 3rem;
+    overflow-y: hidden;
   }
+}
+
+.submission-form {
+  height: 100%;
 }
 
 .post-description {
@@ -24,10 +29,29 @@
 .button-container {
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
+  margin-top: 1rem;
+
+  @include devices(tablet) {
+    margin-top: 3rem;
+  }
+
+  @include devices(desktop) {
+    margin-top: 2.5rem;
+  }
 }
 
 .submit-button {
   border-color: $color-primary;
-  width: 25%;
+  width: 40%;
+  padding: 0.1rem;
+  font-size: 0.8rem;
+
+  @include devices(tablet) {
+    font-size: 1rem;
+  }
+
+  @include devices(desktop) {
+    font-size: 1.5rem;
+  }
 }

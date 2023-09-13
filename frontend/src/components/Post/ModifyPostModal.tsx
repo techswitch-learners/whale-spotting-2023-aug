@@ -32,7 +32,7 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
   const [speciesErrorMessage, setSpeciesErrorMessage] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [speciesListData, setSpeciesListData] = useState<SpeciesListData>();
-  // const [toApprove, setToApprove] = useState<Boolean>(false);
+  const [toApprove, setToApprove] = useState<boolean>(false);
 
   const validW3wPattern = useMemo(() => {
     return { pattern: /^(\/\/\/)?[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]+$/g };
@@ -107,32 +107,23 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
       return;
     }
 
-    modifyPost(id, date, lat, lon, speciesId, description, imageUrl)
-      .then(() => {
-        setSuccessMessage("Post successfully updated");
-      })
-      .then(() => {
-        try {
-          approveRejectPost(id, 1).then(() => {
-            setSuccessMessage("Post update and approval successful");
-            window.location.reload();
-          });
-        } catch (error) {
-          setSuccessMessage("Unable to approve post, please try again");
+    modifyPost(id, date, lat, lon, speciesId, description, imageUrl).then(
+      () => {
+        if (toApprove) {
+          try {
+            approveRejectPost(id, 1).then(() => {
+              setSuccessMessage("Post update and approval successful");
+              window.location.reload();
+            });
+          } catch (error) {
+            setSuccessMessage("Unable to approve post, please try again");
+          }
+        } else {
+          setSuccessMessage("Post successfully updated");
+          window.location.reload();
         }
-      });
-    //   if (toApprove) {
-    //     try {
-    //       approveRejectPost(id, 1);
-    //     } catch (error) {
-    //       setSuccessMessage("Try again later");
-    //     }
-    //   }
-    //   window.location.reload();
-    // })
-    // .catch(() => {
-    //   setSuccessMessage("Please check the information provided");
-    // });
+      },
+    );
   };
 
   useEffect(() => {
@@ -269,15 +260,15 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
               type="submit"
               className="submission-form-children submit-button"
             >
-              Submit and Approve
+              Submit
             </Button>
-            {/* <Button
+            <Button
               type="submit"
               className="submission-form-children submit-button"
               onClick={() => setToApprove(true)}
             >
               Submit and Approve
-            </Button> */}
+            </Button>
           </div>
           <span className="error-message">{successMessage}</span>
         </form>
