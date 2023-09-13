@@ -157,7 +157,7 @@ export const modifyPost = async (
   description: string,
   imageUrl: string,
 ): Promise<boolean> => {
-  const response = await fetch(`${backendUrl}/post/`, {
+  const response = await fetch(`${backendUrl}/post/modify`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",

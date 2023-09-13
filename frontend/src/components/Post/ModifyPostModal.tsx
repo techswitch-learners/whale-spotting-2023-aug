@@ -32,6 +32,20 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [speciesListData, setSpeciesListData] = useState<SpeciesListData>();
 
+  const delay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
+
+  useEffect(() => {
+    async function makeRequest() {
+      console.log("before");
+
+      await delay(1000);
+
+      console.log("after");
+    }
+    makeRequest();
+  });
+
   const validW3wPattern = /^(\/\/\/)?[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]+$/g;
 
   useEffect(() => {
@@ -55,11 +69,6 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-
-    if (!lat && !lon) {
-      setLat(postData.latitude);
-      setLon(postData.longitude);
-    }
 
     if ((!lat && lon) || (!lon && lat)) {
       setLocationErrorMessage("Please fill both latitude and longitude");
