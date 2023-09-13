@@ -11,6 +11,7 @@ import PostForm from "./pages/PostForm";
 import EventForm from "./pages/EventForm.tsx";
 import "./App.scss";
 import SearchResult from "./pages/SearchResult.tsx";
+import Footer from "./components/Footer/Footer.tsx";
 
 export const App = () => {
   return (
@@ -31,6 +32,7 @@ export const App = () => {
         <Route path="/posts/create" element={<PostForm />} />
         <Route path="/events/create" element={<EventForm />} />
       </Routes>
+      <Footer />
     </Router>
   );
 };

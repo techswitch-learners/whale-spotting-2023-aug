@@ -1,0 +1,9 @@
+@use "../../styles/mixins" as *;
+@use "../../styles/variables" as *;
+@use "../../styles/typography" as *;
+
+.Footer {
+  &__Divider {
+    border: 1px solid $color-secondary;
+  }
+}
