@@ -11,7 +11,7 @@ export default function Leaderboard() {
     const response = await getLeaderboard();
     if (response) {
       setLeaderboard(response);
-      console.log(response);
+      //      console.log(response);
     }
   };
 

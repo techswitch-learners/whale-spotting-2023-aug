@@ -1,4 +1,4 @@
-import { BodiesOfWater } from "../models/BodyOfWater";
+import { BodiesOfWater, BodyOfWater } from "../models/BodyOfWater";
 import LatitudeLongitude from "../models/LatitudeLongitude";
 import SpeciesListData from "../models/SpeciesListData";
 import UserData from "../models/UserData";
@@ -97,7 +97,15 @@ export const createWhalePost = async (
 
 export const getAllBodiesOfWater = async (): Promise<BodiesOfWater> => {
   const response = await fetch(`${backendUrl}/BodyOfWater/all`);
-  return response.json();
+  const unsortedBodiesOfWater = await response.json();
+  if (unsortedBodiesOfWater) {
+    unsortedBodiesOfWater.bodiesOfWater.sort(
+      (a: BodyOfWater, b: BodyOfWater) => {
+        return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+      },
+    );
+  }
+  return unsortedBodiesOfWater;
 };
 
 export const getLatestPosts = async (): Promise<PostData[]> => {
