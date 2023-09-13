@@ -1,6 +1,6 @@
 import PostData from "../../models/PostData";
 import Button from "../UI/Button";
-import { useState, useEffect, FormEvent } from "react";
+import { useState, useEffect, FormEvent, useMemo } from "react";
 import SpeciesListData from "../../models/SpeciesListData";
 import w3w_logo from "../../assets/w3w_logo.png";
 import {
@@ -32,36 +32,38 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [speciesListData, setSpeciesListData] = useState<SpeciesListData>();
 
-  const delay = (ms: number) =>
-    new Promise((resolve) => setTimeout(resolve, ms));
+  const validW3wPattern = useMemo(() => {
+    return { pattern: /^(\/\/\/)?[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]+$/g };
+  }, []);
 
   useEffect(() => {
-    async function makeRequest() {
-      console.log("before");
-
-      await delay(1000);
-
-      console.log("after");
-    }
-    makeRequest();
-  });
-
-  const validW3wPattern = /^(\/\/\/)?[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]+$/g;
-
-  useEffect(() => {
-    let words;
-    if (w3w.startsWith("///")) {
-      words = w3w.slice(3);
+    if (w3w && validW3wPattern.pattern.test(w3w)) {
+      let words;
+      if (w3w.startsWith("///")) {
+        words = w3w.slice(3);
+      } else {
+        words = w3w;
+      }
+      getLatitudeLongitude(words)
+        .then((data) => {
+          if (!isNaN(data.lat) && !isNaN(data.lng)) {
+            setLat(data.lat);
+            setLon(data.lng);
+          } else {
+            setLocationErrorMessage("Please enter a valid what3words");
+            setLat(NaN);
+            setLon(NaN);
+          }
+        })
+        .catch(() =>
+          setLocationErrorMessage("Please enter a valid what3words"),
+        );
+    } else if (w3w && !validW3wPattern.pattern.test(w3w)) {
+      setLocationErrorMessage("Please enter a valid what3words");
     } else {
-      words = w3w;
+      setLocationErrorMessage("");
     }
-    getLatitudeLongitude(words)
-      .then((data) => {
-        setLat(data.lat);
-        setLon(data.lng);
-      })
-      .catch(() => setLocationErrorMessage("Please enter a valid what3words"));
-  }, [w3w]);
+  }, [w3w, validW3wPattern]);
 
   useEffect(() => {
     getAllSpecies().then(setSpeciesListData);
@@ -70,7 +72,7 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
-    if ((!lat && lon) || (!lon && lat)) {
+    if ((isNaN(lat) && !isNaN(lon)) || (isNaN(lon) && !isNaN(lat))) {
       setLocationErrorMessage("Please fill both latitude and longitude");
       return;
     }
@@ -80,9 +82,10 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
       return;
     }
 
-    if (w3w && !validW3wPattern.test(w3w)) {
+    if (w3w && !validW3wPattern.pattern.test(w3w)) {
       setLocationErrorMessage("Please enter a valid what3words");
-    } else if (w3w && validW3wPattern.test(w3w)) {
+      return;
+    } else if (w3w && validW3wPattern.pattern.test(w3w)) {
       let words;
       if (w3w.startsWith("///")) {
         words = w3w.slice(3);
@@ -97,21 +100,25 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
         .catch(() =>
           setLocationErrorMessage("Please enter a valid what3words"),
         );
+    } else if (isNaN(lat) && isNaN(lon)) {
+      setLocationErrorMessage("Please enter a valid location or what3words");
+      return;
     }
-    if (lat && lon) {
-      modifyPost(id, date, lat, lon, speciesId, description, imageUrl)
-        .then(() => {
-          setSuccessMessage("Thank you for your submission");
-        })
-        .catch(() => {
-          setSuccessMessage("Please check the information provided");
-        });
-    }
+
+    modifyPost(id, date, lat, lon, speciesId, description, imageUrl)
+      .then(() => {
+        setSuccessMessage("Thank you for your submission");
+      })
+      .catch(() => {
+        setSuccessMessage("Please check the information provided");
+      });
   };
 
   useEffect(() => {
-    setLocationErrorMessage("");
-  }, [w3w, lat, lon]);
+    if (!isNaN(lat) && !isNaN(lon)) {
+      setLocationErrorMessage("");
+    }
+  }, [lat, lon]);
 
   useEffect(() => {
     setSpeciesErrorMessage("");
@@ -195,6 +202,7 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
             id="species"
             required
             onChange={(event) => setSpeciesId(parseInt(event.target.value))}
+            value={postData.species.id}
           >
             <option>
               {speciesListData ? "Choose species" : "Choose species (loading)"}
@@ -202,16 +210,7 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
             {speciesListData?.speciesList
               .sort((a, b) => a.id - b.id)
               .map((species) => (
-                <>
-                  {species.id === postData.species.id && (
-                    <option value={species.id} selected>
-                      {species.name}
-                    </option>
-                  )}
-                  {species.id !== postData.species.id && (
-                    <option value={species.id}>{species.name}</option>
-                  )}
-                </>
+                <option value={species.id}>{species.name}</option>
               ))}
           </select>
 
