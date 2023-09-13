@@ -55,6 +55,7 @@ public class UserRepo : IUserRepo
     {
         return _context.Users
             .Include(user => user.Posts)
+            .ThenInclude(post => post.Likes)
             .Where(user => user.Role == Role.User)
             .ToList();
     }

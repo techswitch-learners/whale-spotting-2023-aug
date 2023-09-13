@@ -41,7 +41,6 @@ public class InteractionController : ControllerBase
         {
             return Unauthorized("Invalid authorization header");
         }
-
         if (_authService.IsCorrectUsernameAndPasswordCombination(auth.Username, auth.Password))
         {
             try

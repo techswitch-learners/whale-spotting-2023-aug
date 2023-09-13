@@ -28,6 +28,7 @@ builder.Services.AddTransient<IBodyOfWaterService, BodyOfWaterService>();
 builder.Services.AddTransient<ISpeciesService, SpeciesService>();
 builder.Services.AddTransient<IEventService, EventService>();
 builder.Services.AddTransient<IInteractionService, InteractionService>();
+builder.Services.AddTransient<ILeaderboardService, LeaderboardService>();
 
 // Repositories
 builder.Services.AddTransient<IUserRepo, UserRepo>();
