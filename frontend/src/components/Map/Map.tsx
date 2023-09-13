@@ -70,14 +70,12 @@ const Map: React.FC = () => {
           recentSightings.map((data, index) => (
             <Marker key={index} position={[data.latitude, data.longitude]}>
               <Popup className="custom-popup">
-                <div className="container">
-                  <img
-                    src={data.imageUrl}
-                    alt={data.species.name}
-                    className="image"
-                    onClick={() => setSelectedPostDetails(data)}
-                  />
-                </div>
+                <img
+                  src={data.imageUrl}
+                  alt={data.species.name}
+                  className="image"
+                  onClick={() => setSelectedPostDetails(data)}
+                />
               </Popup>
             </Marker>
           ))}
