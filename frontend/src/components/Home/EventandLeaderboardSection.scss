@@ -3,6 +3,24 @@
 @use "../../styles/typography" as *;
 @use "../../styles/variables" as *;
 
+::-webkit-scrollbar {
+  width: 4px;
+  border: 1px solid $color-tertiary;
+  background-color: $color-tertiary;
+  border-radius: $desktop-border-radius;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: $desktop-border-radius;
+  background: $color-tertiary;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: $desktop-border-radius;
+
+  background: $color-secondary;
+}
+
 .EventsandLeaderboard {
   display: flex;
   flex-direction: column;

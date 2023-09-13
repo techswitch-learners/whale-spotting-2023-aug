@@ -15,10 +15,10 @@
 }
 
 .LatestPostCard {
-  width: 350px;
+  width: 100%;
   position: relative;
   border-radius: $mobile-border-radius;
-  padding: $mobile-card-padding;
+  padding: $mobile-card-padding 0;
 
   &__ImgContainer {
     &__Img {
@@ -29,7 +29,9 @@
       }
 
       @include devices(desktop) {
-        max-width: 15vw;
+        width: 400px;
+        height: 300px;
+        object-fit: contain;
       }
     }
   }

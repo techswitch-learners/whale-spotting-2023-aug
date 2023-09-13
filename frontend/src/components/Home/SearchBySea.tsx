@@ -33,31 +33,33 @@ export default function SearchBySea() {
     <section className="container">
       <div className="SearchBySea">
         <h3>Search For Posts by Sea/Ocean</h3>
-        <label htmlFor="bodyOfWater">
-          <select
-            className="SearchBySea__select"
-            id="bodyOfWater"
-            name="bodyOfWater"
-            onChange={(e) => setBodyOfWater(e.target.value)}
-          >
-            {bodiesOfWater &&
-              bodiesOfWater.map((bodyOfWater) => {
-                return (
-                  <option
-                    key={bodyOfWater.id}
-                    className="SearchBySea__select__option"
-                    value={bodyOfWater.name}
-                  >
-                    {bodyOfWater.name}
-                  </option>
-                );
-              })}
-          </select>
-        </label>
+        <div className="SearchBySea-row">
+          <label htmlFor="bodyOfWater">
+            <select
+              className="SearchBySea__select"
+              id="bodyOfWater"
+              name="bodyOfWater"
+              onChange={(e) => setBodyOfWater(e.target.value)}
+            >
+              {bodiesOfWater &&
+                bodiesOfWater.map((bodyOfWater) => {
+                  return (
+                    <option
+                      key={bodyOfWater.id}
+                      className="SearchBySea__select__option"
+                      value={bodyOfWater.name}
+                    >
+                      {bodyOfWater.name}
+                    </option>
+                  );
+                })}
+            </select>
+          </label>
 
-        <Button type="button" onClick={() => searchHandler()}>
-          Search
-        </Button>
+          <Button type="button" onClick={() => searchHandler()}>
+            Search
+          </Button>
+        </div>
       </div>
     </section>
   );

@@ -30,7 +30,7 @@
     border: 2px solid $color-primary;
     border-radius: $mobile-border-radius;
     padding: $mobile-input-padding;
-    width: 300px;
+    width: 100%px;
     font-size: $mobile-font-size-dropdown;
     cursor: pointer;
     background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCAyNCAyNCIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZT0iIzM3NTg5OCIgY2xhc3M9InctNiBoLTYiPgogIDxwYXRoIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgZD0iTTkgMTIuNzVsMyAzbTAgMGwzLTNtLTMgM3YtNy41TTIxIDEyYTkgOSAwIDExLTE4IDAgOSA5IDAgMDExOCAweiIgLz4KPC9zdmc+Cg==")
@@ -66,4 +66,12 @@
       }
     }
   }
+}
+
+.SearchBySea-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
 }
