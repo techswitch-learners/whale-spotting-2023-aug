@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import PostDataMap from "../../models/PostDataMap";
 import Modal from "../UI/Modal";
@@ -13,6 +13,7 @@ const Map: React.FC = () => {
   const [postData, setPostData] = useState<PostDataMap[]>();
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string>();
+  const [sortMethod, setSortMethod] = useState<"date" | "rating">("date"); // Default sorting by date
 
   const fetchPosts = async () => {
     setIsLoading(true);
@@ -30,11 +31,21 @@ const Map: React.FC = () => {
     fetchPosts();
   }, []);
 
-  const sortedData = postData?.sort((a, b) => {
-    return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
-  });
+  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSortMethod(e.target.value as "date" | "rating");
+  };
 
-  const recentSightings = sortedData?.slice(0, 15);
+  let sortedData = postData;
+
+  if (sortMethod === "date") {
+    sortedData = postData?.slice().sort((a, b) => {
+      return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
+    });
+  } else if (sortMethod === "rating") {
+    sortedData = postData?.slice().sort((a, b) => {
+      return b.rating - a.rating;
+    });
+  }
 
   if (isLoading || errorMessage) {
     return (
@@ -54,6 +65,14 @@ const Map: React.FC = () => {
 
   return (
     <div>
+      <div className="sorting-options">
+        <label htmlFor="sort-by">Sort by:</label>
+        <select id="sort-by" onChange={handleSortChange} value={sortMethod}>
+          <option value="date">Date</option>
+          <option value="rating">Rating</option>
+        </select>
+      </div>
+
       <MapContainer
         center={[51.505, -0.09]}
         zoom={3}
@@ -66,8 +85,8 @@ const Map: React.FC = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
-        {recentSightings &&
-          recentSightings.map((data, index) => (
+        {sortedData &&
+          sortedData.map((data, index) => (
             <Marker key={index} position={[data.latitude, data.longitude]}>
               <Popup className="custom-popup">
                 <div className="container">
