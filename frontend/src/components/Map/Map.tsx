@@ -30,6 +30,12 @@ const Map: React.FC = () => {
     fetchPosts();
   }, []);
 
+  const sortedData = postData?.sort((a, b) => {
+    return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
+  });
+
+  const recentSightings = sortedData?.slice(0, 15);
+
   if (isLoading || errorMessage) {
     return (
       <main>
@@ -60,8 +66,8 @@ const Map: React.FC = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
-        {postData &&
-          postData.map((data, index) => (
+        {recentSightings &&
+          recentSightings.map((data, index) => (
             <Marker key={index} position={[data.latitude, data.longitude]}>
               <Popup className="custom-popup">
                 <div className="container">
