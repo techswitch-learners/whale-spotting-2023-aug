@@ -21,15 +21,23 @@ public class InteractionRepo : IInteractionRepo
 
     public Interaction Create(InteractionRequest newInteractionRequest, int userId)
     {
-        var newInteraction = new Interaction
+        var checkInteraction = _context.Interactions.Where(
+            interaction =>
+                interaction.PostId == newInteractionRequest.Postid && interaction.UserId == userId
+        );
+        if (!checkInteraction.Any())
         {
-            PostId = newInteractionRequest.Postid,
-            UserId = userId,
-        };
+            var newInteraction = new Interaction
+            {
+                PostId = newInteractionRequest.Postid,
+                UserId = userId,
+            };
 
-        var insertedEntity = _context.Interactions.Add(newInteraction);
-        _context.SaveChanges();
+            var insertedEntity = _context.Interactions.Add(newInteraction);
+            _context.SaveChanges();
 
-        return insertedEntity.Entity;
+            return insertedEntity.Entity;
+        }
+        throw new ArgumentException("Post Already Liked");
     }
 }

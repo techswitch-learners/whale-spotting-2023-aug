@@ -44,9 +44,16 @@ public class InteractionController : ControllerBase
 
         if (_authService.IsCorrectUsernameAndPasswordCombination(auth.Username, auth.Password))
         {
-            var user = _userService.GetByUsername(auth.Username);
-            _interactionService.Create(newInteractionRequest, user.Id);
-            return Ok();
+            try
+            {
+                var user = _userService.GetByUsername(auth.Username);
+                _interactionService.Create(newInteractionRequest, user.Id);
+                return Ok();
+            }
+            catch (ArgumentException)
+            {
+                return StatusCode(409);
+            }
         }
         return Unauthorized("Incorrect username and password combination");
     }
