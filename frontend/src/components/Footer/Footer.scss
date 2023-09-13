@@ -3,7 +3,45 @@
 @use "../../styles/typography" as *;
 
 .Footer {
-  &__Divider {
-    border: 1px solid $color-secondary;
+  margin-bottom: $mobile-gutter;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: $mobile-gutter;
+
+  @include devices(desktop) {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
   }
+
+  &__Title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: $mobile-title-margin;
+
+    &__Logo {
+      height: 100px;
+      margin-top: -30px;
+    }
+  }
+
+  &__Links {
+    display: flex;
+    flex-direction: row;
+    gap: $mobile-gutter;
+
+    @include devices(desktop) {
+      font-size: $desktop-font-size-body;
+      margin-top: $desktop-title-margin;
+    }
+  }
+}
+
+.Copyright {
+  text-align: center;
+  padding-bottom: $mobile-subtitle-margin;
 }
