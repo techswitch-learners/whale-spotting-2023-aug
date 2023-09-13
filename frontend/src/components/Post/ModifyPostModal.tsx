@@ -56,11 +56,9 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
-    if (!w3w && !lat && !lon) {
-      setLocationErrorMessage(
-        "Please provide either what3words or a latitude and longitude",
-      );
-      return;
+    if (!lat && !lon) {
+      setLat(postData.latitude);
+      setLon(postData.longitude);
     }
 
     if ((!lat && lon) || (!lon && lat)) {

@@ -163,7 +163,10 @@ public class PostRepo : IPostRepo
         _context.Entry(post).Property("Latitude").CurrentValue = modifyPostRequest.lat;
         _context.Entry(post).Property("Longitude").CurrentValue = modifyPostRequest.lon;
         _context.Entry(post).Property("Timestamp").CurrentValue = modifyPostRequest.date;
-        _context.Entry(post).Property("Species").CurrentValue = modifyPostRequest.species;
+        var species = _context.Species.SingleOrDefault(
+            species => species.Id == modifyPostRequest.species
+        );
+        _context.Entry(post).Reference("Species").CurrentValue = species;
         _context.Entry(post).Property("ImageUrl").CurrentValue = modifyPostRequest.imageUrl;
         _context.Entry(post).Property("Description").CurrentValue = modifyPostRequest.description;
         _context.SaveChanges();
