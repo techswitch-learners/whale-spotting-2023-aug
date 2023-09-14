@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { getAllBodiesOfWater } from "../../clients/backendApiClient";
 import { BodyOfWater } from "../../models/BodyOfWater";
-import "./SearchBySea.scss";
 import Button from "../UI/Button";
 import { useNavigate } from "react-router-dom";
+import "./SearchBySea.scss";
 
 export default function SearchBySea() {
   const [bodiesOfWater, setBodiesOfWater] = useState<BodyOfWater[]>();

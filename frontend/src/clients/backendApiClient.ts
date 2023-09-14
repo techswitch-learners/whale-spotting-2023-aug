@@ -109,6 +109,11 @@ export const getAllBodiesOfWater = async (): Promise<BodiesOfWater> => {
   return unsortedBodiesOfWater;
 };
 
+export const getBodyOfWaterByName = async (name: string): Promise<Response> => {
+  const response = await fetch(`${backendUrl}/BodyOfWater/${name}`);
+  return response;
+};
+
 export const getLatestPosts = async (): Promise<PostData[]> => {
   const response = await fetch(`${backendUrl}/Post/all`);
   const allResponse = await response.json();
