@@ -1,50 +1,3 @@
-// .image {
-//   max-height: 4rem;
-//   object-fit: center;
-//   object-position: center;
-//   width: 3rem;
-//   height: 3rem;
-//   position: absolute;
-//   left: -60px;
-//   top: -18px;
-// }
-
-// .leaflet-pane,
-// .leaflet-bottom {
-//   z-index: 0;
-// }
-
-// .container {
-//   width: 3.5rem;
-//   height: 3.5rem;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   position: relative;
-// }
-
-// .leaflet-popup-content-wrapper,
-// .image {
-//   border-radius: 50%;
-// }
-
-// .leaflet-popup-content-wrapper {
-//   color: transparent;
-//   max-height: 4rem;
-//   object-fit: center;
-//   object-position: center;
-//   width: 3rem;
-//   height: 3rem;
-// }
-
-// @media screen and (min-width: 600px) {
-//   .image {
-//     position: absolute;
-//     left: -55px;
-//     top: -18px;
-//   }
-// }
-
 .leaflet-pane,
 .leaflet-bottom {
   z-index: 0;
@@ -65,4 +18,65 @@
   display: block;
   margin: 0 auto;
   border-radius: 50%;
+}
+
+.sorting-options {
+  margin-bottom: 20px; // Add some spacing between sorting and marker options
+}
+
+/* Styling for the sorting select */
+.sorting-options select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.sorting-options::after {
+  content: "▼";
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.sorting-options select:hover,
+.sorting-options select:focus {
+  border-color: #0073e6;
+  outline: none;
+}
+
+.marker-options {
+  margin-top: 20px;
+}
+
+.marker-options select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.marker-options::after {
+  content: "▼";
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.marker-options select:hover,
+.marker-options select:focus {
+  border-color: #0073e6;
+  outline: none;
 }
