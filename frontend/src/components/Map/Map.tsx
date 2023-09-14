@@ -71,7 +71,7 @@ const Map: React.FC = () => {
   }
 
   return (
-    <div>
+    <div className="filter-container">
       <div className="sorting-options">
         <label htmlFor="sort-by">Sort by:</label>
         <select id="sort-by" onChange={handleSortChange} value={sortMethod}>

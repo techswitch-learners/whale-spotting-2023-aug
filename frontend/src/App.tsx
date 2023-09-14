@@ -6,7 +6,7 @@ import Users from "./pages/Users.tsx";
 import Login from "./pages/Login.tsx";
 import Register from "./pages/Register.tsx";
 import SubmissionForm from "./pages/SubmissionForm";
-import Map from "./components/Map/Map.tsx";
+import MapPage from "./pages/Map.tsx";
 import "./App.scss";
 
 export const App = () => {
@@ -20,7 +20,7 @@ export const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/submission-form" element={<SubmissionForm />} />
-        <Route path="/map" element={<Map />} />
+        <Route path="/mappage" element={<MapPage />} />
       </Routes>
     </Router>
   );
