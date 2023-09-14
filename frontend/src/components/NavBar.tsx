@@ -30,6 +30,10 @@ function Navbar() {
     };
   }, []);
 
+  const handleOptionClick = () => {
+    closeMobileMenu();
+  };
+
   return (
     <nav>
       <div className="navbar-wrapper">
@@ -45,6 +49,7 @@ function Navbar() {
               <NavLink
                 className={({ isActive }) => (isActive ? "active-page" : "")}
                 to="/"
+                onClick={handleOptionClick}
               >
                 Home
               </NavLink>
@@ -53,6 +58,7 @@ function Navbar() {
               <NavLink
                 className={({ isActive }) => (isActive ? "active-page" : "")}
                 to="/users"
+                onClick={handleOptionClick}
               >
                 Users
               </NavLink>
@@ -61,6 +67,7 @@ function Navbar() {
               <NavLink
                 className={({ isActive }) => (isActive ? "active-page" : "")}
                 to="/posts"
+                onClick={handleOptionClick}
               >
                 Posts
               </NavLink>
@@ -69,6 +76,7 @@ function Navbar() {
               <NavLink
                 className={({ isActive }) => (isActive ? "active-page" : "")}
                 to="/info"
+                onClick={handleOptionClick}
               >
                 Info
               </NavLink>
@@ -77,6 +85,7 @@ function Navbar() {
               <NavLink
                 className={({ isActive }) => (isActive ? "active-page" : "")}
                 to="/login"
+                onClick={handleOptionClick}
               >
                 Login
               </NavLink>
@@ -86,6 +95,7 @@ function Navbar() {
                 className={({ isActive }) => (isActive ? "active-page" : "")}
                 to="/search"
                 aria-label="Search"
+                onClick={handleOptionClick}
               >
                 🔎
               </NavLink>
