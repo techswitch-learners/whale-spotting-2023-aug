@@ -9,6 +9,7 @@ import Register from "./pages/Register.tsx";
 import UserProfile from "./pages/UserProfile.tsx";
 import PostForm from "./pages/PostForm";
 import EventForm from "./pages/EventForm.tsx";
+import PendingPosts from "./pages/PendingPosts.tsx";
 import "./App.scss";
 
 export const App = () => {
@@ -25,6 +26,7 @@ export const App = () => {
         <Route path="/users/:userId" element={<UserProfile />} />
         <Route path="/posts/create" element={<PostForm />} />
         <Route path="/events/create" element={<EventForm />} />
+        <Route path="/posts/pending" element={<PendingPosts />} />
       </Routes>
     </Router>
   );
