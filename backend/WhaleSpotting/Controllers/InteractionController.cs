@@ -3,7 +3,7 @@ using WhaleSpotting.Helpers;
 using WhaleSpotting.Models.Request;
 using WhaleSpotting.Models.Response;
 using WhaleSpotting.Services;
-using WhaleSpotting.Annotations;
+using WhaleSpotting.Attributes;
 using System.Reflection;
 
 namespace WhaleSpotting.Controllers;

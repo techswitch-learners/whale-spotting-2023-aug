@@ -2,9 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using WhaleSpotting.Services;
 using WhaleSpotting.Helpers;
-using WhaleSpotting.Models.Response;
 
-namespace WhaleSpotting.Annotations;
+namespace WhaleSpotting.Attributes;
 
 public class HeaderRequirementFilter : IAuthorizationFilter
 {
@@ -55,6 +54,7 @@ public class HeaderRequirementFilter : IAuthorizationFilter
 
         // Find userId
         var user = _userService.GetByUsername(auth.Username);
+
         return;
     }
 }
