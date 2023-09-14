@@ -42,9 +42,9 @@ function Footer() {
             <li>
               <NavLink
                 className={({ isActive }) => (isActive ? "active-page" : "")}
-                to="/map"
+                to="/events"
               >
-                Map
+                Events
               </NavLink>
             </li>
             <li>

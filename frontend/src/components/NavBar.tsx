@@ -68,9 +68,9 @@ function Navbar() {
             <li>
               <NavLink
                 className={({ isActive }) => (isActive ? "active-page" : "")}
-                to="/info"
+                to="/events"
               >
-                Info
+                Events
               </NavLink>
             </li>
             <li>
