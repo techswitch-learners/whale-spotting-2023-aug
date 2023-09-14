@@ -140,7 +140,7 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
     <>
       <div className="modify-form-container">
         <form className="submission-form" onSubmit={handleSubmit}>
-          <h1>Update Sighting Information</h1>
+          <h1 className="modify-title">Update Sighting Information</h1>
           <label htmlFor="date" className="submission-form-children">
             Date of sighting
           </label>
