@@ -9,17 +9,21 @@ import "./PendingPosts.scss";
 
 export const PendingPosts = () => {
   const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();
-  const [postData, setPostData] = useState<PostData[]>();
+  const [posts, setPosts] = useState<PostData[]>();
   const [isLoading, setIsLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [message, setMessage] = useState("");
 
   const fetchPendingPosts = async () => {
-    const posts = (await getAllPendingPosts()).posts;
-    if (posts.length === 0) {
-      setErrorMessage("You're all up to date!");
-    } else {
-      setPostData(posts);
-    }
+    await getAllPendingPosts()
+      .then((postsData) => {
+        setPosts(postsData.posts);
+        if (postsData.posts.length === 0) {
+          setMessage("You're all up to date!");
+        } else {
+          setMessage("");
+        }
+      })
+      .catch(() => setMessage("Can't load posts at this time..."));
     setIsLoading(false);
   };
 
@@ -30,11 +34,11 @@ export const PendingPosts = () => {
   return (
     <main>
       <h1>Posts Awaiting Approval</h1>
-      {!isLoading && postData ? (
+      {!isLoading && posts ? (
         <>
           <section>
             <div className="container PostsGallery">
-              {postData.map((post) => {
+              {posts.map((post) => {
                 return (
                   <CardPost
                     postData={post}
@@ -54,7 +58,7 @@ export const PendingPosts = () => {
       ) : (
         <WhaleLoader
           isLoading={isLoading}
-          message={isLoading ? "loading" : errorMessage}
+          message={isLoading ? "loading" : message}
         />
       )}
     </main>
