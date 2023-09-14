@@ -14,6 +14,7 @@ const Map: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string>();
   const [sortMethod, setSortMethod] = useState<"date" | "rating">("date");
+  const [numMarkers, setNumMarkers] = useState<number>(5);
 
   const fetchPosts = async () => {
     setIsLoading(true);
@@ -35,6 +36,10 @@ const Map: React.FC = () => {
     setSortMethod(e.target.value as "date" | "rating");
   };
 
+  const handleNumMarkersChange = (num: number) => {
+    setNumMarkers(num);
+  };
+
   let sortedData = postData;
 
   if (sortMethod === "date") {
@@ -47,7 +52,7 @@ const Map: React.FC = () => {
     });
   }
 
-  const limitedData = sortedData?.slice(0, 3);
+  const limitedData = sortedData?.slice(0, numMarkers);
 
   if (isLoading || errorMessage) {
     return (
@@ -72,6 +77,20 @@ const Map: React.FC = () => {
         <select id="sort-by" onChange={handleSortChange} value={sortMethod}>
           <option value="date">Date</option>
           <option value="rating">Rating</option>
+        </select>
+      </div>
+
+      <div className="marker-options">
+        <label htmlFor="num-markers">Number of Markers:</label>
+        <select
+          id="num-markers"
+          onChange={(e) => handleNumMarkersChange(Number(e.target.value))}
+          value={numMarkers}
+        >
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
         </select>
       </div>
 
