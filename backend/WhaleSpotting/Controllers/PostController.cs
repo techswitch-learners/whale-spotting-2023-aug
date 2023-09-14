@@ -48,15 +48,8 @@ public class PostController : ControllerBase
     [HttpGet("pending")]
     public IActionResult GetPending()
     {
-        try
-        {
-            var posts = _postService.GetPending();
-            return Ok(new PostsResponse(posts));
-        }
-        catch (ArgumentException)
-        {
-            return NotFound();
-        }
+        var posts = _postService.GetPending();
+        return Ok(new PostsResponse(posts));
     }
 
     [HttpPost("")]
@@ -66,14 +59,16 @@ public class PostController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = newPost.Id }, newPost);
     }
 
-    [HttpPatch("")]
-    public IActionResult ApproveReject([FromBody] ApproveRejectRequest newApproveRejectRequest)
+    [HttpPatch("{id:int}")]
+    public IActionResult ApproveOrReject(
+        [FromRoute] int id,
+        [FromBody] ApproveOrRejectRequest newApproveOrRejectRequest
+    )
     {
         try
         {
-            var newRequest = newApproveRejectRequest;
-            var post = _postService.GetById(newRequest.id);
-            _postService.ApproveReject(post, (ApprovalStatus)newRequest.approvalStatus);
+            var post = _postService.GetById(id);
+            _postService.ApproveOrReject(post, newApproveOrRejectRequest.ApprovalStatus);
 
             return Ok();
         }
@@ -83,14 +78,16 @@ public class PostController : ControllerBase
         }
     }
 
-    [HttpPatch("modify")]
-    public IActionResult Modify([FromBody] ModifyPostRequest newModifyPostRequest)
+    [HttpPut("{id:int}")]
+    public IActionResult Modify(
+        [FromRoute] int id,
+        [FromBody] ModifyPostRequest newModifyPostRequest
+    )
     {
         try
         {
-            var newRequest = newModifyPostRequest;
-            var post = _postService.GetById(newRequest.id);
-            _postService.Modify(post, newRequest);
+            var post = _postService.GetById(id);
+            _postService.Modify(post, newModifyPostRequest);
 
             return Ok();
         }

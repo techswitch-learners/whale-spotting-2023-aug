@@ -1,7 +1,8 @@
-﻿namespace WhaleSpotting.Models.Request;
+﻿using WhaleSpotting.Enums;
 
-public class ApproveRejectRequest
+namespace WhaleSpotting.Models.Request;
+
+public class ApproveOrRejectRequest
 {
-    public int id { get; set; }
-    public int approvalStatus { get; set; }
+    public ApprovalStatus ApprovalStatus { get; set; }
 }

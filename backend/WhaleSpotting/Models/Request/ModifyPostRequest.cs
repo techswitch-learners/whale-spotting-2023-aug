@@ -2,11 +2,10 @@
 
 public class ModifyPostRequest
 {
-    public int id { get; set; }
-    public DateTime date { get; set; }
-    public double lat { get; set; }
-    public double lon { get; set; }
-    public int species { get; set; }
-    public string description { get; set; }
-    public string imageUrl { get; set; }
+    public DateTime Date { get; set; }
+    public double Lat { get; set; }
+    public double Lon { get; set; }
+    public int SpeciesId { get; set; }
+    public string Description { get; set; }
+    public string ImageUrl { get; set; }
 }

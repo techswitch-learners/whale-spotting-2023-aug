@@ -13,7 +13,7 @@ public interface IPostRepo
     public Task<Post> Create(PostRequest newPostRequest);
     public List<Post> GetAll();
     public List<Post> GetPending();
-    public void ApproveReject(Post post, ApprovalStatus approvalStatus);
+    public void ApproveOrReject(Post post, ApprovalStatus approvalStatus);
     public void Modify(Post post, ModifyPostRequest modifyPostRequest);
 }
 
@@ -151,24 +151,23 @@ public class PostRepo : IPostRepo
         return insertedEntity.Entity;
     }
 
-    public void ApproveReject(Post post, ApprovalStatus approvalStatus)
+    public void ApproveOrReject(Post post, ApprovalStatus approvalStatus)
     {
-        _context.Entry(post).Property("ApprovalStatus").CurrentValue = approvalStatus;
-        _context.Entry(post).Property("ApprovalStatus").IsModified = true;
+        post.ApprovalStatus = approvalStatus;
         _context.SaveChanges();
     }
 
     public void Modify(Post post, ModifyPostRequest modifyPostRequest)
     {
-        _context.Entry(post).Property("Latitude").CurrentValue = modifyPostRequest.lat;
-        _context.Entry(post).Property("Longitude").CurrentValue = modifyPostRequest.lon;
-        _context.Entry(post).Property("Timestamp").CurrentValue = modifyPostRequest.date;
+        post.Latitude = modifyPostRequest.Lat;
+        post.Longitude = modifyPostRequest.Lon;
+        post.Timestamp = modifyPostRequest.Date;
         var species = _context.Species.SingleOrDefault(
-            species => species.Id == modifyPostRequest.species
+            species => species.Id == modifyPostRequest.SpeciesId
         );
-        _context.Entry(post).Reference("Species").CurrentValue = species;
-        _context.Entry(post).Property("ImageUrl").CurrentValue = modifyPostRequest.imageUrl;
-        _context.Entry(post).Property("Description").CurrentValue = modifyPostRequest.description;
+        post.Species = species;
+        post.ImageUrl = modifyPostRequest.ImageUrl;
+        post.Description = modifyPostRequest.Description;
         _context.SaveChanges();
     }
 }
