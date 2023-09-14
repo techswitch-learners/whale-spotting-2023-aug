@@ -71,27 +71,31 @@ const Map: React.FC = () => {
   }
 
   return (
-    <div className="filter-container">
-      <div className="sorting-options">
-        <label htmlFor="sort-by">Sort by:</label>
-        <select id="sort-by" onChange={handleSortChange} value={sortMethod}>
-          <option value="date">Date</option>
-          <option value="rating">Rating</option>
-        </select>
-      </div>
+    <div className="filter-container container">
+      <div className="options-container">
+        <div className="sorting-options">
+          <label htmlFor="sort-by">Sort by:</label>
+          <select id="sort-by" onChange={handleSortChange} value={sortMethod}>
+            <option value="date">Date</option>
+            <option value="rating">Rating</option>
+          </select>
+        </div>
 
-      <div className="marker-options">
-        <label htmlFor="num-markers">Number of Sightings:</label>
-        <select
-          id="num-markers"
-          onChange={(e) => handleNumMarkersChange(Number(e.target.value))}
-          value={numMarkers}
-        >
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="25">25</option>
-          <option value="50">50</option>
-        </select>
+        <div className="seperator"></div>
+
+        <div className="marker-options">
+          <label htmlFor="num-markers">Number of Sightings:</label>
+          <select
+            id="num-markers"
+            onChange={(e) => handleNumMarkersChange(Number(e.target.value))}
+            value={numMarkers}
+          >
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+          </select>
+        </div>
       </div>
 
       <MapContainer

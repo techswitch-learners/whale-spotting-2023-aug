@@ -1,3 +1,6 @@
+@use "../../styles/variables" as *;
+@use "../../styles/typography" as *;
+
 .leaflet-pane,
 .leaflet-bottom {
   z-index: 0;
@@ -51,10 +54,6 @@
   outline: none;
 }
 
-.marker-options {
-  margin-top: 20px;
-}
-
 .marker-options select {
   padding: 10px;
   font-size: 16px;
@@ -79,4 +78,30 @@
 .marker-options select:focus {
   border-color: #0073e6;
   outline: none;
+}
+
+.filter-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.options-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-direction: row;
+  margin-bottom: 5px;
+  gap: 5px;
+}
+
+.sorting-options {
+  margin-bottom: 0px;
+}
+
+.separator {
+  width: 1px;
+  height: 20px;
+  background-color: #ccc;
+  margin: 0 10px;
 }
