@@ -6,7 +6,7 @@
   background-color: $color-secondary;
   height: 100%;
   width: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   @include devices(tablet) {
     padding: 2rem;
@@ -14,7 +14,6 @@
 
   @include devices(desktop) {
     padding: 3rem;
-    overflow-y: hidden;
   }
 }
 
@@ -27,7 +26,7 @@
 }
 
 .post-description {
-  height: 25%;
+  min-height: 25%;
 }
 
 .button-container {
@@ -35,6 +34,7 @@
   display: flex;
   justify-content: space-evenly;
   margin-top: 1rem;
+  padding-bottom: 1rem;
 
   @include devices(tablet) {
     margin-top: 3rem;

@@ -256,15 +256,12 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
           />
 
           <div className="button-container">
-            <Button
-              type="submit"
-              className="submission-form-children submit-button"
-            >
+            <Button type="submit" className="submit-button">
               Submit
             </Button>
             <Button
               type="submit"
-              className="submission-form-children submit-button"
+              className="submit-button"
               onClick={() => setToApprove(true)}
             >
               Submit and Approve
