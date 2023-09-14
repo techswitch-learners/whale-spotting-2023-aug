@@ -66,8 +66,7 @@ public class PostController : ControllerBase
     {
         try
         {
-            var post = _postService.GetById(id);
-            _postService.ApproveOrReject(post, newApproveOrRejectRequest.ApprovalStatus);
+            _postService.ApproveOrReject(id, newApproveOrRejectRequest.ApprovalStatus);
 
             return Ok();
         }
@@ -85,8 +84,7 @@ public class PostController : ControllerBase
     {
         try
         {
-            var post = _postService.GetById(id);
-            _postService.Modify(post, newModifyPostRequest);
+            _postService.Modify(id, newModifyPostRequest);
 
             return Ok();
         }

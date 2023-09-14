@@ -13,8 +13,8 @@ public interface IPostRepo
     public Task<Post> Create(PostRequest newPostRequest);
     public List<Post> GetAll();
     public List<Post> GetPending();
-    public void ApproveOrReject(Post post, ApprovalStatus approvalStatus);
-    public void Modify(Post post, ModifyPostRequest modifyPostRequest);
+    public void ApproveOrReject(int id, ApprovalStatus approvalStatus);
+    public void Modify(int id, ModifyPostRequest modifyPostRequest);
 }
 
 public class PostRepo : IPostRepo
@@ -151,14 +151,16 @@ public class PostRepo : IPostRepo
         return insertedEntity.Entity;
     }
 
-    public void ApproveOrReject(Post post, ApprovalStatus approvalStatus)
+    public void ApproveOrReject(int id, ApprovalStatus approvalStatus)
     {
+        var post = GetById(id);
         post.ApprovalStatus = approvalStatus;
         _context.SaveChanges();
     }
 
-    public void Modify(Post post, ModifyPostRequest modifyPostRequest)
+    public void Modify(int id, ModifyPostRequest modifyPostRequest)
     {
+        var post = GetById(id);
         post.Latitude = modifyPostRequest.Lat;
         post.Longitude = modifyPostRequest.Lon;
         post.Timestamp = modifyPostRequest.Date;
