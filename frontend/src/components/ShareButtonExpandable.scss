@@ -1,0 +1,58 @@
+@use "../styles/mixins" as *;
+@use "../styles/variables" as *;
+
+.share-menu-icon {
+  cursor: pointer;
+}
+
+.share-links {
+  display: none;
+}
+
+.navbar-links.active {
+  display: block;
+
+  .share-menu-wrapper {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+}
+
+.navbar-links li {
+  padding: 0.5rem 1rem;
+  text-align: center;
+
+  @include devices(desktop) {
+    padding: 0;
+  }
+}
+
+.navbar-links a {
+  padding: 0.25rem 1rem;
+  text-decoration: none;
+  color: $color-primary;
+  font-size: $mobile-font-size-navbar;
+  font-weight: $boldWeight;
+
+  @include devices(tablet) {
+    padding: 0.35rem 1rem;
+    text-decoration: none;
+    color: $color-primary;
+    font-size: $tablet-font-size-navbar;
+    font-weight: $boldWeight;
+  }
+
+  @include devices(desktop) {
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: $color-primary;
+    font-size: $desktop-font-size-navbar;
+    font-weight: $boldWeight;
+  }
+}
+
+.navbar-links a.active-page {
+  color: white;
+  background-color: $color-primary;
+  border-radius: 2rem;
+}
