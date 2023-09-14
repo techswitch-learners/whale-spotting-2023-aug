@@ -126,7 +126,7 @@ export const getAllPendingPosts = async (): Promise<PostsData> => {
   return await response.json();
 };
 
-export const approveRejectPost = async (
+export const approveOrRejectPost = async (
   id: number,
   approvalStatus: number,
 ): Promise<boolean> => {

@@ -7,9 +7,10 @@ import {
   getLatitudeLongitude,
   getAllSpecies,
   modifyPost,
-  approveRejectPost,
+  approveOrRejectPost,
 } from "../../clients/backendApiClient";
 import "./ModifyPostModal.scss";
+import ApprovalStatus from "../../enums/ApprovalStatus";
 
 const validW3wPattern = /^(\/\/\/)?[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]+$/g;
 
@@ -108,7 +109,7 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
       () => {
         if (toApprove) {
           try {
-            approveRejectPost(id, 1).then(() => {
+            approveOrRejectPost(id, ApprovalStatus.Approved).then(() => {
               setSuccessMessage("Post update and approval successful");
               window.location.reload();
             });

@@ -1,11 +1,12 @@
 import PostData from "../../models/PostData";
 import Button from "../UI/Button";
 import fullscreenIcon from "../../assets/fullscreen_icon.svg";
-import { approveRejectPost } from "../../clients/backendApiClient";
+import { approveOrRejectPost } from "../../clients/backendApiClient";
 import { useState } from "react";
 import Modal from "../UI/Modal";
 import ModifyPostModal from "./ModifyPostModal";
 import { toShortDate } from "../../utils/DateConversion";
+import ApprovalStatus from "../../enums/ApprovalStatus";
 import "./PendingPostModal.scss";
 
 interface PostDataProps {
@@ -18,7 +19,10 @@ const PendingPostModal = ({ postData }: PostDataProps) => {
 
   const handleApprove = async () => {
     try {
-      const result = await approveRejectPost(postData.id, 1);
+      const result = await approveOrRejectPost(
+        postData.id,
+        ApprovalStatus.Approved,
+      );
 
       if (result) {
         window.location.reload();
@@ -32,7 +36,10 @@ const PendingPostModal = ({ postData }: PostDataProps) => {
 
   const handleReject = async () => {
     try {
-      const result = await approveRejectPost(postData.id, 2);
+      const result = await approveOrRejectPost(
+        postData.id,
+        ApprovalStatus.Rejected,
+      );
 
       if (result) {
         window.location.reload();
