@@ -2,31 +2,29 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using WhaleSpotting.Services;
 using WhaleSpotting.Helpers;
+using WhaleSpotting.Enums;
 
 namespace WhaleSpotting.Attributes;
 
-public class HeaderRequirementFilter : IAuthorizationFilter
+public class UserHeaderRequirementFilter : IAuthorizationFilter
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IAuthService _authService;
-    private readonly IUserService _userService;
 
-    public HeaderRequirementFilter(
+    public UserHeaderRequirementFilter(
         IHttpContextAccessor httpContextAccessor,
-        IAuthService authService,
-        IUserService userService
+        IAuthService authService
     )
     {
         _httpContextAccessor = httpContextAccessor;
         _authService = authService;
-        _userService = userService;
     }
 
     public void OnAuthorization(AuthorizationFilterContext context)
     {
         if (!_httpContextAccessor.HttpContext!.Request.Headers["Authorization"].Any())
         {
-            context.Result = new UnauthorizedObjectResult(string.Empty);
+            context.Result = new UnauthorizedObjectResult("Missing Authentication Headers");
             return;
         }
 
@@ -45,22 +43,22 @@ public class HeaderRequirementFilter : IAuthorizationFilter
             context.Result = new UnauthorizedObjectResult("Invalid authorization header");
             return;
         }
-        if (!_authService.IsCorrectUsernameAndPasswordCombination(auth.Username, auth.Password))
+        var user = _authService.GetUser(auth.Username, auth.Password);
+        if (user == null)
         {
             context.Result = new UnauthorizedObjectResult("Invalid user, pass");
-
             return;
         }
 
-        // Find userId
-        var user = _userService.GetByUsername(auth.Username);
+        _httpContextAccessor.HttpContext.Request.Headers["UserId"] = user.Id.ToString();
+        _httpContextAccessor.HttpContext.Request.Headers["UserRole"] = user.Role.ToString();
 
         return;
     }
 }
 
-public class AuthorizeUserAttribute : TypeFilterAttribute
+public class RequiresUserAuthAttribute : TypeFilterAttribute
 {
-    public AuthorizeUserAttribute()
-        : base(typeof(HeaderRequirementFilter)) { }
+    public RequiresUserAuthAttribute()
+        : base(typeof(UserHeaderRequirementFilter)) { }
 }

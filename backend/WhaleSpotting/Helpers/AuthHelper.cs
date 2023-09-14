@@ -2,7 +2,7 @@
 
 namespace WhaleSpotting.Helpers;
 
-public static class AuthHelper
+public class AuthHelper
 {
     public static (string Username, string Password) ExtractFromAuthHeader(string authHeader)
     {
