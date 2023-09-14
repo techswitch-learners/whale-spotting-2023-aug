@@ -1,8 +1,7 @@
 import EventData from "../../models/EventData";
 import { toShortDate } from "../../utils/DateConversion";
-import shareIcon from "../../assets/share_icon.png";
 import fullscreenIcon from "../../assets/fullscreen_icon.svg";
-
+import ShareButton from "../ShareButtons";
 import "./CardEventModal.scss";
 import Button from "../UI/Button";
 
@@ -48,11 +47,7 @@ const CardEventModal = ({ eventData }: EventDataProps) => {
         >
           Click here view event website <br /> (external link)
         </Button>
-        <div className="CardEventModal__interactions">
-          <div>
-            <img src={shareIcon} alt="share event" />
-          </div>
-        </div>
+        <ShareButton eventUrl={eventData.eventLink} />
       </div>
     </div>
   );
