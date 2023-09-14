@@ -47,6 +47,9 @@ builder.Services.AddDbContext<WhaleSpottingContext>(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Authentication Accessor
+builder.Services.AddHttpContextAccessor();
+
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 var app = builder.Build();

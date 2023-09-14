@@ -3,6 +3,8 @@ using WhaleSpotting.Helpers;
 using WhaleSpotting.Models.Request;
 using WhaleSpotting.Models.Response;
 using WhaleSpotting.Services;
+using WhaleSpotting.Annotations;
+using System.Reflection;
 
 namespace WhaleSpotting.Controllers;
 
@@ -26,34 +28,24 @@ public class InteractionController : ControllerBase
     }
 
     [HttpPost("")]
+    [AuthorizeUser]
     public IActionResult Create(
         [FromBody] InteractionRequest newInteractionRequest,
         [FromHeader] string authorization
     )
     {
         (string Username, string Password) auth;
+        auth = AuthHelper.ExtractFromAuthHeader(authorization);
 
         try
         {
-            auth = AuthHelper.ExtractFromAuthHeader(authorization);
+            var user = _userService.GetByUsername(auth.Username);
+            _interactionService.Create(newInteractionRequest, user.Id);
+            return Ok();
         }
         catch (ArgumentException)
         {
-            return Unauthorized("Invalid authorization header");
+            return StatusCode(409);
         }
-        if (_authService.IsCorrectUsernameAndPasswordCombination(auth.Username, auth.Password))
-        {
-            try
-            {
-                var user = _userService.GetByUsername(auth.Username);
-                _interactionService.Create(newInteractionRequest, user.Id);
-                return Ok();
-            }
-            catch (ArgumentException)
-            {
-                return StatusCode(409);
-            }
-        }
-        return Unauthorized("Incorrect username and password combination");
     }
 }
