@@ -81,7 +81,7 @@ const Map: React.FC = () => {
       </div>
 
       <div className="marker-options">
-        <label htmlFor="num-markers">Number of Markers:</label>
+        <label htmlFor="num-markers">Number of Sightings:</label>
         <select
           id="num-markers"
           onChange={(e) => handleNumMarkersChange(Number(e.target.value))}
