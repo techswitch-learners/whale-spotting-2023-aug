@@ -1,0 +1,19 @@
+@use "../styles/variables" as *;
+@use "../styles/mixins" as *;
+
+.PostsGallery {
+  @include cardGallery();
+}
+
+.Posts {
+  &__loader {
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__None__heading {
+    text-align: center;
+  }
+}
