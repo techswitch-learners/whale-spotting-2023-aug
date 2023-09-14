@@ -97,7 +97,7 @@ export const Posts = () => {
           </div>
         </section>
       )}
-      <Link to="/create-post" className="create-post-button">
+      <Link to="/posts/create" className="create-post-button">
         Create a Post
       </Link>
     </main>
