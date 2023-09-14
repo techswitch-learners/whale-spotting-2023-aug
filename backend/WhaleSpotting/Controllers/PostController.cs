@@ -44,6 +44,7 @@ public class PostController : ControllerBase
         }
     }
 
+    // add auth
     [HttpPost("")]
     public async Task<IActionResult> Create([FromBody] PostRequest newPostRequest)
     {
