@@ -9,6 +9,7 @@ import { getAllPosts } from "../clients/backendApiClient";
 import WhaleLoader from "../components/UI/WhaleLoader";
 import FeaturedCarousel from "../components/UI/Carousel/FeaturedCarousel";
 import Button from "../components/UI/Button";
+import { Link } from "react-router-dom";
 import "./Posts.scss";
 
 export const Posts = () => {
@@ -96,6 +97,9 @@ export const Posts = () => {
           </div>
         </section>
       )}
+      <Link to="/create-post" className="create-post-button">
+        Create a Post
+      </Link>
     </main>
   );
 };
