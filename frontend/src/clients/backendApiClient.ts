@@ -3,6 +3,7 @@ import PostDataResponse from "../models/PostsData";
 import EventDataResponse from "../models/EventsData";
 import SpeciesListData from "../models/SpeciesListData";
 import UsersData from "../models/UsersData";
+import PostsData from "../models/PostsData";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -124,4 +125,51 @@ export const getAllEvents = async (): Promise<EventDataResponse> => {
 export const getAllPosts = async (): Promise<PostDataResponse> => {
   const response = await fetch(`${backendUrl}/Post/all`);
   return await response.json();
+};
+
+export const getAllPendingPosts = async (): Promise<PostsData> => {
+  const response = await fetch(`${backendUrl}/Post/pending`);
+  return await response.json();
+};
+
+export const approveOrRejectPost = async (
+  id: number,
+  approvalStatus: number,
+): Promise<boolean> => {
+  const response = await fetch(`${backendUrl}/post/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      approvalStatus,
+    }),
+  });
+  return response.ok;
+};
+
+export const modifyPost = async (
+  id: number,
+  date: Date,
+  lat: number,
+  lon: number,
+  speciesId: number,
+  description: string,
+  imageUrl: string,
+): Promise<boolean> => {
+  const response = await fetch(`${backendUrl}/post/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      date,
+      lat,
+      lon,
+      speciesId,
+      description,
+      imageUrl,
+    }),
+  });
+  return response.ok;
 };
