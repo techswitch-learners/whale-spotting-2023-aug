@@ -26,7 +26,7 @@ export const App = () => {
         <Route path="/users/:userId" element={<UserProfile />} />
         <Route path="/posts/create" element={<PostForm />} />
         <Route path="/events/create" element={<EventForm />} />
-        <Route path="/pending" element={<PendingPosts />} />
+        <Route path="/posts/pending" element={<PendingPosts />} />
       </Routes>
     </Router>
   );

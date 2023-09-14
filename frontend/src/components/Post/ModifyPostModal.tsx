@@ -1,6 +1,6 @@
 import PostData from "../../models/PostData";
 import Button from "../UI/Button";
-import { useState, useEffect, FormEvent, useMemo } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import SpeciesListData from "../../models/SpeciesListData";
 import w3w_logo from "../../assets/w3w_logo.png";
 import {
@@ -9,8 +9,9 @@ import {
   modifyPost,
   approveRejectPost,
 } from "../../clients/backendApiClient";
-
 import "./ModifyPostModal.scss";
+
+const validW3wPattern = /^(\/\/\/)?[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]+$/g;
 
 interface PostDataProps {
   postData: PostData;
@@ -34,12 +35,8 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
   const [speciesListData, setSpeciesListData] = useState<SpeciesListData>();
   const [toApprove, setToApprove] = useState<boolean>(false);
 
-  const validW3wPattern = useMemo(() => {
-    return { pattern: /^(\/\/\/)?[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]+$/g };
-  }, []);
-
   useEffect(() => {
-    if (w3w && validW3wPattern.pattern.test(w3w)) {
+    if (w3w && validW3wPattern.test(w3w)) {
       let words;
       if (w3w.startsWith("///")) {
         words = w3w.slice(3);
@@ -60,12 +57,12 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
         .catch(() =>
           setLocationErrorMessage("Please enter a valid what3words"),
         );
-    } else if (w3w && !validW3wPattern.pattern.test(w3w)) {
+    } else if (w3w && !validW3wPattern.test(w3w)) {
       setLocationErrorMessage("Please enter a valid what3words");
     } else {
       setLocationErrorMessage("");
     }
-  }, [w3w, validW3wPattern]);
+  }, [w3w]);
 
   useEffect(() => {
     getAllSpecies().then(setSpeciesListData);
@@ -84,10 +81,10 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
       return;
     }
 
-    if (w3w && !validW3wPattern.pattern.test(w3w)) {
+    if (w3w && !validW3wPattern.test(w3w)) {
       setLocationErrorMessage("Please enter a valid what3words");
       return;
-    } else if (w3w && validW3wPattern.pattern.test(w3w)) {
+    } else if (w3w && validW3wPattern.test(w3w)) {
       let words;
       if (w3w.startsWith("///")) {
         words = w3w.slice(3);

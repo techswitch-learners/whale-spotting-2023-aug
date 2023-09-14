@@ -2,7 +2,7 @@ import LatitudeLongitude from "../models/LatitudeLongitude";
 import PostDataResponse from "../models/PostsData";
 import SpeciesListData from "../models/SpeciesListData";
 import UsersData from "../models/UsersData";
-import PostData from "../models/PostData";
+import PostsData from "../models/PostsData";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -121,14 +121,9 @@ export const getAllPosts = async (): Promise<PostDataResponse> => {
   return await response.json();
 };
 
-export const getAllPendingPosts = async (): Promise<PostData[]> => {
-  try {
-    const response = await fetch(`${backendUrl}/Post/pending`);
-    const jsonResponse = await response.json();
-    return jsonResponse.posts;
-  } catch {
-    return [];
-  }
+export const getAllPendingPosts = async (): Promise<PostsData> => {
+  const response = await fetch(`${backendUrl}/Post/pending`);
+  return await response.json();
 };
 
 export const approveRejectPost = async (

@@ -14,7 +14,7 @@ export const PendingPosts = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const fetchPendingPosts = async () => {
-    const posts = await getAllPendingPosts();
+    const posts = (await getAllPendingPosts()).posts;
     if (posts.length === 0) {
       setErrorMessage("You're all up to date!");
     } else {

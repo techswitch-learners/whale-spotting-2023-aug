@@ -44,7 +44,6 @@ const CardPostModal = ({ postData }: PostDataProps) => {
         <p className="CardPostModal__description">{postData.description}</p>
         <div className="CardPostModal__user">
           <p className="CardPostModal__text">{postData.user.name}</p>
-          <p className="CardPostModal__text">{postData.user.name}</p>
           <div className="CardPostModal__user__image-container">
             <img
               className="CardPostModal__user__image"
@@ -56,7 +55,6 @@ const CardPostModal = ({ postData }: PostDataProps) => {
         <div className="CardPostModal__interactions">
           <div className="CardPostModal__interactions__likes">
             <img src={postIcon} alt="whale icon" />
-            <span>{convertLikesToString(postData.rating)}</span>
             <span>{convertLikesToString(postData.rating)}</span>
           </div>
           <div>
