@@ -4,6 +4,7 @@ import shareIcon from "../../assets/share_icon.png";
 import fullscreenIcon from "../../assets/fullscreen_icon.svg";
 
 import "./CardEventModal.scss";
+import Button from "../UI/Button";
 
 interface EventDataProps {
   eventData: EventData;
@@ -11,38 +12,43 @@ interface EventDataProps {
 
 const CardEventModal = ({ eventData }: EventDataProps) => {
   return (
-    <div className="CardPostModal">
-      <div className="CardPostModal__image__container">
+    <div className="CardEventModal">
+      <div className="CardEventModal__image__container">
         <img
-          className="CardPostModal__image"
+          className="CardEventModal__image"
           src={eventData.eventImageUrl}
           alt={`image of event ${eventData.id}`}
         />
         <a href={eventData.eventImageUrl} target="_blank">
           <img
-            className="CardPostModal__fullscreen"
+            className="CardEventModal__fullscreen"
             src={fullscreenIcon}
             alt="Show image fullscreen"
           />
         </a>
       </div>
 
-      <div className="CardPostModal__content">
-        <div className="CardPostModal__heading">
-          <h3 className="CardPostModal__heading__title">
+      <div className="CardEventModal__content">
+        <div className="CardEventModal__heading">
+          <h3 className="CardEventModal__heading__title">
             {eventData.location}
           </h3>
-          <p className="CardPostModal__heading__date">
-            {eventData.startDate.toString()}
+          <p className="CardEventModal__heading__date">
+            {toShortDate(eventData.startDate)}
           </p>
-          <p className="CardPostModal__heading__duration">
-            Duration: {toShortDate(eventData.startDate)} days
+          <p className="CardEventModal__heading__duration">
+            Duration: {eventData.duration} days
           </p>
         </div>
-        <p className="CardPostModal__description">
-          <a href={eventData.eventLink}>{eventData.eventLink}</a>
-        </p>
-        <div className="CardPostModal__interactions">
+        <Button
+          className="CardEventModal__button"
+          onClick={() => {
+            window.open(`${eventData.eventLink}`, "_blank");
+          }}
+        >
+          Click here view event website <br /> (external link)
+        </Button>
+        <div className="CardEventModal__interactions">
           <div>
             <img src={shareIcon} alt="share event" />
           </div>

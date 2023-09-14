@@ -1,11 +1,11 @@
 @use "../styles/variables" as *;
 @use "../styles/mixins" as *;
 
-.PostsGallery {
+.EventsGallery {
   @include cardGallery();
 }
 
-.Posts {
+.Events {
   &__loader {
     display: flex;
     gap: 2rem;

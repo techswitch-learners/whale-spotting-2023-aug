@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import EventPost from "../components/Event/CardEvent";
 import Modal from "../components/UI/Modal";
 import CardEventModal from "../components/Event/CardEventModal";
 import EventData from "../models/EventData";
@@ -7,6 +6,8 @@ import { getAllEvents } from "../clients/backendApiClient";
 import WhaleLoader from "../components/UI/WhaleLoader";
 import Button from "../components/UI/Button";
 import "./Events.scss";
+import CardEvent from "../components/Event/CardEvent";
+import "../styles/_sections.scss";
 
 export const Events = () => {
   const [selectedEventDetails, setSelectedEventDetails] = useState<EventData>();
@@ -55,7 +56,7 @@ export const Events = () => {
             <div className="container EventsGallery">
               {eventData.map((event) => {
                 return (
-                  <EventPost
+                  <CardEvent
                     eventData={event}
                     openModalAction={() => setSelectedEventDetails(event)}
                   />
