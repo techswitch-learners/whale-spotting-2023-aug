@@ -14,7 +14,7 @@ const Map: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string>();
   const [sortMethod, setSortMethod] = useState<"date" | "rating">("date");
-  const [numMarkers, setNumMarkers] = useState<number>(5);
+  const [numMarkers, setNumMarkers] = useState<number>(20);
 
   const fetchPosts = async () => {
     setIsLoading(true);
@@ -71,31 +71,29 @@ const Map: React.FC = () => {
   }
 
   return (
-    <div className="filter-container container">
-      <div className="options-container">
-        <div className="sorting-options">
-          <label htmlFor="sort-by">Sort by:</label>
-          <select id="sort-by" onChange={handleSortChange} value={sortMethod}>
-            <option value="date">Date</option>
-            <option value="rating">Rating</option>
-          </select>
-        </div>
+    <div>
+      <div className="sorting-options">
+        <label htmlFor="sort-by">Sort by:</label>
+        <select id="sort-by" onChange={handleSortChange} value={sortMethod}>
+          <option value="date">Date</option>
+          <option value="rating">Rating</option>
+        </select>
+      </div>
 
-        <div className="seperator"></div>
-
-        <div className="marker-options">
-          <label htmlFor="num-markers">Number of Sightings:</label>
-          <select
-            id="num-markers"
-            onChange={(e) => handleNumMarkersChange(Number(e.target.value))}
-            value={numMarkers}
-          >
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="25">25</option>
-            <option value="50">50</option>
-          </select>
-        </div>
+      <div className="marker-options">
+        <label htmlFor="num-markers">Number of Sightings:</label>
+        <select
+          id="num-markers"
+          onChange={(e) => handleNumMarkersChange(Number(e.target.value))}
+          value={numMarkers}
+        >
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+          <option value="40">40</option>
+          <option value="50">50</option>
+        </select>
       </div>
 
       <MapContainer
