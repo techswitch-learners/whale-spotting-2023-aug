@@ -23,13 +23,9 @@
   border-radius: 50%;
 }
 
-.sorting-options {
-  margin-bottom: 20px; // Add some spacing between sorting and marker options
-}
-
 /* Styling for the sorting select */
 .sorting-options select {
-  padding: 10px;
+  padding: 5px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -55,7 +51,7 @@
 }
 
 .marker-options select {
-  padding: 10px;
+  padding: 5px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -104,4 +100,8 @@
   height: 20px;
   background-color: #ccc;
   margin: 0 10px;
+}
+
+label {
+  margin-right: 3px;
 }
