@@ -1,5 +1,4 @@
 import { useState } from "react";
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { registerNewUser } from "../clients/backendApiClient";
 import Button from "../components/UI/Button";
@@ -19,7 +18,7 @@ function RegisterPage() {
     e.preventDefault();
 
     try {
-      const result = await registerNewUser(
+      const success = await registerNewUser(
         fullName,
         username,
         email,
@@ -27,7 +26,7 @@ function RegisterPage() {
         profileImageUrl,
       );
 
-      if (result) {
+      if (success) {
         navigate("/");
       } else {
         setErrorMessage("Please check the information provided");
