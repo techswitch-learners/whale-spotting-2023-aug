@@ -14,8 +14,6 @@ function LoginPage() {
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log("login start");
-
     try {
       const loginResult = await loginContext.logIn(username, password);
       if (loginResult) {
