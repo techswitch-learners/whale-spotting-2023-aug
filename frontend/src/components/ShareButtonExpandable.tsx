@@ -7,9 +7,10 @@ import "./ShareButtonExpandable.scss";
 interface PostDataProps {
   postData: PostData;
   size: number;
+  type: string;
 }
 
-const ShareButtonExpandable = ({ postData, size }: PostDataProps) => {
+const ShareButtonExpandable = ({ postData, size, type }: PostDataProps) => {
   const [showShareMenu, setShowShareMenu] = useState(false);
 
   const toggleShareMenu = () => {
@@ -27,6 +28,7 @@ const ShareButtonExpandable = ({ postData, size }: PostDataProps) => {
         <ShareButton
           url={`http://localhost:5173/whale-spotting-2023-aug/#/posts/${postData.id}`}
           size={size}
+          type={type}
         />
       </div>
     </div>

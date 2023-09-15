@@ -19,7 +19,11 @@ const CardPost = ({ postData }: PostDataProps) => {
           <span>{convertLikesToString(postData.rating)}</span>
         </div>
         <div>
-          <ShareButtonExpandable postData={postData} size={24} />
+          <ShareButtonExpandable
+            postData={postData}
+            size={24}
+            type={"sighting"}
+          />
         </div>
       </div>
       <Link to={`/posts/${postData.id}`}>

@@ -123,7 +123,11 @@ const Post = () => {
                 <span>{convertLikesToString(post.rating)}</span>
               </div>
               <div>
-                <ShareButtonExpandable postData={post} size={36} />
+                <ShareButtonExpandable
+                  postData={post}
+                  size={36}
+                  type={"sighting"}
+                />
               </div>
             </div>
           </div>

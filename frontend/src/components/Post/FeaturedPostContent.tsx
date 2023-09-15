@@ -48,7 +48,11 @@ const FeaturedPostContent = ({ postData }: PostDataProps) => {
           <span>{convertLikesToString(postData.rating)}</span>
         </div>
         <div>
-          <ShareButtonExpandable postData={postData} size={36} />
+          <ShareButtonExpandable
+            postData={postData}
+            size={36}
+            type={"sighting"}
+          />
         </div>
       </div>
     </>
