@@ -166,3 +166,8 @@ export const modifyPost = async (
   });
   return response.ok;
 };
+
+export const getPostsByUserId = async (userId: number): Promise<PostsData> => {
+  const response = await fetch(`${backendUrl}/Post/userId/${userId}`);
+  return await response.json();
+};

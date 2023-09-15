@@ -13,6 +13,7 @@ public interface IPostService
     public List<Post> GetPending();
     public void ApproveOrReject(int id, ApprovalStatus approvalStatus);
     public void Modify(int id, ModifyPostRequest modifyPostRequest);
+    public List<Post> GetByUserId(int userId);
 }
 
 public class PostService : IPostService
@@ -52,5 +53,10 @@ public class PostService : IPostService
     public void Modify(int id, ModifyPostRequest modifyPostRequest)
     {
         _posts.Modify(id, modifyPostRequest);
+    }
+
+    public List<Post> GetByUserId(int userId)
+    {
+        return _posts.GetByUserId(userId);
     }
 }

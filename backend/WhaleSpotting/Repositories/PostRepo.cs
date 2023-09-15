@@ -9,7 +9,7 @@ namespace WhaleSpotting.Repositories;
 public interface IPostRepo
 {
     public Post GetById(int id);
-    public Post GetByUserId(int id);
+    public List<Post> GetByUserId(int userId);
     public Task<Post> Create(PostRequest newPostRequest);
     public List<Post> GetAll();
     public List<Post> GetPending();
@@ -46,18 +46,26 @@ public class PostRepo : IPostRepo
         }
     }
 
-    public Post GetByUserId(int userId)
+    public List<Post> GetByUserId(int userId)
     {
         try
         {
             return _context.Posts
                 .Include(post => post.User)
-                .Where(post => post.User != null && post.User.Id == userId)
-                .Single();
+                .Include(post => post.Species)
+                .Include(post => post.Likes)
+                .Include(post => post.BodyOfWater)
+                .Where(
+                    post =>
+                        post.ApprovalStatus == ApprovalStatus.Approved
+                        && post.User != null
+                        && post.User.Id == userId
+                )
+                .ToList();
         }
         catch (InvalidOperationException)
         {
-            throw new ArgumentException($"Post with userid ${userId} not found");
+            throw new ArgumentException($"Posts with user id ${userId} not found");
         }
     }
 

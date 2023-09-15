@@ -93,4 +93,18 @@ public class PostController : ControllerBase
             return NotFound();
         }
     }
+
+    [HttpGet("userId/{userId:int}")]
+    public IActionResult GetByUserId([FromRoute] int userId)
+    {
+        try
+        {
+            var posts = _postService.GetByUserId(userId);
+            return Ok(new PostsResponse(posts));
+        }
+        catch (ArgumentException)
+        {
+            return NotFound();
+        }
+    }
 }
