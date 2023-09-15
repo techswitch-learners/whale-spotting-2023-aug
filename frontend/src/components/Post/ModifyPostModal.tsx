@@ -1,45 +1,68 @@
-import { useEffect, useState, FormEvent } from "react";
-import w3w_logo from "../assets/w3w_logo.png";
+import PostData from "../../models/PostData";
+import Button from "../UI/Button";
+import { useState, useEffect, FormEvent } from "react";
+import SpeciesListData from "../../models/SpeciesListData";
+import w3w_logo from "../../assets/w3w_logo.png";
 import {
-  createWhalePost,
   getLatitudeLongitude,
   getAllSpecies,
-} from "../clients/backendApiClient";
-import Button from "../components/UI/Button";
-import SpeciesListData from "../models/SpeciesListData";
-import "./SubmissionForm.scss";
+  modifyPost,
+  approveOrRejectPost,
+} from "../../clients/backendApiClient";
+import "./ModifyPostModal.scss";
+import ApprovalStatus from "../../enums/ApprovalStatus";
 
-const SubmissionForm = () => {
+const validW3wPattern = /^(\/\/\/)?[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]+$/g;
+
+interface PostDataProps {
+  postData: PostData;
+}
+
+const ModifyPostModal = ({ postData }: PostDataProps) => {
   const today = new Date();
   const todayDateString = today.toISOString().slice(0, -1);
 
-  const [date, setDate] = useState<Date>(new Date());
+  const id = postData.id;
+  const [date, setDate] = useState<Date>(new Date(postData.timestamp));
   const [w3w, setW3w] = useState<string>("");
-  const [lat, setLat] = useState<number>(NaN);
-  const [lon, setLon] = useState<number>(NaN);
-  const [species, setSpecies] = useState<number>(NaN);
-  const [description, setDescription] = useState<string>("");
-  const [imageUrl, setImageUrl] = useState<string>("");
+  const [lat, setLat] = useState<number>(postData.latitude);
+  const [lon, setLon] = useState<number>(postData.longitude);
+  const [speciesId, setSpeciesId] = useState<number>(postData.species.id);
+  const [description, setDescription] = useState<string>(postData.description);
+  const [imageUrl, setImageUrl] = useState<string>(postData.imageUrl);
   const [locationErrorMessage, setLocationErrorMessage] = useState<string>("");
   const [speciesErrorMessage, setSpeciesErrorMessage] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [speciesListData, setSpeciesListData] = useState<SpeciesListData>();
-
-  const validW3wPattern = /^(\/\/\/)?[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]+$/g;
+  const [toApprove, setToApprove] = useState<boolean>(false);
 
   useEffect(() => {
-    let words;
-    if (w3w.startsWith("///")) {
-      words = w3w.slice(3);
+    if (w3w && validW3wPattern.test(w3w)) {
+      let words;
+      if (w3w.startsWith("///")) {
+        words = w3w.slice(3);
+      } else {
+        words = w3w;
+      }
+      getLatitudeLongitude(words)
+        .then((data) => {
+          if (!isNaN(data.lat) && !isNaN(data.lng)) {
+            setLat(data.lat);
+            setLon(data.lng);
+          } else {
+            setLocationErrorMessage("Please enter a valid what3words");
+            setLat(NaN);
+            setLon(NaN);
+          }
+        })
+        .catch(() =>
+          setLocationErrorMessage("Please enter a valid what3words"),
+        );
+    } else if (w3w && !validW3wPattern.test(w3w)) {
+      setLocationErrorMessage("Please enter a valid what3words");
     } else {
-      words = w3w;
+      setLocationErrorMessage("");
     }
-    getLatitudeLongitude(words)
-      .then((data) => {
-        setLat(data.lat);
-        setLon(data.lng);
-      })
-      .catch(() => setLocationErrorMessage("Please enter a valid what3words"));
   }, [w3w]);
 
   useEffect(() => {
@@ -49,25 +72,19 @@ const SubmissionForm = () => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
-    if (!w3w && !lat && !lon) {
-      setLocationErrorMessage(
-        "Please provide either what3words or a latitude and longitude",
-      );
-      return;
-    }
-
-    if ((!lat && lon) || (!lon && lat)) {
+    if ((isNaN(lat) && !isNaN(lon)) || (isNaN(lon) && !isNaN(lat))) {
       setLocationErrorMessage("Please fill both latitude and longitude");
       return;
     }
 
-    if (isNaN(species)) {
+    if (isNaN(speciesId)) {
       setSpeciesErrorMessage("Please select a species");
       return;
     }
 
     if (w3w && !validW3wPattern.test(w3w)) {
       setLocationErrorMessage("Please enter a valid what3words");
+      return;
     } else if (w3w && validW3wPattern.test(w3w)) {
       let words;
       if (w3w.startsWith("///")) {
@@ -83,31 +100,45 @@ const SubmissionForm = () => {
         .catch(() =>
           setLocationErrorMessage("Please enter a valid what3words"),
         );
+    } else if (isNaN(lat) && isNaN(lon)) {
+      setLocationErrorMessage("Please enter a valid location or what3words");
+      return;
     }
-    if (lat && lon) {
-      createWhalePost(date, lat, lon, species, description, imageUrl)
-        .then(() => {
-          setSuccessMessage("Thank you for your submission");
-        })
-        .catch(() => {
-          setSuccessMessage("Please check the information provided");
-        });
-    }
+
+    modifyPost(id, date, lat, lon, speciesId, description, imageUrl).then(
+      () => {
+        if (toApprove) {
+          try {
+            approveOrRejectPost(id, ApprovalStatus.Approved).then(() => {
+              setSuccessMessage("Post update and approval successful");
+              window.location.reload();
+            });
+          } catch (error) {
+            setSuccessMessage("Unable to approve post, please try again");
+          }
+        } else {
+          setSuccessMessage("Post successfully updated");
+          window.location.reload();
+        }
+      },
+    );
   };
 
   useEffect(() => {
-    setLocationErrorMessage("");
-  }, [w3w, lat, lon]);
+    if (!isNaN(lat) && !isNaN(lon)) {
+      setLocationErrorMessage("");
+    }
+  }, [lat, lon]);
 
   useEffect(() => {
     setSpeciesErrorMessage("");
-  }, [species]);
+  }, [speciesId]);
 
   return (
     <>
-      <div className="container">
+      <div className="modify-form-container">
         <form className="submission-form" onSubmit={handleSubmit}>
-          <h1>Submit a sighting</h1>
+          <h1 className="modify-title">Update Sighting Information</h1>
           <label htmlFor="date" className="submission-form-children">
             Date of sighting
           </label>
@@ -157,7 +188,7 @@ const SubmissionForm = () => {
               id="lat"
               name="lat"
               placeholder="Latitude"
-              value={isNaN(lat) ? "" : lat}
+              value={lat}
               onChange={(event) => setLat(parseFloat(event.target.value))}
             />
             <input
@@ -165,7 +196,7 @@ const SubmissionForm = () => {
               id="lon"
               name="lon"
               placeholder="Longitude"
-              value={isNaN(lon) ? "" : lon}
+              value={lon}
               onChange={(event) => setLon(parseFloat(event.target.value))}
             />
           </div>
@@ -180,7 +211,8 @@ const SubmissionForm = () => {
             name="species"
             id="species"
             required
-            onChange={(event) => setSpecies(parseInt(event.target.value))}
+            onChange={(event) => setSpeciesId(parseInt(event.target.value))}
+            value={postData.species.id}
           >
             <option>
               {speciesListData ? "Choose species" : "Choose species (loading)"}
@@ -196,9 +228,10 @@ const SubmissionForm = () => {
             Description
           </label>
           <textarea
+            className="post-description"
             id="description"
             required
-            rows={4}
+            rows={8}
             cols={50}
             name="description"
             value={description}
@@ -220,9 +253,18 @@ const SubmissionForm = () => {
             onChange={(event) => setImageUrl(event.target.value)}
           />
 
-          <Button type="submit" className="submission-form-children">
-            Submit
-          </Button>
+          <div className="button-container">
+            <Button type="submit" className="submit-button">
+              Submit
+            </Button>
+            <Button
+              type="submit"
+              className="submit-button"
+              onClick={() => setToApprove(true)}
+            >
+              Submit and Approve
+            </Button>
+          </div>
           <span className="error-message">{successMessage}</span>
         </form>
       </div>
@@ -230,4 +272,4 @@ const SubmissionForm = () => {
   );
 };
 
-export default SubmissionForm;
+export default ModifyPostModal;

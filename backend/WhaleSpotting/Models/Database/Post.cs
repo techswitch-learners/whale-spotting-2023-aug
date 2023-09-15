@@ -15,6 +15,7 @@ namespace WhaleSpotting.Models.Database
         public ApprovalStatus? ApprovalStatus { get; set; }
         public Whale? Whale { get; set; }
         public int? Rating { get; set; }
+        public List<Interaction> Likes { get; set; } = new List<Interaction>();
         public BodyOfWater? BodyOfWater { get; set; }
     }
 }
