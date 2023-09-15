@@ -16,7 +16,7 @@ public class PostController : ControllerBase
         _postService = postService;
     }
 
-    [HttpGet("{id:int}")]
+    [HttpGet("id/{id:int}")]
     public IActionResult GetById([FromRoute] int id)
     {
         try

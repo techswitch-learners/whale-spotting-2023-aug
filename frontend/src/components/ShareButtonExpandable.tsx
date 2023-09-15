@@ -2,6 +2,7 @@ import { useState } from "react";
 import ShareButton from "./ShareButtons";
 import PostData from "../models/PostData";
 import ShareIcon from "../assets/share_icon.png";
+import "./ShareButtonExpandable.scss";
 
 interface PostDataProps {
   postData: PostData;
@@ -15,9 +16,9 @@ const ShareButtonExpandable = ({ postData }: PostDataProps) => {
   };
 
   return (
-    <div className="share-menu-wrapper">
+    <div className={`share-menu-wrapper ${showShareMenu ? "active" : ""}`}>
       <img
-        className="share-menu-icon"
+        className={`share-menu-icon ${showShareMenu ? "active" : ""}`}
         src={ShareIcon}
         onClick={toggleShareMenu}
       />

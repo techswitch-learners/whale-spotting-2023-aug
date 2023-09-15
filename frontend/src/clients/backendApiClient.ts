@@ -173,3 +173,8 @@ export const modifyPost = async (
   });
   return response.ok;
 };
+
+export const getPostById = async (id: number): Promise<Response> => {
+  const response = await fetch(`${backendUrl}/post/id/${id}`);
+  return response;
+};
