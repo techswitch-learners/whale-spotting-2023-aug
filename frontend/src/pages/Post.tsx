@@ -76,7 +76,7 @@ const Post = () => {
     );
   }
   return (
-    <div>
+    <div className="CardPostModal-container">
       {post ? (
         <div className="CardPostModal">
           <div className="CardPostModal__image__container">
