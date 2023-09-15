@@ -24,7 +24,7 @@ public class AdminHeaderRequirementFilter : IAuthorizationFilter
     {
         if (!_httpContextAccessor.HttpContext!.Request.Headers["Authorization"].Any())
         {
-            context.Result = new UnauthorizedObjectResult("Missing Authentication Headers");
+            context.Result = new UnauthorizedObjectResult("Missing Authorization header");
             return;
         }
 
@@ -40,13 +40,13 @@ public class AdminHeaderRequirementFilter : IAuthorizationFilter
         }
         catch (ArgumentException)
         {
-            context.Result = new UnauthorizedObjectResult("Invalid authorization header");
+            context.Result = new UnauthorizedObjectResult("Invalid Authorization header");
             return;
         }
         var user = _authService.GetUser(auth.Username, auth.Password);
         if (user == null)
         {
-            context.Result = new UnauthorizedObjectResult("Invalid user, pass");
+            context.Result = new UnauthorizedObjectResult("Invalid credentials");
             return;
         }
 
