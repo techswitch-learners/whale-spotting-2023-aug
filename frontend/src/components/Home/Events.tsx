@@ -44,7 +44,7 @@ const Events = () => {
                     <td>{toShortDate(event.startDate)}</td>
 
                     <td className="Board__Item__svg">
-                      <Link to={`/users/`}>
+                      <Link to={`/events`}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
