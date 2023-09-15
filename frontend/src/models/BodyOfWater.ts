@@ -1,11 +1,9 @@
+import PostData from "./PostData";
+
 export interface BodyOfWater {
   id: number;
   name: string;
-  posts: {
-    id: number;
-    imageUrl: string;
-    description: string;
-  };
+  posts: PostData[];
 }
 
 export interface BodiesOfWater {

@@ -1,0 +1,21 @@
+@use "../styles/mixins" as *;
+@use "../styles/sections" as *;
+@use "../styles/typography" as *;
+@use "../styles/variables" as *;
+
+.SearchResults {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  margin: $desktop-section-spacing 0;
+
+  &__Filter {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__Main {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
