@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { getEvents } from "../../clients/backendApiClient";
-import EventData from "../../models/EventData";
 import { toShortDate } from "../../utils/DateConversion";
-import "./EventandLeaderboardSection.scss";
 import { Link } from "react-router-dom";
+import EventData from "../../models/EventData";
+import "./EventsAndLeaderboardSection.scss";
 
 export default function Events() {
   const [events, setEvents] = useState<EventData[]>();
@@ -12,7 +12,6 @@ export default function Events() {
     const response = await getEvents();
     if (response) {
       setEvents(response);
-      //      console.log(response);
     }
   };
 

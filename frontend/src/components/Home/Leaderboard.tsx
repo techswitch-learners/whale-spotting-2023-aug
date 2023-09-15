@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import UserData from "../../models/UserData";
 import { getLeaderboard } from "../../clients/backendApiClient";
-import "./EventandLeaderboardSection.scss";
+import UserData from "../../models/UserData";
+import "./EventsAndLeaderboardSection.scss";
 
 export default function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState<UserData[]>();
@@ -11,7 +11,6 @@ export default function Leaderboard() {
     const response = await getLeaderboard();
     if (response) {
       setLeaderboard(response);
-      //      console.log(response);
     }
   };
 

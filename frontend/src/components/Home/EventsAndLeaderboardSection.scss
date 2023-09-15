@@ -3,37 +3,20 @@
 @use "../../styles/typography" as *;
 @use "../../styles/variables" as *;
 
-::-webkit-scrollbar {
-  width: 4px;
-  border: 1px solid $color-tertiary;
-  background-color: $color-tertiary;
-  border-radius: $desktop-border-radius;
-}
-
-::-webkit-scrollbar-track {
-  border-radius: $desktop-border-radius;
-  background: $color-tertiary;
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: $desktop-border-radius;
-
-  background: $color-secondary;
-}
-
-.EventsandLeaderboard {
+.EventsAndLeaderboard {
   display: flex;
   flex-direction: column;
+  margin-bottom: $mobile-card-padding;
 
   @include devices(desktop) {
     flex-direction: row;
+    gap: $desktop-card-padding;
   }
 }
 
 .Board {
   padding: $mobile-input-padding;
   margin-top: $mobile-card-padding;
-  margin-bottom: $mobile-card-padding;
   border: solid $color-secondary;
   border-radius: $mobile-border-radius;
   background-color: $color-tertiary;
@@ -41,6 +24,7 @@
 
   @include devices(tablet) {
     border-radius: $tablet-border-radius;
+    padding: $tablet-section-spacing;
   }
 
   @include devices(desktop) {
@@ -58,11 +42,6 @@
 
   &tr {
     text-align: left;
-  }
-
-  @include devices(tablet) {
-    padding: $tablet-section-spacing;
-    margin: $tablet-card-padding;
   }
 
   &__Table {

@@ -3,19 +3,16 @@ import { getLatestPosts } from "../../clients/backendApiClient";
 import PostData from "../../models/PostData";
 import { toShortDate } from "../../utils/DateConversion";
 import "./LatestPosts.scss";
+import WhaleLoader from "../UI/WhaleLoader";
 
 export default function LatestPosts() {
   const [latestPosts, setLatestPosts] = useState<PostData[]>();
-
-  const getLatestPostsHandler = async () => {
-    const response = await getLatestPosts();
-    if (response) {
-      setLatestPosts(response);
-    }
-  };
+  const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
-    getLatestPostsHandler();
+    getLatestPosts()
+      .then(setLatestPosts)
+      .catch(() => setError(true));
   }, []);
 
   return (
@@ -24,7 +21,7 @@ export default function LatestPosts() {
         <h2>Latest Spottings</h2>
         <h4>Explore the latest sightings</h4>
         <div className="LatestPostsRow">
-          {latestPosts &&
+          {latestPosts ? (
             latestPosts.map((post) => {
               return (
                 <div key={post.id} className="LatestPostCard">
@@ -39,7 +36,15 @@ export default function LatestPosts() {
                   <p>Date : {toShortDate(post.timestamp)}</p>
                 </div>
               );
-            })}
+            })
+          ) : (
+            <WhaleLoader
+              isLoading={!error}
+              message={
+                error ? "Could not load posts at this time" : "Loading..."
+              }
+            />
+          )}
         </div>
       </div>
     </section>

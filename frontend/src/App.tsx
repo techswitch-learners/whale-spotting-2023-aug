@@ -9,10 +9,10 @@ import Register from "./pages/Register.tsx";
 import UserProfile from "./pages/UserProfile.tsx";
 import PostForm from "./pages/PostForm";
 import EventForm from "./pages/EventForm.tsx";
+import SearchResults from "./pages/SearchResult.tsx";
 import "./App.scss";
-import SearchResult from "./pages/SearchResult.tsx";
 
-export const App = () => {
+const App = () => {
   return (
     <Router>
       <Navbar />
@@ -22,10 +22,7 @@ export const App = () => {
         <Route path="/events" element={<Events />} />
         <Route path="/users" element={<Users />} />
         <Route path="/login" element={<Login />} />
-        <Route
-          path="/search-results/:bodyOfWaterName"
-          element={<SearchResult />}
-        />
+        <Route path="/search" element={<SearchResults />} />
         <Route path="/register" element={<Register />} />
         <Route path="/users/:userId" element={<UserProfile />} />
         <Route path="/posts/create" element={<PostForm />} />

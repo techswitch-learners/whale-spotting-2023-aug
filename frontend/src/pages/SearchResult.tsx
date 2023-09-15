@@ -1,5 +1,5 @@
-function SearchResult() {
+const SearchResults = () => {
   return <div>Search Results</div>;
-}
+};
 
-export default SearchResult;
+export default SearchResults;
