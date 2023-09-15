@@ -53,6 +53,7 @@ public class PostResponse
     public string Description { get; set; }
     public ApprovalStatus ApprovalStatus { get; set; }
     public int Rating { get; set; }
+    public int Likes { get; set; }
     public PostBodyOfWater? BodyOfWater { get; set; }
 
     public PostResponse(Post post)
@@ -63,6 +64,18 @@ public class PostResponse
             ?? throw new ArgumentNullException(
                 nameof(post),
                 "Property \"Timestamp\" must not be null"
+            );
+        Latitude =
+            post.Latitude
+            ?? throw new ArgumentNullException(
+                nameof(post),
+                "Property \"latitude\" must not be null"
+            );
+        Longitude =
+            post.Longitude
+            ?? throw new ArgumentNullException(
+                nameof(post),
+                "Property \"longitude\" must not be null"
             );
         User =
             post.User != null
@@ -114,6 +127,7 @@ public class PostResponse
                 nameof(post),
                 "Property \"Rating\" must not be null"
             );
+        Likes = post.Likes != null ? post.Likes.Count : 0;
         BodyOfWater = post.BodyOfWater != null ? new PostBodyOfWater(post.BodyOfWater) : null;
     }
 }

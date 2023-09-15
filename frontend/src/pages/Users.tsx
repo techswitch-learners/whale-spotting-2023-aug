@@ -17,7 +17,7 @@ export const Users = () => {
       <section className="Section-Two">
         <div className="container PostsGallery">
           {usersData?.users.map((user) => {
-            return <CardUser userData={user} />;
+            return <CardUser user={user} />;
           })}
         </div>
       </section>

@@ -1,0 +1,27 @@
+@use "../styles/mixins" as *;
+@use "../styles/variables" as *;
+@use "../styles/typography" as *;
+
+.user-banner {
+  display: flex;
+  flex-direction: row;
+}
+
+.user-page {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: left;
+}
+
+.user-profile-image {
+  border-radius: 50%;
+  max-width: 25%;
+  height: auto;
+  margin-right: 4rem;
+  margin-bottom: 4rem;
+}
+
+.user-info {
+  color: $color-primary;
+}
