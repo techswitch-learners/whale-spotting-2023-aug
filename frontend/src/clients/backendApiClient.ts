@@ -124,14 +124,8 @@ export const getLatestPosts = async (): Promise<PostData[]> => {
 };
 
 export const getLeaderboard = async (): Promise<UserData[]> => {
-  const response = await getAllUsers();
-  if (response) {
-    response.users.sort((a: UserData, b: UserData) => {
-      return b.rating - a.rating;
-    });
-  }
-
-  return response.users.slice(0, 10);
+  const response = await fetch(`${backendUrl}/Leaderboard`);
+  return await response.json();
 };
 
 export const createEvent = async (
