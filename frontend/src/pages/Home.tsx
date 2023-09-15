@@ -1,13 +1,13 @@
-import EventandLeaderboardSection from "../components/Home/EventandLeaderboardSection";
+import EventandLeaderboardSection from "../components/Home/EventsAndLeaderboardSection";
 import LatestPosts from "../components/Home/LatestPosts";
-
 import SearchBySea from "../components/Home/SearchBySea";
 
 export const Home = () => {
   return (
     <>
-      <SearchBySea />
+      <h1>Whale Spotting</h1>
       <LatestPosts />
+      <SearchBySea />
       <EventandLeaderboardSection />
 
       {/* Footer */}

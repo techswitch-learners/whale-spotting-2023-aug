@@ -1,23 +1,17 @@
 import { useEffect, useState } from "react";
-import { getEvents } from "../../clients/backendApiClient";
-import EventData from "../../models/EventData";
+import { getAllEvents } from "../../clients/backendApiClient";
 import { toShortDate } from "../../utils/DateConversion";
-import "./EventandLeaderboardSection.scss";
 import { Link } from "react-router-dom";
+import EventData from "../../models/EventData";
+import "./EventsAndLeaderboardSection.scss";
 
-export default function Events() {
+const Events = () => {
   const [events, setEvents] = useState<EventData[]>();
 
-  const getEventsHandler = async () => {
-    const response = await getEvents();
-    if (response) {
-      setEvents(response);
-      //      console.log(response);
-    }
-  };
-
   useEffect(() => {
-    getEventsHandler();
+    getAllEvents()
+      .then((data) => setEvents(data.events))
+      .catch();
   }, []);
 
   return (
@@ -50,7 +44,7 @@ export default function Events() {
                     <td>{toShortDate(event.startDate)}</td>
 
                     <td className="Board__Item__svg">
-                      <Link to={`/users/`}>
+                      <Link to={`/events`}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -74,4 +68,6 @@ export default function Events() {
       </div>
     </>
   );
-}
+};
+
+export default Events;

@@ -4,7 +4,6 @@ interface UserData {
   email: string;
   name: string;
   profileImageUrl: string;
-  rating: number;
   posts: {
     id: number;
     imageUrl: string;

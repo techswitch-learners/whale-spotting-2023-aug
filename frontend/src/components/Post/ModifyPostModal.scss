@@ -1,0 +1,61 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.modify-form-container {
+  padding: 1rem;
+  background-color: $color-secondary;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+
+  @include devices(tablet) {
+    padding: 2rem;
+  }
+
+  @include devices(desktop) {
+    padding: 3rem;
+  }
+}
+
+.modify-title {
+  margin-top: 0;
+}
+
+.submission-form {
+  height: 100%;
+}
+
+.post-description {
+  min-height: 25%;
+}
+
+.button-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 1rem;
+  padding-bottom: 1rem;
+
+  @include devices(tablet) {
+    margin-top: 3rem;
+  }
+
+  @include devices(desktop) {
+    margin-top: 2.5rem;
+  }
+}
+
+.submit-button {
+  border-color: $color-primary;
+  width: 40%;
+  padding: 0.1rem;
+  font-size: 0.8rem;
+
+  @include devices(tablet) {
+    font-size: 1rem;
+  }
+
+  @include devices(desktop) {
+    font-size: 1.5rem;
+  }
+}

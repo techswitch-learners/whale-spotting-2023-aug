@@ -58,12 +58,35 @@ namespace WhaleSpotting.Migrations
                     b.Property<string>("Location")
                         .HasColumnType("text");
 
-                    b.Property<DateOnly?>("StartDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime?>("StartDate")
+                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
 
                     b.ToTable("Events");
+                });
+
+            modelBuilder.Entity("WhaleSpotting.Models.Database.Interaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Interactions");
                 });
 
             modelBuilder.Entity("WhaleSpotting.Models.Database.Post", b =>
@@ -99,7 +122,7 @@ namespace WhaleSpotting.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime?>("Timestamp")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("integer");
@@ -151,7 +174,7 @@ namespace WhaleSpotting.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime?>("CreationTimestamp")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Email")
                         .HasColumnType("text");
@@ -200,6 +223,25 @@ namespace WhaleSpotting.Migrations
                     b.ToTable("Whales");
                 });
 
+            modelBuilder.Entity("WhaleSpotting.Models.Database.Interaction", b =>
+                {
+                    b.HasOne("WhaleSpotting.Models.Database.Post", "Post")
+                        .WithMany("Likes")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WhaleSpotting.Models.Database.User", "User")
+                        .WithMany("PostUserLiked")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("WhaleSpotting.Models.Database.Post", b =>
                 {
                     b.HasOne("WhaleSpotting.Models.Database.BodyOfWater", "BodyOfWater")
@@ -241,6 +283,11 @@ namespace WhaleSpotting.Migrations
                     b.Navigation("Posts");
                 });
 
+            modelBuilder.Entity("WhaleSpotting.Models.Database.Post", b =>
+                {
+                    b.Navigation("Likes");
+                });
+
             modelBuilder.Entity("WhaleSpotting.Models.Database.Species", b =>
                 {
                     b.Navigation("Whales");
@@ -248,6 +295,8 @@ namespace WhaleSpotting.Migrations
 
             modelBuilder.Entity("WhaleSpotting.Models.Database.User", b =>
                 {
+                    b.Navigation("PostUserLiked");
+
                     b.Navigation("Posts");
                 });
 

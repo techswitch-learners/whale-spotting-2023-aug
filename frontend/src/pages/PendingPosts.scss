@@ -1,0 +1,11 @@
+@use "../styles/variables" as *;
+@use "../styles/mixins" as *;
+
+.PostsGallery {
+  @include cardGallery();
+}
+
+.error-message {
+  text-align: center;
+  color: $color-foreground-dark !important;
+}

@@ -12,6 +12,8 @@
   flex-direction: row;
   overflow: auto;
   width: 100%;
+  gap: $mobile-card-padding;
+  margin-top: $mobile-card-padding;
 }
 
 .LatestPostCard {
@@ -37,10 +39,10 @@
   }
 
   @include devices(tablet) {
-    padding: $tablet-card-padding;
+    padding: $tablet-card-padding 0;
   }
 
   @include devices(desktop) {
-    padding: $desktop-card-padding;
+    padding: $desktop-card-padding 0;
   }
 }

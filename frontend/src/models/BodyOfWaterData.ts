@@ -1,13 +1,11 @@
-export interface BodyOfWater {
+interface BodyOfWaterData {
   id: number;
   name: string;
   posts: {
     id: number;
     imageUrl: string;
     description: string;
-  };
+  }[];
 }
 
-export interface BodiesOfWater {
-  bodiesOfWater: BodyOfWater[];
-}
+export default BodyOfWaterData;

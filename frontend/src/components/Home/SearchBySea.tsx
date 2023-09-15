@@ -1,32 +1,23 @@
 import { useEffect, useState } from "react";
 import { getAllBodiesOfWater } from "../../clients/backendApiClient";
-import { BodyOfWater } from "../../models/BodyOfWater";
-import "./SearchBySea.scss";
-import Button from "../UI/Button";
+import { BodyOfWaterData } from "../../models/BodyOfWaterData";
 import { useNavigate } from "react-router-dom";
+import Button from "../UI/Button";
+import "./SearchBySea.scss";
 
-export default function SearchBySea() {
-  const [bodiesOfWater, setBodiesOfWater] = useState<BodyOfWater[]>();
+const SearchBySea = () => {
+  const [bodiesOfWater, setBodiesOfWater] = useState<BodyOfWaterData[]>();
   const [bodyOfWater, setBodyOfWater] = useState<string>();
   const navigate = useNavigate();
 
-  const getBodiesOfWaterHandler = async () => {
-    const response = await getAllBodiesOfWater();
-    if (response) {
-      const data = response.bodiesOfWater;
-      setBodiesOfWater(data);
-      setBodyOfWater(data[0].name);
-    }
-
-    console.log(response);
-  };
-
   useEffect(() => {
-    getBodiesOfWaterHandler();
+    getAllBodiesOfWater()
+      .then((response) => setBodiesOfWater(response.bodiesOfWater))
+      .catch();
   }, []);
 
   const searchHandler = () => {
-    navigate(`/search-results/${bodyOfWater}`);
+    navigate(`/search?bodyOfWater=${bodyOfWater}`);
   };
 
   return (
@@ -41,18 +32,21 @@ export default function SearchBySea() {
               name="bodyOfWater"
               onChange={(e) => setBodyOfWater(e.target.value)}
             >
+              <option selected disabled>
+                Please select...
+              </option>
               {bodiesOfWater &&
-                bodiesOfWater.map((bodyOfWater) => {
-                  return (
-                    <option
-                      key={bodyOfWater.id}
-                      className="SearchBySea__select__option"
-                      value={bodyOfWater.name}
-                    >
-                      {bodyOfWater.name}
-                    </option>
-                  );
-                })}
+                bodiesOfWater.map((bodyOfWater) => (
+                  <option
+                    key={bodyOfWater.id}
+                    className="SearchBySea__select__option"
+                    value={bodyOfWater.name}
+                    disabled={bodyOfWater.posts.length === 0}
+                  >
+                    {bodyOfWater.name +
+                      (bodyOfWater.posts.length === 0 ? " (no posts yet)" : "")}
+                  </option>
+                ))}
             </select>
           </label>
 
@@ -63,4 +57,6 @@ export default function SearchBySea() {
       </div>
     </section>
   );
-}
+};
+
+export default SearchBySea;

@@ -13,15 +13,18 @@
   position: relative;
   border-radius: $mobile-border-radius;
   gap: $mobile-card-padding;
+  margin-top: $mobile-card-padding;
 
   @include devices(tablet) {
     border-radius: $tablet-border-radius;
     padding: $tablet-gutter;
+    margin-top: $tablet-card-padding;
   }
 
   @include devices(desktop) {
     padding: $desktop-gutter;
     border-radius: $desktop-border-radius;
+    margin-top: $desktop-card-padding;
   }
 
   &__select {
@@ -30,7 +33,7 @@
     border: 2px solid $color-primary;
     border-radius: $mobile-border-radius;
     padding: $mobile-input-padding;
-    width: 100%px;
+    width: 100%;
     font-size: $mobile-font-size-dropdown;
     cursor: pointer;
     background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCAyNCAyNCIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZT0iIzM3NTg5OCIgY2xhc3M9InctNiBoLTYiPgogIDxwYXRoIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgZD0iTTkgMTIuNzVsMyAzbTAgMGwzLTNtLTMgM3YtNy41TTIxIDEyYTkgOSAwIDExLTE4IDAgOSA5IDAgMDExOCAweiIgLz4KPC9zdmc+Cg==")
@@ -43,12 +46,12 @@
 
     @include devices(tablet) {
       border-radius: $tablet-border-radius;
-      width: 500px;
+      width: 100%;
       font-size: $tablet-font-size-dropdown;
     }
 
     @include devices(desktop) {
-      width: 700px;
+      width: 100%;
       font-size: $desktop-font-size-dropdown;
       border-radius: $desktop-border-radius;
     }
@@ -70,8 +73,16 @@
 
 .SearchBySea-row {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 30px;
+
+  @include devices(tablet) {
+    flex-direction: row;
+  }
+
+  @include devices(desktop) {
+    flex-direction: row;
+  }
 }
