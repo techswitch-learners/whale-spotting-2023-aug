@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
@@ -90,8 +90,7 @@ function Navbar() {
             </li>
             <li>
               {loginContext.isLoggedIn ? (
-                <NavLink
-                  className={({ isActive }) => (isActive ? "active-page" : "")}
+                <Link
                   to="/"
                   onClick={() => {
                     loginContext.logOut();
@@ -99,7 +98,7 @@ function Navbar() {
                   }}
                 >
                   Logout
-                </NavLink>
+                </Link>
               ) : (
                 <NavLink
                   className={({ isActive }) => (isActive ? "active-page" : "")}
