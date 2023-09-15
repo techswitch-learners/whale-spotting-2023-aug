@@ -47,7 +47,11 @@ const CardEventModal = ({ eventData }: EventDataProps) => {
         >
           Click here view event website <br /> (external link)
         </Button>
-        <ShareButton eventUrl={eventData.eventLink} />
+        <ShareButton
+          url={eventData.eventLink}
+          size={48}
+          type={"Spotting event"}
+        />
       </div>
     </div>
   );
