@@ -10,12 +10,10 @@ namespace WhaleSpotting.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _authService;
-    private readonly IUserService _userService;
 
-    public AuthController(IAuthService authService, IUserService userService)
+    public AuthController(IAuthService authService)
     {
         _authService = authService;
-        _userService = userService;
     }
 
     [HttpGet("")]
@@ -32,9 +30,9 @@ public class AuthController : ControllerBase
             return Unauthorized("Invalid authorization header");
         }
 
-        if (_authService.IsCorrectUsernameAndPasswordCombination(auth.Username, auth.Password))
+        var user = _authService.GetMatchingUser(auth.Username, auth.Password);
+        if (user != null)
         {
-            var user = _userService.GetByUsername(auth.Username);
             return Ok(new AuthResponse(user));
         }
 
