@@ -5,13 +5,13 @@ namespace WhaleSpotting.Models.Response;
 public class LeaderboardRowResponse
 {
     public int? UserId { get; set; }
-    public string? UserName { get; set; }
+    public string? Username { get; set; }
     public int? Score { get; set; }
 
     public LeaderboardRowResponse(LeaderboardRow leaderboardRow)
     {
         UserId = leaderboardRow.UserId;
-        UserName = leaderboardRow.UserName;
+        Username = leaderboardRow.Username;
         Score = leaderboardRow.Score;
     }
 }

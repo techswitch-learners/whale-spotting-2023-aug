@@ -25,7 +25,6 @@ public class LeaderboardService : ILeaderboardService
 
         users.ForEach(user =>
         {
-            // var likes = user.Posts != null ? post.Likes.Count : 0;
             var score = 0;
 
             if (user.Posts != null && user.Posts.Count > 0)
@@ -37,7 +36,6 @@ public class LeaderboardService : ILeaderboardService
         });
 
         leaderboard.Sort((a, b) => b.Score - a.Score);
-
-        return leaderboard;
+        return leaderboard.Take(10).ToList();
     }
 }

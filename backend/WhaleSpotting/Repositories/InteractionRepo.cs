@@ -19,11 +19,11 @@ public class InteractionRepo : IInteractionRepo
 
     public Interaction Create(InteractionRequest newInteractionRequest, int userId)
     {
-        var checkInteraction = _context.Interactions.Where(
+        var existingInteractions = _context.Interactions.Where(
             interaction =>
                 interaction.PostId == newInteractionRequest.PostId && interaction.UserId == userId
         );
-        if (!checkInteraction.Any())
+        if (!existingInteractions.Any())
         {
             var newInteraction = new Interaction
             {
@@ -36,6 +36,6 @@ public class InteractionRepo : IInteractionRepo
 
             return insertedEntity.Entity;
         }
-        throw new ArgumentException("Post Already Liked");
+        throw new ArgumentException("Post already liked");
     }
 }
