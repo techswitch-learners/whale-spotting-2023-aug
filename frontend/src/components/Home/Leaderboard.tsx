@@ -1,21 +1,18 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getLeaderboard } from "../../clients/backendApiClient";
-import UserData from "../../models/UserData";
+import LeaderboardRowData from "../../models/LeaderboardRowData";
+import WhaleLoader from "../UI/WhaleLoader";
 import "./EventsAndLeaderboardSection.scss";
 
 export default function Leaderboard() {
-  const [leaderboard, setLeaderboard] = useState<UserData[]>();
-
-  const getLeaderboardHandler = async () => {
-    const response = await getLeaderboard();
-    if (response) {
-      setLeaderboard(response);
-    }
-  };
+  const [leaderboard, setLeaderboard] = useState<LeaderboardRowData[]>();
+  const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
-    getLeaderboardHandler();
+    getLeaderboard()
+      .then((data) => setLeaderboard(data.leaderboard))
+      .catch(() => setError(true));
   }, []);
 
   return (
@@ -32,24 +29,24 @@ export default function Leaderboard() {
               <th>Rating</th>
               <th>Link</th>
             </tr>
-            {leaderboard &&
-              leaderboard.map((user) => {
+            {leaderboard ? (
+              leaderboard.map((row) => {
                 return (
                   <tr className="Board__Item">
                     <td>
-                      <Link to={`/users/${user.id}`}>
+                      <Link to={`/users/${row.userId}`}>
                         <img
                           className="Item_Thumbnail"
-                          src={user.profileImageUrl}
+                          src={row.userProfileImageUrl}
                           alt=""
                         />
                       </Link>
                     </td>
-                    <td>{user.name}</td>
-                    <td>{user.posts.length}</td>
-                    <td>{user.rating ? user.rating : "9732"}</td>
+                    <td>{row.username}</td>
+                    <td>{row.postCount}</td>
+                    <td>{row.score}</td>
                     <td className="Board__Item__svg">
-                      <Link to={`/users/${user.id}`}>
+                      <Link to={`/users/${row.userId}`}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -67,7 +64,17 @@ export default function Leaderboard() {
                     </td>
                   </tr>
                 );
-              })}
+              })
+            ) : (
+              <WhaleLoader
+                isLoading={!error}
+                message={
+                  error
+                    ? "Could not load leaderboard at this time"
+                    : "Loading..."
+                }
+              />
+            )}
           </table>
         </div>
       </div>

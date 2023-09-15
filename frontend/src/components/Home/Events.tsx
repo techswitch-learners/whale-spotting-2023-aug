@@ -1,22 +1,17 @@
 import { useEffect, useState } from "react";
-import { getEvents } from "../../clients/backendApiClient";
+import { getAllEvents } from "../../clients/backendApiClient";
 import { toShortDate } from "../../utils/DateConversion";
 import { Link } from "react-router-dom";
 import EventData from "../../models/EventData";
 import "./EventsAndLeaderboardSection.scss";
 
-export default function Events() {
+const Events = () => {
   const [events, setEvents] = useState<EventData[]>();
 
-  const getEventsHandler = async () => {
-    const response = await getEvents();
-    if (response) {
-      setEvents(response);
-    }
-  };
-
   useEffect(() => {
-    getEventsHandler();
+    getAllEvents()
+      .then((data) => setEvents(data.events))
+      .catch();
   }, []);
 
   return (
@@ -73,4 +68,6 @@ export default function Events() {
       </div>
     </>
   );
-}
+};
+
+export default Events;

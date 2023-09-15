@@ -2,11 +2,11 @@ import BodiesOfWaterData from "../models/BodiesOfWaterData";
 import BodyOfWaterData from "../models/BodyOfWaterData";
 import LatitudeLongitude from "../models/LatitudeLongitude";
 import SpeciesListData from "../models/SpeciesListData";
-import UserData from "../models/UserData";
 import UsersData from "../models/UsersData";
 import PostsData from "../models/PostsData";
 import PostData from "../models/PostData";
-import EventData from "../models/EventData";
+import LeaderboardData from "../models/LeaderboardData";
+import EventsData from "../models/EventsData";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -99,31 +99,30 @@ export const createWhalePost = async (
 
 export const getAllBodiesOfWater = async (): Promise<BodiesOfWaterData> => {
   const response = await fetch(`${backendUrl}/BodyOfWater/all`);
-  const bodiesOfWater = await response.json();
-  if (bodiesOfWater) {
-    bodiesOfWater.bodiesOfWater.sort(
+  const bodiesOfWaterData = await response.json();
+  if (bodiesOfWaterData) {
+    bodiesOfWaterData.bodiesOfWater.sort(
       (a: BodyOfWaterData, b: BodyOfWaterData) => {
         return a.name > b.name;
       },
     );
   }
-  return bodiesOfWater;
+  return bodiesOfWaterData;
 };
 
 export const getLatestPosts = async (): Promise<PostData[]> => {
   const response = await fetch(`${backendUrl}/Post/all`);
-  const allResponse = await response.json();
-  if (allResponse) {
-    allResponse.posts.sort((a: PostData, b: PostData) => {
+  const postsData = await response.json();
+  if (postsData) {
+    postsData.posts.sort((a: PostData, b: PostData) => {
       return Date.parse(b.timestamp) - Date.parse(a.timestamp);
     });
   }
-  const filteredResponse = allResponse.posts.slice(0, 5);
-
+  const filteredResponse = postsData.posts.slice(0, 5);
   return filteredResponse;
 };
 
-export const getLeaderboard = async (): Promise<UserData[]> => {
+export const getLeaderboard = async (): Promise<LeaderboardData> => {
   const response = await fetch(`${backendUrl}/Leaderboard`);
   return await response.json();
 };
@@ -156,14 +155,9 @@ export const getAllPosts = async (): Promise<PostsData> => {
   return await response.json();
 };
 
-export const getEvents = async (): Promise<EventData[]> => {
-  const response = await fetch(`${backendUrl}/event/all`);
-  const data = await response.json();
-  let events;
-  if (data) {
-    events = data.events;
-  }
-  return events;
+export const getAllEvents = async (): Promise<EventsData> => {
+  const response = await fetch(`${backendUrl}/Event/all`);
+  return await response.json();
 };
 
 export const getAllPendingPosts = async (): Promise<PostsData> => {

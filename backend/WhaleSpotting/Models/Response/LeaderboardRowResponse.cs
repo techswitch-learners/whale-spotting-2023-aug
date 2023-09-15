@@ -15,5 +15,7 @@ public class LeaderboardRowResponse
         UserId = leaderboardRow.UserId;
         Username = leaderboardRow.Username;
         Score = leaderboardRow.Score;
+        UserProfileImageUrl = leaderboardRow.UserProfileImageUrl;
+        PostCount = leaderboardRow.PostCount;
     }
 }
