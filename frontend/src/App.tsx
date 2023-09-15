@@ -11,23 +11,26 @@ import PostForm from "./pages/PostForm";
 import EventForm from "./pages/EventForm.tsx";
 import PendingPosts from "./pages/PendingPosts.tsx";
 import "./App.scss";
+import { LoginManager } from "./context/LoginManager.tsx";
 
 export const App = () => {
   return (
     <Router>
-      <Navbar />
-      <Routes>
-        <Route index element={<Home />} />
-        <Route path="/posts" element={<Posts />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/users/:userId" element={<UserProfile />} />
-        <Route path="/posts/create" element={<PostForm />} />
-        <Route path="/events/create" element={<EventForm />} />
-        <Route path="/posts/pending" element={<PendingPosts />} />
-      </Routes>
+      <LoginManager>
+        <Navbar />
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="/posts" element={<Posts />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/users/:userId" element={<UserProfile />} />
+          <Route path="/posts/create" element={<PostForm />} />
+          <Route path="/events/create" element={<EventForm />} />
+          <Route path="/posts/pending" element={<PendingPosts />} />
+        </Routes>
+      </LoginManager>
     </Router>
   );
 };

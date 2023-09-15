@@ -1,22 +1,26 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { tryEmailAndPassword } from "../clients/backendApiClient";
 import Button from "../components/UI/Button";
+import { LoginContext } from "../context/LoginManager";
 import "./Login.scss";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const loginContext = useContext(LoginContext);
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    console.log("login start");
 
     try {
       const result = await tryEmailAndPassword(email, password);
 
       if (result) {
-        // redirect
+        loginContext.logIn(email, password);
       } else {
         setErrorMessage("Credentials not recognised. Please try again.");
       }

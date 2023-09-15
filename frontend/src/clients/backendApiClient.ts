@@ -32,6 +32,15 @@ export const tryEmailAndPassword = async (
   return response.ok;
 };
 
+export const tryUserBase = async (userBase: string): Promise<boolean> => {
+  const response = await fetch(`${backendUrl}/Auth/`, {
+    headers: {
+      Authorization: userBase,
+    },
+  });
+  return response.ok;
+};
+
 export const getUserById = async (id: number): Promise<Response> => {
   const response = await fetch(`${backendUrl}/User/id/${id}`);
   return response;
