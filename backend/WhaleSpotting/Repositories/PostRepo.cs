@@ -12,6 +12,9 @@ public interface IPostRepo
     public Post GetByUserId(int id);
     public Task<Post> Create(PostRequest newPostRequest);
     public List<Post> GetAll();
+    public List<Post> GetPending();
+    public void ApproveOrReject(int id, ApprovalStatus approvalStatus);
+    public void Modify(int id, ModifyPostRequest modifyPostRequest);
 }
 
 public class PostRepo : IPostRepo
@@ -66,6 +69,16 @@ public class PostRepo : IPostRepo
             .Include(post => post.Likes)
             .Include(post => post.BodyOfWater)
             .Where(post => post.ApprovalStatus == ApprovalStatus.Approved)
+            .ToList();
+    }
+
+    public List<Post> GetPending()
+    {
+        return _context.Posts
+            .Include(post => post.User)
+            .Include(post => post.Species)
+            .Include(post => post.BodyOfWater)
+            .Where(post => post.ApprovalStatus == ApprovalStatus.Pending)
             .ToList();
     }
 
@@ -139,5 +152,27 @@ public class PostRepo : IPostRepo
         _context.SaveChanges();
 
         return insertedEntity.Entity;
+    }
+
+    public void ApproveOrReject(int id, ApprovalStatus approvalStatus)
+    {
+        var post = GetById(id);
+        post.ApprovalStatus = approvalStatus;
+        _context.SaveChanges();
+    }
+
+    public void Modify(int id, ModifyPostRequest modifyPostRequest)
+    {
+        var post = GetById(id);
+        post.Latitude = modifyPostRequest.Lat;
+        post.Longitude = modifyPostRequest.Lon;
+        post.Timestamp = modifyPostRequest.Date;
+        var species = _context.Species.SingleOrDefault(
+            species => species.Id == modifyPostRequest.SpeciesId
+        );
+        post.Species = species;
+        post.ImageUrl = modifyPostRequest.ImageUrl;
+        post.Description = modifyPostRequest.Description;
+        _context.SaveChanges();
     }
 }

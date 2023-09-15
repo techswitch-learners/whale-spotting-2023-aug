@@ -1,7 +1,5 @@
 ﻿using WhaleSpotting.Models.Database;
 using WhaleSpotting.Models.Request;
-using WhaleSpotting.Enums;
-using Microsoft.EntityFrameworkCore;
 
 namespace WhaleSpotting.Repositories;
 
@@ -21,15 +19,15 @@ public class InteractionRepo : IInteractionRepo
 
     public Interaction Create(InteractionRequest newInteractionRequest, int userId)
     {
-        var checkInteraction = _context.Interactions.Where(
+        var existingInteractions = _context.Interactions.Where(
             interaction =>
-                interaction.PostId == newInteractionRequest.Postid && interaction.UserId == userId
+                interaction.PostId == newInteractionRequest.PostId && interaction.UserId == userId
         );
-        if (!checkInteraction.Any())
+        if (!existingInteractions.Any())
         {
             var newInteraction = new Interaction
             {
-                PostId = newInteractionRequest.Postid,
+                PostId = newInteractionRequest.PostId,
                 UserId = userId,
             };
 
@@ -38,6 +36,6 @@ public class InteractionRepo : IInteractionRepo
 
             return insertedEntity.Entity;
         }
-        throw new ArgumentException("Post Already Liked");
+        throw new ArgumentException("Post already liked");
     }
 }

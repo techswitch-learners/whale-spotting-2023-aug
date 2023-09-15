@@ -12,8 +12,8 @@ using WhaleSpotting;
 namespace WhaleSpotting.Migrations
 {
     [DbContext(typeof(WhaleSpottingContext))]
-    [Migration("20230913123505_addInteractionsTable")]
-    partial class addInteractionsTable
+    [Migration("20230913123505_AddInteractionsTable")]
+    partial class AddInteractionsTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

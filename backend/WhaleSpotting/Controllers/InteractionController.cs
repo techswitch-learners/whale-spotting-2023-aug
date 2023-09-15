@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using WhaleSpotting.Models.Request;
 using WhaleSpotting.Services;
 using WhaleSpotting.Attributes;
-using WhaleSpotting.Enums;
 
 namespace WhaleSpotting.Controllers;
 
@@ -31,7 +30,7 @@ public class InteractionController : ControllerBase
         }
         catch (ArgumentException)
         {
-            return StatusCode(409);
+            return Conflict();
         }
     }
 }

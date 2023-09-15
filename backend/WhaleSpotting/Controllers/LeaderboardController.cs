@@ -19,14 +19,7 @@ public class LeaderboardController : ControllerBase
     [HttpGet("")]
     public IActionResult Get()
     {
-        try
-        {
-            var leaderboard = _leaderboardService.Get();
-            return Ok(new LeaderboardResponse(leaderboard));
-        }
-        catch (ArgumentException)
-        {
-            return NotFound();
-        }
+        var leaderboard = _leaderboardService.Get();
+        return Ok(new LeaderboardResponse(leaderboard));
     }
 }

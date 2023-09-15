@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace WhaleSpotting.Migrations
 {
-    public partial class addInteractionsTable : Migration
+    public partial class AddInteractionsTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

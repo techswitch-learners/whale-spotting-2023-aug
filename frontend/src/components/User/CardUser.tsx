@@ -1,23 +1,26 @@
+import { Link } from "react-router-dom";
 import UserData from "../../models/UserData";
 import "../Post/CardPost.scss";
 
-interface UserDataProps {
-  userData: UserData;
+interface CardUserProps {
+  user: UserData;
 }
 
-const CardUser = ({ userData }: UserDataProps) => {
+const CardUser = ({ user }: CardUserProps) => {
   return (
-    <div className="CardPost">
-      <img
-        className="CardPost__image"
-        src={userData.profileImageUrl}
-        alt={`image of ${userData.name}`}
-      />
-      <div className="CardPost__info">
-        <p className="CardPost__title">{userData.name}</p>
-        <p className="CardPost__text">{userData.username}</p>
+    <Link to={`/users/${user.id}`}>
+      <div className="CardPost">
+        <img
+          className="CardPost__image"
+          src={user.profileImageUrl}
+          alt={`image of ${user.name}`}
+        />
+        <div className="CardPost__info">
+          <p className="CardPost__title">{user.name}</p>
+          <p className="CardPost__text">{user.username}</p>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

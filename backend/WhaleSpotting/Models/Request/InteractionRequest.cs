@@ -2,5 +2,5 @@
 
 public class InteractionRequest
 {
-    public int Postid { get; set; }
+    public int PostId { get; set; }
 }
