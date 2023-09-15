@@ -27,7 +27,7 @@ function RegisterPage() {
       );
 
       if (success) {
-        navigate("/");
+        navigate("/login");
       } else {
         setErrorMessage("Please check the information provided");
       }

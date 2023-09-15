@@ -24,13 +24,10 @@ export const getAllUsers = async (): Promise<UsersData> => {
   return response.json();
 };
 
-export const tryEmailAndPassword = async (
-  email: string,
-  password: string,
-): Promise<boolean> => {
+export const tryEncodedAuth = async (encodedAuth: string): Promise<boolean> => {
   const response = await fetch(`${backendUrl}/Auth/`, {
     headers: {
-      Authorization: `Basic ${btoa(email + ":" + password)}`,
+      Authorization: encodedAuth,
     },
   });
   return response.ok;
