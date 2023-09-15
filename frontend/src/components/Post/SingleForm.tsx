@@ -16,31 +16,20 @@ const validW3wPattern = /^(\/\/\/)?[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]+$/g;
 
 interface PostDataProps {
   postData: PostData;
-  type: string;
 }
 
-const ModifyPostModal = ({ postData, type }: PostDataProps) => {
+const ModifyPostModal = ({ postData }: PostDataProps) => {
   const today = new Date();
   const todayDateString = today.toISOString().slice(0, -1);
 
   const id = postData.id;
-  const [date, setDate] = useState<Date>(
-    type == "edit" ? new Date(postData.timestamp) : new Date(),
-  );
+  const [date, setDate] = useState<Date>(new Date(postData.timestamp));
   const [w3w, setW3w] = useState<string>("");
-  const [lat, setLat] = useState<number>(
-    type == "edit" ? postData.latitude : NaN,
-  );
-  const [lon, setLon] = useState<number>(
-    type == "edit" ? postData.longitude : NaN,
-  );
+  const [lat, setLat] = useState<number>(postData.latitude);
+  const [lon, setLon] = useState<number>(postData.longitude);
   const [speciesId, setSpeciesId] = useState<number>(postData.species.id);
-  const [description, setDescription] = useState<string>(
-    type == "edit" ? postData.description : "",
-  );
-  const [imageUrl, setImageUrl] = useState<string>(
-    type == "edit" ? postData.imageUrl : "",
-  );
+  const [description, setDescription] = useState<string>(postData.description);
+  const [imageUrl, setImageUrl] = useState<string>(postData.imageUrl);
   const [locationErrorMessage, setLocationErrorMessage] = useState<string>("");
   const [speciesErrorMessage, setSpeciesErrorMessage] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");

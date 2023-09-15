@@ -128,7 +128,7 @@ const PendingPostModal = ({ postData }: PostDataProps) => {
       </div>
       {modify && (
         <Modal closeAction={() => setModify(false)}>
-          <ModifyPostModal postData={postData} />
+          <ModifyPostModal type={"edit"} postData={postData} />
         </Modal>
       )}
     </>
