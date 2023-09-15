@@ -1,4 +1,5 @@
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { LoginManager } from "./context/LoginManager.tsx";
 import Navbar from "./components/NavBar.tsx";
 import Home from "./pages/Home";
 import Posts from "./pages/Posts";
@@ -11,7 +12,6 @@ import PostForm from "./pages/PostForm";
 import EventForm from "./pages/EventForm.tsx";
 import PendingPosts from "./pages/PendingPosts.tsx";
 import "./App.scss";
-import { LoginManager } from "./context/LoginManager.tsx";
 
 export const App = () => {
   return (

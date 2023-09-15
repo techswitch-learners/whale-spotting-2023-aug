@@ -20,10 +20,10 @@ export const getAllUsers = async (): Promise<UsersData> => {
   return response.json();
 };
 
-export const tryUserBase = async (userBase: string): Promise<boolean> => {
+export const tryEncodedAuth = async (encodedAuth: string): Promise<boolean> => {
   const response = await fetch(`${backendUrl}/Auth/`, {
     headers: {
-      Authorization: userBase,
+      Authorization: encodedAuth,
     },
   });
   return response.ok;

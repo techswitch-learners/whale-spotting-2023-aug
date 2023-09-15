@@ -1,14 +1,15 @@
 import { createContext, ReactNode, useState } from "react";
-import { tryUserBase } from "../clients/backendApiClient";
+import { tryEncodedAuth } from "../clients/backendApiClient";
 
 export const LoginContext = createContext({
-  userBase: "",
+  encodedAuth: "",
   isLoggedIn: false,
   isAdmin: false,
   logIn: async (username: string, password: string) => {
-    username + password;
+    void username;
+    void password;
     return false;
-  }, //How do we fix this paramters???
+  },
   logOut: () => {},
 });
 
@@ -19,30 +20,30 @@ interface LoginManagerProps {
 export function LoginManager(props: LoginManagerProps): JSX.Element {
   const [loggedIn, setLoggedIn] = useState(false);
   const [admin, setAdmin] = useState(false);
-  const [base, setBase] = useState("");
+  const [encodedAuth, setEncodedAuth] = useState("");
 
   async function logIn(username: string, password: string) {
-    const userBase = `Basic ${btoa(username + ":" + password)}`;
+    const encodedAuthToTry = `Basic ${btoa(username + ":" + password)}`;
 
-    const validLogin = await tryUserBase(userBase);
+    const validLogin = await tryEncodedAuth(encodedAuthToTry);
     if (!validLogin) {
       setLoggedIn(false);
       return false;
     } else {
-      setBase(userBase);
+      setEncodedAuth(encodedAuthToTry);
       setLoggedIn(true);
       return true;
     }
   }
 
   function logOut() {
-    setBase("");
+    setEncodedAuth("");
     setAdmin(false);
     setLoggedIn(false);
   }
 
   const context = {
-    userBase: base,
+    encodedAuth: encodedAuth,
     isLoggedIn: loggedIn,
     isAdmin: admin,
     logIn: logIn,
