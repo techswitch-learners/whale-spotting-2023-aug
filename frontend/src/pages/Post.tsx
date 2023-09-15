@@ -6,10 +6,10 @@ import fullscreenIcon from "../assets/fullscreen_icon.svg";
 import { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getPostById } from "../clients/backendApiClient";
-import "./Post.scss";
 import WhaleLoader from "../components/UI/WhaleLoader";
 import Button from "../components/UI/Button";
 import ShareButtonExpandable from "../components/ShareButtonExpandable";
+import "./Post.scss";
 
 const Post = () => {
   const [post, setPost] = useState<PostData>();

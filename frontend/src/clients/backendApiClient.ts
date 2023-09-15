@@ -12,7 +12,7 @@ export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 export const checkBackendConnection = async (): Promise<boolean> => {
   try {
-    await fetch(`${backendUrl}/auth`);
+    await fetch(`${backendUrl}/Auth`);
   } catch {
     return false;
   }
@@ -134,7 +134,7 @@ export const createEvent = async (
   eventLink: string,
   eventImageUrl: string,
 ): Promise<boolean> => {
-  const response = await fetch(`${backendUrl}/event`, {
+  const response = await fetch(`${backendUrl}/Event`, {
     headers: {
       "Content-Type": "application/json",
     },
@@ -169,7 +169,7 @@ export const approveOrRejectPost = async (
   id: number,
   approvalStatus: number,
 ): Promise<boolean> => {
-  const response = await fetch(`${backendUrl}/post/${id}`, {
+  const response = await fetch(`${backendUrl}/Post/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -190,7 +190,7 @@ export const modifyPost = async (
   description: string,
   imageUrl: string,
 ): Promise<boolean> => {
-  const response = await fetch(`${backendUrl}/post/${id}`, {
+  const response = await fetch(`${backendUrl}/Post/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -208,6 +208,6 @@ export const modifyPost = async (
 };
 
 export const getPostById = async (id: number): Promise<Response> => {
-  const response = await fetch(`${backendUrl}/post/id/${id}`);
+  const response = await fetch(`${backendUrl}/Post/${id}`);
   return response;
 };
