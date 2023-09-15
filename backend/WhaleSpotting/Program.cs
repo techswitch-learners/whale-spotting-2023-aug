@@ -27,6 +27,8 @@ builder.Services.AddTransient<IPostService, PostService>();
 builder.Services.AddTransient<IBodyOfWaterService, BodyOfWaterService>();
 builder.Services.AddTransient<ISpeciesService, SpeciesService>();
 builder.Services.AddTransient<IEventService, EventService>();
+builder.Services.AddTransient<IInteractionService, InteractionService>();
+builder.Services.AddTransient<ILeaderboardService, LeaderboardService>();
 
 // Repositories
 builder.Services.AddTransient<IUserRepo, UserRepo>();
@@ -34,6 +36,7 @@ builder.Services.AddTransient<IPostRepo, PostRepo>();
 builder.Services.AddTransient<IBodyOfWaterRepo, BodyOfWaterRepo>();
 builder.Services.AddTransient<ISpeciesRepo, SpeciesRepo>();
 builder.Services.AddTransient<IEventRepo, EventRepo>();
+builder.Services.AddTransient<IInteractionRepo, InteractionRepo>();
 
 // Context
 builder.Services.AddDbContext<WhaleSpottingContext>(options =>
