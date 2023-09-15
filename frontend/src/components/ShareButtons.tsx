@@ -10,7 +10,7 @@ import {
   TwitterIcon,
   WhatsappIcon,
 } from "react-share";
-import "./ShareButton.scss";
+import "./ShareButtons.scss";
 
 interface ShareButtonProps {
   url: string;

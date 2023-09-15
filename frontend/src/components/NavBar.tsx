@@ -45,6 +45,7 @@ function Navbar() {
               <NavLink
                 className={({ isActive }) => (isActive ? "active-page" : "")}
                 to="/"
+                onClick={closeMobileMenu}
               >
                 Home
               </NavLink>
@@ -53,6 +54,7 @@ function Navbar() {
               <NavLink
                 className={({ isActive }) => (isActive ? "active-page" : "")}
                 to="/users"
+                onClick={closeMobileMenu}
               >
                 Users
               </NavLink>
@@ -61,6 +63,7 @@ function Navbar() {
               <NavLink
                 className={({ isActive }) => (isActive ? "active-page" : "")}
                 to="/posts"
+                onClick={closeMobileMenu}
               >
                 Posts
               </NavLink>
@@ -69,6 +72,7 @@ function Navbar() {
               <NavLink
                 className={({ isActive }) => (isActive ? "active-page" : "")}
                 to="/events"
+                onClick={closeMobileMenu}
               >
                 Events
               </NavLink>
@@ -76,7 +80,17 @@ function Navbar() {
             <li>
               <NavLink
                 className={({ isActive }) => (isActive ? "active-page" : "")}
+                to="/map"
+                onClick={closeMobileMenu}
+              >
+                Map
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className={({ isActive }) => (isActive ? "active-page" : "")}
                 to="/login"
+                onClick={closeMobileMenu}
               >
                 Login
               </NavLink>
@@ -86,6 +100,7 @@ function Navbar() {
                 className={({ isActive }) => (isActive ? "active-page" : "")}
                 to="/search"
                 aria-label="Search"
+                onClick={closeMobileMenu}
               >
                 🔎
               </NavLink>

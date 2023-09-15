@@ -1,0 +1,110 @@
+@use "../../styles/mixins" as *;
+@use "../../styles/sections" as *;
+@use "../../styles/typography" as *;
+@use "../../styles/variables" as *;
+
+.EventsAndLeaderboard {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: $mobile-card-padding;
+
+  @include devices(desktop) {
+    flex-direction: row;
+    gap: $desktop-card-padding;
+  }
+}
+
+.Board {
+  padding: $mobile-input-padding;
+  margin-top: $mobile-card-padding;
+  border: solid $color-secondary;
+  border-radius: $mobile-border-radius;
+  background-color: $color-tertiary;
+  width: 100%;
+
+  @include devices(tablet) {
+    border-radius: $tablet-border-radius;
+    padding: $tablet-section-spacing;
+  }
+
+  @include devices(desktop) {
+    width: 50%;
+    border-radius: $desktop-border-radius;
+  }
+
+  &__Divider {
+    width: 50%;
+    text-align: left;
+    margin-left: 0;
+    border: 1px solid $color-secondary;
+    margin: 0 0 20px;
+  }
+
+  &__Table {
+    text-align: left;
+    width: 100%;
+    border-style: none;
+
+    &:hover {
+      border-color: $color-secondary;
+    }
+
+    th,
+    td {
+      padding: 0.1rem;
+      font-size: $mobile-font-size-body;
+      text-align: left;
+
+      @include devices(tablet) {
+        padding: 0.25rem;
+        font-size: $tablet-font-size-body;
+      }
+
+      @include devices(desktop) {
+        padding: 0.5rem;
+        font-size: $desktop-font-size-body;
+      }
+    }
+  }
+
+  &__Item {
+    cursor: inherit;
+
+    &:hover {
+      transform: scale(1.06);
+      transition: all 0.3s ease-in-out;
+    }
+
+    &__svg {
+      height: 25px;
+      width: 25px;
+
+      @include devices(tablet) {
+        height: 35px;
+        width: 35px;
+      }
+
+      @include devices(desktop) {
+        height: 45px;
+        width: 45px;
+      }
+    }
+  }
+}
+
+.Item_Thumbnail {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+
+  @include devices(tablet) {
+    height: 50px;
+    width: 50px;
+  }
+
+  @include devices(desktop) {
+    height: 50px;
+    width: 50px;
+  }
+}
