@@ -1,9 +1,8 @@
 import PostData from "../../models/PostData";
 import { toShortDate } from "../../utils/DateConversion";
 import shareIcon from "../../assets/share_icon.png";
-import postIcon from "../../assets/post_icon.png";
-import { convertLikesToString } from "../../utils/LikeConversion";
 import "./CardPost.scss";
+import LikePost from "./LikePost";
 
 interface PostDataProps {
   postData: PostData;
@@ -15,8 +14,7 @@ const CardPost = ({ postData, openModalAction }: PostDataProps) => {
     <div className="CardPost">
       <div className="CardPost__banner">
         <div className="CardPost__banner__likes">
-          <img src={postIcon} alt="whale icon" />
-          <span>{convertLikesToString(postData.rating)}</span>
+          <LikePost postId={postData.id} likesCount={postData.likes} />
         </div>
         <div>
           <img src={shareIcon} alt="share post" />

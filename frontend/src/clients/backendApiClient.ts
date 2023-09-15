@@ -164,3 +164,21 @@ export const modifyPost = async (
   });
   return response.ok;
 };
+
+export const likePost = async (
+  postId: number,
+  userBase: string,
+): Promise<boolean> => {
+  const response = await fetch(`${backendUrl}/Interaction/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: userBase,
+    },
+    body: JSON.stringify({
+      PostId: postId,
+    }),
+  });
+  console.log(response.status);
+  return response.ok;
+};

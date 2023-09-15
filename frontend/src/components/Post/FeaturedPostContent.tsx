@@ -1,11 +1,9 @@
-import { convertLikesToString } from "../../utils/LikeConversion";
 import PostData from "../../models/PostData";
 import { toShortDate } from "../../utils/DateConversion";
 import shareIcon from "../../assets/share_icon.png";
-import postIcon from "../../assets/post_icon.png";
-
 import "./FeaturedPostContent.scss";
 import Button from "../UI/Button";
+import LikePost from "./LikePost";
 
 interface PostDataProps {
   postData: PostData;
@@ -48,8 +46,7 @@ const FeaturedPostContent = ({ postData, openModalAction }: PostDataProps) => {
 
       <div className="FeaturedPostContent__interactions">
         <div className="FeaturedPostContent__interactions__likes">
-          <img src={postIcon} alt="whale icon" />
-          <span>{convertLikesToString(postData.rating)}</span>
+          <LikePost postId={postData.id} likesCount={postData.likes} />
         </div>
         <div>
           <img src={shareIcon} alt="share post" />

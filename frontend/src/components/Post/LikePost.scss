@@ -1,0 +1,32 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.LikePost {
+  align-items: center;
+  justify-content: center;
+
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  border: 0.125rem solid $color-secondary;
+  border-radius: 0.25rem;
+  background-color: $color-secondary;
+
+  text-align: center;
+
+  transition: background-color 0.25s;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: $color-primary;
+    border: 0.125rem solid $color-background;
+    color: $color-foreground;
+  }
+
+  @include devices(tablet) {
+  }
+
+  @include devices(desktop) {
+  }
+}
