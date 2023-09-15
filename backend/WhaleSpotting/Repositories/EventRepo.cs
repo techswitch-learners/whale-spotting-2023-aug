@@ -1,7 +1,5 @@
 ﻿using WhaleSpotting.Models.Database;
 using WhaleSpotting.Models.Request;
-using WhaleSpotting.Enums;
-using Microsoft.EntityFrameworkCore;
 
 namespace WhaleSpotting.Repositories;
 
