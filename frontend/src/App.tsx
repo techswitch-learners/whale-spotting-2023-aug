@@ -8,6 +8,7 @@ import Register from "./pages/Register.tsx";
 import SubmissionForm from "./pages/SubmissionForm";
 import Map from "./components/Map/Map.tsx";
 import "./App.scss";
+import "leaflet/dist/leaflet.js";
 
 export const App = () => {
   return (

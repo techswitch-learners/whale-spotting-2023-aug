@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import PostDataMap from "../../models/PostDataMap";
 import Modal from "../UI/Modal";
@@ -8,7 +8,7 @@ import { getAllPosts } from "../../clients/backendApiClient";
 import Button from "../UI/Button";
 import WhaleLoader from "../UI/WhaleLoader";
 
-const Map: React.FC = () => {
+const Map = () => {
   const [selectedPostDetails, setSelectedPostDetails] = useState<PostDataMap>();
   const [postData, setPostData] = useState<PostDataMap[]>();
   const [isLoading, setIsLoading] = useState(true);
