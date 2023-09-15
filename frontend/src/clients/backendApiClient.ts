@@ -1,5 +1,4 @@
 import LatitudeLongitude from "../models/LatitudeLongitude";
-import PostDataResponse from "../models/PostsData";
 import SpeciesListData from "../models/SpeciesListData";
 import UsersData from "../models/UsersData";
 import PostsData from "../models/PostsData";
@@ -116,7 +115,7 @@ export const createEvent = async (
   return response.ok;
 };
 
-export const getAllPosts = async (): Promise<PostDataResponse> => {
+export const getAllPosts = async (): Promise<PostsData> => {
   const response = await fetch(`${backendUrl}/Post/all`);
   return await response.json();
 };

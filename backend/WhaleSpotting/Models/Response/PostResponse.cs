@@ -84,6 +84,18 @@ public class PostResponse
                     nameof(post),
                     "Property \"user\" must not be null"
                 );
+        Latitude =
+            post.Latitude
+            ?? throw new ArgumentNullException(
+                nameof(post),
+                "Property \"Latitude\" must not be null"
+            );
+        Longitude =
+            post.Longitude
+            ?? throw new ArgumentNullException(
+                nameof(post),
+                "Property \"Longitude\" must not be null"
+            );
         Species =
             post.Species != null
                 ? new PostSpecies(post.Species)
