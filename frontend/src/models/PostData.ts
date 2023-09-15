@@ -15,7 +15,7 @@ interface PostData {
   imageUrl: string;
   description: string;
   approvalStatus: number;
-  rating: number;
+  likes: number;
   bodyOfWater: {
     id: number;
     name: string;

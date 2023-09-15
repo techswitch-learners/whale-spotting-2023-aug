@@ -1,69 +1,27 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 import CardPost from "../../components/Post/CardPost";
 import Modal from "../../components/UI/Modal";
 import CardPostModal from "../../components/Post/CardPostModal";
 import PostData from "../../models/PostData";
-import { getPostsByUserId } from "../../clients/backendApiClient";
-import WhaleLoader from "../../components/UI/WhaleLoader";
-import Button from "../../components/UI/Button";
+import UserData from "../../models/UserData";
 import "./UserPosts.scss";
 
-interface UserIdProps {
-  userId: number;
+interface UserPostsProps {
+  user: UserData;
 }
 
-export const UserPosts = ({ userId }: UserIdProps) => {
+export const UserPosts = ({ user }: UserPostsProps) => {
   const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();
-  const [postData, setPostData] = useState<PostData[]>();
-  const [isLoading, setIsLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState<string>();
-
-  const fetchPosts = useCallback(async () => {
-    setIsLoading(true);
-    setPostData(undefined);
-    setErrorMessage(undefined);
-
-    await getPostsByUserId(userId)
-      .then((data) => setPostData(data.posts))
-      .catch(() => setErrorMessage("Unable to load posts"));
-
-    setIsLoading(false);
-  }, [userId]);
-
-  useEffect(() => {
-    fetchPosts();
-  }, [fetchPosts]);
-
-  if (isLoading || errorMessage) {
-    return (
-      <main>
-        <section className="section-dark">
-          <div className="container Posts__loader">
-            <WhaleLoader
-              isLoading={isLoading}
-              message={isLoading ? "Loading..." : errorMessage}
-            />
-            {errorMessage && <Button onClick={fetchPosts}>Try Again</Button>}
-          </div>
-        </section>
-      </main>
-    );
-  }
 
   return (
     <main>
       <h1>Posts</h1>
-      {postData && postData.length > 0 ? (
+      {user.posts && user.posts.length > 0 ? (
         <>
           <section>
             <div className="container PostsGallery">
-              {postData.map((post) => {
-                return (
-                  <CardPost
-                    postData={post}
-                    openModalAction={() => setSelectedPostDetails(post)}
-                  />
-                );
+              {user.posts.map((post) => {
+                return <CardPost postData={post} />;
               })}
             </div>
           </section>

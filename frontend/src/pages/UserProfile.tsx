@@ -83,7 +83,7 @@ export const UserProfile = () => {
             <p>Email: {user.email}</p>
           </div>
           <div>
-            <UserPosts userId={user.id} />
+            <UserPosts user={user} />
           </div>
         </div>
       ) : (

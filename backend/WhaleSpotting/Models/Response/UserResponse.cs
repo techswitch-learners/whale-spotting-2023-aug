@@ -16,6 +16,9 @@ public class UserResponse
         public string? ImageUrl { get; set; }
         public string? Description { get; set; }
         public int? Likes { get; set; }
+        public SpeciesResponse Species { get; set; }
+        public UserResponse User { get; set; }
+        public DateTime Timestamp { get; set; }
 
         public UserPost(Post post)
         {
@@ -23,6 +26,26 @@ public class UserResponse
             ImageUrl = post.ImageUrl;
             Description = post.Description;
             Likes = post.Likes != null ? post.Likes.Count : 0;
+            Species =
+                post.Species != null
+                    ? new SpeciesResponse(post.Species)
+                    : throw new ArgumentNullException(
+                        nameof(post),
+                        "Property \"Species\" must not be null"
+                    );
+            User =
+                post.User != null
+                    ? new UserResponse(post.User)
+                    : throw new ArgumentNullException(
+                        nameof(post),
+                        "Property \"User\" must not be null"
+                    );
+            Timestamp =
+                post.Timestamp
+                ?? throw new ArgumentNullException(
+                    nameof(post),
+                    "Property \"Timestamp\" must not be null"
+                );
         }
     }
 

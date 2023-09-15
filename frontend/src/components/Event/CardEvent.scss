@@ -1,0 +1,62 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.CardEvent {
+  &__banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    img {
+      height: 1rem;
+      margin-right: 0.3rem;
+    }
+  }
+
+  &__image {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    cursor: pointer;
+  }
+
+  &__info {
+    p {
+      text-align: center;
+    }
+  }
+
+  &__title {
+    font-weight: $boldWeight;
+    line-height: 2.5rem;
+  }
+
+  &__text {
+    font-size: $mobile-font-size-secondary;
+  }
+
+  @include devices(tablet) {
+    &__text {
+      font-size: $tablet-font-size-secondary;
+    }
+
+    &__banner {
+      img {
+        height: 0.9rem;
+        margin-right: 0.3rem;
+      }
+    }
+  }
+
+  @include devices(desktop) {
+    &__text {
+      font-size: $desktop-font-size-secondary;
+    }
+    &__banner {
+      img {
+        height: 1rem;
+        margin-right: 0.3rem;
+      }
+    }
+  }
+}

@@ -1,13 +1,18 @@
+import BodiesOfWaterData from "../models/BodiesOfWaterData";
+import BodyOfWaterData from "../models/BodyOfWaterData";
 import LatitudeLongitude from "../models/LatitudeLongitude";
 import SpeciesListData from "../models/SpeciesListData";
 import UsersData from "../models/UsersData";
 import PostsData from "../models/PostsData";
+import PostData from "../models/PostData";
+import LeaderboardData from "../models/LeaderboardData";
+import EventsData from "../models/EventsData";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 export const checkBackendConnection = async (): Promise<boolean> => {
   try {
-    await fetch(`${backendUrl}/auth`);
+    await fetch(`${backendUrl}/Auth`);
   } catch {
     return false;
   }
@@ -92,6 +97,36 @@ export const createWhalePost = async (
   return await response.json();
 };
 
+export const getAllBodiesOfWater = async (): Promise<BodiesOfWaterData> => {
+  const response = await fetch(`${backendUrl}/BodyOfWater/all`);
+  const bodiesOfWaterData = await response.json();
+  if (bodiesOfWaterData) {
+    bodiesOfWaterData.bodiesOfWater.sort(
+      (a: BodyOfWaterData, b: BodyOfWaterData) => {
+        return a.name > b.name;
+      },
+    );
+  }
+  return bodiesOfWaterData;
+};
+
+export const getLatestPosts = async (): Promise<PostData[]> => {
+  const response = await fetch(`${backendUrl}/Post/all`);
+  const postsData = await response.json();
+  if (postsData) {
+    postsData.posts.sort((a: PostData, b: PostData) => {
+      return Date.parse(b.timestamp) - Date.parse(a.timestamp);
+    });
+  }
+  const filteredResponse = postsData.posts.slice(0, 5);
+  return filteredResponse;
+};
+
+export const getLeaderboard = async (): Promise<LeaderboardData> => {
+  const response = await fetch(`${backendUrl}/Leaderboard`);
+  return await response.json();
+};
+
 export const createEvent = async (
   startDate: Date,
   duration: number,
@@ -99,7 +134,7 @@ export const createEvent = async (
   eventLink: string,
   eventImageUrl: string,
 ): Promise<boolean> => {
-  const response = await fetch(`${backendUrl}/event`, {
+  const response = await fetch(`${backendUrl}/Event`, {
     headers: {
       "Content-Type": "application/json",
     },
@@ -120,6 +155,11 @@ export const getAllPosts = async (): Promise<PostsData> => {
   return await response.json();
 };
 
+export const getAllEvents = async (): Promise<EventsData> => {
+  const response = await fetch(`${backendUrl}/Event/all`);
+  return await response.json();
+};
+
 export const getAllPendingPosts = async (): Promise<PostsData> => {
   const response = await fetch(`${backendUrl}/Post/pending`);
   return await response.json();
@@ -129,7 +169,7 @@ export const approveOrRejectPost = async (
   id: number,
   approvalStatus: number,
 ): Promise<boolean> => {
-  const response = await fetch(`${backendUrl}/post/${id}`, {
+  const response = await fetch(`${backendUrl}/Post/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -150,7 +190,7 @@ export const modifyPost = async (
   description: string,
   imageUrl: string,
 ): Promise<boolean> => {
-  const response = await fetch(`${backendUrl}/post/${id}`, {
+  const response = await fetch(`${backendUrl}/Post/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -167,7 +207,7 @@ export const modifyPost = async (
   return response.ok;
 };
 
-export const getPostsByUserId = async (userId: number): Promise<PostsData> => {
-  const response = await fetch(`${backendUrl}/Post/userId/${userId}`);
-  return await response.json();
+export const getPostById = async (id: number): Promise<Response> => {
+  const response = await fetch(`${backendUrl}/Post/${id}`);
+  return response;
 };
