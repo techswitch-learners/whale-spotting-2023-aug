@@ -30,10 +30,6 @@ function Navbar() {
     };
   }, []);
 
-  const handleOptionClick = () => {
-    closeMobileMenu();
-  };
-
   return (
     <nav>
       <div className="navbar-wrapper">
@@ -49,7 +45,7 @@ function Navbar() {
               <NavLink
                 className={({ isActive }) => (isActive ? "active-page" : "")}
                 to="/"
-                onClick={handleOptionClick}
+                onClick={closeMobileMenu}
               >
                 Home
               </NavLink>
@@ -58,7 +54,7 @@ function Navbar() {
               <NavLink
                 className={({ isActive }) => (isActive ? "active-page" : "")}
                 to="/users"
-                onClick={handleOptionClick}
+                onClick={closeMobileMenu}
               >
                 Users
               </NavLink>
@@ -67,7 +63,7 @@ function Navbar() {
               <NavLink
                 className={({ isActive }) => (isActive ? "active-page" : "")}
                 to="/posts"
-                onClick={handleOptionClick}
+                onClick={closeMobileMenu}
               >
                 Posts
               </NavLink>
@@ -75,17 +71,17 @@ function Navbar() {
             <li>
               <NavLink
                 className={({ isActive }) => (isActive ? "active-page" : "")}
-                to="/info"
-                onClick={handleOptionClick}
+                to="/map"
+                onClick={closeMobileMenu}
               >
-                Info
+                Map
               </NavLink>
             </li>
             <li>
               <NavLink
                 className={({ isActive }) => (isActive ? "active-page" : "")}
                 to="/login"
-                onClick={handleOptionClick}
+                onClick={closeMobileMenu}
               >
                 Login
               </NavLink>
@@ -95,7 +91,7 @@ function Navbar() {
                 className={({ isActive }) => (isActive ? "active-page" : "")}
                 to="/search"
                 aria-label="Search"
-                onClick={handleOptionClick}
+                onClick={closeMobileMenu}
               >
                 🔎
               </NavLink>
