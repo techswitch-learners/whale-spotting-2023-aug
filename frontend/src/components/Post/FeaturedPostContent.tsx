@@ -8,9 +8,14 @@ import LikePost from "./LikePost";
 interface PostDataProps {
   postData: PostData;
   openModalAction: () => void;
+  onPostLike: (postId: number) => void;
 }
 
-const FeaturedPostContent = ({ postData, openModalAction }: PostDataProps) => {
+const FeaturedPostContent = ({
+  postData,
+  openModalAction,
+  onPostLike,
+}: PostDataProps) => {
   return (
     <>
       <div className="FeaturedPostContent__heading">
@@ -50,6 +55,7 @@ const FeaturedPostContent = ({ postData, openModalAction }: PostDataProps) => {
             postId={postData.id}
             likesCount={postData.likes}
             isLiked={postData.isLiked}
+            onPostLike={onPostLike}
           />
         </div>
         <div>

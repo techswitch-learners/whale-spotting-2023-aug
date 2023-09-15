@@ -5,7 +5,7 @@ import CardPostModal from "../components/Post/CardPostModal";
 import PostData from "../models/PostData";
 import FeaturedPostContent from "../components/Post/FeaturedPostContent";
 import FeaturedFrame from "../components/UI/FeaturedFrame";
-import { getAllPosts } from "../clients/backendApiClient";
+import { getAllPosts, likePost } from "../clients/backendApiClient";
 import WhaleLoader from "../components/UI/WhaleLoader";
 import FeaturedCarousel from "../components/UI/Carousel/FeaturedCarousel";
 import Button from "../components/UI/Button";
@@ -18,6 +18,27 @@ export const Posts = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string>();
   const loginContext = useContext(LoginContext);
+
+  const onLikeHandler = async (postId: number) => {
+    if (loginContext.isLoggedIn) {
+      const LikeResult = await likePost(postId, loginContext.userBase);
+      if (LikeResult) {
+        const updatedPosts = postData?.map((post) => {
+          return post.id == postId
+            ? { ...post, isLiked: true, likes: post.likes + 1 }
+            : post;
+        });
+        setPostData(updatedPosts);
+
+        if (selectedPostDetails) {
+          const selectedPostData = updatedPosts?.find(
+            (post) => post.id === selectedPostDetails.id,
+          );
+          setSelectedPostDetails(selectedPostData);
+        }
+      }
+    }
+  };
 
   const fetchPosts = useCallback(async () => {
     setIsLoading(true);
@@ -65,6 +86,7 @@ export const Posts = () => {
                     <FeaturedPostContent
                       postData={post}
                       openModalAction={() => setSelectedPostDetails(post)}
+                      onPostLike={onLikeHandler}
                     />
                   </FeaturedFrame>
                 ))}
@@ -79,6 +101,7 @@ export const Posts = () => {
                   <CardPost
                     postData={post}
                     openModalAction={() => setSelectedPostDetails(post)}
+                    onPostLike={onLikeHandler}
                   />
                 );
               })}
@@ -87,7 +110,10 @@ export const Posts = () => {
 
           {selectedPostDetails && (
             <Modal closeAction={() => setSelectedPostDetails(undefined)}>
-              <CardPostModal postData={selectedPostDetails} />
+              <CardPostModal
+                postData={selectedPostDetails}
+                onPostLike={onLikeHandler}
+              />
             </Modal>
           )}
         </>

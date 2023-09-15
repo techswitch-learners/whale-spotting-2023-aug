@@ -8,9 +8,10 @@ import LikePost from "./LikePost";
 
 interface PostDataProps {
   postData: PostData;
+  onPostLike: (postId: number) => void;
 }
 
-const CardPostModal = ({ postData }: PostDataProps) => {
+const CardPostModal = ({ postData, onPostLike }: PostDataProps) => {
   return (
     <div className="CardPostModal">
       <div className="CardPostModal__image__container">
@@ -57,6 +58,7 @@ const CardPostModal = ({ postData }: PostDataProps) => {
               postId={postData.id}
               likesCount={postData.likes}
               isLiked={postData.isLiked}
+              onPostLike={onPostLike}
             />
           </div>
           <div>
