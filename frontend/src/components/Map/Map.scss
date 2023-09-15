@@ -1,15 +1,9 @@
-@use "../../styles/variables" as *;
-@use "../../styles/typography" as *;
-
 .leaflet-pane,
 .leaflet-bottom {
   z-index: 0;
 }
 
 .leaflet-popup-content-wrapper {
-  // padding: 0;
-  // background: transparent;
-  // border: none;
   border-radius: 50%;
 }
 
@@ -23,7 +17,6 @@
   border-radius: 50%;
 }
 
-/* Styling for the sorting select */
 .sorting-options select {
   padding: 5px;
   font-size: 16px;

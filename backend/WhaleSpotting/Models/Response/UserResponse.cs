@@ -15,12 +15,14 @@ public class UserResponse
         public int Id { get; set; }
         public string? ImageUrl { get; set; }
         public string? Description { get; set; }
+        public int? Likes { get; set; }
 
         public UserPost(Post post)
         {
             Id = post.Id;
             ImageUrl = post.ImageUrl;
             Description = post.Description;
+            Likes = post.Likes != null ? post.Likes.Count : 0;
         }
     }
 

@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import PostDataMap from "../../models/PostDataMap";
 import Modal from "../UI/Modal";
 import CardPostModal from "../Post/CardPostModal";
-import "./Map.scss";
 import { getAllPosts } from "../../clients/backendApiClient";
 import Button from "../UI/Button";
 import WhaleLoader from "../UI/WhaleLoader";
+import PostData from "../../models/PostData";
+import "./Map.scss";
 
-const Map: React.FC = () => {
-  const [selectedPostDetails, setSelectedPostDetails] = useState<PostDataMap>();
-  const [postData, setPostData] = useState<PostDataMap[]>();
+const Map = () => {
+  const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();
+  const [postData, setPostData] = useState<PostData[]>();
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string>();
   const [sortMethod, setSortMethod] = useState<"date" | "rating">("date");
