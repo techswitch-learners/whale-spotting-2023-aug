@@ -24,17 +24,6 @@
   border-radius: 4px;
   background-color: white;
   cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
-}
-
-.sorting-options::after {
-  content: "▼";
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  pointer-events: none;
 }
 
 .sorting-options select:hover,
@@ -50,17 +39,6 @@
   border-radius: 4px;
   background-color: white;
   cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
-}
-
-.marker-options::after {
-  content: "▼";
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  pointer-events: none;
 }
 
 .marker-options select:hover,
@@ -86,13 +64,8 @@
 
 .sorting-options {
   margin-bottom: 0px;
-}
-
-.separator {
-  width: 1px;
-  height: 20px;
-  background-color: #ccc;
-  margin: 0 10px;
+  padding-right: 0.5rem;
+  border-right: 1px solid gray;
 }
 
 label {

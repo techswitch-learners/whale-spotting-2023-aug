@@ -81,13 +81,13 @@ const Map = () => {
           </select>
         </div>
 
-        <div className="seperator"></div>
-
         <div className="marker-options">
           <label htmlFor="num-markers">Number of Sightings:</label>
           <select
             id="num-markers"
-            onChange={(e) => handleNumMarkersChange(Number(e.target.value))}
+            onChange={(e) =>
+              handleNumMarkersChange(parseInt(e.target.value) || 20)
+            }
             value={numMarkers}
           >
             <option value="5">5</option>
