@@ -17,3 +17,17 @@
     text-align: center;
   }
 }
+
+.create-post-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  z-index: 1000;
+}
