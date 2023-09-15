@@ -5,9 +5,8 @@ import EventData from "../models/EventData";
 import { getAllEvents } from "../clients/backendApiClient";
 import WhaleLoader from "../components/UI/WhaleLoader";
 import Button from "../components/UI/Button";
-import "./Events.scss";
 import CardEvent from "../components/Event/CardEvent";
-import "../styles/_sections.scss";
+import "./Events.scss";
 
 export const Events = () => {
   const [selectedEventDetails, setSelectedEventDetails] = useState<EventData>();
