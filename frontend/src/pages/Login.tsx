@@ -1,15 +1,15 @@
 import { useContext, useState } from "react";
-import { NavLink } from "react-router-dom";
-import { tryEmailAndPassword } from "../clients/backendApiClient";
+import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../components/UI/Button";
 import { LoginContext } from "../context/LoginManager";
 import "./Login.scss";
 
 function LoginPage() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const loginContext = useContext(LoginContext);
+  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -17,10 +17,9 @@ function LoginPage() {
     console.log("login start");
 
     try {
-      const result = await tryEmailAndPassword(email, password);
-
-      if (result) {
-        loginContext.logIn(email, password);
+      const loginResult = await loginContext.logIn(username, password);
+      if (loginResult) {
+        navigate("/");
       } else {
         setErrorMessage("Credentials not recognised. Please try again.");
       }
@@ -34,13 +33,13 @@ function LoginPage() {
       <h1>Login</h1>
       <form onSubmit={handleLogin}>
         <div className="form-group">
-          <label>Email</label>
+          <label>Username</label>
           <input
             className="textbox"
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            placeholder="username"
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             required
           />
         </div>

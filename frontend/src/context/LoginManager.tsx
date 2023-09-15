@@ -1,14 +1,14 @@
 import { createContext, ReactNode, useState } from "react";
 import { tryUserBase } from "../clients/backendApiClient";
-import { redirect } from "react-router-dom";
 
 export const LoginContext = createContext({
   userBase: "",
   isLoggedIn: false,
   isAdmin: false,
-  logIn: (email: string, password: string) => {
-    email + password;
-  },
+  logIn: async (username: string, password: string) => {
+    username + password;
+    return false;
+  }, //How do we fix this paramters???
   logOut: () => {},
 });
 
@@ -21,16 +21,17 @@ export function LoginManager(props: LoginManagerProps): JSX.Element {
   const [admin, setAdmin] = useState(false);
   const [base, setBase] = useState("");
 
-  async function logIn(email: string, password: string) {
-    const userBase = `Basic ${btoa(email + ":" + password)}`;
+  async function logIn(username: string, password: string) {
+    const userBase = `Basic ${btoa(username + ":" + password)}`;
 
     const validLogin = await tryUserBase(userBase);
     if (!validLogin) {
       setLoggedIn(false);
-      return redirect("/login");
+      return false;
     } else {
       setBase(userBase);
       setLoggedIn(true);
+      return true;
     }
   }
 

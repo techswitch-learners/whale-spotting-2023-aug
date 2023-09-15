@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import CardPost from "../components/Post/CardPost";
 import Modal from "../components/UI/Modal";
 import CardPostModal from "../components/Post/CardPostModal";
@@ -9,22 +9,13 @@ import { getAllPosts } from "../clients/backendApiClient";
 import WhaleLoader from "../components/UI/WhaleLoader";
 import FeaturedCarousel from "../components/UI/Carousel/FeaturedCarousel";
 import Button from "../components/UI/Button";
-import { LoginContext } from "../context/LoginManager";
 import "./Posts.scss";
-import { useNavigate } from "react-router-dom";
 
 export const Posts = () => {
   const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();
   const [postData, setPostData] = useState<PostData[]>();
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string>();
-  const loginContext = useContext(LoginContext);
-  const navigate = useNavigate();
-
-  if (!loginContext.isLoggedIn) {
-    console.log("NOT LOGGED IN");
-    navigate("/login");
-  }
 
   const fetchPosts = async () => {
     setIsLoading(true);

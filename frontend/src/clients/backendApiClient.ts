@@ -20,18 +20,6 @@ export const getAllUsers = async (): Promise<UsersData> => {
   return response.json();
 };
 
-export const tryEmailAndPassword = async (
-  email: string,
-  password: string,
-): Promise<boolean> => {
-  const response = await fetch(`${backendUrl}/Auth/`, {
-    headers: {
-      Authorization: `Basic ${btoa(email + ":" + password)}`,
-    },
-  });
-  return response.ok;
-};
-
 export const tryUserBase = async (userBase: string): Promise<boolean> => {
   const response = await fetch(`${backendUrl}/Auth/`, {
     headers: {
