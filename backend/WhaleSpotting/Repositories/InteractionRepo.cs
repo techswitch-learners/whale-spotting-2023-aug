@@ -1,7 +1,5 @@
 ﻿using WhaleSpotting.Models.Database;
 using WhaleSpotting.Models.Request;
-using WhaleSpotting.Enums;
-using Microsoft.EntityFrameworkCore;
 
 namespace WhaleSpotting.Repositories;
 
@@ -23,13 +21,13 @@ public class InteractionRepo : IInteractionRepo
     {
         var checkInteraction = _context.Interactions.Where(
             interaction =>
-                interaction.PostId == newInteractionRequest.Postid && interaction.UserId == userId
+                interaction.PostId == newInteractionRequest.PostId && interaction.UserId == userId
         );
         if (!checkInteraction.Any())
         {
             var newInteraction = new Interaction
             {
-                PostId = newInteractionRequest.Postid,
+                PostId = newInteractionRequest.PostId,
                 UserId = userId,
             };
 

@@ -51,7 +51,7 @@ public class InteractionController : ControllerBase
             }
             catch (ArgumentException)
             {
-                return StatusCode(409);
+                return Conflict();
             }
         }
         return Unauthorized("Incorrect username and password combination");

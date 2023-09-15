@@ -1,14 +1,14 @@
 using WhaleSpotting.Models.Database;
 
-namespace WhaleSpotting.Models.View;
+namespace WhaleSpotting.Models.Business;
 
-public class LeaderLine
+public class LeaderboardRow
 {
     public int? UserId { get; set; }
     public string? UserName { get; set; }
     public int Score { get; set; }
 
-    public LeaderLine(User user, int score)
+    public LeaderboardRow(User user, int score)
     {
         UserId = user.Id;
         UserName = user.Username;

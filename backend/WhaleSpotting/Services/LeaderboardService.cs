@@ -1,14 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using WhaleSpotting.Models.Database;
-using WhaleSpotting.Models.Request;
-using WhaleSpotting.Models.View;
+﻿using WhaleSpotting.Models.Business;
 using WhaleSpotting.Repositories;
 
 namespace WhaleSpotting.Services;
 
 public interface ILeaderboardService
 {
-    public List<LeaderLine> Get();
+    public List<LeaderboardRow> Get();
 }
 
 public class LeaderboardService : ILeaderboardService
@@ -20,11 +17,11 @@ public class LeaderboardService : ILeaderboardService
         _users = users;
     }
 
-    public List<LeaderLine> Get()
+    public List<LeaderboardRow> Get()
     {
         var users = _users.GetAll();
 
-        var leaderboard = new List<LeaderLine>();
+        var leaderboard = new List<LeaderboardRow>();
 
         users.ForEach(user =>
         {
@@ -36,7 +33,7 @@ public class LeaderboardService : ILeaderboardService
                 score = user.Posts.Sum(post => post.Likes.Count);
             }
 
-            leaderboard.Add(new LeaderLine(user, score));
+            leaderboard.Add(new LeaderboardRow(user, score));
         });
 
         leaderboard.Sort((a, b) => b.Score - a.Score);

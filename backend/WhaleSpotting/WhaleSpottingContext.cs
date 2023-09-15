@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
 using WhaleSpotting.Models.Database;
-using PostInteraction = WhaleSpotting.Models.Database.Interaction;
 
 namespace WhaleSpotting;
 
@@ -13,7 +11,7 @@ public class WhaleSpottingContext : DbContext
     public DbSet<Post> Posts => Set<Post>();
     public DbSet<Event> Events => Set<Event>();
     public DbSet<BodyOfWater> BodiesOfWater => Set<BodyOfWater>();
-    public DbSet<PostInteraction> Interactions => Set<PostInteraction>();
+    public DbSet<Interaction> Interactions => Set<Interaction>();
 
     public WhaleSpottingContext(DbContextOptions<WhaleSpottingContext> options)
         : base(options) { }

@@ -1,19 +1,17 @@
-using WhaleSpotting.Enums;
-using WhaleSpotting.Models.Database;
-using WhaleSpotting.Models.View;
+using WhaleSpotting.Models.Business;
 
 namespace WhaleSpotting.Models.Response;
 
-public class LeaderlineResponse
+public class LeaderboardRowResponse
 {
     public int? UserId { get; set; }
     public string? UserName { get; set; }
     public int? Score { get; set; }
 
-    public LeaderlineResponse(LeaderLine leaderline)
+    public LeaderboardRowResponse(LeaderboardRow leaderboardRow)
     {
-        UserId = leaderline.UserId;
-        UserName = leaderline.UserName;
-        Score = leaderline.Score;
+        UserId = leaderboardRow.UserId;
+        UserName = leaderboardRow.UserName;
+        Score = leaderboardRow.Score;
     }
 }
