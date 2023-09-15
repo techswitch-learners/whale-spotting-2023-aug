@@ -6,9 +6,10 @@ import "./ShareButtonExpandable.scss";
 
 interface PostDataProps {
   postData: PostData;
+  size: number;
 }
 
-const ShareButtonExpandable = ({ postData }: PostDataProps) => {
+const ShareButtonExpandable = ({ postData, size }: PostDataProps) => {
   const [showShareMenu, setShowShareMenu] = useState(false);
 
   const toggleShareMenu = () => {
@@ -23,7 +24,10 @@ const ShareButtonExpandable = ({ postData }: PostDataProps) => {
         onClick={toggleShareMenu}
       />
       <div className={`share-links ${showShareMenu ? "active" : ""}`}>
-        <ShareButton eventUrl={postData.imageUrl} />
+        <ShareButton
+          url={`http://localhost:5173/whale-spotting-2023-aug/#/posts/${postData.id}`}
+          size={size}
+        />
       </div>
     </div>
   );

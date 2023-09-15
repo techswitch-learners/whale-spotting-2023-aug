@@ -6,6 +6,7 @@
   flex-direction: column;
   background-color: $color-tertiary;
   height: 100%;
+  width: 100%;
 
   @include devices(desktop) {
     flex-direction: row;

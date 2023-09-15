@@ -12,43 +12,45 @@ import {
 } from "react-share";
 import "./ShareButton.scss";
 
-interface EventUrlProps {
-  eventUrl: string;
+interface ShareButtonProps {
+  url: string;
+  size: number;
 }
-const ShareButton = ({ eventUrl }: EventUrlProps) => {
+
+const ShareButton = ({ url, size }: ShareButtonProps) => {
   return (
     <div className="share-button-container">
       <FacebookShareButton
-        url={eventUrl}
+        url={url}
         quote={"Check out this Whale Spotting Event!"}
         hashtag="#whales"
       >
-        <FacebookIcon size={48} round />
+        <FacebookIcon size={size} round />
       </FacebookShareButton>
       <TwitterShareButton
-        url={eventUrl}
+        url={url}
         title={"Check out this Whale Spotting Event!"}
         hashtags={["#whales", "#whalespotting"]}
       >
-        <TwitterIcon size={48} round />
+        <TwitterIcon size={size} round />
       </TwitterShareButton>
       <EmailShareButton
-        url={eventUrl}
+        url={url}
         subject={"Check out this Whale Spotting Event!"}
       >
-        <EmailIcon size={48} round />
+        <EmailIcon size={size} round />
       </EmailShareButton>
       <LinkedinShareButton
-        url={eventUrl}
+        url={url}
         title={"Check out this Whale Spotting Event!"}
       >
-        <LinkedinIcon size={48} round />
+        <LinkedinIcon size={size} round />
       </LinkedinShareButton>
       <WhatsappShareButton
-        url={eventUrl}
+        url={url}
         title={"Check out this Whale Spotting Event!"}
       >
-        <WhatsappIcon size={48} round />
+        <WhatsappIcon size={size} round />
       </WhatsappShareButton>
     </div>
   );

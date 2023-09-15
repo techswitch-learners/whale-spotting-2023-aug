@@ -1,18 +1,17 @@
 import { convertLikesToString } from "../../utils/LikeConversion";
 import PostData from "../../models/PostData";
 import { toShortDate } from "../../utils/DateConversion";
-import shareIcon from "../../assets/share_icon.png";
+import ShareButtonExpandable from "../ShareButtonExpandable";
 import postIcon from "../../assets/post_icon.png";
-
-import "./FeaturedPostContent.scss";
 import Button from "../UI/Button";
+import { Link } from "react-router-dom";
+import "./FeaturedPostContent.scss";
 
 interface PostDataProps {
   postData: PostData;
-  openModalAction: () => void;
 }
 
-const FeaturedPostContent = ({ postData, openModalAction }: PostDataProps) => {
+const FeaturedPostContent = ({ postData }: PostDataProps) => {
   return (
     <>
       <div className="FeaturedPostContent__heading">
@@ -28,12 +27,9 @@ const FeaturedPostContent = ({ postData, openModalAction }: PostDataProps) => {
       </div>
       <p className="FeaturedPostContent__description">{postData.description}</p>
       <div className="FeaturedPostContent__sub-section">
-        <Button
-          className="FeaturedPostContent__view-more"
-          onClick={openModalAction}
-        >
-          View
-        </Button>
+        <Link to={`/posts/${postData.id}`}>
+          <Button className="FeaturedPostContent__view-more">View</Button>
+        </Link>
         <div className="FeaturedPostContent__user">
           <p className="FeaturedPostContent__text">{postData.user.name}</p>
           <div className="FeaturedPostContent__user__image-container">
@@ -52,7 +48,7 @@ const FeaturedPostContent = ({ postData, openModalAction }: PostDataProps) => {
           <span>{convertLikesToString(postData.rating)}</span>
         </div>
         <div>
-          <img src={shareIcon} alt="share post" />
+          <ShareButtonExpandable postData={postData} size={36} />
         </div>
       </div>
     </>
