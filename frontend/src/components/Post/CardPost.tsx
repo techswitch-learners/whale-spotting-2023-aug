@@ -14,7 +14,11 @@ const CardPost = ({ postData, openModalAction }: PostDataProps) => {
     <div className="CardPost">
       <div className="CardPost__banner">
         <div className="CardPost__banner__likes">
-          <LikePost postId={postData.id} likesCount={postData.likes} />
+          <LikePost
+            postId={postData.id}
+            likesCount={postData.likes}
+            isLiked={postData.isLiked}
+          />
         </div>
         <div>
           <img src={shareIcon} alt="share post" />

@@ -53,7 +53,11 @@ const CardPostModal = ({ postData }: PostDataProps) => {
         </div>
         <div className="CardPostModal__interactions">
           <div className="CardPostModal__interactions__likes">
-            <LikePost postId={postData.id} likesCount={postData.likes} />
+            <LikePost
+              postId={postData.id}
+              likesCount={postData.likes}
+              isLiked={postData.isLiked}
+            />
           </div>
           <div>
             <img src={shareIcon} alt="share post" />

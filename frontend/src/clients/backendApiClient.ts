@@ -113,8 +113,19 @@ export const createEvent = async (
   return response.ok;
 };
 
-export const getAllPosts = async (): Promise<PostDataResponse> => {
-  const response = await fetch(`${backendUrl}/Post/all`);
+export const getAllPosts = async (
+  userBase: string,
+): Promise<PostDataResponse> => {
+  if (userBase === "") {
+    const response = await fetch(`${backendUrl}/Post/all`);
+    return await response.json();
+  }
+
+  const response = await fetch(`${backendUrl}/Post/all`, {
+    headers: {
+      Authorization: userBase,
+    },
+  });
   return await response.json();
 };
 

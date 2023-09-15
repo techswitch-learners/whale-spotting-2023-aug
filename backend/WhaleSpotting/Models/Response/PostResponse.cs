@@ -54,6 +54,8 @@ public class PostResponse
     public ApprovalStatus ApprovalStatus { get; set; }
     public int Rating { get; set; }
     public int Likes { get; set; }
+
+    public bool? IsLiked { get; set; }
     public PostBodyOfWater? BodyOfWater { get; set; }
 
     public PostResponse(Post post)
@@ -116,6 +118,73 @@ public class PostResponse
                 "Property \"Rating\" must not be null"
             );
         Likes = post.Likes != null ? post.Likes.Count : 0;
+        BodyOfWater = post.BodyOfWater != null ? new PostBodyOfWater(post.BodyOfWater) : null;
+    }
+
+    public PostResponse(Post post, int userId)
+    {
+        Id = post.Id;
+        Timestamp =
+            post.Timestamp
+            ?? throw new ArgumentNullException(
+                nameof(post),
+                "Property \"Timestamp\" must not be null"
+            );
+        Latitude =
+            post.Latitude
+            ?? throw new ArgumentNullException(
+                nameof(post),
+                "Property \"latitude\" must not be null"
+            );
+        Longitude =
+            post.Longitude
+            ?? throw new ArgumentNullException(
+                nameof(post),
+                "Property \"longitude\" must not be null"
+            );
+        User =
+            post.User != null
+                ? new PostUser(post.User)
+                : throw new ArgumentNullException(
+                    nameof(post),
+                    "Property \"user\" must not be null"
+                );
+        Species =
+            post.Species != null
+                ? new PostSpecies(post.Species)
+                : throw new ArgumentNullException(
+                    nameof(post),
+                    "Property \"PostSpecies\" must not be null"
+                );
+        ImageUrl =
+            post.ImageUrl
+            ?? throw new ArgumentNullException(
+                nameof(post),
+                "Property \"ImageUrl\" must not be null"
+            );
+        Description =
+            post.Description
+            ?? throw new ArgumentNullException(
+                nameof(post),
+                "Property \"Description\" must not be null"
+            );
+        ApprovalStatus =
+            post.ApprovalStatus
+            ?? throw new ArgumentNullException(
+                nameof(post),
+                "Property \"ApprovalStatus\" must not be null"
+            );
+        Rating =
+            post.Rating
+            ?? throw new ArgumentNullException(
+                nameof(post),
+                "Property \"Rating\" must not be null"
+            );
+        Likes = post.Likes != null ? post.Likes.Count : 0;
+        IsLiked =
+            post.Likes != null
+                ? post.Likes.Any(Interaction => Interaction.UserId == userId)
+                : false;
         BodyOfWater = post.BodyOfWater != null ? new PostBodyOfWater(post.BodyOfWater) : null;
     }
 }

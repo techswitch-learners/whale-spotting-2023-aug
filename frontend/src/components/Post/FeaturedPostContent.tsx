@@ -46,7 +46,11 @@ const FeaturedPostContent = ({ postData, openModalAction }: PostDataProps) => {
 
       <div className="FeaturedPostContent__interactions">
         <div className="FeaturedPostContent__interactions__likes">
-          <LikePost postId={postData.id} likesCount={postData.likes} />
+          <LikePost
+            postId={postData.id}
+            likesCount={postData.likes}
+            isLiked={postData.isLiked}
+          />
         </div>
         <div>
           <img src={shareIcon} alt="share post" />

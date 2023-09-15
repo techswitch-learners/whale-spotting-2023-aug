@@ -16,6 +16,7 @@ interface PostData {
   description: string;
   approvalStatus: number;
   likes: number;
+  isLiked?: boolean;
   bodyOfWater: {
     id: number;
     name: string;

@@ -24,6 +24,12 @@
     color: $color-foreground;
   }
 
+  &:disabled {
+    background-color: red;
+    border: 0.125rem solid $color-background;
+    color: $color-foreground;
+  }
+
   @include devices(tablet) {
   }
 

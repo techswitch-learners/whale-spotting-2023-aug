@@ -10,4 +10,9 @@ public class PostsResponse
     {
         Posts = posts.Select(post => new PostResponse(post)).ToList();
     }
+
+    public PostsResponse(List<Post> posts, int userId)
+    {
+        Posts = posts.Select(post => new PostResponse(post, userId)).ToList();
+    }
 }

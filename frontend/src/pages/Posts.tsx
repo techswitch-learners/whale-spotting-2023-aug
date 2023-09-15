@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 import CardPost from "../components/Post/CardPost";
 import Modal from "../components/UI/Modal";
 import CardPostModal from "../components/Post/CardPostModal";
@@ -10,28 +10,30 @@ import WhaleLoader from "../components/UI/WhaleLoader";
 import FeaturedCarousel from "../components/UI/Carousel/FeaturedCarousel";
 import Button from "../components/UI/Button";
 import "./Posts.scss";
+import { LoginContext } from "../context/LoginManager";
 
 export const Posts = () => {
   const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();
   const [postData, setPostData] = useState<PostData[]>();
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string>();
+  const loginContext = useContext(LoginContext);
 
-  const fetchPosts = async () => {
+  const fetchPosts = useCallback(async () => {
     setIsLoading(true);
     setPostData(undefined);
     setErrorMessage(undefined);
 
-    await getAllPosts()
+    await getAllPosts(loginContext.userBase)
       .then((data) => setPostData(data.posts))
       .catch(() => setErrorMessage("Unable to load posts"));
 
     setIsLoading(false);
-  };
+  }, [loginContext.userBase]);
 
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [fetchPosts]);
 
   if (isLoading || errorMessage) {
     return (

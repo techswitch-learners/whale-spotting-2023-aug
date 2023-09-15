@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using WhaleSpotting.Attributes;
 using WhaleSpotting.Models.Request;
 using WhaleSpotting.Models.Response;
 using WhaleSpotting.Services;
@@ -31,12 +32,13 @@ public class PostController : ControllerBase
     }
 
     [HttpGet("all")]
-    public IActionResult GetAll()
+    [AllowGuest]
+    public IActionResult GetAll([FromHeader] int UserId)
     {
         try
         {
             var posts = _postService.GetAll();
-            return Ok(new PostsResponse(posts));
+            return Ok(new PostsResponse(posts, UserId));
         }
         catch (ArgumentException)
         {
