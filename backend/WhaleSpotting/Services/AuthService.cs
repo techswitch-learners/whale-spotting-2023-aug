@@ -1,12 +1,11 @@
 ﻿using WhaleSpotting.Repositories;
-using WhaleSpotting.Enums;
 using WhaleSpotting.Models.Database;
 
 namespace WhaleSpotting.Services;
 
 public interface IAuthService
 {
-    public User? GetUser(string username, string password);
+    public User? GetMatchingUser(string username, string password);
 }
 
 public class AuthService : IAuthService
@@ -20,7 +19,7 @@ public class AuthService : IAuthService
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public User? GetUser(string username, string password)
+    public User? GetMatchingUser(string username, string password)
     {
         try
         {

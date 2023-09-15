@@ -43,7 +43,7 @@ public class AdminHeaderRequirementFilter : IAuthorizationFilter
             context.Result = new UnauthorizedObjectResult("Invalid Authorization header");
             return;
         }
-        var user = _authService.GetUser(auth.Username, auth.Password);
+        var user = _authService.GetMatchingUser(auth.Username, auth.Password);
         if (user == null)
         {
             context.Result = new UnauthorizedObjectResult("Invalid credentials");
