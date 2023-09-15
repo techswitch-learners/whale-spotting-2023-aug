@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using WhaleSpotting.Models.Database;
+﻿using WhaleSpotting.Models.Database;
 using WhaleSpotting.Models.Request;
 
 namespace WhaleSpotting.Repositories;
