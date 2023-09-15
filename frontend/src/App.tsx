@@ -12,6 +12,7 @@ import PostForm from "./pages/PostForm";
 import EventForm from "./pages/EventForm.tsx";
 import SearchResults from "./pages/SearchResult.tsx";
 import PendingPosts from "./pages/PendingPosts.tsx";
+import Footer from "./components/Footer/Footer.tsx";
 import "./App.scss";
 import "leaflet/dist/leaflet.js";
 
@@ -33,6 +34,7 @@ const App = () => {
         <Route path="/events/create" element={<EventForm />} />
         <Route path="/posts/pending" element={<PendingPosts />} />
       </Routes>
+      <Footer />
     </Router>
   );
 };
