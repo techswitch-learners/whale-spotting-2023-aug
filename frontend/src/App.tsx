@@ -10,11 +10,12 @@ import MapPage from "./pages/MapPage.tsx";
 import UserProfile from "./pages/UserProfile.tsx";
 import PostForm from "./pages/PostForm";
 import EventForm from "./pages/EventForm.tsx";
+import SearchResults from "./pages/SearchResult.tsx";
 import PendingPosts from "./pages/PendingPosts.tsx";
 import "./App.scss";
 import "leaflet/dist/leaflet.js";
 
-export const App = () => {
+const App = () => {
   return (
     <Router>
       <Navbar />
@@ -24,6 +25,7 @@ export const App = () => {
         <Route path="/events" element={<Events />} />
         <Route path="/users" element={<Users />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/search" element={<SearchResults />} />
         <Route path="/register" element={<Register />} />
         <Route path="/map" element={<MapPage />} />
         <Route path="/users/:userId" element={<UserProfile />} />

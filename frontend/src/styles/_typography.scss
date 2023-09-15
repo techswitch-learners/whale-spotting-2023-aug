@@ -35,6 +35,22 @@ h2 {
   }
 }
 
+h3 {
+  font-weight: $lighterWeight;
+  font-size: $mobile-font-size-dropdown-label;
+
+  margin: 0 0 $mobile-subtitle-margin;
+
+  @include devices(tablet) {
+    font-size: $tablet-font-size-dropdown-label;
+    margin: 0 0 $tablet-subtitle-margin;
+  }
+  @include devices(desktop) {
+    font-size: $desktop-font-size-dropdown-label;
+    margin: 0 0 $desktop-subtitle-margin;
+  }
+}
+
 p,
 span {
   font-weight: $lighterWeight;

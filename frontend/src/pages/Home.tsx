@@ -1,10 +1,16 @@
-import { BackendConnectionChecker } from "../components/BackendConnectionChecker";
+import EventandLeaderboardSection from "../components/Home/EventsAndLeaderboardSection";
+import LatestPosts from "../components/Home/LatestPosts";
+import SearchBySea from "../components/Home/SearchBySea";
 
 export const Home = () => {
   return (
     <>
       <h1>Whale Spotting</h1>
-      <BackendConnectionChecker />
+      <LatestPosts />
+      <SearchBySea />
+      <EventandLeaderboardSection />
+
+      {/* Footer */}
     </>
   );
 };
