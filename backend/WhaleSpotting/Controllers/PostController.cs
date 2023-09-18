@@ -61,6 +61,7 @@ public class PostController : ControllerBase
     }
 
     [HttpPatch("{id:int}")]
+    [RequiresAdminAuth]
     public IActionResult ApproveOrReject(
         [FromRoute] int id,
         [FromBody] ApproveOrRejectPostRequest approveOrRejectPostRequest
