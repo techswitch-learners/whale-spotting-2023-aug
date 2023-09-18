@@ -34,7 +34,7 @@ export const tryEncodedAuth = async (encodedAuth: string): Promise<boolean> => {
 };
 
 export const getUserById = async (id: number): Promise<Response> => {
-  const response = await fetch(`${backendUrl}/User/id/${id}`);
+  const response = await fetch(`${backendUrl}/User/${id}`);
   return response;
 };
 
@@ -105,6 +105,11 @@ export const getAllBodiesOfWater = async (): Promise<BodiesOfWaterData> => {
     );
   }
   return bodiesOfWaterData;
+};
+
+export const getBodyOfWaterByName = async (name: string): Promise<Response> => {
+  const response = await fetch(`${backendUrl}/BodyOfWater/${name}`);
+  return response;
 };
 
 export const getLatestPosts = async (): Promise<PostData[]> => {

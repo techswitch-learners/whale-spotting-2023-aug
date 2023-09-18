@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getAllBodiesOfWater } from "../../clients/backendApiClient";
-import { BodyOfWaterData } from "../../models/BodyOfWaterData";
+import BodyOfWaterData from "../../models/BodyOfWaterData";
 import { useNavigate } from "react-router-dom";
 import Button from "../UI/Button";
 import "./SearchBySea.scss";
