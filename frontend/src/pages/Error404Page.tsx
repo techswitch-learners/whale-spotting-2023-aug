@@ -13,7 +13,9 @@ const Error404Page = () => {
           isLoading={false}
           message="The open ocean is a dangerous place... Let me give you a lift back to safety"
         />
-        <Button onClick={() => navigate("/")}>Take Me Home</Button>
+        <Button role="link" onClick={() => navigate("/")}>
+          Take Me Home
+        </Button>
       </div>
     </section>
   );

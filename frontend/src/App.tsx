@@ -15,9 +15,9 @@ import SearchResults from "./pages/SearchResult.tsx";
 import PendingPosts from "./pages/PendingPosts.tsx";
 import Post from "./pages/Post.tsx";
 import Footer from "./components/Footer/Footer.tsx";
+import Error404Page from "./pages/Error404Page.tsx";
 import "./App.scss";
 import "leaflet/dist/leaflet.js";
-import Error404Page from "./pages/Error404Page.tsx";
 
 const App = () => {
   return (
