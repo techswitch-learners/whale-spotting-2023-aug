@@ -1,7 +1,7 @@
 @use "../styles/variables" as *;
 @use "../styles/mixins" as *;
 
-.CardPostModal-container {
+.Post-container {
   margin: 0 2rem;
 
   @include devices(tablet) {
@@ -13,7 +13,7 @@
   }
 }
 
-.CardPostModal {
+.Post {
   display: flex;
   flex-direction: column;
   background-color: $color-tertiary;

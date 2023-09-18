@@ -9,8 +9,11 @@ import FeaturedCarousel from "../components/UI/Carousel/FeaturedCarousel";
 import Button from "../components/UI/Button";
 import { Link } from "react-router-dom";
 import "./Posts.scss";
+import Modal from "../components/UI/Modal";
+import CardPostModal from "../components/Post/CardPostModal";
 
 export const Posts = () => {
+  const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();
   const [postData, setPostData] = useState<PostData[]>();
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string>();
@@ -58,7 +61,10 @@ export const Posts = () => {
               <FeaturedCarousel
                 featuredItems={postData.slice(0, 5).map((post) => (
                   <FeaturedFrame imageUrl={post.imageUrl}>
-                    <FeaturedPostContent postData={post} />
+                    <FeaturedPostContent
+                      postData={post}
+                      openModalAction={() => setSelectedPostDetails(post)}
+                    />
                   </FeaturedFrame>
                 ))}
               />
@@ -68,10 +74,21 @@ export const Posts = () => {
           <section>
             <div className="container PostsGallery">
               {postData.map((post) => {
-                return <CardPost postData={post} />;
+                return (
+                  <CardPost
+                    postData={post}
+                    openModalAction={() => setSelectedPostDetails(post)}
+                  />
+                );
               })}
             </div>
           </section>
+
+          {selectedPostDetails && (
+            <Modal closeAction={() => setSelectedPostDetails(undefined)}>
+              <CardPostModal postData={selectedPostDetails} />
+            </Modal>
+          )}
         </>
       ) : (
         <section className="section-dark">
