@@ -81,6 +81,9 @@ export const createWhalePost = async (
   imageUrl: string,
 ): Promise<boolean> => {
   const response = await fetch(`${backendUrl}/Post`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
     method: "post",
     body: JSON.stringify({
       date,
