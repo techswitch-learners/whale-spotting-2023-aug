@@ -10,7 +10,7 @@ interface Props {
   post: PostData;
 }
 
-function SearchResultCard({ post }: Props) {
+const SearchResultCard = ({ post }: Props) => {
   return (
     <>
       <div className="SearchResultCard">
@@ -29,7 +29,7 @@ function SearchResultCard({ post }: Props) {
                   src={postIcon}
                   alt="whale icon"
                 />
-                <span>{post.rating}</span>
+                <span>{post.interactionCount}</span>
               </div>
             </div>
             <div className="SearchResultCard__Details--right">
@@ -38,13 +38,13 @@ function SearchResultCard({ post }: Props) {
                 size={24}
                 type={"sighting"}
               />
-              <p>{toShortDate(post.timestamp)}</p>
+              <p>{toShortDate(post.creationTimestamp)}</p>
             </div>
           </div>
         </div>
       </div>
     </>
   );
-}
+};
 
 export default SearchResultCard;
