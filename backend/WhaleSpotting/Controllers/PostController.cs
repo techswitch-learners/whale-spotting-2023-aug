@@ -54,9 +54,13 @@ public class PostController : ControllerBase
     }
 
     [HttpPost("")]
-    public async Task<IActionResult> Create([FromBody] CreatePostRequest createPostRequest)
+    [RequiresUserAuth]
+    public async Task<IActionResult> Create(
+        [FromBody] CreatePostRequest createPostRequest,
+        [FromHeader] int userId
+    )
     {
-        var newPost = new PostResponse(await _postService.Create(createPostRequest));
+        var newPost = new PostResponse(await _postService.Create(createPostRequest, userId));
         return CreatedAtAction(nameof(GetById), new { id = newPost.Id }, newPost);
     }
 

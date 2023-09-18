@@ -9,7 +9,7 @@ namespace WhaleSpotting.Repositories;
 public interface IPostRepo
 {
     Post GetById(int id);
-    Task<Post> Create(CreatePostRequest createPostRequest);
+    Task<Post> Create(CreatePostRequest createPostRequest, int userId);
     List<Post> GetAll();
     List<Post> GetPending();
     void ApproveOrReject(int id, ApprovalStatus approvalStatus);
@@ -65,12 +65,12 @@ public class PostRepo : IPostRepo
             .ToList();
     }
 
-    public async Task<Post> Create(CreatePostRequest createPostRequest)
+    public async Task<Post> Create(CreatePostRequest createPostRequest, int userId)
     {
-        var user = _context.Users.SingleOrDefault(user => user.Id == createPostRequest.UserId);
+        var user = _context.Users.SingleOrDefault(user => user.Id == userId);
         if (user == null)
         {
-            throw new ArgumentException($"User with id {createPostRequest.UserId} doesn't exist");
+            throw new ArgumentException($"User with id {userId} doesn't exist");
         }
 
         var species =

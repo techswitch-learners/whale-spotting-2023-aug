@@ -7,7 +7,7 @@ namespace WhaleSpotting.Services;
 
 public interface IPostService
 {
-    Task<Post> Create(CreatePostRequest createPostRequest);
+    Task<Post> Create(CreatePostRequest createPostRequest, int userId);
     Post GetById(int id);
     List<Post> GetAll();
     List<Post> GetPending();
@@ -24,9 +24,9 @@ public class PostService : IPostService
         _posts = posts;
     }
 
-    public async Task<Post> Create(CreatePostRequest createPostRequest)
+    public async Task<Post> Create(CreatePostRequest createPostRequest, int userId)
     {
-        return await _posts.Create(createPostRequest);
+        return await _posts.Create(createPostRequest, userId);
     }
 
     public Post GetById(int id)
