@@ -10,6 +10,7 @@ import Button from "../components/UI/Button";
 import "./Posts.scss";
 import Modal from "../components/UI/Modal";
 import CardPostModal from "../components/Post/CardPostModal";
+import Postcard from "../components/Postcard/Postcard";
 
 export const Posts = () => {
   const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();
@@ -54,6 +55,7 @@ export const Posts = () => {
       <h1>Sightings</h1>
       {postData && postData.length > 0 ? (
         <>
+          <Postcard postData={postData[0]} />
           <section className="section-dark">
             <div className="container">
               <h2>Featured Sightings</h2>
