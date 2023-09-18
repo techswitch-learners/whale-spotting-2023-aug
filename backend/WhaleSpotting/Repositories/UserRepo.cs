@@ -31,8 +31,6 @@ public class UserRepo : IUserRepo
                 .ThenInclude(post => post.Likes)
                 .Include(user => user.Posts)
                 .ThenInclude(post => post.Species)
-                .Include(user => user.Posts)
-                .ThenInclude(post => post.User)
                 .Single(user => user.Id == id);
         }
         catch (InvalidOperationException)
@@ -67,8 +65,6 @@ public class UserRepo : IUserRepo
             .ThenInclude(post => post.Likes)
             .Include(user => user.Posts)
             .ThenInclude(post => post.Species)
-            .Include(user => user.Posts)
-            .ThenInclude(post => post.User)
             .Where(user => user.Role == Role.User)
             .ToList();
     }
