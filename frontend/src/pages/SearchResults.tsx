@@ -11,7 +11,6 @@ import CardPost from "../components/Post/CardPost";
 import Modal from "../components/UI/Modal";
 import CardPostModal from "../components/Post/CardPostModal";
 import PostData from "../models/PostData";
-import "./SearchResults.scss";
 
 const SearchResults = () => {
   const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();
