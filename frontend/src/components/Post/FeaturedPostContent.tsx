@@ -4,8 +4,8 @@ import { toShortDate } from "../../utils/DateConversion";
 import ShareButtonExpandable from "../ShareButtonExpandable";
 import postIcon from "../../assets/post_icon.png";
 import Button from "../UI/Button";
-import "./FeaturedPostContent.scss";
 import { Link } from "react-router-dom";
+import "./FeaturedPostContent.scss";
 
 interface PostDataProps {
   postData: PostData;

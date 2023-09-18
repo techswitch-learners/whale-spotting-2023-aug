@@ -3,10 +3,9 @@ import PostData from "../../models/PostData";
 import { toShortDate } from "../../utils/DateConversion";
 import postIcon from "../../assets/post_icon.png";
 import fullscreenIcon from "../../assets/fullscreen_icon.svg";
-
-import "./CardPostModal.scss";
 import ShareButtonExpandable from "../ShareButtonExpandable";
 import { Link } from "react-router-dom";
+import "./CardPostModal.scss";
 
 interface PostDataProps {
   postData: PostData;
