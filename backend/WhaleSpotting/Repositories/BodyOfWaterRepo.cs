@@ -26,6 +26,7 @@ public class BodyOfWaterRepo : IBodyOfWaterRepo
         {
             return _context.BodiesOfWater
                 .Include(b => b.Posts)
+                .ThenInclude(p => p.Interactions)
                 .Single(bodyOfWater => bodyOfWater.Name == name);
         }
         catch (InvalidOperationException)
@@ -36,7 +37,10 @@ public class BodyOfWaterRepo : IBodyOfWaterRepo
 
     public List<BodyOfWater> GetAll()
     {
-        return _context.BodiesOfWater.Include(user => user.Posts).ToList();
+        return _context.BodiesOfWater
+            .Include(user => user.Posts)
+            .ThenInclude(p => p.Interactions)
+            .ToList();
     }
 
     public BodyOfWater Create(CreateBodyOfWaterRequest createBodyOfWaterRequest)
