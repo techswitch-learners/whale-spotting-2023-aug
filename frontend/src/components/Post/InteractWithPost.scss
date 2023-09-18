@@ -2,6 +2,8 @@
 @use "../../styles/mixins" as *;
 
 .LikePost {
+  display: flex;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
 
@@ -17,6 +19,12 @@
   transition: background-color 0.25s;
 
   cursor: pointer;
+
+  &__Icon {
+    margin: 0.2rem;
+    filter: invert(37%) sepia(64%) saturate(5346%) hue-rotate(311deg)
+      brightness(98%) contrast(98%);
+  }
 
   &:hover {
     background-color: $color-primary;

@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import postIcon from "../../assets/post_icon.png";
+import likeIcon from "../../assets/likeIcon.svg";
 import { LoginContext } from "../../context/LoginManager";
 import "./InteractWithPost.scss";
 
@@ -24,7 +24,7 @@ const InteractWithPost = ({
       className="LikePost"
       onClick={() => onPostLike(postId)}
     >
-      <img src={postIcon} alt="whale icon" />
+      <img className="LikePost__Icon" src={likeIcon} alt="like icon" />
       {interactionCount}
     </button>
   );

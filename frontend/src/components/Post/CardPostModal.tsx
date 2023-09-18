@@ -3,8 +3,8 @@ import { toShortDate } from "../../utils/DateConversion";
 import fullscreenIcon from "../../assets/fullscreen_icon.svg";
 import ShareButtonExpandable from "../ShareButtonExpandable";
 import { Link } from "react-router-dom";
-import "./CardPostModal.scss";
 import InteractWithPost from "./InteractWithPost";
+import "./CardPostModal.scss";
 
 interface PostDataProps {
   postData: PostData;
