@@ -1,10 +1,11 @@
 interface EventData {
   id: number;
+  name: string;
   startDate: string;
-  duration: number;
+  durationInHours: number;
   location: string;
-  eventLink: string;
-  eventImageUrl: string;
+  link: string;
+  imageUrl: string;
 }
 
 export default EventData;

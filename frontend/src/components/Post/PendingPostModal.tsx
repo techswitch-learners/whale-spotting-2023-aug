@@ -82,7 +82,7 @@ const PendingPostModal = ({ postData }: PostDataProps) => {
               South Atlantic
             </p>
             <p className="PendingPostModal__heading__date">
-              {toShortDate(postData.timestamp)}
+              {toShortDate(postData.creationTimestamp)}
             </p>
           </div>
           <p className="PendingPostModal__description">

@@ -1,15 +1,16 @@
 ﻿using WhaleSpotting.Models.Api;
 using WhaleSpotting.Models.Database;
+using WhaleSpotting.Models.Request;
 using WhaleSpotting.Repositories;
 
 namespace WhaleSpotting.Services;
 
 public interface IBodyOfWaterService
 {
-    public BodyOfWater GetByName(string name);
-    public List<BodyOfWater> GetAll();
-    public BodyOfWater Create(BodyOfWater newBodyOfWater);
-    public Task<BodyOfWater?> GetByLocation(double lat, double lon);
+    BodyOfWater GetByName(string name);
+    List<BodyOfWater> GetAll();
+    BodyOfWater Create(CreateBodyOfWaterRequest createBodyOfWaterRequest);
+    Task<BodyOfWater?> GetByLocation(double lat, double lon);
 }
 
 public class BodyOfWaterService : IBodyOfWaterService
@@ -22,7 +23,7 @@ public class BodyOfWaterService : IBodyOfWaterService
     {
         _bodiesOfWater = bodyOfWaters;
         _config = config;
-        _client = new();
+        _client = new HttpClient();
     }
 
     public BodyOfWater GetByName(string name)
@@ -35,33 +36,32 @@ public class BodyOfWaterService : IBodyOfWaterService
         return _bodiesOfWater.GetAll();
     }
 
-    public BodyOfWater Create(BodyOfWater newBodyOfWater)
+    public BodyOfWater Create(CreateBodyOfWaterRequest createBodyOfWaterRequest)
     {
-        return _bodiesOfWater.Create(newBodyOfWater);
+        return _bodiesOfWater.Create(createBodyOfWaterRequest);
     }
 
     public async Task<BodyOfWater?> GetByLocation(double lat, double lon)
     {
-        var GeoReverseApiKey = _config["GeoReverseApiKey"];
+        var geoReverseApiKey = _config["GeoReverseApiKey"];
         try
         {
             var response = await _client.GetFromJsonAsync<GeoapifyBodyOfWater>(
-                $"https://api.geoapify.com/v1/geocode/reverse?lat={lat}&lon={lon}&apiKey={GeoReverseApiKey}"
+                $"https://api.geoapify.com/v1/geocode/reverse?lat={lat}&lon={lon}&apiKey={geoReverseApiKey}"
             );
             var waterName = response?.Features?[0].Properties?.Name;
-            if (waterName != null)
+            if (waterName == null)
             {
-                var bodyOfWater = GetByName(waterName);
-                if (bodyOfWater != null)
-                {
-                    return bodyOfWater;
-                }
-                else
-                {
-                    return Create(new BodyOfWater() { Name = waterName, Posts = new List<Post>() });
-                }
+                return null;
             }
-            return null;
+            try
+            {
+                return GetByName(waterName);
+            }
+            catch (ArgumentException)
+            {
+                return Create(new CreateBodyOfWaterRequest { Name = waterName });
+            }
         }
         catch (HttpRequestException)
         {

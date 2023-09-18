@@ -19,13 +19,13 @@ public class InteractionController : ControllerBase
     [HttpPost("")]
     [RequiresUserAuth]
     public IActionResult Create(
-        [FromBody] InteractionRequest newInteractionRequest,
-        [FromHeader] int UserId
+        [FromBody] CreateInteractionRequest createInteractionRequest,
+        [FromHeader] int userId
     )
     {
         try
         {
-            _interactionService.Create(newInteractionRequest, UserId);
+            _interactionService.Create(createInteractionRequest, userId);
             return Ok();
         }
         catch (ArgumentException)

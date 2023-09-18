@@ -5,7 +5,7 @@ namespace WhaleSpotting.Repositories;
 
 public interface ISpeciesRepo
 {
-    public List<Species> GetAll();
+    List<Species> GetAll();
 }
 
 public class SpeciesRepo : ISpeciesRepo

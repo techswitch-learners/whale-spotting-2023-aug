@@ -112,7 +112,7 @@ export const getLatestPosts = async (): Promise<PostData[]> => {
   const postsData = await response.json();
   if (postsData) {
     postsData.posts.sort((a: PostData, b: PostData) => {
-      return Date.parse(b.timestamp) - Date.parse(a.timestamp);
+      return Date.parse(b.creationTimestamp) - Date.parse(a.creationTimestamp);
     });
   }
   const filteredResponse = postsData.posts.slice(0, 5);
@@ -128,8 +128,8 @@ export const createEvent = async (
   startDate: Date,
   duration: number,
   location: string,
-  eventLink: string,
-  eventImageUrl: string,
+  link: string,
+  imageUrl: string,
 ): Promise<boolean> => {
   const response = await fetch(`${backendUrl}/Event`, {
     headers: {
@@ -140,8 +140,8 @@ export const createEvent = async (
       startDate,
       duration,
       location,
-      eventLink,
-      eventImageUrl,
+      link,
+      imageUrl,
     }),
   });
   return response.ok;

@@ -1,8 +1,7 @@
-namespace WhaleSpotting.Models.Database;
+﻿namespace WhaleSpotting.Models.Request;
 
-public class Event
+public class CreateEventRequest
 {
-    public int Id { get; set; }
     public string Name { get; set; } = null!;
     public DateTime StartDate { get; set; }
     public int DurationInHours { get; set; }

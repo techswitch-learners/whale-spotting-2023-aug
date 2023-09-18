@@ -5,7 +5,7 @@ namespace WhaleSpotting.Services;
 
 public interface ISpeciesService
 {
-    public List<Species> GetAll();
+    List<Species> GetAll();
 }
 
 public class SpeciesService : ISpeciesService

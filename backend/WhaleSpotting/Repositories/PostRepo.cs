@@ -8,13 +8,12 @@ namespace WhaleSpotting.Repositories;
 
 public interface IPostRepo
 {
-    public Post GetById(int id);
-    public List<Post> GetByUserId(int userId);
-    public Task<Post> Create(PostRequest newPostRequest);
-    public List<Post> GetAll();
-    public List<Post> GetPending();
-    public void ApproveOrReject(int id, ApprovalStatus approvalStatus);
-    public void Modify(int id, ModifyPostRequest modifyPostRequest);
+    Post GetById(int id);
+    Task<Post> Create(CreatePostRequest createPostRequest);
+    List<Post> GetAll();
+    List<Post> GetPending();
+    void ApproveOrReject(int id, ApprovalStatus approvalStatus);
+    void Modify(int id, ModifyPostRequest modifyPostRequest);
 }
 
 public class PostRepo : IPostRepo
@@ -36,36 +35,12 @@ public class PostRepo : IPostRepo
                 .Include(post => post.User)
                 .Include(post => post.BodyOfWater)
                 .Include(post => post.Species)
-                .Include(post => post.Likes)
-                .Where(post => post.Id == id)
-                .Single();
+                .Include(post => post.Interactions)
+                .Single(post => post.Id == id);
         }
         catch (InvalidOperationException)
         {
             throw new ArgumentException($"Post with ID {id} not found");
-        }
-    }
-
-    public List<Post> GetByUserId(int userId)
-    {
-        try
-        {
-            return _context.Posts
-                .Include(post => post.User)
-                .Include(post => post.Species)
-                .Include(post => post.Likes)
-                .Include(post => post.BodyOfWater)
-                .Where(
-                    post =>
-                        post.ApprovalStatus == ApprovalStatus.Approved
-                        && post.User != null
-                        && post.User.Id == userId
-                )
-                .ToList();
-        }
-        catch (InvalidOperationException)
-        {
-            throw new ArgumentException($"Posts with user id ${userId} not found");
         }
     }
 
@@ -74,7 +49,7 @@ public class PostRepo : IPostRepo
         return _context.Posts
             .Include(post => post.User)
             .Include(post => post.Species)
-            .Include(post => post.Likes)
+            .Include(post => post.Interactions)
             .Include(post => post.BodyOfWater)
             .Where(post => post.ApprovalStatus == ApprovalStatus.Approved)
             .ToList();
@@ -90,74 +65,50 @@ public class PostRepo : IPostRepo
             .ToList();
     }
 
-    public async Task<Post> Create(PostRequest newPostRequest)
+    public async Task<Post> Create(CreatePostRequest createPostRequest)
     {
-        var user = _context.Users.SingleOrDefault(user => user.Id == newPostRequest.UserId);
+        var user = _context.Users.SingleOrDefault(user => user.Id == createPostRequest.UserId);
+        if (user == null)
+        {
+            throw new ArgumentException($"User with id {createPostRequest.UserId} doesn't exist");
+        }
 
-        var species = _context.Species.SingleOrDefault(
-            species => species.Id == newPostRequest.SpeciesId
-        );
-
-        var bodyOfWater = _bodyOfWaterService.GetByLocation(
-            newPostRequest.Latitude
-                ?? throw new ArgumentNullException(
-                    nameof(newPostRequest),
-                    "Property \"Latitude\" must not be null"
-                ),
-            newPostRequest.Longitude
-                ?? throw new ArgumentNullException(
-                    nameof(newPostRequest),
-                    "Property \"Longitude\" must not be null"
+        var species =
+            createPostRequest.SpeciesId != null
+                ? _context.Species.SingleOrDefault(
+                    species => species.Id == createPostRequest.SpeciesId
                 )
+                : null;
+
+        var whale =
+            createPostRequest.WhaleId != null
+                ? _context.Whales.SingleOrDefault(
+                    whale => whale.TagNumber == createPostRequest.WhaleId
+                )
+                : null;
+
+        var bodyOfWater = await _bodyOfWaterService.GetByLocation(
+            createPostRequest.Latitude,
+            createPostRequest.Longitude
         );
 
         var newPost = new Post
         {
-            User =
-                user
-                ?? throw new ArgumentNullException(
-                    nameof(newPostRequest),
-                    "Property \"User\" must not be null"
-                ),
-            Latitude =
-                newPostRequest.Latitude
-                ?? throw new ArgumentNullException(
-                    nameof(newPostRequest),
-                    "Property \"Latitude\" must not be null"
-                ),
-            Longitude =
-                newPostRequest.Longitude
-                ?? throw new ArgumentNullException(
-                    nameof(newPostRequest),
-                    "Property \"Longitude\" must not be null"
-                ),
-            Species =
-                species
-                ?? throw new ArgumentNullException(
-                    nameof(newPostRequest),
-                    "Property \"Species\" must not be null"
-                ),
-            ImageUrl =
-                newPostRequest.ImageUrl
-                ?? throw new ArgumentNullException(
-                    nameof(newPostRequest),
-                    "Property \"ImageUrl\" must not be null"
-                ),
-            Description =
-                newPostRequest.Description
-                ?? throw new ArgumentNullException(
-                    nameof(newPostRequest),
-                    "Property \"Description\" must not be null"
-                ),
-            BodyOfWater = await bodyOfWater,
-            Timestamp = DateTime.Now,
+            User = user,
+            Latitude = createPostRequest.Latitude,
+            Longitude = createPostRequest.Longitude,
+            Species = species,
+            Whale = whale,
+            ImageUrl = createPostRequest.ImageUrl,
+            Description = createPostRequest.Description,
+            BodyOfWater = bodyOfWater,
+            CreationTimestamp = DateTime.Now,
             ApprovalStatus = ApprovalStatus.Pending,
-            Rating = 0,
-            Likes = new List<Interaction>(),
+            Interactions = new List<Interaction>(),
         };
 
         var insertedEntity = _context.Posts.Add(newPost);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
 
         return insertedEntity.Entity;
     }
@@ -172,9 +123,8 @@ public class PostRepo : IPostRepo
     public void Modify(int id, ModifyPostRequest modifyPostRequest)
     {
         var post = GetById(id);
-        post.Latitude = modifyPostRequest.Lat;
-        post.Longitude = modifyPostRequest.Lon;
-        post.Timestamp = modifyPostRequest.Date;
+        post.Latitude = modifyPostRequest.Latitude;
+        post.Longitude = modifyPostRequest.Longitude;
         var species = _context.Species.SingleOrDefault(
             species => species.Id == modifyPostRequest.SpeciesId
         );
