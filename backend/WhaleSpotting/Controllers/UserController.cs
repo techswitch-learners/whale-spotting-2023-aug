@@ -16,26 +16,12 @@ public class UserController : ControllerBase
         _userService = userService;
     }
 
-    [HttpGet("id/{id:int}")]
+    [HttpGet("{id:int}")]
     public IActionResult GetById([FromRoute] int id)
     {
         try
         {
             var user = _userService.GetById(id);
-            return Ok(new UserResponse(user));
-        }
-        catch (ArgumentException)
-        {
-            return NotFound();
-        }
-    }
-
-    [HttpGet("username/{username}")]
-    public IActionResult GetByUsername([FromRoute] string username)
-    {
-        try
-        {
-            var user = _userService.GetByUsername(username);
             return Ok(new UserResponse(user));
         }
         catch (ArgumentException)

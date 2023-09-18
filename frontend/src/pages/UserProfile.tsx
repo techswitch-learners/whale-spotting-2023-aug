@@ -4,8 +4,8 @@ import { getUserById } from "../clients/backendApiClient";
 import { useParams } from "react-router-dom";
 import WhaleLoader from "../components/UI/WhaleLoader";
 import Button from "../components/UI/Button";
-import "./UserProfile.scss";
 import UserPosts from "../components/User/UserPosts";
+import "./UserProfile.scss";
 
 export const UserProfile = () => {
   const [user, setUser] = useState<UserData>();
@@ -43,6 +43,10 @@ export const UserProfile = () => {
   useEffect(() => {
     fetchUser();
   }, [fetchUser]);
+
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   if (loading || notFound || otherError) {
     return (

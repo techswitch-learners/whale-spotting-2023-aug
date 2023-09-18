@@ -34,7 +34,7 @@ export const tryEncodedAuth = async (encodedAuth: string): Promise<boolean> => {
 };
 
 export const getUserById = async (id: number): Promise<Response> => {
-  const response = await fetch(`${backendUrl}/User/id/${id}`);
+  const response = await fetch(`${backendUrl}/User/${id}`);
   return response;
 };
 

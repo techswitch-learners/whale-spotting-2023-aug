@@ -21,7 +21,12 @@ export const UserPosts = ({ user }: UserPostsProps) => {
           <section>
             <div className="container PostsGallery">
               {user.posts.map((post) => {
-                return <CardPost postData={post} />;
+                return (
+                  <CardPost
+                    postData={post}
+                    openModalAction={() => setSelectedPostDetails(post)}
+                  />
+                );
               })}
             </div>
           </section>

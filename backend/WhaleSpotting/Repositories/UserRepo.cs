@@ -31,6 +31,8 @@ public class UserRepo : IUserRepo
                 .ThenInclude(post => post.Interactions)
                 .Include(user => user.Posts)
                 .ThenInclude(post => post.Species)
+                .Include(user => user.Posts)
+                .ThenInclude(post => post.BodyOfWater)
                 .Single(user => user.Id == id);
         }
         catch (InvalidOperationException)
@@ -43,14 +45,7 @@ public class UserRepo : IUserRepo
     {
         try
         {
-            return _context.Users
-                .Include(user => user.Posts)
-                .ThenInclude(post => post.Interactions)
-                .Include(user => user.Posts)
-                .ThenInclude(post => post.Species)
-                .Include(user => user.Posts)
-                .ThenInclude(post => post.User)
-                .Single(user => user.Username == username);
+            return _context.Users.Single(user => user.Username == username);
         }
         catch (InvalidOperationException)
         {
