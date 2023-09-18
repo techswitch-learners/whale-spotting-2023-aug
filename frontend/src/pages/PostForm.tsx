@@ -8,6 +8,7 @@ import {
 import Button from "../components/UI/Button";
 import SpeciesListData from "../models/SpeciesListData";
 import "./PostForm.scss";
+const validW3wPattern = /^(\/\/\/)?[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]+$/g;
 
 const PostForm = () => {
   const today = new Date();
@@ -17,29 +18,41 @@ const PostForm = () => {
   const [w3w, setW3w] = useState<string>("");
   const [lat, setLat] = useState<number>(NaN);
   const [lon, setLon] = useState<number>(NaN);
-  const [species, setSpecies] = useState<number>(NaN);
+  const [speciesId, setSpecies] = useState<number>(NaN);
   const [description, setDescription] = useState<string>("");
   const [imageUrl, setImageUrl] = useState<string>("");
   const [locationErrorMessage, setLocationErrorMessage] = useState<string>("");
   const [speciesErrorMessage, setSpeciesErrorMessage] = useState<string>("");
-  const [successMessage, setSuccessMessage] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
   const [speciesListData, setSpeciesListData] = useState<SpeciesListData>();
 
-  const validW3wPattern = /^(\/\/\/)?[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]+$/g;
-
   useEffect(() => {
-    let words;
-    if (w3w.startsWith("///")) {
-      words = w3w.slice(3);
+    if (w3w && validW3wPattern.test(w3w)) {
+      let words;
+      if (w3w.startsWith("///")) {
+        words = w3w.slice(3);
+      } else {
+        words = w3w;
+      }
+      getLatitudeLongitude(words)
+        .then((data) => {
+          if (!isNaN(data.lat) && !isNaN(data.lng)) {
+            setLat(data.lat);
+            setLon(data.lng);
+          } else {
+            setLocationErrorMessage("Please enter a valid what3words");
+            setLat(NaN);
+            setLon(NaN);
+          }
+        })
+        .catch(() =>
+          setLocationErrorMessage("Please enter a valid what3words"),
+        );
+    } else if (w3w && !validW3wPattern.test(w3w)) {
+      setLocationErrorMessage("Please enter a valid what3words");
     } else {
-      words = w3w;
+      setLocationErrorMessage("");
     }
-    getLatitudeLongitude(words)
-      .then((data) => {
-        setLat(data.lat);
-        setLon(data.lng);
-      })
-      .catch(() => setLocationErrorMessage("Please enter a valid what3words"));
   }, [w3w]);
 
   useEffect(() => {
@@ -52,25 +65,19 @@ const PostForm = () => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
-    if (!w3w && !lat && !lon) {
-      setLocationErrorMessage(
-        "Please provide either what3words or a latitude and longitude",
-      );
-      return;
-    }
-
-    if ((!lat && lon) || (!lon && lat)) {
+    if ((isNaN(lat) && !isNaN(lon)) || (isNaN(lon) && !isNaN(lat))) {
       setLocationErrorMessage("Please fill both latitude and longitude");
       return;
     }
 
-    if (isNaN(species)) {
+    if (isNaN(speciesId)) {
       setSpeciesErrorMessage("Please select a species");
       return;
     }
 
     if (w3w && !validW3wPattern.test(w3w)) {
       setLocationErrorMessage("Please enter a valid what3words");
+      return;
     } else if (w3w && validW3wPattern.test(w3w)) {
       let words;
       if (w3w.startsWith("///")) {
@@ -86,25 +93,21 @@ const PostForm = () => {
         .catch(() =>
           setLocationErrorMessage("Please enter a valid what3words"),
         );
+    } else if (isNaN(lat) && isNaN(lon)) {
+      setLocationErrorMessage("Please enter a valid location or what3words");
+      return;
     }
-    if (lat && lon) {
-      createWhalePost(date, lat, lon, species, description, imageUrl)
-        .then(() => {
-          setSuccessMessage("Thank you for your submission");
-        })
-        .catch(() => {
-          setSuccessMessage("Please check the information provided");
-        });
+
+    try {
+      createWhalePost(date, lat, lon, speciesId, description, imageUrl).then(
+        () => {
+          setMessage("Post successfully created");
+        },
+      );
+    } catch (error) {
+      setMessage("Unable to create post, please check information provided");
     }
   };
-
-  useEffect(() => {
-    setLocationErrorMessage("");
-  }, [w3w, lat, lon]);
-
-  useEffect(() => {
-    setSpeciesErrorMessage("");
-  }, [species]);
 
   return (
     <>
@@ -222,7 +225,7 @@ const PostForm = () => {
           <Button type="submit" className="submission-form-children">
             Submit
           </Button>
-          <span className="error-message">{successMessage}</span>
+          <span className="error-message">{message}</span>
         </form>
       </div>
     </>
