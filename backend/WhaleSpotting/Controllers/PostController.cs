@@ -54,22 +54,21 @@ public class PostController : ControllerBase
     }
 
     [HttpPost("")]
-    public async Task<IActionResult> Create([FromBody] PostRequest newPostRequest)
+    public async Task<IActionResult> Create([FromBody] CreatePostRequest createPostRequest)
     {
-        var newPost = new PostResponse(await _postService.Create(newPostRequest));
+        var newPost = new PostResponse(await _postService.Create(createPostRequest));
         return CreatedAtAction(nameof(GetById), new { id = newPost.Id }, newPost);
     }
 
     [HttpPatch("{id:int}")]
     public IActionResult ApproveOrReject(
         [FromRoute] int id,
-        [FromBody] ApproveOrRejectRequest newApproveOrRejectRequest
+        [FromBody] ApproveOrRejectPostRequest approveOrRejectPostRequest
     )
     {
         try
         {
-            _postService.ApproveOrReject(id, newApproveOrRejectRequest.ApprovalStatus);
-
+            _postService.ApproveOrReject(id, approveOrRejectPostRequest.ApprovalStatus);
             return Ok();
         }
         catch (ArgumentException)
@@ -79,15 +78,11 @@ public class PostController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
-    public IActionResult Modify(
-        [FromRoute] int id,
-        [FromBody] ModifyPostRequest newModifyPostRequest
-    )
+    public IActionResult Modify([FromRoute] int id, [FromBody] ModifyPostRequest modifyPostRequest)
     {
         try
         {
-            _postService.Modify(id, newModifyPostRequest);
-
+            _postService.Modify(id, modifyPostRequest);
             return Ok();
         }
         catch (ArgumentException)

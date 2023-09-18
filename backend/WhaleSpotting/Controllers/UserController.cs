@@ -16,26 +16,12 @@ public class UserController : ControllerBase
         _userService = userService;
     }
 
-    [HttpGet("id/{id:int}")]
+    [HttpGet("{id:int}")]
     public IActionResult GetById([FromRoute] int id)
     {
         try
         {
             var user = _userService.GetById(id);
-            return Ok(new UserResponse(user));
-        }
-        catch (ArgumentException)
-        {
-            return NotFound();
-        }
-    }
-
-    [HttpGet("username/{username}")]
-    public IActionResult GetByUsername([FromRoute] string username)
-    {
-        try
-        {
-            var user = _userService.GetByUsername(username);
             return Ok(new UserResponse(user));
         }
         catch (ArgumentException)
@@ -59,9 +45,16 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("")]
-    public IActionResult Create([FromBody] UserRequest newUserRequest)
+    public IActionResult Create([FromBody] CreateUserRequest createUserRequest)
     {
-        var newUser = new UserResponse(_userService.Create(newUserRequest));
-        return CreatedAtAction(nameof(GetById), new { id = newUser.Id }, newUser);
+        try
+        {
+            var newUser = new UserResponse(_userService.Create(createUserRequest));
+            return CreatedAtAction(nameof(GetById), new { id = newUser.Id }, newUser);
+        }
+        catch (ArgumentException exception)
+        {
+            return Conflict(exception.Message);
+        }
     }
 }

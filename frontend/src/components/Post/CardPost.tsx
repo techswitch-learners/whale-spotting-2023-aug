@@ -1,8 +1,8 @@
 import PostData from "../../models/PostData";
 import { toShortDate } from "../../utils/DateConversion";
-import shareIcon from "../../assets/share_icon.png";
+import ShareButtonExpandable from "../ShareButtonExpandable";
+import InteractWithPost from "./InteractWithPost";
 import "./CardPost.scss";
-import LikePost from "./LikePost";
 
 interface PostDataProps {
   postData: PostData;
@@ -15,15 +15,21 @@ const CardPost = ({ postData, openModalAction, onPostLike }: PostDataProps) => {
     <div className="CardPost">
       <div className="CardPost__banner">
         <div className="CardPost__banner__likes">
-          <LikePost
+          <InteractWithPost
             postId={postData.id}
-            likesCount={postData.likes}
-            isLiked={postData.isLiked}
+            interactionCount={postData.interactionCount}
+            hasInteractionFromCurrentUser={
+              postData.hasInteractionFromCurrentUser
+            }
             onPostLike={onPostLike}
           />
         </div>
         <div>
-          <img src={shareIcon} alt="share post" />
+          <ShareButtonExpandable
+            postData={postData}
+            size={24}
+            type={"sighting"}
+          />
         </div>
       </div>
       <img
@@ -35,7 +41,9 @@ const CardPost = ({ postData, openModalAction, onPostLike }: PostDataProps) => {
       <div className="CardPost__info">
         <p className="CardPost__title">{postData.species.name}</p>
         <p className="CardPost__text">{postData.user.name}</p>
-        <p className="CardPost__text">{toShortDate(postData.timestamp)}</p>
+        <p className="CardPost__text">
+          {toShortDate(postData.creationTimestamp)}
+        </p>
       </div>
     </div>
   );

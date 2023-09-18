@@ -6,10 +6,10 @@ namespace WhaleSpotting.Services;
 
 public interface IUserService
 {
-    public User Create(UserRequest newUserRequest);
-    public User GetById(int id);
-    public User GetByUsername(string username);
-    public List<User> GetAll();
+    User Create(CreateUserRequest createUserRequest);
+    User GetById(int id);
+    User GetByUsername(string username);
+    List<User> GetAll();
 }
 
 public class UserService : IUserService
@@ -21,9 +21,9 @@ public class UserService : IUserService
         _users = users;
     }
 
-    public User Create(UserRequest newUserRequest)
+    public User Create(CreateUserRequest createUserRequest)
     {
-        return _users.Create(newUserRequest);
+        return _users.Create(createUserRequest);
     }
 
     public User GetById(int id)

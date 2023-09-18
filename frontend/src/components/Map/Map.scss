@@ -1,0 +1,73 @@
+.leaflet-pane,
+.leaflet-bottom {
+  z-index: 0;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 50%;
+}
+
+.image {
+  max-height: 4rem;
+  object-fit: cover;
+  width: 3rem;
+  height: 3rem;
+  display: block;
+  margin: 0 auto;
+  border-radius: 50%;
+}
+
+.sorting-options select {
+  padding: 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.sorting-options select:hover,
+.sorting-options select:focus {
+  border-color: #0073e6;
+  outline: none;
+}
+
+.marker-options select {
+  padding: 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.marker-options select:hover,
+.marker-options select:focus {
+  border-color: #0073e6;
+  outline: none;
+}
+
+.filter-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.options-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-direction: row;
+  margin-bottom: 5px;
+  gap: 5px;
+}
+
+.sorting-options {
+  margin-bottom: 0px;
+  padding-right: 0.5rem;
+  border-right: 1px solid gray;
+}
+
+label {
+  margin-right: 3px;
+}

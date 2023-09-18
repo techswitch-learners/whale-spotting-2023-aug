@@ -1,0 +1,79 @@
+@use "../styles/mixins" as *;
+@use "../styles/variables" as *;
+
+.share-menu-wrapper {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+.share-menu-wrapper.active {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+.share-menu-icon {
+  margin-left: 0.5rem;
+  cursor: pointer;
+  transform: rotate(0);
+  transition: 0.5s;
+}
+
+.share-menu-icon.active {
+  transform: rotate(-90deg);
+  transition: 0.5s;
+}
+
+.share-links {
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    visibility 0s,
+    opacity 0.5s linear;
+}
+
+.share-links.active {
+  display: block;
+  visibility: visible;
+  opacity: 1;
+}
+
+.share-links li {
+  padding: 0.5rem 1rem;
+  text-align: center;
+
+  @include devices(desktop) {
+    padding: 0;
+  }
+}
+
+.share-links a {
+  padding: 0.25rem 1rem;
+  text-decoration: none;
+  color: $color-primary;
+  font-size: $mobile-font-size-navbar;
+  font-weight: $boldWeight;
+
+  @include devices(tablet) {
+    padding: 0.35rem 1rem;
+    text-decoration: none;
+    color: $color-primary;
+    font-size: $tablet-font-size-navbar;
+    font-weight: $boldWeight;
+  }
+
+  @include devices(desktop) {
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: $color-primary;
+    font-size: $desktop-font-size-navbar;
+    font-weight: $boldWeight;
+  }
+}
+
+.share-links a.active-page {
+  color: white;
+  background-color: $color-primary;
+  border-radius: 2rem;
+}

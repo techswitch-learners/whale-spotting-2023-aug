@@ -6,9 +6,9 @@ namespace WhaleSpotting.Services;
 
 public interface IEventService
 {
-    public Event Create(EventRequest newEventRequest);
-    public Event GetById(int id);
-    public List<Event> GetAll();
+    Event Create(CreateEventRequest createEventRequest);
+    Event GetById(int id);
+    List<Event> GetAll();
 }
 
 public class EventService : IEventService
@@ -20,9 +20,9 @@ public class EventService : IEventService
         _events = events;
     }
 
-    public Event Create(EventRequest newEventRequest)
+    public Event Create(CreateEventRequest createEventRequest)
     {
-        return _events.Create(newEventRequest);
+        return _events.Create(createEventRequest);
     }
 
     public Event GetById(int id)

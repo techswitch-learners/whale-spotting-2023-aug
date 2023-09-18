@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using WhaleSpotting.Models.Database;
 using WhaleSpotting.Services;
 using WhaleSpotting.Models.Response;
 
@@ -19,7 +18,7 @@ public class SpeciesController : ControllerBase
     [HttpGet("all")]
     public IActionResult GetAll()
     {
-        List<Species> species = _speciesService.GetAll();
+        var species = _speciesService.GetAll();
         return Ok(new SpeciesListResponse(species));
     }
 }

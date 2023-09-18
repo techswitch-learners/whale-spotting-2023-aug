@@ -1,16 +1,16 @@
 import { useState, useEffect, useContext, useCallback } from "react";
 import CardPost from "../components/Post/CardPost";
-import Modal from "../components/UI/Modal";
-import CardPostModal from "../components/Post/CardPostModal";
 import PostData from "../models/PostData";
 import FeaturedPostContent from "../components/Post/FeaturedPostContent";
 import FeaturedFrame from "../components/UI/FeaturedFrame";
-import { getAllPosts, likePost } from "../clients/backendApiClient";
+import { getAllPosts, interactWithPost } from "../clients/backendApiClient";
 import WhaleLoader from "../components/UI/WhaleLoader";
 import FeaturedCarousel from "../components/UI/Carousel/FeaturedCarousel";
 import Button from "../components/UI/Button";
-import "./Posts.scss";
 import { LoginContext } from "../context/LoginManager";
+import Modal from "../components/UI/Modal";
+import CardPostModal from "../components/Post/CardPostModal";
+import "./Posts.scss";
 
 export const Posts = () => {
   const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();
@@ -21,11 +21,18 @@ export const Posts = () => {
 
   const onLikeHandler = async (postId: number) => {
     if (loginContext.isLoggedIn) {
-      const LikeResult = await likePost(postId, loginContext.userBase);
-      if (LikeResult) {
+      const interactionResult = await interactWithPost(
+        postId,
+        loginContext.encodedAuth,
+      );
+      if (interactionResult) {
         const updatedPosts = postData?.map((post) => {
           return post.id == postId
-            ? { ...post, isLiked: true, likes: post.likes + 1 }
+            ? {
+                ...post,
+                hasInteractionFromCurrentUser: true,
+                interactionCount: post.interactionCount + 1,
+              }
             : post;
         });
         setPostData(updatedPosts);
@@ -45,12 +52,12 @@ export const Posts = () => {
     setPostData(undefined);
     setErrorMessage(undefined);
 
-    await getAllPosts(loginContext.userBase)
+    await getAllPosts(loginContext.encodedAuth)
       .then((data) => setPostData(data.posts))
       .catch(() => setErrorMessage("Unable to load posts"));
 
     setIsLoading(false);
-  }, [loginContext.userBase]);
+  }, [loginContext.encodedAuth]);
 
   useEffect(() => {
     fetchPosts();

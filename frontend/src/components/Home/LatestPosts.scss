@@ -1,0 +1,48 @@
+@use "../../styles/mixins" as *;
+@use "../../styles/sections" as *;
+@use "../../styles/typography" as *;
+@use "../../styles/variables" as *;
+
+.LatestPosts {
+  margin-top: $mobile-gutter;
+}
+
+.LatestPostsRow {
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
+  width: 100%;
+  gap: $mobile-card-padding;
+  margin-top: $mobile-card-padding;
+}
+
+.LatestPostCard {
+  width: 100%;
+  position: relative;
+  border-radius: $mobile-border-radius;
+  padding: $mobile-card-padding 0;
+
+  &__ImgContainer {
+    &__Img {
+      max-width: 50vw;
+
+      @include devices(tablet) {
+        max-width: 38vw;
+      }
+
+      @include devices(desktop) {
+        width: 400px;
+        height: 300px;
+        object-fit: contain;
+      }
+    }
+  }
+
+  @include devices(tablet) {
+    padding: $tablet-card-padding 0;
+  }
+
+  @include devices(desktop) {
+    padding: $desktop-card-padding 0;
+  }
+}

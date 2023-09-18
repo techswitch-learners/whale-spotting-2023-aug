@@ -2,7 +2,7 @@
 
 namespace WhaleSpotting.Models.Request;
 
-public class ApproveOrRejectRequest
+public class ApproveOrRejectPostRequest
 {
     public ApprovalStatus ApprovalStatus { get; set; }
 }

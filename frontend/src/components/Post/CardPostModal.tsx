@@ -1,10 +1,10 @@
 import PostData from "../../models/PostData";
 import { toShortDate } from "../../utils/DateConversion";
-import shareIcon from "../../assets/share_icon.png";
 import fullscreenIcon from "../../assets/fullscreen_icon.svg";
-
+import ShareButtonExpandable from "../ShareButtonExpandable";
+import { Link } from "react-router-dom";
 import "./CardPostModal.scss";
-import LikePost from "./LikePost";
+import InteractWithPost from "./InteractWithPost";
 
 interface PostDataProps {
   postData: PostData;
@@ -38,31 +38,39 @@ const CardPostModal = ({ postData, onPostLike }: PostDataProps) => {
             {postData.bodyOfWater.name}
           </p>
           <p className="CardPostModal__heading__date">
-            {toShortDate(postData.timestamp)}
+            {toShortDate(postData.creationTimestamp)}
           </p>
         </div>
         <p className="CardPostModal__description">{postData.description}</p>
-        <div className="CardPostModal__user">
-          <p className="CardPostModal__text">{postData.user.name}</p>
-          <div className="CardPostModal__user__image-container">
-            <img
-              className="CardPostModal__user__image"
-              src={postData.user.profileImageUrl}
-              alt={`${postData.user.name}'s profile picture`}
-            />
+        <Link to={`/users/${postData.user.id}`}>
+          <div className="CardPostModal__user">
+            <h3 className="CardPostModal__text">{postData.user.name}</h3>
+            <div className="CardPostModal__user__image-container">
+              <img
+                className="CardPostModal__user__image"
+                src={postData.user.profileImageUrl}
+                alt={`${postData.user.name}'s profile picture`}
+              />
+            </div>
           </div>
-        </div>
+        </Link>
         <div className="CardPostModal__interactions">
           <div className="CardPostModal__interactions__likes">
-            <LikePost
+            <InteractWithPost
               postId={postData.id}
-              likesCount={postData.likes}
-              isLiked={postData.isLiked}
+              interactionCount={postData.interactionCount}
+              hasInteractionFromCurrentUser={
+                postData.hasInteractionFromCurrentUser
+              }
               onPostLike={onPostLike}
             />
           </div>
           <div>
-            <img src={shareIcon} alt="share post" />
+            <ShareButtonExpandable
+              postData={postData}
+              size={36}
+              type={"sighting"}
+            />
           </div>
         </div>
       </div>
