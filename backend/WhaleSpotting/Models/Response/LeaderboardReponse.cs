@@ -4,7 +4,7 @@ namespace WhaleSpotting.Models.Response;
 
 public class LeaderboardResponse
 {
-    public List<LeaderboardRowResponse> Leaderboard { get; set; }
+    public List<LeaderboardRowResponse> Leaderboard { get; }
 
     public LeaderboardResponse(List<LeaderboardRow> leaderboard)
     {

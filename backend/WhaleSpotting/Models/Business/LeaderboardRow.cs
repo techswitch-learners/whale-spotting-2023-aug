@@ -4,14 +4,14 @@ namespace WhaleSpotting.Models.Business;
 
 public class LeaderboardRow
 {
-    public int? UserId { get; set; }
-    public string? Username { get; set; }
-    public int Score { get; set; }
+    public User User { get; }
+    public int Score { get; }
+    public int PostCount { get; }
 
-    public LeaderboardRow(User user, int score)
+    public LeaderboardRow(User user)
     {
-        UserId = user.Id;
-        Username = user.Username;
-        Score = score;
+        User = user;
+        Score = user.Posts.Sum(post => post.Interactions.Count);
+        PostCount = user.Posts.Count;
     }
 }

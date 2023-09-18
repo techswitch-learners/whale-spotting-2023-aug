@@ -1,49 +1,25 @@
-﻿using WhaleSpotting.Enums;
-using WhaleSpotting.Models.Database;
+﻿using WhaleSpotting.Models.Database;
 
 namespace WhaleSpotting.Models.Response;
 
 public class EventResponse
 {
-    public int Id { get; set; }
-    public DateTime? StartDate { get; set; }
-    public int? Duration { get; set; }
-    public string? Location { get; set; }
-    public string? EventLink { get; set; }
-    public string? EventImageUrl { get; set; }
+    public int Id { get; }
+    public string Name { get; }
+    public DateTime StartDate { get; }
+    public int DurationInHours { get; }
+    public string Location { get; }
+    public string Link { get; }
+    public string ImageUrl { get; }
 
-    public EventResponse(Event spottingEvent)
+    public EventResponse(Event @event)
     {
-        Id = spottingEvent.Id;
-        StartDate =
-            spottingEvent.StartDate
-            ?? throw new ArgumentNullException(
-                nameof(spottingEvent),
-                "Property \"StartDate\" must not be null"
-            );
-        Duration =
-            spottingEvent.Duration
-            ?? throw new ArgumentNullException(
-                nameof(spottingEvent),
-                "Property \"Duration\" must not be null"
-            );
-        Location =
-            spottingEvent.Location
-            ?? throw new ArgumentNullException(
-                nameof(spottingEvent),
-                "Property \"Location\" must not be null"
-            );
-        EventLink =
-            spottingEvent.EventLink
-            ?? throw new ArgumentNullException(
-                nameof(spottingEvent),
-                "Property \"EventLink\" must not be null"
-            );
-        EventImageUrl =
-            spottingEvent.EventImageUrl
-            ?? throw new ArgumentNullException(
-                nameof(spottingEvent),
-                "Property \"EventImageUrl\" must not be null"
-            );
+        Id = @event.Id;
+        Name = @event.Name;
+        StartDate = @event.StartDate;
+        DurationInHours = @event.DurationInHours;
+        Location = @event.Location;
+        Link = @event.Link;
+        ImageUrl = @event.ImageUrl;
     }
 }

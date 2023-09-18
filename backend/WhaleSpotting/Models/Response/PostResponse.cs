@@ -7,9 +7,9 @@ public class PostResponse
 {
     public class PostUser
     {
-        public int Id { get; set; }
-        public string? Name { get; set; }
-        public string? ProfileImageUrl { get; set; }
+        public int Id { get; }
+        public string Name { get; }
+        public string ProfileImageUrl { get; }
 
         public PostUser(User user)
         {
@@ -21,8 +21,8 @@ public class PostResponse
 
     public class PostBodyOfWater
     {
-        public int Id { get; set; }
-        public string? Name { get; set; }
+        public int Id { get; }
+        public string Name { get; }
 
         public PostBodyOfWater(BodyOfWater bodyOfWater)
         {
@@ -33,8 +33,8 @@ public class PostResponse
 
     public class PostSpecies
     {
-        public int Id { get; set; }
-        public string? Name { get; set; }
+        public int Id { get; }
+        public string Name { get; }
 
         public PostSpecies(Species species)
         {
@@ -43,91 +43,30 @@ public class PostResponse
         }
     }
 
-    public int Id { get; set; }
-    public PostUser User { get; set; }
-    public double Latitude { get; set; }
-    public double Longitude { get; set; }
-    public DateTime Timestamp { get; set; }
-    public PostSpecies Species { get; set; }
-    public string ImageUrl { get; set; }
-    public string Description { get; set; }
-    public ApprovalStatus ApprovalStatus { get; set; }
-    public int Rating { get; set; }
-    public int Likes { get; set; }
-    public PostBodyOfWater? BodyOfWater { get; set; }
+    public int Id { get; }
+    public PostUser User { get; }
+    public double Latitude { get; }
+    public double Longitude { get; }
+    public DateTime CreationTimestamp { get; }
+    public PostSpecies? Species { get; }
+    public string ImageUrl { get; }
+    public string Description { get; }
+    public ApprovalStatus ApprovalStatus { get; }
+    public int InteractionCount { get; }
+    public PostBodyOfWater? BodyOfWater { get; }
 
     public PostResponse(Post post)
     {
         Id = post.Id;
-        Timestamp =
-            post.Timestamp
-            ?? throw new ArgumentNullException(
-                nameof(post),
-                "Property \"Timestamp\" must not be null"
-            );
-        Latitude =
-            post.Latitude
-            ?? throw new ArgumentNullException(
-                nameof(post),
-                "Property \"latitude\" must not be null"
-            );
-        Longitude =
-            post.Longitude
-            ?? throw new ArgumentNullException(
-                nameof(post),
-                "Property \"longitude\" must not be null"
-            );
-        User =
-            post.User != null
-                ? new PostUser(post.User)
-                : throw new ArgumentNullException(
-                    nameof(post),
-                    "Property \"user\" must not be null"
-                );
-        Latitude =
-            post.Latitude
-            ?? throw new ArgumentNullException(
-                nameof(post),
-                "Property \"Latitude\" must not be null"
-            );
-        Longitude =
-            post.Longitude
-            ?? throw new ArgumentNullException(
-                nameof(post),
-                "Property \"Longitude\" must not be null"
-            );
-        Species =
-            post.Species != null
-                ? new PostSpecies(post.Species)
-                : throw new ArgumentNullException(
-                    nameof(post),
-                    "Property \"PostSpecies\" must not be null"
-                );
-        ImageUrl =
-            post.ImageUrl
-            ?? throw new ArgumentNullException(
-                nameof(post),
-                "Property \"ImageUrl\" must not be null"
-            );
-        Description =
-            post.Description
-            ?? throw new ArgumentNullException(
-                nameof(post),
-                "Property \"Description\" must not be null"
-            );
-        ApprovalStatus =
-            post.ApprovalStatus
-            ?? throw new ArgumentNullException(
-                nameof(post),
-                "Property \"ApprovalStatus\" must not be null"
-            );
-        Rating =
-            post.Rating
-            ?? throw new ArgumentNullException(
-                nameof(post),
-                "Property \"Rating\" must not be null"
-            );
-        Likes = post.Likes != null ? post.Likes.Count : 0;
+        User = new PostUser(post.User);
+        Latitude = post.Latitude;
+        Longitude = post.Longitude;
+        CreationTimestamp = post.CreationTimestamp;
+        Species = post.Species != null ? new PostSpecies(post.Species) : null;
+        ImageUrl = post.ImageUrl;
+        Description = post.Description;
+        ApprovalStatus = post.ApprovalStatus;
+        InteractionCount = post.Interactions.Count;
         BodyOfWater = post.BodyOfWater != null ? new PostBodyOfWater(post.BodyOfWater) : null;
     }
 }

@@ -1,13 +1,14 @@
 ﻿using WhaleSpotting.Models.Database;
 using Microsoft.EntityFrameworkCore;
+using WhaleSpotting.Models.Request;
 
 namespace WhaleSpotting.Repositories;
 
 public interface IBodyOfWaterRepo
 {
-    public BodyOfWater GetByName(string name);
-    public BodyOfWater Create(BodyOfWater newBodyOfWater);
-    public List<BodyOfWater> GetAll();
+    BodyOfWater GetByName(string name);
+    BodyOfWater Create(CreateBodyOfWaterRequest createBodyOfWaterRequest);
+    List<BodyOfWater> GetAll();
 }
 
 public class BodyOfWaterRepo : IBodyOfWaterRepo
@@ -38,8 +39,14 @@ public class BodyOfWaterRepo : IBodyOfWaterRepo
         return _context.BodiesOfWater.Include(user => user.Posts).ToList();
     }
 
-    public BodyOfWater Create(BodyOfWater newBodyOfWater)
+    public BodyOfWater Create(CreateBodyOfWaterRequest createBodyOfWaterRequest)
     {
+        var newBodyOfWater = new BodyOfWater
+        {
+            Name = createBodyOfWaterRequest.Name,
+            Posts = new List<Post>(),
+        };
+
         var insertedEntity = _context.BodiesOfWater.Add(newBodyOfWater);
         _context.SaveChanges();
 

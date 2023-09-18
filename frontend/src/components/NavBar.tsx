@@ -1,12 +1,14 @@
-import { NavLink } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { NavLink, Link } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import logo from "/logo.png";
 import "./Navbar.scss";
+import { LoginContext } from "../context/LoginManager";
 
 function Navbar() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const loginContext = useContext(LoginContext);
 
   const toggleMobileMenu = () => {
     setShowMobileMenu(!showMobileMenu);
@@ -71,6 +73,15 @@ function Navbar() {
             <li>
               <NavLink
                 className={({ isActive }) => (isActive ? "active-page" : "")}
+                to="/events"
+                onClick={closeMobileMenu}
+              >
+                Events
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className={({ isActive }) => (isActive ? "active-page" : "")}
                 to="/map"
                 onClick={closeMobileMenu}
               >
@@ -78,13 +89,25 @@ function Navbar() {
               </NavLink>
             </li>
             <li>
-              <NavLink
-                className={({ isActive }) => (isActive ? "active-page" : "")}
-                to="/login"
-                onClick={closeMobileMenu}
-              >
-                Login
-              </NavLink>
+              {loginContext.isLoggedIn ? (
+                <Link
+                  to="/"
+                  onClick={() => {
+                    loginContext.logOut();
+                    closeMobileMenu();
+                  }}
+                >
+                  Logout
+                </Link>
+              ) : (
+                <NavLink
+                  className={({ isActive }) => (isActive ? "active-page" : "")}
+                  to="/login"
+                  onClick={closeMobileMenu}
+                >
+                  Login
+                </NavLink>
+              )}
             </li>
             <li>
               <NavLink

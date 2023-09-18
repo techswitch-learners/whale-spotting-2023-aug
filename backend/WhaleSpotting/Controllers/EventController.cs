@@ -21,8 +21,8 @@ public class EventController : ControllerBase
     {
         try
         {
-            var spottingevent = _eventService.GetById(id);
-            return Ok(new EventResponse(spottingevent));
+            var @event = _eventService.GetById(id);
+            return Ok(new EventResponse(@event));
         }
         catch (ArgumentException)
         {
@@ -38,9 +38,9 @@ public class EventController : ControllerBase
     }
 
     [HttpPost("")]
-    public IActionResult Create([FromBody] EventRequest newEventRequest)
+    public IActionResult Create([FromBody] CreateEventRequest createEventRequest)
     {
-        var newEvent = new EventResponse(_eventService.Create(newEventRequest));
+        var newEvent = new EventResponse(_eventService.Create(createEventRequest));
         return CreatedAtAction(nameof(GetById), new { id = newEvent.Id }, newEvent);
     }
 }

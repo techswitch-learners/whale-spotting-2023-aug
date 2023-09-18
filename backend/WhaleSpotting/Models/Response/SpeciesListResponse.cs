@@ -4,7 +4,7 @@ namespace WhaleSpotting.Models.Response;
 
 public class SpeciesListResponse
 {
-    public List<SpeciesResponse> SpeciesList { get; set; }
+    public List<SpeciesResponse> SpeciesList { get; }
 
     public SpeciesListResponse(List<Species> speciesList)
     {
