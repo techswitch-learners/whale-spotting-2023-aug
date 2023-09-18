@@ -1,8 +1,8 @@
+import UserData from "./UserData";
+
 interface LeaderboardRowData {
-  userId: number;
-  username: string;
+  user: UserData;
   score: number;
-  userProfileImageUrl: string;
   postCount: number;
 }
 

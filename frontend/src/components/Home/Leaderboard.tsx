@@ -26,7 +26,7 @@ export default function Leaderboard() {
               <th>User</th>
               <th>Name</th>
               <th>Posts</th>
-              <th>Rating</th>
+              <th>Interactions</th>
               <th>Link</th>
             </tr>
             {leaderboard ? (
@@ -34,19 +34,19 @@ export default function Leaderboard() {
                 return (
                   <tr className="Board__Item">
                     <td>
-                      <Link to={`/users/${row.userId}`}>
+                      <Link to={`/users/${row.user.id}`}>
                         <img
                           className="Item_Thumbnail"
-                          src={row.userProfileImageUrl}
+                          src={row.user.profileImageUrl}
                           alt=""
                         />
                       </Link>
                     </td>
-                    <td>{row.username}</td>
+                    <td>{row.user.username}</td>
                     <td>{row.postCount}</td>
                     <td>{row.score}</td>
                     <td className="Board__Item__svg">
-                      <Link to={`/users/${row.userId}`}>
+                      <Link to={`/users/${row.user.id}`}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"

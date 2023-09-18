@@ -52,7 +52,7 @@ public class PostResponse
     public string ImageUrl { get; }
     public string Description { get; }
     public ApprovalStatus ApprovalStatus { get; }
-    public int Interactions { get; }
+    public int InteractionCount { get; }
     public PostBodyOfWater? BodyOfWater { get; }
 
     public PostResponse(Post post)
@@ -66,7 +66,7 @@ public class PostResponse
         ImageUrl = post.ImageUrl;
         Description = post.Description;
         ApprovalStatus = post.ApprovalStatus;
-        Interactions = post.Interactions.Count;
+        InteractionCount = post.Interactions.Count;
         BodyOfWater = post.BodyOfWater != null ? new PostBodyOfWater(post.BodyOfWater) : null;
     }
 }
