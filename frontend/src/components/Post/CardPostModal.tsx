@@ -1,11 +1,12 @@
 import { convertLikesToString } from "../../utils/LikeConversion";
 import PostData from "../../models/PostData";
 import { toShortDate } from "../../utils/DateConversion";
-import shareIcon from "../../assets/share_icon.png";
 import postIcon from "../../assets/post_icon.png";
 import fullscreenIcon from "../../assets/fullscreen_icon.svg";
 
 import "./CardPostModal.scss";
+import ShareButtonExpandable from "../ShareButtonExpandable";
+import { Link } from "react-router-dom";
 
 interface PostDataProps {
   postData: PostData;
@@ -42,23 +43,29 @@ const CardPostModal = ({ postData }: PostDataProps) => {
           </p>
         </div>
         <p className="CardPostModal__description">{postData.description}</p>
-        <div className="CardPostModal__user">
-          <p className="CardPostModal__text">{postData.user.name}</p>
-          <div className="CardPostModal__user__image-container">
-            <img
-              className="CardPostModal__user__image"
-              src={postData.user.profileImageUrl}
-              alt={`${postData.user.name}'s profile picture`}
-            />
+        <Link to={`/users/${postData.user.id}`}>
+          <div className="CardPostModal__user">
+            <h3 className="CardPostModal__text">{postData.user.name}</h3>
+            <div className="CardPostModal__user__image-container">
+              <img
+                className="CardPostModal__user__image"
+                src={postData.user.profileImageUrl}
+                alt={`${postData.user.name}'s profile picture`}
+              />
+            </div>
           </div>
-        </div>
+        </Link>
         <div className="CardPostModal__interactions">
           <div className="CardPostModal__interactions__likes">
             <img src={postIcon} alt="whale icon" />
             <span>{convertLikesToString(postData.rating)}</span>
           </div>
           <div>
-            <img src={shareIcon} alt="share post" />
+            <ShareButtonExpandable
+              postData={postData}
+              size={36}
+              type={"sighting"}
+            />
           </div>
         </div>
       </div>
