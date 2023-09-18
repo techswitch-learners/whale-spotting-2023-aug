@@ -11,7 +11,6 @@ interface PostDataProps {
 }
 
 const CardPost = ({ postData, openModalAction }: PostDataProps) => {
-  console.log(postData);
   return (
     <div className="CardPost">
       <div className="CardPost__banner">
