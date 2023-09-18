@@ -1,13 +1,12 @@
-import PostData from "../../models/PostData";
 import { toShortDate } from "../../utils/DateConversion";
+import { Link } from "react-router-dom";
 import postIcon from "../../assets/post_icon.png";
 import shareIcon from "../../assets/share_icon.png";
-
+import SearchPostData from "../../models/SearchPostData";
 import "./SearchResultCard.scss";
-import { Link } from "react-router-dom";
 
 interface Props {
-  post: PostData;
+  post: SearchPostData;
 }
 
 function SearchResultCard({ post }: Props) {

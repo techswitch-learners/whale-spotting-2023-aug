@@ -1,9 +1,9 @@
 import SearchPostData from "./SearchPostData";
 
-interface BodyOfWaterData {
+interface SearchPostsData {
   id: number;
   name: string;
   posts: SearchPostData[];
 }
 
-export default BodyOfWaterData;
+export default SearchPostsData;

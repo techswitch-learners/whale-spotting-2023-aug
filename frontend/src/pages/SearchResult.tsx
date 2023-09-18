@@ -1,11 +1,11 @@
 import { useSearchParams } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
-import WhaleLoader from "../components/UI/WhaleLoader";
-import Button from "../components/UI/Button";
 import {
   getAllBodiesOfWater,
   getBodyOfWaterByName,
 } from "../clients/backendApiClient";
+import WhaleLoader from "../components/UI/WhaleLoader";
+import Button from "../components/UI/Button";
 import SearchResultCard from "../components/Search/SearchResultCard";
 import BodyOfWaterData from "../models/BodyOfWaterData";
 import "./SearchResult.scss";
@@ -16,8 +16,7 @@ const SearchResult = () => {
   const [notFound, setNotFound] = useState<boolean>(false);
   const [otherError, setOtherError] = useState<boolean>(false);
   const [bodiesOfWater, setBodiesOfWater] = useState<BodyOfWaterData[]>();
-
-  const searchParams = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [bodyOfWaterName, setBodyOfWaterName] = useState(
     searchParams.get("bodyOfWater"),
   );
@@ -82,48 +81,48 @@ const SearchResult = () => {
   }
 
   return (
-    <section className="container">
-      <h2>Posts for {bodyOfWaterName}</h2>
-      <div className="SearchResults">
+    <>
+      <section className="container">
         <div className="SearchResults__Filter">
-          <div>Toggle Map/List</div>
-
-          <h3>Searh from List</h3>
-
-          <div className="SearchResults__Filter__List">
-            <ul>
+          <label htmlFor="bodyOfWater">
+            <select
+              className="SearchBySea__select"
+              id="bodyOfWater"
+              name="bodyOfWater"
+              onChange={(e) => setBodyOfWaterName(e.target.value)}
+            >
+              <option selected disabled>
+                Please select...
+              </option>
               {bodiesOfWater &&
-                bodiesOfWater.map((bodyOfWater) => {
-                  if (bodyOfWater.posts.length > 0) {
-                    return (
-                      <li
-                        key={bodyOfWater.id}
-                        className="SearchBySea__select__option"
-                        value={bodyOfWater.name}
-                        onClick={() => setBodyOfWaterName(bodyOfWater.name)}
-                      >
-                        {bodyOfWater.name +
-                          (bodyOfWater.posts.length === 0
-                            ? " (no posts yet)"
-                            : "")}
-                      </li>
-                    );
-                  }
-                })}
-            </ul>
-          </div>
+                bodiesOfWater.map((bodyOfWater) => (
+                  <option
+                    key={bodyOfWater.id}
+                    className="SearchBySea__select__option"
+                    value={bodyOfWater.name}
+                    disabled={bodyOfWater.posts.length === 0}
+                  >
+                    {bodyOfWater.name +
+                      (bodyOfWater.posts.length === 0 ? " (no posts yet)" : "")}
+                  </option>
+                ))}
+            </select>
+          </label>
         </div>
-        <main className="SearchResults__Main">
-          {bodyOfWater && bodyOfWater.posts.length > 0 ? (
-            bodyOfWater.posts.map((post) => {
-              return <SearchResultCard key={post.id} post={post} />;
-            })
-          ) : (
-            <h4>No posts, please try again... </h4>
-          )}
-        </main>
-      </div>
-    </section>
+        <h2>Posts for {bodyOfWaterName}</h2>
+        <div className="SearchResults">
+          <main className="SearchResults__Main">
+            {bodyOfWater && bodyOfWater.posts.length > 0 ? (
+              bodyOfWater.posts.map((post) => {
+                return <SearchResultCard key={post.id} post={post} />;
+              })
+            ) : (
+              <h4>No posts, please try again... </h4>
+            )}
+          </main>
+        </div>
+      </section>
+    </>
   );
 };
 
