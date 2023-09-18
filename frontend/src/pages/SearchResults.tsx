@@ -6,11 +6,15 @@ import {
 } from "../clients/backendApiClient";
 import WhaleLoader from "../components/UI/WhaleLoader";
 import Button from "../components/UI/Button";
-import SearchResultCard from "../components/Search/SearchResultCard";
 import BodyOfWaterData from "../models/BodyOfWaterData";
-import "./SearchResult.scss";
+import CardPost from "../components/Post/CardPost";
+import Modal from "../components/UI/Modal";
+import CardPostModal from "../components/Post/CardPostModal";
+import PostData from "../models/PostData";
+import "./SearchResults.scss";
 
-const SearchResult = () => {
+const SearchResults = () => {
+  const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();
   const [bodyOfWater, setBodyOfWater] = useState<BodyOfWaterData>();
   const [loading, setLoading] = useState<boolean>(true);
   const [notFound, setNotFound] = useState<boolean>(false);
@@ -111,19 +115,26 @@ const SearchResult = () => {
         </div>
         <h2>Posts for {bodyOfWaterName}</h2>
         <div className="SearchResults">
-          <main className="SearchResults__Main">
-            {bodyOfWater && bodyOfWater.posts.length > 0 ? (
+          <div className="container PostsGallery">
+            {bodyOfWater &&
               bodyOfWater.posts.map((post) => {
-                return <SearchResultCard key={post.id} post={post} />;
-              })
-            ) : (
-              <h4>No posts, please try again... </h4>
-            )}
-          </main>
+                return (
+                  <CardPost
+                    postData={post}
+                    openModalAction={() => setSelectedPostDetails(post)}
+                  />
+                );
+              })}
+          </div>
+          {selectedPostDetails && (
+            <Modal closeAction={() => setSelectedPostDetails(undefined)}>
+              <CardPostModal postData={selectedPostDetails} />
+            </Modal>
+          )}
         </div>
       </section>
     </>
   );
 };
 
-export default SearchResult;
+export default SearchResults;

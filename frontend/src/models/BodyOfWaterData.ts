@@ -1,9 +1,9 @@
-import SearchPostData from "./SearchPostData";
+import PostData from "./PostData";
 
 interface BodyOfWaterData {
   id: number;
   name: string;
-  posts: SearchPostData[];
+  posts: PostData[];
 }
 
 export default BodyOfWaterData;
