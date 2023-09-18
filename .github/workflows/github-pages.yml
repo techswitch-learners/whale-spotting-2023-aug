@@ -21,6 +21,8 @@ jobs:
       - name: Build
         working-directory: ./frontend
         run: npm run build
+        env:
+          VITE_BACKEND_URL: ${{ secrets.VITE_BACKEND_URL }}
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v1
         with:
