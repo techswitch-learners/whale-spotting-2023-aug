@@ -5,7 +5,7 @@ namespace WhaleSpotting.Services;
 
 public interface ILeaderboardService
 {
-    public List<LeaderboardRow> Get();
+    List<LeaderboardRow> Get();
 }
 
 public class LeaderboardService : ILeaderboardService
@@ -20,22 +20,8 @@ public class LeaderboardService : ILeaderboardService
     public List<LeaderboardRow> Get()
     {
         var users = _users.GetAll();
-
-        var leaderboard = new List<LeaderboardRow>();
-
-        users.ForEach(user =>
-        {
-            var score = 0;
-
-            if (user.Posts != null && user.Posts.Count > 0)
-            {
-                score = user.Posts.Sum(post => post.Likes.Count);
-            }
-
-            leaderboard.Add(new LeaderboardRow(user, score));
-        });
-
-        leaderboard.Sort((a, b) => b.Score - a.Score);
+        var leaderboard = users.Select(user => new LeaderboardRow(user)).ToList();
+        leaderboard.Sort((rowA, rowB) => rowB.Score - rowA.Score);
         return leaderboard.Take(10).ToList();
     }
 }

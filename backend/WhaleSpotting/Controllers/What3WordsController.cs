@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using WhaleSpotting.Helpers;
 using WhaleSpotting.Models.Api;
-using WhaleSpotting.Services;
 
 namespace WhaleSpotting.Controllers;
 
@@ -15,7 +13,7 @@ public class What3WordsController : ControllerBase
     public What3WordsController(IConfiguration config)
     {
         _config = config;
-        _client = new();
+        _client = new HttpClient();
     }
 
     [HttpGet("")]
@@ -29,12 +27,9 @@ public class What3WordsController : ControllerBase
             );
             if (response?.Coordinates != null)
             {
-                return Ok(response?.Coordinates);
+                return Ok(response.Coordinates);
             }
-            else
-            {
-                return NotFound();
-            }
+            return NotFound();
         }
         catch (HttpRequestException)
         {

@@ -5,7 +5,7 @@ namespace WhaleSpotting.Repositories;
 
 public interface IInteractionRepo
 {
-    Interaction Create(InteractionRequest newInteractionRequest, int userId);
+    Interaction Create(CreateInteractionRequest createInteractionRequest, int userId);
 }
 
 public class InteractionRepo : IInteractionRepo
@@ -17,25 +17,28 @@ public class InteractionRepo : IInteractionRepo
         _context = context;
     }
 
-    public Interaction Create(InteractionRequest newInteractionRequest, int userId)
+    public Interaction Create(CreateInteractionRequest createInteractionRequest, int userId)
     {
         var existingInteractions = _context.Interactions.Where(
             interaction =>
-                interaction.PostId == newInteractionRequest.PostId && interaction.UserId == userId
+                interaction.PostId == createInteractionRequest.PostId
+                && interaction.UserId == userId
         );
-        if (!existingInteractions.Any())
+
+        if (existingInteractions.Any())
         {
-            var newInteraction = new Interaction
-            {
-                PostId = newInteractionRequest.PostId,
-                UserId = userId,
-            };
-
-            var insertedEntity = _context.Interactions.Add(newInteraction);
-            _context.SaveChanges();
-
-            return insertedEntity.Entity;
+            throw new ArgumentException("Post already interacted with");
         }
-        throw new ArgumentException("Post already liked");
+
+        var newInteraction = new Interaction
+        {
+            PostId = createInteractionRequest.PostId,
+            UserId = userId,
+        };
+
+        var insertedEntity = _context.Interactions.Add(newInteraction);
+        _context.SaveChanges();
+
+        return insertedEntity.Entity;
     }
 }
