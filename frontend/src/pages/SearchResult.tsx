@@ -8,6 +8,7 @@ import WhaleLoader from "../components/UI/WhaleLoader";
 import Button from "../components/UI/Button";
 import SearchResultCard from "../components/Search/SearchResultCard";
 import BodyOfWaterData from "../models/BodyOfWaterData";
+import "./SearchResult.scss";
 
 const SearchResult = () => {
   const [bodyOfWater, setBodyOfWater] = useState<BodyOfWaterData>();
