@@ -95,5 +95,9 @@ public class PostController : ControllerBase
         {
             return NotFound();
         }
+        catch (UnauthorizedAccessException)
+        {
+            return Unauthorized();
+        }
     }
 }

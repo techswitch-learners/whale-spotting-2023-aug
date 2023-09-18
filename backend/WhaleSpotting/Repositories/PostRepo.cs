@@ -124,7 +124,7 @@ public class PostRepo : IPostRepo
     {
         var post = GetById(id);
 
-        if (userRole != Role.Admin || post.User.Id != userId)
+        if (userRole != Role.Admin && post.User.Id != userId)
         {
             throw new UnauthorizedAccessException();
         }
