@@ -12,7 +12,7 @@ public interface IPostService
     List<Post> GetAll();
     List<Post> GetPending();
     void ApproveOrReject(int id, ApprovalStatus approvalStatus);
-    void Modify(int id, ModifyPostRequest modifyPostRequest);
+    void Modify(int id, ModifyPostRequest modifyPostRequest, int userId, Role userRole);
 }
 
 public class PostService : IPostService
@@ -49,8 +49,8 @@ public class PostService : IPostService
         _posts.ApproveOrReject(id, approvalStatus);
     }
 
-    public void Modify(int id, ModifyPostRequest modifyPostRequest)
+    public void Modify(int id, ModifyPostRequest modifyPostRequest, int userId, Role userRole)
     {
-        _posts.Modify(id, modifyPostRequest);
+        _posts.Modify(id, modifyPostRequest, userId, userRole);
     }
 }

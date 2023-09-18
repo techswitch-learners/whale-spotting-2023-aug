@@ -13,7 +13,7 @@ public interface IPostRepo
     List<Post> GetAll();
     List<Post> GetPending();
     void ApproveOrReject(int id, ApprovalStatus approvalStatus);
-    void Modify(int id, ModifyPostRequest modifyPostRequest);
+    void Modify(int id, ModifyPostRequest modifyPostRequest, int userId, Role userRole);
 }
 
 public class PostRepo : IPostRepo
@@ -120,9 +120,15 @@ public class PostRepo : IPostRepo
         _context.SaveChanges();
     }
 
-    public void Modify(int id, ModifyPostRequest modifyPostRequest)
+    public void Modify(int id, ModifyPostRequest modifyPostRequest, int userId, Role userRole)
     {
         var post = GetById(id);
+
+        if (userRole != Role.Admin || post.User.Id != userId)
+        {
+            throw new UnauthorizedAccessException();
+        }
+
         post.Latitude = modifyPostRequest.Latitude;
         post.Longitude = modifyPostRequest.Longitude;
         var species = _context.Species.SingleOrDefault(

@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using WhaleSpotting.Attributes;
+using WhaleSpotting.Enums;
 using WhaleSpotting.Models.Request;
 using WhaleSpotting.Models.Response;
 using WhaleSpotting.Services;
@@ -76,11 +78,17 @@ public class PostController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
-    public IActionResult Modify([FromRoute] int id, [FromBody] ModifyPostRequest modifyPostRequest)
+    [RequiresUserAuth]
+    public IActionResult Modify(
+        [FromRoute] int id,
+        [FromBody] ModifyPostRequest modifyPostRequest,
+        [FromHeader] int userId,
+        Role userRole
+    )
     {
         try
         {
-            _postService.Modify(id, modifyPostRequest);
+            _postService.Modify(id, modifyPostRequest, userId, userRole);
             return Ok();
         }
         catch (ArgumentException)
