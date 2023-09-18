@@ -10,3 +10,15 @@ public class What3WordsLocation
     public string? Language { get; set; }
     public string? Map { get; set; }
 }
+
+public class What3WordsSquare
+{
+    public What3WordsCoordinates? SouthWest { get; set; }
+    public What3WordsCoordinates? NorthEast { get; set; }
+}
+
+public class What3WordsCoordinates
+{
+    public double? Lat { get; set; }
+    public double? Lng { get; set; }
+}

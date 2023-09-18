@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WhaleSpotting;
@@ -11,9 +12,10 @@ using WhaleSpotting;
 namespace WhaleSpotting.Migrations
 {
     [DbContext(typeof(WhaleSpottingContext))]
-    partial class WhaleSpottingContextModelSnapshot : ModelSnapshot
+    [Migration("20230918095820_ReviseNullability")]
+    partial class ReviseNullability
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,14 +49,14 @@ namespace WhaleSpotting.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("DurationInHours")
+                    b.Property<int>("Duration")
                         .HasColumnType("integer");
 
-                    b.Property<string>("ImageUrl")
+                    b.Property<string>("EventImageUrl")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Link")
+                    b.Property<string>("EventLink")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -111,7 +113,7 @@ namespace WhaleSpotting.Migrations
                     b.Property<int?>("BodyOfWaterId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("CreationTimestamp")
+                    b.Property<DateTime>("Timestamp")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Description")

@@ -7,12 +7,12 @@ namespace WhaleSpotting.Services;
 
 public interface IPostService
 {
-    public Task<Post> Create(PostRequest newPostRequest);
-    public Post GetById(int id);
-    public List<Post> GetAll();
-    public List<Post> GetPending();
-    public void ApproveOrReject(int id, ApprovalStatus approvalStatus);
-    public void Modify(int id, ModifyPostRequest modifyPostRequest);
+    Task<Post> Create(CreatePostRequest createPostRequest);
+    Post GetById(int id);
+    List<Post> GetAll();
+    List<Post> GetPending();
+    void ApproveOrReject(int id, ApprovalStatus approvalStatus);
+    void Modify(int id, ModifyPostRequest modifyPostRequest);
 }
 
 public class PostService : IPostService
@@ -24,9 +24,9 @@ public class PostService : IPostService
         _posts = posts;
     }
 
-    public async Task<Post> Create(PostRequest newPostRequest)
+    public async Task<Post> Create(CreatePostRequest createPostRequest)
     {
-        return await _posts.Create(newPostRequest);
+        return await _posts.Create(createPostRequest);
     }
 
     public Post GetById(int id)

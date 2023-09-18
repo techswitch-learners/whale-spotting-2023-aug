@@ -13,7 +13,7 @@ const Map = () => {
   const [postData, setPostData] = useState<PostData[]>();
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string>();
-  const [sortMethod, setSortMethod] = useState<"date" | "rating">("date");
+  const [sortMethod, setSortMethod] = useState<"date" | "interactions">("date");
   const [numMarkers, setNumMarkers] = useState<number>(20);
 
   const fetchPosts = async () => {
@@ -33,7 +33,7 @@ const Map = () => {
   }, []);
 
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSortMethod(e.target.value as "date" | "rating");
+    setSortMethod(e.target.value as "date" | "interactions");
   };
 
   const handleNumMarkersChange = (num: number) => {
@@ -44,11 +44,14 @@ const Map = () => {
 
   if (sortMethod === "date") {
     sortedData = postData?.slice().sort((a, b) => {
-      return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
+      return (
+        new Date(b.creationTimestamp).getTime() -
+        new Date(a.creationTimestamp).getTime()
+      );
     });
-  } else if (sortMethod === "rating") {
+  } else if (sortMethod === "interactions") {
     sortedData = postData?.slice().sort((a, b) => {
-      return b.rating - a.rating;
+      return b.interactionCount - a.interactionCount;
     });
   }
 
@@ -77,7 +80,7 @@ const Map = () => {
           <label htmlFor="sort-by">Sort by:</label>
           <select id="sort-by" onChange={handleSortChange} value={sortMethod}>
             <option value="date">Date</option>
-            <option value="rating">Rating</option>
+            <option value="interactions">Interactions</option>
           </select>
         </div>
 

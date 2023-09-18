@@ -5,18 +5,16 @@ namespace WhaleSpotting.Services;
 
 public interface IAuthService
 {
-    public User? GetMatchingUser(string username, string password);
+    User? GetMatchingUser(string username, string password);
 }
 
 public class AuthService : IAuthService
 {
     private readonly IUserRepo _users;
-    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public AuthService(IUserRepo users, IHttpContextAccessor httpContextAccessor)
+    public AuthService(IUserRepo users)
     {
         _users = users;
-        _httpContextAccessor = httpContextAccessor;
     }
 
     public User? GetMatchingUser(string username, string password)

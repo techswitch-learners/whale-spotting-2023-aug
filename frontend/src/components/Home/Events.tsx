@@ -32,10 +32,10 @@ const Events = () => {
                 return (
                   <tr className="Board__Item">
                     <td>
-                      <a href={`${event.eventLink}`} target="_blank">
+                      <a href={`${event.link}`} target="_blank">
                         <img
                           className="Item_Thumbnail"
-                          src={event.eventImageUrl}
+                          src={event.imageUrl}
                           alt=""
                         />
                       </a>

@@ -12,7 +12,7 @@ const CardEvent = ({ eventData, openModalAction }: EventDataProps) => {
     <div className="CardEvent">
       <img
         className="CardEvent__image"
-        src={eventData.eventImageUrl}
+        src={eventData.imageUrl}
         alt={`image of event ${eventData.id}`}
         onClick={openModalAction}
       />

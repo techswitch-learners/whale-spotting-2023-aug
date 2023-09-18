@@ -9,9 +9,10 @@ import "./FeaturedPostContent.scss";
 
 interface PostDataProps {
   postData: PostData;
+  openModalAction: () => void;
 }
 
-const FeaturedPostContent = ({ postData }: PostDataProps) => {
+const FeaturedPostContent = ({ postData, openModalAction }: PostDataProps) => {
   return (
     <>
       <div className="FeaturedPostContent__heading">
@@ -22,30 +23,35 @@ const FeaturedPostContent = ({ postData }: PostDataProps) => {
           {postData.bodyOfWater.name}
         </p>
         <p className="FeaturedPostContent__heading__date">
-          {toShortDate(postData.timestamp)}
+          {toShortDate(postData.creationTimestamp)}
         </p>
       </div>
       <p className="FeaturedPostContent__description">{postData.description}</p>
       <div className="FeaturedPostContent__sub-section">
-        <Link to={`/posts/${postData.id}`}>
-          <Button className="FeaturedPostContent__view-more">View</Button>
-        </Link>
-        <div className="FeaturedPostContent__user">
-          <p className="FeaturedPostContent__text">{postData.user.name}</p>
-          <div className="FeaturedPostContent__user__image-container">
-            <img
-              className="FeaturedPostContent__user__image"
-              src={postData.user.profileImageUrl}
-              alt={`${postData.user.name}'s profile picture`}
-            />
+        <Button
+          className="FeaturedPostContent__view-more"
+          onClick={openModalAction}
+        >
+          View
+        </Button>
+        <Link to={`/users/${postData.user.id}`}>
+          <div className="FeaturedPostContent__user">
+            <p className="FeaturedPostContent__text">{postData.user.name}</p>
+            <div className="FeaturedPostContent__user__image-container">
+              <img
+                className="FeaturedPostContent__user__image"
+                src={postData.user.profileImageUrl}
+                alt={`${postData.user.name}'s profile picture`}
+              />
+            </div>
           </div>
-        </div>
+        </Link>
       </div>
 
       <div className="FeaturedPostContent__interactions">
         <div className="FeaturedPostContent__interactions__likes">
           <img src={postIcon} alt="whale icon" />
-          <span>{convertLikesToString(postData.rating)}</span>
+          <span>{convertLikesToString(postData.interactionCount)}</span>
         </div>
         <div>
           <ShareButtonExpandable

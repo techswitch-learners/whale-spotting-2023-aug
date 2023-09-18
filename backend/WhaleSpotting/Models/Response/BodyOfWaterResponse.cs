@@ -5,46 +5,34 @@ namespace WhaleSpotting.Models.Response;
 
 public class BodyOfWaterResponse
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
-
-    public class BodyofWaterPost
+    public class BodyOfWaterPost
     {
         public int Id { get; set; }
-        public string? ImageUrl { get; set; }
-        public string? Description { get; set; }
-        public DateTime? Timestamp { get; set; }
-        public ApprovalStatus? ApprovalStatus { get; set; }
-        public int? Rating { get; set; }
+        public string ImageUrl { get; set; }
+        public string Description { get; set; }
+        public DateTime CreationTimestamp { get; set; }
+        public ApprovalStatus ApprovalStatus { get; set; }
+        public int InteractionCount { get; set; }
 
-        public BodyofWaterPost(Post post)
+        public BodyOfWaterPost(Post post)
         {
             Id = post.Id;
             ImageUrl = post.ImageUrl;
             Description = post.Description;
-            Timestamp = post.Timestamp;
+            CreationTimestamp = post.CreationTimestamp;
             ApprovalStatus = post.ApprovalStatus;
-            Rating = post.Rating;
+            InteractionCount = post.Interactions.Count;
         }
     }
 
-    public List<BodyofWaterPost>? Posts { get; set; }
+    public int Id { get; }
+    public string Name { get; }
+    public List<BodyOfWaterPost> Posts { get; }
 
     public BodyOfWaterResponse(BodyOfWater bodyOfWater)
     {
         Id = bodyOfWater.Id;
-        Name =
-            bodyOfWater.Name
-            ?? throw new ArgumentNullException(
-                nameof(bodyOfWater),
-                "Property \"Name\" must not be null"
-            );
-        Posts =
-            bodyOfWater.Posts != null
-                ? bodyOfWater.Posts.Select((post) => new BodyofWaterPost(post)).ToList()
-                : throw new ArgumentNullException(
-                    nameof(bodyOfWater),
-                    "Property \"Posts\" must not be null"
-                );
+        Name = bodyOfWater.Name;
+        Posts = bodyOfWater.Posts.Select(post => new BodyOfWaterPost(post)).ToList();
     }
 }

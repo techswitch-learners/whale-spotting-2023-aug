@@ -6,7 +6,7 @@ namespace WhaleSpotting.Services;
 
 public interface IInteractionService
 {
-    public Interaction Create(InteractionRequest newInteractionRequest, int userId);
+    Interaction Create(CreateInteractionRequest createInteractionRequest, int userId);
 }
 
 public class InteractionService : IInteractionService
@@ -18,8 +18,8 @@ public class InteractionService : IInteractionService
         _interactions = interactions;
     }
 
-    public Interaction Create(InteractionRequest newInteractionRequest, int userId)
+    public Interaction Create(CreateInteractionRequest createInteractionRequest, int userId)
     {
-        return _interactions.Create(newInteractionRequest, userId);
+        return _interactions.Create(createInteractionRequest, userId);
     }
 }

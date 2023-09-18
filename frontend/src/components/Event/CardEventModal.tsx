@@ -15,10 +15,10 @@ const CardEventModal = ({ eventData }: EventDataProps) => {
       <div className="CardEventModal__image__container">
         <img
           className="CardEventModal__image"
-          src={eventData.eventImageUrl}
+          src={eventData.imageUrl}
           alt={`image of event ${eventData.id}`}
         />
-        <a href={eventData.eventImageUrl} target="_blank">
+        <a href={eventData.imageUrl} target="_blank">
           <img
             className="CardEventModal__fullscreen"
             src={fullscreenIcon}
@@ -36,22 +36,18 @@ const CardEventModal = ({ eventData }: EventDataProps) => {
             {toShortDate(eventData.startDate)}
           </p>
           <p className="CardEventModal__heading__duration">
-            Duration: {eventData.duration} days
+            Duration: {eventData.durationInHours} days
           </p>
         </div>
         <Button
           className="CardEventModal__button"
           onClick={() => {
-            window.open(`${eventData.eventLink}`, "_blank");
+            window.open(`${eventData.link}`, "_blank");
           }}
         >
           Click here view event website <br /> (external link)
         </Button>
-        <ShareButton
-          url={eventData.eventLink}
-          size={48}
-          type={"Spotting event"}
-        />
+        <ShareButton url={eventData.link} size={48} type={"Spotting event"} />
       </div>
     </div>
   );
