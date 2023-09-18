@@ -7,7 +7,7 @@ interface PostData {
   };
   latitude: number;
   longitude: number;
-  timestamp: string;
+  creationTimestamp: string;
   species: {
     id: number;
     name: string;
@@ -15,7 +15,7 @@ interface PostData {
   imageUrl: string;
   description: string;
   approvalStatus: number;
-  rating: number;
+  interactionCount: number;
   bodyOfWater: {
     id: number;
     name: string;

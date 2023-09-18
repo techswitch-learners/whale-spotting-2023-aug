@@ -50,10 +50,8 @@ public class UserHeaderRequirementFilter : IAuthorizationFilter
             return;
         }
 
-        _httpContextAccessor.HttpContext.Request.Headers["UserId"] = user.Id.ToString();
-        _httpContextAccessor.HttpContext.Request.Headers["UserRole"] = user.Role.ToString();
-
-        return;
+        _httpContextAccessor.HttpContext.Request.Headers["userId"] = user.Id.ToString();
+        _httpContextAccessor.HttpContext.Request.Headers["userRole"] = user.Role.ToString();
     }
 }
 

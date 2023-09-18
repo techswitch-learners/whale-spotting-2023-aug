@@ -103,7 +103,7 @@ const Post = () => {
                 {post.bodyOfWater.name}
               </p>
               <p className="CardPostModal__heading__date">
-                {toShortDate(post.timestamp)}
+                {toShortDate(post.creationTimestamp)}
               </p>
             </div>
             <p className="CardPostModal__description">{post.description}</p>
@@ -120,7 +120,7 @@ const Post = () => {
             <div className="CardPostModal__interactions">
               <div className="CardPostModal__interactions__likes">
                 <img src={postIcon} alt="whale icon" />
-                <span>{convertLikesToString(post.rating)}</span>
+                <span>{convertLikesToString(post.interactionCount)}</span>
               </div>
               <div>
                 <ShareButtonExpandable

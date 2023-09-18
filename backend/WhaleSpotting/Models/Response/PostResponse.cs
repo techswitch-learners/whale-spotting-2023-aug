@@ -47,12 +47,12 @@ public class PostResponse
     public PostUser User { get; }
     public double Latitude { get; }
     public double Longitude { get; }
-    public DateTime Timestamp { get; }
+    public DateTime CreationTimestamp { get; }
     public PostSpecies? Species { get; }
     public string ImageUrl { get; }
     public string Description { get; }
     public ApprovalStatus ApprovalStatus { get; }
-    public int Interactions { get; }
+    public int InteractionCount { get; }
     public PostBodyOfWater? BodyOfWater { get; }
 
     public PostResponse(Post post)
@@ -61,12 +61,12 @@ public class PostResponse
         User = new PostUser(post.User);
         Latitude = post.Latitude;
         Longitude = post.Longitude;
-        Timestamp = post.CreationTimestamp;
+        CreationTimestamp = post.CreationTimestamp;
         Species = post.Species != null ? new PostSpecies(post.Species) : null;
         ImageUrl = post.ImageUrl;
         Description = post.Description;
         ApprovalStatus = post.ApprovalStatus;
-        Interactions = post.Interactions.Count;
+        InteractionCount = post.Interactions.Count;
         BodyOfWater = post.BodyOfWater != null ? new PostBodyOfWater(post.BodyOfWater) : null;
     }
 }

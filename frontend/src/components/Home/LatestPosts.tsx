@@ -33,7 +33,7 @@ export default function LatestPosts() {
                     />
                   </div>
                   <p>Spotter: {post.user.name}</p>
-                  <p>Date : {toShortDate(post.timestamp)}</p>
+                  <p>Date : {toShortDate(post.creationTimestamp)}</p>
                 </div>
               );
             })

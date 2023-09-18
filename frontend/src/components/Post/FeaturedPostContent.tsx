@@ -22,7 +22,7 @@ const FeaturedPostContent = ({ postData }: PostDataProps) => {
           {postData.bodyOfWater.name}
         </p>
         <p className="FeaturedPostContent__heading__date">
-          {toShortDate(postData.timestamp)}
+          {toShortDate(postData.creationTimestamp)}
         </p>
       </div>
       <p className="FeaturedPostContent__description">{postData.description}</p>
@@ -45,7 +45,7 @@ const FeaturedPostContent = ({ postData }: PostDataProps) => {
       <div className="FeaturedPostContent__interactions">
         <div className="FeaturedPostContent__interactions__likes">
           <img src={postIcon} alt="whale icon" />
-          <span>{convertLikesToString(postData.rating)}</span>
+          <span>{convertLikesToString(postData.interactionCount)}</span>
         </div>
         <div>
           <ShareButtonExpandable
