@@ -44,10 +44,6 @@ export const UserProfile = () => {
     fetchUser();
   }, [fetchUser]);
 
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
-
   if (loading || notFound || otherError) {
     return (
       <main>
