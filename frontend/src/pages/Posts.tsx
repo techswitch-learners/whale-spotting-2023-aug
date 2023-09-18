@@ -17,6 +17,7 @@ export const Posts = () => {
   const [postData, setPostData] = useState<PostData[]>();
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string>();
+  const [createButtonText, setCreateButtonText] = useState<string>("+");
 
   const fetchPosts = async () => {
     setIsLoading(true);
@@ -97,8 +98,13 @@ export const Posts = () => {
           </div>
         </section>
       )}
-      <Link to="/posts/create" className="create-post-button">
-        Create a Post
+      <Link
+        to="/posts/create"
+        className="create-post-button"
+        onMouseEnter={() => setCreateButtonText("Create a new post")}
+        onMouseLeave={() => setCreateButtonText("+")}
+      >
+        {createButtonText}
       </Link>
     </main>
   );

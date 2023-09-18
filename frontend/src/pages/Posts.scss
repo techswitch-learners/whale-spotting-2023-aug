@@ -23,11 +23,22 @@
   bottom: 20px;
   right: 20px;
   padding: 10px 20px;
-  background-color: #007bff;
-  color: black;
-  border: none;
-  border-radius: 5px;
   cursor: pointer;
-  text-decoration: none;
   z-index: 1000;
+  border-radius: 50%;
+  width: 3.5rem;
+  height: 3.5rem;
+  background-color: $color-secondary;
+  display: flex;
+  align-items: center;
+  font-size: 3rem;
+  font-weight: $boldWeight;
+  font-family: "Poiret One", sans-serif;
+
+  &:hover {
+    width: auto;
+    border-radius: 25px;
+    font-weight: $regularWeight;
+    font-size: 1rem;
+  }
 }
