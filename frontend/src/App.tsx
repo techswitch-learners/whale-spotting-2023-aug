@@ -1,4 +1,5 @@
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { LoginManager } from "./context/LoginManager.tsx";
 import Navbar from "./components/NavBar.tsx";
 import Home from "./pages/Home";
 import Posts from "./pages/Posts";
@@ -20,23 +21,25 @@ import "leaflet/dist/leaflet.js";
 const App = () => {
   return (
     <Router>
-      <Navbar />
-      <Routes>
-        <Route index element={<Home />} />
-        <Route path="/posts" element={<Posts />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/search" element={<SearchResults />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/map" element={<MapPage />} />
-        <Route path="/users/:userId" element={<UserProfile />} />
-        <Route path="/posts/create" element={<PostForm />} />
-        <Route path="/events/create" element={<EventForm />} />
-        <Route path="/posts/pending" element={<PendingPosts />} />
-        <Route path="/posts/:postId" element={<Post />} />
-      </Routes>
-      <Footer />
+      <LoginManager>
+        <Navbar />
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="/posts" element={<Posts />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/search" element={<SearchResults />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/map" element={<MapPage />} />
+          <Route path="/users/:userId" element={<UserProfile />} />
+          <Route path="/posts/create" element={<PostForm />} />
+          <Route path="/events/create" element={<EventForm />} />
+          <Route path="/posts/pending" element={<PendingPosts />} />
+          <Route path="/posts/:postId" element={<Post />} />
+        </Routes>
+        <Footer />
+      </LoginManager>
     </Router>
   );
 };
