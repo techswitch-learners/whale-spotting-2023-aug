@@ -4,16 +4,13 @@ namespace WhaleSpotting.Models.Response;
 
 public class BodyOfWaterResponse
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
-
-    public class BodyofWaterPost
+    public class BodyOfWaterPost
     {
-        public int Id { get; set; }
-        public string? ImageUrl { get; set; }
-        public string? Description { get; set; }
+        public int Id { get; }
+        public string ImageUrl { get; }
+        public string Description { get; }
 
-        public BodyofWaterPost(Post post)
+        public BodyOfWaterPost(Post post)
         {
             Id = post.Id;
             ImageUrl = post.ImageUrl;
@@ -21,23 +18,14 @@ public class BodyOfWaterResponse
         }
     }
 
-    public List<BodyofWaterPost> Posts { get; set; }
+    public int Id { get; }
+    public string Name { get; }
+    public List<BodyOfWaterPost> Posts { get; }
 
     public BodyOfWaterResponse(BodyOfWater bodyOfWater)
     {
         Id = bodyOfWater.Id;
-        Name =
-            bodyOfWater.Name
-            ?? throw new ArgumentNullException(
-                nameof(bodyOfWater),
-                "Property \"Name\" must not be null"
-            );
-        Posts =
-            bodyOfWater.Posts != null
-                ? bodyOfWater.Posts.Select(post => new BodyofWaterPost(post)).ToList()
-                : throw new ArgumentNullException(
-                    nameof(bodyOfWater),
-                    "Property \"Posts\" must not be null"
-                );
+        Name = bodyOfWater.Name;
+        Posts = bodyOfWater.Posts.Select(post => new BodyOfWaterPost(post)).ToList();
     }
 }

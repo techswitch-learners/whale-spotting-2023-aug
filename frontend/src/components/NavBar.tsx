@@ -1,12 +1,14 @@
-import { NavLink } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { NavLink, Link } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import logo from "/logo.png";
 import "./Navbar.scss";
+import { LoginContext } from "../context/LoginManager";
 
 function Navbar() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const loginContext = useContext(LoginContext);
 
   const toggleMobileMenu = () => {
     setShowMobileMenu(!showMobileMenu);
@@ -45,6 +47,7 @@ function Navbar() {
               <NavLink
                 className={({ isActive }) => (isActive ? "active-page" : "")}
                 to="/"
+                onClick={closeMobileMenu}
               >
                 Home
               </NavLink>
@@ -53,6 +56,7 @@ function Navbar() {
               <NavLink
                 className={({ isActive }) => (isActive ? "active-page" : "")}
                 to="/users"
+                onClick={closeMobileMenu}
               >
                 Users
               </NavLink>
@@ -61,6 +65,7 @@ function Navbar() {
               <NavLink
                 className={({ isActive }) => (isActive ? "active-page" : "")}
                 to="/posts"
+                onClick={closeMobileMenu}
               >
                 Posts
               </NavLink>
@@ -68,24 +73,48 @@ function Navbar() {
             <li>
               <NavLink
                 className={({ isActive }) => (isActive ? "active-page" : "")}
-                to="/info"
+                to="/events"
+                onClick={closeMobileMenu}
               >
-                Info
+                Events
               </NavLink>
             </li>
             <li>
               <NavLink
                 className={({ isActive }) => (isActive ? "active-page" : "")}
-                to="/login"
+                to="/map"
+                onClick={closeMobileMenu}
               >
-                Login
+                Map
               </NavLink>
+            </li>
+            <li>
+              {loginContext.isLoggedIn ? (
+                <Link
+                  to="/"
+                  onClick={() => {
+                    loginContext.logOut();
+                    closeMobileMenu();
+                  }}
+                >
+                  Logout
+                </Link>
+              ) : (
+                <NavLink
+                  className={({ isActive }) => (isActive ? "active-page" : "")}
+                  to="/login"
+                  onClick={closeMobileMenu}
+                >
+                  Login
+                </NavLink>
+              )}
             </li>
             <li>
               <NavLink
                 className={({ isActive }) => (isActive ? "active-page" : "")}
                 to="/search"
                 aria-label="Search"
+                onClick={closeMobileMenu}
               >
                 🔎
               </NavLink>

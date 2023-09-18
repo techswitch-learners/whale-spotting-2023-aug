@@ -1,14 +1,12 @@
-using WhaleSpotting.Enums;
+namespace WhaleSpotting.Models.Database;
 
-namespace WhaleSpotting.Models.Database
+public class Event
 {
-    public class Event
-    {
-        public int Id { get; set; }
-        public DateTime? StartDate { get; set; }
-        public int? Duration { get; set; }
-        public string? Location { get; set; }
-        public string? EventLink { get; set; }
-        public string? EventImageUrl { get; set; }
-    }
+    public int Id { get; set; }
+    public string Name { get; set; } = null!;
+    public DateTime StartDate { get; set; }
+    public int DurationInHours { get; set; }
+    public string Location { get; set; } = null!;
+    public string Link { get; set; } = null!;
+    public string ImageUrl { get; set; } = null!;
 }

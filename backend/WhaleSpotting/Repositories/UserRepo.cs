@@ -7,10 +7,10 @@ namespace WhaleSpotting.Repositories;
 
 public interface IUserRepo
 {
-    public User GetById(int id);
-    public User GetByUsername(string username);
-    public User Create(UserRequest newUserRequest);
-    public List<User> GetAll();
+    User GetById(int id);
+    User GetByUsername(string username);
+    User Create(CreateUserRequest createUserRequest);
+    List<User> GetAll();
 }
 
 public class UserRepo : IUserRepo
@@ -26,7 +26,10 @@ public class UserRepo : IUserRepo
     {
         try
         {
-            return _context.Users.Include(user => user.Posts).Single(user => user.Id == id);
+            return _context.Users
+                .Include(user => user.Posts)
+                .ThenInclude(post => post.Interactions)
+                .Single(user => user.Id == id);
         }
         catch (InvalidOperationException)
         {
@@ -52,58 +55,36 @@ public class UserRepo : IUserRepo
     {
         return _context.Users
             .Include(user => user.Posts)
+            .ThenInclude(post => post.Interactions)
             .Where(user => user.Role == Role.User)
             .ToList();
     }
 
-    public User Create(UserRequest newUserRequest)
+    public User Create(CreateUserRequest createUserRequest)
     {
-        if (_context.Users.Any(user => user.Username == newUserRequest.Username))
+        if (_context.Users.Any(user => user.Username == createUserRequest.Username))
         {
-            throw new ArgumentException($"The username {newUserRequest.Username} is already taken");
+            throw new ArgumentException(
+                $"The username {createUserRequest.Username} is already taken"
+            );
         }
 
-        if (_context.Users.Any(user => user.Email == newUserRequest.Email))
+        if (_context.Users.Any(user => user.Email == createUserRequest.Email))
         {
-            throw new ArgumentException($"The email {newUserRequest.Email} is already taken");
+            throw new ArgumentException($"The email {createUserRequest.Email} is already taken");
         }
 
         var newUser = new User
         {
-            Username =
-                newUserRequest.Username
-                ?? throw new ArgumentNullException(
-                    nameof(newUserRequest),
-                    "Property \"Username\" must not be null"
-                ),
-            Password =
-                newUserRequest.Password
-                ?? throw new ArgumentNullException(
-                    nameof(newUserRequest),
-                    "Property \"Password\" must not be null"
-                ),
-            Email =
-                newUserRequest.Email
-                ?? throw new ArgumentNullException(
-                    nameof(newUserRequest),
-                    "Property \"Email\" must not be null"
-                ),
-            Name =
-                newUserRequest.Name
-                ?? throw new ArgumentNullException(
-                    nameof(newUserRequest),
-                    "Property \"Name\" must not be null"
-                ),
-            ProfileImageUrl =
-                newUserRequest.ProfileImageUrl
-                ?? throw new ArgumentNullException(
-                    nameof(newUserRequest),
-                    "Property \"ProfileImageUrl\" must not be null"
-                ),
+            Username = createUserRequest.Username,
+            Email = createUserRequest.Email,
+            Name = createUserRequest.Name,
             Role = Role.User,
             CreationTimestamp = DateTime.Now,
             Posts = new List<Post>(),
-            Rating = 0,
+            Interactions = new List<Interaction>(),
+            ProfileImageUrl = createUserRequest.ProfileImageUrl,
+            Password = createUserRequest.Password,
         };
 
         var insertedEntity = _context.Users.Add(newUser);

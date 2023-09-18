@@ -1,4 +1,5 @@
-﻿using WhaleSpotting.Models.Database;
+﻿using WhaleSpotting.Enums;
+using WhaleSpotting.Models.Database;
 using WhaleSpotting.Models.Request;
 using WhaleSpotting.Repositories;
 
@@ -6,9 +7,12 @@ namespace WhaleSpotting.Services;
 
 public interface IPostService
 {
-    public Task<Post> Create(PostRequest newPostRequest);
-    public Post GetById(int id);
-    public List<Post> GetAll();
+    Task<Post> Create(CreatePostRequest createPostRequest);
+    Post GetById(int id);
+    List<Post> GetAll();
+    List<Post> GetPending();
+    void ApproveOrReject(int id, ApprovalStatus approvalStatus);
+    void Modify(int id, ModifyPostRequest modifyPostRequest);
 }
 
 public class PostService : IPostService
@@ -20,9 +24,9 @@ public class PostService : IPostService
         _posts = posts;
     }
 
-    public async Task<Post> Create(PostRequest newPostRequest)
+    public async Task<Post> Create(CreatePostRequest createPostRequest)
     {
-        return await _posts.Create(newPostRequest);
+        return await _posts.Create(createPostRequest);
     }
 
     public Post GetById(int id)
@@ -33,5 +37,20 @@ public class PostService : IPostService
     public List<Post> GetAll()
     {
         return _posts.GetAll();
+    }
+
+    public List<Post> GetPending()
+    {
+        return _posts.GetPending();
+    }
+
+    public void ApproveOrReject(int id, ApprovalStatus approvalStatus)
+    {
+        _posts.ApproveOrReject(id, approvalStatus);
+    }
+
+    public void Modify(int id, ModifyPostRequest modifyPostRequest)
+    {
+        _posts.Modify(id, modifyPostRequest);
     }
 }

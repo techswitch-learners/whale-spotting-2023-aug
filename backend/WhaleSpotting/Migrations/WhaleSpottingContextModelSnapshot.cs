@@ -31,6 +31,7 @@ namespace WhaleSpotting.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -46,24 +47,54 @@ namespace WhaleSpotting.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("Duration")
+                    b.Property<int>("DurationInHours")
                         .HasColumnType("integer");
 
-                    b.Property<string>("EventImageUrl")
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("EventLink")
+                    b.Property<string>("Link")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Location")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateOnly?>("StartDate")
-                        .HasColumnType("date");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
 
                     b.ToTable("Events");
+                });
+
+            modelBuilder.Entity("WhaleSpotting.Models.Database.Interaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Interactions");
                 });
 
             modelBuilder.Entity("WhaleSpotting.Models.Database.Post", b =>
@@ -74,34 +105,33 @@ namespace WhaleSpotting.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("ApprovalStatus")
+                    b.Property<int>("ApprovalStatus")
                         .HasColumnType("integer");
 
                     b.Property<int?>("BodyOfWaterId")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime>("CreationTimestamp")
+                        .HasColumnType("timestamp without time zone");
+
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("ImageUrl")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<double?>("Latitude")
+                    b.Property<double>("Latitude")
                         .HasColumnType("double precision");
 
-                    b.Property<double?>("Longitude")
+                    b.Property<double>("Longitude")
                         .HasColumnType("double precision");
-
-                    b.Property<int?>("Rating")
-                        .HasColumnType("integer");
 
                     b.Property<int?>("SpeciesId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime?>("Timestamp")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("integer");
 
                     b.Property<int?>("WhaleTagNumber")
@@ -129,12 +159,15 @@ namespace WhaleSpotting.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("LatinName")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -150,28 +183,30 @@ namespace WhaleSpotting.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("CreationTimestamp")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateTime>("CreationTimestamp")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("HashedPassword")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("ProfileImageUrl")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("Rating")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("Role")
+                    b.Property<int>("Role")
                         .HasColumnType("integer");
 
                     b.Property<string>("Username")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -188,6 +223,7 @@ namespace WhaleSpotting.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TagNumber"));
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int?>("SpeciesId")
@@ -198,6 +234,25 @@ namespace WhaleSpotting.Migrations
                     b.HasIndex("SpeciesId");
 
                     b.ToTable("Whales");
+                });
+
+            modelBuilder.Entity("WhaleSpotting.Models.Database.Interaction", b =>
+                {
+                    b.HasOne("WhaleSpotting.Models.Database.Post", "Post")
+                        .WithMany("Interactions")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WhaleSpotting.Models.Database.User", "User")
+                        .WithMany("Interactions")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("WhaleSpotting.Models.Database.Post", b =>
@@ -212,7 +267,9 @@ namespace WhaleSpotting.Migrations
 
                     b.HasOne("WhaleSpotting.Models.Database.User", "User")
                         .WithMany("Posts")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("WhaleSpotting.Models.Database.Whale", "Whale")
                         .WithMany("Posts")
@@ -241,6 +298,11 @@ namespace WhaleSpotting.Migrations
                     b.Navigation("Posts");
                 });
 
+            modelBuilder.Entity("WhaleSpotting.Models.Database.Post", b =>
+                {
+                    b.Navigation("Interactions");
+                });
+
             modelBuilder.Entity("WhaleSpotting.Models.Database.Species", b =>
                 {
                     b.Navigation("Whales");
@@ -248,6 +310,8 @@ namespace WhaleSpotting.Migrations
 
             modelBuilder.Entity("WhaleSpotting.Models.Database.User", b =>
                 {
+                    b.Navigation("Interactions");
+
                     b.Navigation("Posts");
                 });
 

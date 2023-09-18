@@ -1,10 +1,11 @@
 ﻿using WhaleSpotting.Repositories;
+using WhaleSpotting.Models.Database;
 
 namespace WhaleSpotting.Services;
 
 public interface IAuthService
 {
-    public bool IsCorrectUsernameAndPasswordCombination(string username, string password);
+    User? GetMatchingUser(string username, string password);
 }
 
 public class AuthService : IAuthService
@@ -16,16 +17,20 @@ public class AuthService : IAuthService
         _users = users;
     }
 
-    public bool IsCorrectUsernameAndPasswordCombination(string username, string password)
+    public User? GetMatchingUser(string username, string password)
     {
         try
         {
             var user = _users.GetByUsername(username);
-            return user.IsCorrectPassword(password);
+            if (user.IsCorrectPassword(password))
+            {
+                return user;
+            }
+            return null;
         }
         catch (ArgumentException)
         {
-            return false;
+            return null;
         }
     }
 }

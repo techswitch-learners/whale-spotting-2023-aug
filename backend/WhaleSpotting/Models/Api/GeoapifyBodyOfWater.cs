@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Http.Features;
-
 namespace WhaleSpotting.Models.Api;
 
 public class GeoapifyBodyOfWater

@@ -44,10 +44,48 @@ public class PostController : ControllerBase
         }
     }
 
-    [HttpPost("")]
-    public async Task<IActionResult> Create([FromBody] PostRequest newPostRequest)
+    [HttpGet("pending")]
+    public IActionResult GetPending()
     {
-        var newPost = new PostResponse(await _postService.Create(newPostRequest));
+        var posts = _postService.GetPending();
+        return Ok(new PostsResponse(posts));
+    }
+
+    [HttpPost("")]
+    public async Task<IActionResult> Create([FromBody] CreatePostRequest createPostRequest)
+    {
+        var newPost = new PostResponse(await _postService.Create(createPostRequest));
         return CreatedAtAction(nameof(GetById), new { id = newPost.Id }, newPost);
+    }
+
+    [HttpPatch("{id:int}")]
+    public IActionResult ApproveOrReject(
+        [FromRoute] int id,
+        [FromBody] ApproveOrRejectPostRequest approveOrRejectPostRequest
+    )
+    {
+        try
+        {
+            _postService.ApproveOrReject(id, approveOrRejectPostRequest.ApprovalStatus);
+            return Ok();
+        }
+        catch (ArgumentException)
+        {
+            return NotFound();
+        }
+    }
+
+    [HttpPut("{id:int}")]
+    public IActionResult Modify([FromRoute] int id, [FromBody] ModifyPostRequest modifyPostRequest)
+    {
+        try
+        {
+            _postService.Modify(id, modifyPostRequest);
+            return Ok();
+        }
+        catch (ArgumentException)
+        {
+            return NotFound();
+        }
     }
 }
