@@ -4,6 +4,7 @@ import { getUserById } from "../clients/backendApiClient";
 import { useParams } from "react-router-dom";
 import WhaleLoader from "../components/UI/WhaleLoader";
 import Button from "../components/UI/Button";
+import UserPosts from "../components/User/UserPosts";
 import "./UserProfile.scss";
 
 export const UserProfile = () => {
@@ -82,20 +83,7 @@ export const UserProfile = () => {
             <p>Email: {user.email}</p>
           </div>
           <div>
-            <ul>
-              {user &&
-                user.posts.map((post) => {
-                  return (
-                    <li>
-                      <img
-                        src={post.imageUrl}
-                        alt={`${user.name}'s post picture`}
-                      />
-                      <p>{post.description}</p>
-                    </li>
-                  );
-                })}
-            </ul>
+            <UserPosts user={user} />
           </div>
         </div>
       ) : (
