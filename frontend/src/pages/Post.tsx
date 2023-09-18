@@ -76,49 +76,47 @@ const Post = () => {
     );
   }
   return (
-    <div className="CardPostModal-container">
+    <div className="Post-container">
       {post ? (
-        <div className="CardPostModal">
-          <div className="CardPostModal__image__container">
+        <div className="Post">
+          <div className="Post__image__container">
             <img
-              className="CardPostModal__image"
+              className="Post__image"
               src={post.imageUrl}
               alt={`image of ${post.species.name}`}
             />
             <a href={post.imageUrl} target="_blank">
               <img
-                className="CardPostModal__fullscreen"
+                className="Post__fullscreen"
                 src={fullscreenIcon}
                 alt="Show image fullscreen"
               />
             </a>
           </div>
 
-          <div className="CardPostModal__content">
-            <div className="CardPostModal__heading">
-              <h3 className="CardPostModal__heading__title">
-                {post.species.name}
-              </h3>
-              <p className="CardPostModal__heading__bodyofwater">
+          <div className="Post__content">
+            <div className="Post__heading">
+              <h3 className="Post__heading__title">{post.species.name}</h3>
+              <p className="Post__heading__bodyofwater">
                 {post.bodyOfWater.name}
               </p>
-              <p className="CardPostModal__heading__date">
+              <p className="Post__heading__date">
                 {toShortDate(post.creationTimestamp)}
               </p>
             </div>
-            <p className="CardPostModal__description">{post.description}</p>
-            <div className="CardPostModal__user">
-              <p className="CardPostModal__text">{post.user.name}</p>
-              <div className="CardPostModal__user__image-container">
+            <p className="Post__description">{post.description}</p>
+            <div className="Post__user">
+              <p className="Post__text">{post.user.name}</p>
+              <div className="Post__user__image-container">
                 <img
-                  className="CardPostModal__user__image"
+                  className="Post__user__image"
                   src={post.user.profileImageUrl}
                   alt={`${post.user.name}'s profile picture`}
                 />
               </div>
             </div>
-            <div className="CardPostModal__interactions">
-              <div className="CardPostModal__interactions__likes">
+            <div className="Post__interactions">
+              <div className="Post__interactions__likes">
                 <img src={postIcon} alt="whale icon" />
                 <span>{convertLikesToString(post.interactionCount)}</span>
               </div>
