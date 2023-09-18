@@ -16,7 +16,7 @@ const CardPost = ({ postData, openModalAction }: PostDataProps) => {
       <div className="CardPost__banner">
         <div className="CardPost__banner__likes">
           <img src={postIcon} alt="whale icon" />
-          <span>{convertLikesToString(postData.rating)}</span>
+          <span>{convertLikesToString(postData.interactionCount)}</span>
         </div>
         <div>
           <ShareButtonExpandable
@@ -35,7 +35,9 @@ const CardPost = ({ postData, openModalAction }: PostDataProps) => {
       <div className="CardPost__info">
         <p className="CardPost__title">{postData.species.name}</p>
         <p className="CardPost__text">{postData.user.name}</p>
-        <p className="CardPost__text">{toShortDate(postData.timestamp)}</p>
+        <p className="CardPost__text">
+          {toShortDate(postData.creationTimestamp)}
+        </p>
       </div>
     </div>
   );

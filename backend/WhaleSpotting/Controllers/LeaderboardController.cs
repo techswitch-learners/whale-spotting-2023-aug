@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using WhaleSpotting.Models.Request;
 using WhaleSpotting.Models.Response;
 using WhaleSpotting.Services;
 

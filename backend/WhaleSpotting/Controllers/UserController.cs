@@ -59,9 +59,16 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("")]
-    public IActionResult Create([FromBody] UserRequest newUserRequest)
+    public IActionResult Create([FromBody] CreateUserRequest createUserRequest)
     {
-        var newUser = new UserResponse(_userService.Create(newUserRequest));
-        return CreatedAtAction(nameof(GetById), new { id = newUser.Id }, newUser);
+        try
+        {
+            var newUser = new UserResponse(_userService.Create(createUserRequest));
+            return CreatedAtAction(nameof(GetById), new { id = newUser.Id }, newUser);
+        }
+        catch (ArgumentException exception)
+        {
+            return Conflict(exception.Message);
+        }
     }
 }

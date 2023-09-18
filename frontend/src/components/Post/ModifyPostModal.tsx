@@ -23,7 +23,7 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
   const todayDateString = today.toISOString().slice(0, -1);
 
   const id = postData.id;
-  const [date, setDate] = useState<Date>(new Date(postData.timestamp));
+  const [date, setDate] = useState<Date>(new Date(postData.creationTimestamp));
   const [w3w, setW3w] = useState<string>("");
   const [lat, setLat] = useState<number>(postData.latitude);
   const [lon, setLon] = useState<number>(postData.longitude);

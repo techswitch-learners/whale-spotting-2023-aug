@@ -101,7 +101,7 @@ const Post = () => {
                 {post.bodyOfWater.name}
               </p>
               <p className="Post__heading__date">
-                {toShortDate(post.timestamp)}
+                {toShortDate(post.creationTimestamp)}
               </p>
             </div>
             <p className="Post__description">{post.description}</p>
@@ -118,7 +118,7 @@ const Post = () => {
             <div className="Post__interactions">
               <div className="Post__interactions__likes">
                 <img src={postIcon} alt="whale icon" />
-                <span>{convertLikesToString(post.rating)}</span>
+                <span>{convertLikesToString(post.interactionCount)}</span>
               </div>
               <div>
                 <ShareButtonExpandable

@@ -5,7 +5,7 @@ namespace WhaleSpotting.Repositories;
 
 public interface IEventRepo
 {
-    Event Create(EventRequest newEventRequest);
+    Event Create(CreateEventRequest createEventRequest);
     Event GetById(int id);
     List<Event> GetAll();
 }
@@ -19,40 +19,16 @@ public class EventRepo : IEventRepo
         _context = context;
     }
 
-    public Event Create(EventRequest newEventRequest)
+    public Event Create(CreateEventRequest createEventRequest)
     {
         var newEvent = new Event
         {
-            StartDate =
-                newEventRequest.StartDate
-                ?? throw new ArgumentNullException(
-                    nameof(newEventRequest),
-                    "Property \"StartDate\" must not be null"
-                ),
-            Duration =
-                newEventRequest.Duration
-                ?? throw new ArgumentNullException(
-                    nameof(newEventRequest),
-                    "Property \"Duration\" must not be null"
-                ),
-            Location =
-                newEventRequest.Location
-                ?? throw new ArgumentNullException(
-                    nameof(newEventRequest),
-                    "Property \"Location\" must not be null"
-                ),
-            EventLink =
-                newEventRequest.EventLink
-                ?? throw new ArgumentNullException(
-                    nameof(newEventRequest),
-                    "Property \"EventLink\" must not be null"
-                ),
-            EventImageUrl =
-                newEventRequest.EventLink
-                ?? throw new ArgumentNullException(
-                    nameof(newEventRequest),
-                    "Property \"EventImageUrl\" must not be null"
-                )
+            Name = createEventRequest.Name,
+            StartDate = createEventRequest.StartDate,
+            DurationInHours = createEventRequest.DurationInHours,
+            Location = createEventRequest.Location,
+            Link = createEventRequest.Link,
+            ImageUrl = createEventRequest.ImageUrl,
         };
 
         var insertedEntity = _context.Events.Add(newEvent);
@@ -65,7 +41,7 @@ public class EventRepo : IEventRepo
     {
         try
         {
-            return _context.Events.Where(item => item.Id == id).Single();
+            return _context.Events.Single(item => item.Id == id);
         }
         catch (InvalidOperationException)
         {

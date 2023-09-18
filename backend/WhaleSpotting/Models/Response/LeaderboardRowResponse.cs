@@ -4,18 +4,14 @@ namespace WhaleSpotting.Models.Response;
 
 public class LeaderboardRowResponse
 {
-    public int? UserId { get; set; }
-    public string? Username { get; set; }
-    public int? Score { get; set; }
-    public string? UserProfileImageUrl { get; set; }
-    public int? PostCount { get; set; }
+    public UserResponse User { get; }
+    public int Score { get; }
+    public int PostCount { get; }
 
     public LeaderboardRowResponse(LeaderboardRow leaderboardRow)
     {
-        UserId = leaderboardRow.UserId;
-        Username = leaderboardRow.Username;
+        User = new UserResponse(leaderboardRow.User);
         Score = leaderboardRow.Score;
-        UserProfileImageUrl = leaderboardRow.UserProfileImageUrl;
         PostCount = leaderboardRow.PostCount;
     }
 }

@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 using WhaleSpotting.Enums;
 
@@ -6,16 +7,15 @@ namespace WhaleSpotting.Models.Database;
 public class User
 {
     public int Id { get; set; }
-    public string? Username { get; set; }
-    public string? Email { get; set; }
-    public string? Name { get; set; }
-    public Role? Role { get; set; }
-    public DateTime? CreationTimestamp { get; set; }
-    public List<Post> Posts { get; set; } = new List<Post>();
-    public List<Interaction>? PostUserLiked { get; set; }
-    public int? Rating { get; set; }
-    public string? ProfileImageUrl { get; set; }
-    public string? Password
+    public string Username { get; set; } = null!;
+    public string Email { get; set; } = null!;
+    public string Name { get; set; } = null!;
+    public Role Role { get; set; }
+    public DateTime CreationTimestamp { get; set; }
+    public List<Post> Posts { get; set; } = null!;
+    public List<Interaction> Interactions { get; set; } = null!;
+    public string ProfileImageUrl { get; set; } = null!;
+    public string Password
     {
         set
         {
@@ -23,7 +23,7 @@ public class User
             HashedPassword = hasher.HashPassword(this, value);
         }
     }
-    public string? HashedPassword { get; set; }
+    public string HashedPassword { get; set; } = null!;
 
     public bool IsCorrectPassword(string password)
     {
