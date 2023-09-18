@@ -1,0 +1,9 @@
+@use "../styles/variables" as *;
+@use "../styles/mixins" as *;
+
+.Error404__content {
+  display: flex;
+  flex-direction: column;
+  gap: $mobile-gutter;
+  align-items: center;
+}
