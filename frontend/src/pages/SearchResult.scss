@@ -11,6 +11,22 @@
   &__Filter {
     display: flex;
     flex-direction: column;
+
+    &__List {
+      & > ul {
+        display: flex;
+        flex-direction: column;
+        gap: $desktop-input-padding;
+      }
+
+      & > ul > li {
+        cursor: pointer;
+
+        &:hover {
+          color: $color-primary;
+        }
+      }
+    }
   }
 
   &__Main {

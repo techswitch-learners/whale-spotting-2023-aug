@@ -1,28 +1,31 @@
-import { useParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import WhaleLoader from "../components/UI/WhaleLoader";
 import Button from "../components/UI/Button";
-import { BodyOfWater } from "../models/BodyOfWater";
-import { getBodyOfWaterByName } from "../clients/backendApiClient";
-import PostData from "../models/PostData";
+import {
+  getAllBodiesOfWater,
+  getBodyOfWaterByName,
+} from "../clients/backendApiClient";
 import SearchResultCard from "../components/Search/SearchResultCard";
+import BodyOfWaterData from "../models/BodyOfWaterData";
 import "./SearchResult.scss";
-import Modal from "../components/UI/Modal";
-import SearchPostModal from "../components/Search/SearchPostModal";
 
 const SearchResult = () => {
-  const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();
-  const [bodyOfWater, setBodyOfWater] = useState<BodyOfWater>();
+  const [bodyOfWater, setBodyOfWater] = useState<BodyOfWaterData>();
   const [loading, setLoading] = useState<boolean>(true);
   const [notFound, setNotFound] = useState<boolean>(false);
   const [otherError, setOtherError] = useState<boolean>(false);
+  const [bodiesOfWater, setBodiesOfWater] = useState<BodyOfWaterData[]>();
 
-  const { bodyOfWaterName } = useParams<{ bodyOfWaterName: string }>();
+  const searchParams = useSearchParams();
+  const [bodyOfWaterName, setBodyOfWaterName] = useState(
+    searchParams.get("bodyOfWater"),
+  );
 
   const fetchSearchResults = useCallback(async () => {
     setNotFound(false);
     setOtherError(false);
-    // setBodyOfWater(undefined);
+    setBodyOfWater(undefined);
 
     if (bodyOfWaterName) {
       setLoading(true);
@@ -48,7 +51,11 @@ const SearchResult = () => {
     fetchSearchResults();
   }, [fetchSearchResults]);
 
-  console.log(selectedPostDetails);
+  useEffect(() => {
+    getAllBodiesOfWater()
+      .then((response) => setBodiesOfWater(response.bodiesOfWater))
+      .catch();
+  }, []);
 
   if (loading || notFound || otherError) {
     return (
@@ -80,26 +87,39 @@ const SearchResult = () => {
       <div className="SearchResults">
         <div className="SearchResults__Filter">
           <div>Toggle Map/List</div>
+
+          <h3>Searh from List</h3>
+
+          <div className="SearchResults__Filter__List">
+            <ul>
+              {bodiesOfWater &&
+                bodiesOfWater.map((bodyOfWater) => {
+                  if (bodyOfWater.posts.length > 0) {
+                    return (
+                      <li
+                        key={bodyOfWater.id}
+                        className="SearchBySea__select__option"
+                        value={bodyOfWater.name}
+                        onClick={() => setBodyOfWaterName(bodyOfWater.name)}
+                      >
+                        {bodyOfWater.name +
+                          (bodyOfWater.posts.length === 0
+                            ? " (no posts yet)"
+                            : "")}
+                      </li>
+                    );
+                  }
+                })}
+            </ul>
+          </div>
         </div>
         <main className="SearchResults__Main">
           {bodyOfWater && bodyOfWater.posts.length > 0 ? (
             bodyOfWater.posts.map((post) => {
-              return (
-                <SearchResultCard
-                  key={post.id}
-                  post={post}
-                  openModalAction={() => setSelectedPostDetails(post)}
-                />
-              );
+              return <SearchResultCard key={post.id} post={post} />;
             })
           ) : (
             <h4>No posts, please try again... </h4>
-          )}
-
-          {selectedPostDetails && (
-            <Modal closeAction={() => setSelectedPostDetails(undefined)}>
-              <SearchPostModal postData={selectedPostDetails} />
-            </Modal>
           )}
         </main>
       </div>

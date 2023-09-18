@@ -16,10 +16,7 @@ public class BodyOfWaterResponse
         public DateTime? Timestamp { get; set; }
         public ApprovalStatus? ApprovalStatus { get; set; }
         public int? Rating { get; set; }
-        public BodyofWaterSpecies? Species { get; set; }
-        public BodyOfWaterUser? User { get; set; }
 
-        // public BodyofWaterPost(Post post, BodyofWaterSpecies species, BodyOfWaterUser user)
         public BodyofWaterPost(Post post)
         {
             Id = post.Id;
@@ -28,34 +25,6 @@ public class BodyOfWaterResponse
             Timestamp = post.Timestamp;
             ApprovalStatus = post.ApprovalStatus;
             Rating = post.Rating;
-            // User = user;
-            // Species = species;
-        }
-    }
-
-    public class BodyofWaterSpecies
-    {
-        public int? Id { get; set; }
-        public string? Name { get; set; }
-
-        public BodyofWaterSpecies(Species species)
-        {
-            Id = species.Id;
-            Name = species.Name;
-        }
-    }
-
-    public class BodyOfWaterUser
-    {
-        public int? Id { get; set; }
-        public string? Name { get; set; }
-        public string? ProfileImageUrl { get; set; }
-
-        public BodyOfWaterUser(User user)
-        {
-            Id = user.Id;
-            Name = user.Name;
-            ProfileImageUrl = user.ProfileImageUrl;
         }
     }
 

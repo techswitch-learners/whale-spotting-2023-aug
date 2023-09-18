@@ -1,16 +1,15 @@
 @use "../../styles/variables" as *;
 @use "../../styles/mixins" as *;
 
-.CardPostModal {
+.CardEventModal {
   display: flex;
   flex-direction: column;
   background-color: $color-tertiary;
   height: 100%;
-  border-radius: $mobile-border-radius;
+  width: 100%;
 
   @include devices(desktop) {
     flex-direction: row;
-    border-radius: $desktop-border-radius;
   }
 
   &__image__container {
@@ -77,64 +76,35 @@
     margin: 0 auto;
 
     &__title {
-      font-size: 1.8rem;
+      font-size: 3rem;
 
       @include devices(tablet) {
-        font-size: 2.5rem;
+        font-size: 3.5rem;
       }
-    }
-
-    &__bodyofwater {
-      text-align: right;
     }
 
     &__date {
-      text-align: right;
+      text-align: center;
+    }
+
+    &__duration {
+      text-align: center;
     }
   }
 
-  &__description {
-    overflow-y: scroll;
-    max-height: 40%;
-    padding: 0 0.6rem;
+  &__button {
+    height: 4rem;
+
+    @include devices(tablet) {
+      height: 5rem;
+      width: 70%;
+      margin: 0 auto;
+    }
 
     @include devices(desktop) {
-      max-height: 55%;
-    }
-  }
-
-  &__user {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 1rem;
-
-    &__image-container {
-      height: 2.8rem;
-      width: 2.8rem;
-      border-radius: 50%;
-      position: relative;
-      overflow: hidden;
-      object-fit: cover;
-
-      @include devices(tablet) {
-        height: 3.5rem;
-        width: 3.5rem;
-      }
-
-      @include devices(desktop) {
-        height: 5rem;
-        width: 5rem;
-      }
-    }
-
-    &__image {
-      display: inline;
+      height: 7rem;
+      width: 75%;
       margin: 0 auto;
-      height: 100%;
-      width: auto;
-      min-width: 100%;
     }
   }
 
@@ -144,19 +114,6 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-
-    span {
-      white-space: nowrap;
-
-      @include devices(tablet) {
-        margin-left: 0.3rem;
-      }
-    }
-
-    &__likes {
-      display: flex;
-      align-items: center;
-    }
 
     img {
       height: 1rem;

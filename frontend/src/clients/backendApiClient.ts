@@ -1,17 +1,18 @@
-import { BodiesOfWater, BodyOfWater } from "../models/BodyOfWater";
+import BodiesOfWaterData from "../models/BodiesOfWaterData";
+import BodyOfWaterData from "../models/BodyOfWaterData";
 import LatitudeLongitude from "../models/LatitudeLongitude";
 import SpeciesListData from "../models/SpeciesListData";
-import UserData from "../models/UserData";
 import UsersData from "../models/UsersData";
 import PostsData from "../models/PostsData";
 import PostData from "../models/PostData";
-import EventData from "../models/EventData";
+import LeaderboardData from "../models/LeaderboardData";
+import EventsData from "../models/EventsData";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 export const checkBackendConnection = async (): Promise<boolean> => {
   try {
-    await fetch(`${backendUrl}/auth`);
+    await fetch(`${backendUrl}/Auth`);
   } catch {
     return false;
   }
@@ -23,13 +24,10 @@ export const getAllUsers = async (): Promise<UsersData> => {
   return response.json();
 };
 
-export const tryEmailAndPassword = async (
-  email: string,
-  password: string,
-): Promise<boolean> => {
+export const tryEncodedAuth = async (encodedAuth: string): Promise<boolean> => {
   const response = await fetch(`${backendUrl}/Auth/`, {
     headers: {
-      Authorization: `Basic ${btoa(email + ":" + password)}`,
+      Authorization: encodedAuth,
     },
   });
   return response.ok;
@@ -96,17 +94,17 @@ export const createWhalePost = async (
   return await response.json();
 };
 
-export const getAllBodiesOfWater = async (): Promise<BodiesOfWater> => {
+export const getAllBodiesOfWater = async (): Promise<BodiesOfWaterData> => {
   const response = await fetch(`${backendUrl}/BodyOfWater/all`);
-  const unsortedBodiesOfWater = await response.json();
-  if (unsortedBodiesOfWater) {
-    unsortedBodiesOfWater.bodiesOfWater.sort(
-      (a: BodyOfWater, b: BodyOfWater) => {
-        return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+  const bodiesOfWaterData = await response.json();
+  if (bodiesOfWaterData) {
+    bodiesOfWaterData.bodiesOfWater.sort(
+      (a: BodyOfWaterData, b: BodyOfWaterData) => {
+        return a.name > b.name;
       },
     );
   }
-  return unsortedBodiesOfWater;
+  return bodiesOfWaterData;
 };
 
 export const getBodyOfWaterByName = async (name: string): Promise<Response> => {
@@ -116,26 +114,19 @@ export const getBodyOfWaterByName = async (name: string): Promise<Response> => {
 
 export const getLatestPosts = async (): Promise<PostData[]> => {
   const response = await fetch(`${backendUrl}/Post/all`);
-  const allResponse = await response.json();
-  if (allResponse) {
-    allResponse.posts.sort((a: PostData, b: PostData) => {
+  const postsData = await response.json();
+  if (postsData) {
+    postsData.posts.sort((a: PostData, b: PostData) => {
       return Date.parse(b.timestamp) - Date.parse(a.timestamp);
     });
   }
-  const filteredResponse = allResponse.posts.slice(0, 5);
-
+  const filteredResponse = postsData.posts.slice(0, 5);
   return filteredResponse;
 };
 
-export const getLeaderboard = async (): Promise<UserData[]> => {
-  const response = await getAllUsers();
-  if (response) {
-    response.users.sort((a: UserData, b: UserData) => {
-      return b.rating - a.rating;
-    });
-  }
-
-  return response.users.slice(0, 10);
+export const getLeaderboard = async (): Promise<LeaderboardData> => {
+  const response = await fetch(`${backendUrl}/Leaderboard`);
+  return await response.json();
 };
 
 export const createEvent = async (
@@ -145,7 +136,7 @@ export const createEvent = async (
   eventLink: string,
   eventImageUrl: string,
 ): Promise<boolean> => {
-  const response = await fetch(`${backendUrl}/event`, {
+  const response = await fetch(`${backendUrl}/Event`, {
     headers: {
       "Content-Type": "application/json",
     },
@@ -166,12 +157,59 @@ export const getAllPosts = async (): Promise<PostsData> => {
   return await response.json();
 };
 
-export const getEvents = async (): Promise<EventData[]> => {
-  const response = await fetch(`${backendUrl}/event/all`);
-  const data = await response.json();
-  let events;
-  if (data) {
-    events = data.events;
-  }
-  return events;
+export const getAllEvents = async (): Promise<EventsData> => {
+  const response = await fetch(`${backendUrl}/Event/all`);
+  return await response.json();
+};
+
+export const getAllPendingPosts = async (): Promise<PostsData> => {
+  const response = await fetch(`${backendUrl}/Post/pending`);
+  return await response.json();
+};
+
+export const approveOrRejectPost = async (
+  id: number,
+  approvalStatus: number,
+): Promise<boolean> => {
+  const response = await fetch(`${backendUrl}/Post/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      approvalStatus,
+    }),
+  });
+  return response.ok;
+};
+
+export const modifyPost = async (
+  id: number,
+  date: Date,
+  lat: number,
+  lon: number,
+  speciesId: number,
+  description: string,
+  imageUrl: string,
+): Promise<boolean> => {
+  const response = await fetch(`${backendUrl}/Post/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      date,
+      lat,
+      lon,
+      speciesId,
+      description,
+      imageUrl,
+    }),
+  });
+  return response.ok;
+};
+
+export const getPostById = async (id: number): Promise<Response> => {
+  const response = await fetch(`${backendUrl}/Post/${id}`);
+  return response;
 };
