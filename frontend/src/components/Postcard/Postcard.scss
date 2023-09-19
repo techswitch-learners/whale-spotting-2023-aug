@@ -2,10 +2,12 @@
 @use "../../styles/mixins" as *;
 
 .PostcardContainer {
+  position: relative;
   display: flex;
   flex-direction: column;
   background-color: $color-tertiary;
   height: 100%;
+  margin-bottom: 3rem;
 
   @include devices(desktop) {
     flex-direction: row;
@@ -83,6 +85,7 @@
   }
 
   &__content {
+    padding: 1.5rem;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -105,11 +108,17 @@
 
     &__stamp {
       position: absolute;
-      top: 0;
-      right: 0;
-      height: 2rem;
-      width: 2rem;
-      background-color: aqua;
+      top: -2.5rem;
+      right: 0.6rem;
+      height: 5rem;
+      transform: rotate(-4deg);
+      width: auto;
+
+      @include devices(tablet) {
+      }
+
+      @include devices(desktop) {
+      }
     }
 
     &__description {
@@ -122,4 +131,28 @@
       }
     }
   }
+}
+
+.PostcardContainer:after {
+  content: "";
+  background: repeating-linear-gradient(
+    45deg,
+    #114abc,
+    #114abc 10px,
+    #fff 10px,
+    #fff 20px,
+    #bf2010 20px,
+    #bf2010 30px,
+    #fff 30px,
+    #fff 40px
+  );
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 1px 2px 6px 1px rgba(76, 66, 47, 0.75);
+  width: calc(100% - 24px);
+  height: calc(100% - 24px);
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  z-index: -1;
 }

@@ -1,12 +1,23 @@
 import PostData from "../../models/PostData";
 import { toShortDate } from "../../utils/DateConversion";
+import firstClassStamp from "../../assets/Stamp_1st_Class.png";
+import secondClassStamp from "../../assets/Stamp_2nd_Class.png";
 import "./Postcard.scss";
+import { useEffect, useState } from "react";
 
 interface PostDataProps {
   postData: PostData;
 }
+const stamps = [firstClassStamp, secondClassStamp];
+const random = Math.round(Math.random());
 
 const Postcard = ({ postData }: PostDataProps) => {
+  const [stamp, setStamp] = useState(stamps[Math.round(Math.random())]);
+
+  useEffect(() => {
+    setStamp(stamps[Math.round(Math.random())]);
+  }, []);
+
   return (
     <div className="PostcardContainer">
       <div className="PostcardContainer__imagecontainer">
@@ -28,10 +39,18 @@ const Postcard = ({ postData }: PostDataProps) => {
         </div>
       </div>
       <div className="PostcardContainer__content">
-        <div className="PostcardContainer__content__stamp"></div>
-        <p className="PostcardContainer__content__description">
-          {postData.description}
-        </p>
+        <img
+          className="PostcardContainer__content__stamp"
+          src={stamp}
+          onClick={() => setStamp(random == 1 ? stamps[0] : stamps[1])}
+        />
+        <label>
+          <input
+            className="PostcardContainer__content__message"
+            type="text"
+            name="From"
+          />
+        </label>
       </div>
     </div>
   );
