@@ -1,4 +1,6 @@
-﻿namespace WhaleSpotting.Models.Request;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace WhaleSpotting.Models.Request;
 
 public class CreateInteractionRequest
 {

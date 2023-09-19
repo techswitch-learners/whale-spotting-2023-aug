@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { LoginContext } from "../../context/LoginManager";
 import "./Footer.scss";
@@ -20,60 +20,25 @@ function Footer() {
         <div>
           <ul className="Footer__Links">
             <li>
-              <NavLink
-                className={({ isActive }) => (isActive ? "active-page" : "")}
-                to="/"
-              >
-                Home
-              </NavLink>
+              <Link to="/">Home</Link>
             </li>
             <li>
-              <NavLink
-                className={({ isActive }) => (isActive ? "active-page" : "")}
-                to="/users"
-              >
-                Users
-              </NavLink>
+              <Link to="/users">Users</Link>
             </li>
             <li>
-              <NavLink
-                className={({ isActive }) => (isActive ? "active-page" : "")}
-                to="/posts"
-              >
-                Posts
-              </NavLink>
+              <Link to="/posts">Posts</Link>
             </li>
             <li>
-              <NavLink
-                className={({ isActive }) => (isActive ? "active-page" : "")}
-                to="/events"
-              >
-                Events
-              </NavLink>
+              <Link to="/events">Events</Link>
             </li>
             <li>
-              <NavLink
-                className={({ isActive }) => (isActive ? "active-page" : "")}
-                to="/map"
-              >
-                Map
-              </NavLink>
+              <Link to="/map">Map</Link>
             </li>
             <li>
               {isLoggedIn ? (
-                <NavLink
-                  className={({ isActive }) => (isActive ? "active-page" : "")}
-                  to="/logout"
-                >
-                  Logout
-                </NavLink>
+                <Link to="/">Logout</Link>
               ) : (
-                <NavLink
-                  className={({ isActive }) => (isActive ? "active-page" : "")}
-                  to="/login"
-                >
-                  Login
-                </NavLink>
+                <Link to="/login">Login</Link>
               )}
             </li>
           </ul>

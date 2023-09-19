@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using WhaleSpotting.Models.Request;
 using WhaleSpotting.Services;
 using WhaleSpotting.Attributes;
+using Microsoft.EntityFrameworkCore;
 
 namespace WhaleSpotting.Controllers;
 
@@ -31,6 +32,10 @@ public class InteractionController : ControllerBase
         catch (ArgumentException)
         {
             return Conflict();
+        }
+        catch (DbUpdateException)
+        {
+            return BadRequest("Invalid post Id");
         }
     }
 }
