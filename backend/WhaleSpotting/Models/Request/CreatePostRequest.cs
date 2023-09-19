@@ -4,12 +4,9 @@ namespace WhaleSpotting.Models.Request;
 
 public class CreatePostRequest
 {
-<<<<<<< HEAD
-=======
     public int UserId { get; set; }
 
     [Range(-90, 90)]
->>>>>>> main
     public double Latitude { get; set; }
 
     [Range(-180, 180)]
