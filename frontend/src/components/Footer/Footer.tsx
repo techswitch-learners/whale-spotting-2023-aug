@@ -50,6 +50,14 @@ function Footer() {
             <li>
               <NavLink
                 className={({ isActive }) => (isActive ? "active-page" : "")}
+                to="/map"
+              >
+                Map
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className={({ isActive }) => (isActive ? "active-page" : "")}
                 to="/login"
               >
                 Login
