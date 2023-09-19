@@ -1,7 +1,11 @@
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { LoginContext } from "../../context/LoginManager";
 import "./Footer.scss";
 
 function Footer() {
+  const { isLoggedIn } = useContext(LoginContext);
+
   return (
     <footer className="section-dark">
       <div className="Footer container">
@@ -16,52 +20,26 @@ function Footer() {
         <div>
           <ul className="Footer__Links">
             <li>
-              <NavLink
-                className={({ isActive }) => (isActive ? "active-page" : "")}
-                to="/"
-              >
-                Home
-              </NavLink>
+              <Link to="/">Home</Link>
             </li>
             <li>
-              <NavLink
-                className={({ isActive }) => (isActive ? "active-page" : "")}
-                to="/users"
-              >
-                Users
-              </NavLink>
+              <Link to="/users">Users</Link>
             </li>
             <li>
-              <NavLink
-                className={({ isActive }) => (isActive ? "active-page" : "")}
-                to="/posts"
-              >
-                Posts
-              </NavLink>
+              <Link to="/posts">Posts</Link>
             </li>
             <li>
-              <NavLink
-                className={({ isActive }) => (isActive ? "active-page" : "")}
-                to="/events"
-              >
-                Events
-              </NavLink>
+              <Link to="/events">Events</Link>
             </li>
             <li>
-              <NavLink
-                className={({ isActive }) => (isActive ? "active-page" : "")}
-                to="/map"
-              >
-                Map
-              </NavLink>
+              <Link to="/map">Map</Link>
             </li>
             <li>
-              <NavLink
-                className={({ isActive }) => (isActive ? "active-page" : "")}
-                to="/login"
-              >
-                Login
-              </NavLink>
+              {isLoggedIn ? (
+                <Link to="/">Logout</Link>
+              ) : (
+                <Link to="/login">Login</Link>
+              )}
             </li>
           </ul>
         </div>
