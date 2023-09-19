@@ -60,6 +60,7 @@ public class PostRepo : IPostRepo
         return _context.Posts
             .Include(post => post.User)
             .Include(post => post.Species)
+            .Include(post => post.Interactions)
             .Include(post => post.BodyOfWater)
             .Where(post => post.ApprovalStatus == ApprovalStatus.Pending)
             .ToList();
