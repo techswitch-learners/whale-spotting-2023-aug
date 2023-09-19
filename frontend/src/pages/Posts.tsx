@@ -103,6 +103,7 @@ export const Posts = () => {
         className="create-post-button"
         onMouseEnter={() => setCreateButtonText("Create a new post")}
         onMouseLeave={() => setCreateButtonText("+")}
+        aria-label="create a new post"
       >
         {createButtonText}
       </Link>
