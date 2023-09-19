@@ -197,11 +197,13 @@ export const modifyPost = async (
   speciesId: number,
   description: string,
   imageUrl: string,
+  encodedAuth: string,
 ): Promise<boolean> => {
   const response = await fetch(`${backendUrl}/Post/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
+      Authorization: encodedAuth,
     },
     body: JSON.stringify({
       date,

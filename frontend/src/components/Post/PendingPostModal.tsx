@@ -15,10 +15,7 @@ interface PostDataProps {
   onModeratorAction: () => void;
 }
 
-const PendingPostModal = ({
-  postData,
-  onModeratorAction: onCloseAction,
-}: PostDataProps) => {
+const PendingPostModal = ({ postData, onModeratorAction }: PostDataProps) => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [modify, setModify] = useState<boolean>(false);
   const loginContext = useContext(LoginContext);
@@ -32,8 +29,7 @@ const PendingPostModal = ({
       );
 
       if (result) {
-        //        window.location.reload();
-        onCloseAction();
+        onModeratorAction();
       } else {
         setErrorMessage("Try again later");
       }
@@ -51,7 +47,7 @@ const PendingPostModal = ({
       );
 
       if (result) {
-        window.location.reload();
+        onModeratorAction();
       } else {
         setErrorMessage("Try again later");
       }
@@ -137,7 +133,13 @@ const PendingPostModal = ({
       </div>
       {modify && (
         <Modal closeAction={() => setModify(false)}>
-          <ModifyPostModal postData={postData} />
+          <ModifyPostModal
+            postData={postData}
+            onEditComplete={() => {
+              setModify(false);
+              onModeratorAction();
+            }}
+          />
         </Modal>
       )}
     </>

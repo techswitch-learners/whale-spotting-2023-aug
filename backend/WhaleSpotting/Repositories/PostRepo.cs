@@ -124,20 +124,25 @@ public class PostRepo : IPostRepo
     public void Modify(int id, ModifyPostRequest modifyPostRequest, int userId, Role userRole)
     {
         var post = GetById(id);
+        Console.WriteLine("THIS IS WHAT YOU ARE LOOKING FOR!!!!!!!!");
+        Console.WriteLine(userRole);
+        Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1111!!!!!!!!");
 
-        if (userRole != Role.Admin && post.User.Id != userId)
+        if (userRole.Equals(Role.Admin) || post.User.Id == userId)
+        {
+            post.Latitude = modifyPostRequest.Latitude;
+            post.Longitude = modifyPostRequest.Longitude;
+            var species = _context.Species.SingleOrDefault(
+                species => species.Id == modifyPostRequest.SpeciesId
+            );
+            post.Species = species;
+            post.ImageUrl = modifyPostRequest.ImageUrl;
+            post.Description = modifyPostRequest.Description;
+            _context.SaveChanges();
+        }
+        else
         {
             throw new UnauthorizedAccessException();
         }
-
-        post.Latitude = modifyPostRequest.Latitude;
-        post.Longitude = modifyPostRequest.Longitude;
-        var species = _context.Species.SingleOrDefault(
-            species => species.Id == modifyPostRequest.SpeciesId
-        );
-        post.Species = species;
-        post.ImageUrl = modifyPostRequest.ImageUrl;
-        post.Description = modifyPostRequest.Description;
-        _context.SaveChanges();
     }
 }
