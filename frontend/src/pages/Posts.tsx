@@ -8,9 +8,9 @@ import WhaleLoader from "../components/UI/WhaleLoader";
 import FeaturedCarousel from "../components/UI/Carousel/FeaturedCarousel";
 import Button from "../components/UI/Button";
 import { Link } from "react-router-dom";
-import "./Posts.scss";
 import Modal from "../components/UI/Modal";
 import CardPostModal from "../components/Post/CardPostModal";
+import "./Posts.scss";
 
 export const Posts = () => {
   const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();
