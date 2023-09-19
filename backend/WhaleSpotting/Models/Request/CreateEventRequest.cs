@@ -7,7 +7,6 @@ public class CreateEventRequest
     [MinLength(1)]
     public string Name { get; set; } = null!;
 
-    [DataType(DataType.DateTime)]
     public DateTime StartDate { get; set; }
 
     [Range(0, int.MaxValue)]

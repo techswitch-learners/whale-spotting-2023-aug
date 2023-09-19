@@ -9,6 +9,7 @@ public class ModifyPostRequest
 
     [Range(-180, 180)]
     public double Longitude { get; set; }
+
     public int? SpeciesId { get; set; }
 
     [Url]

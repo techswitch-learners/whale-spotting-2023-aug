@@ -5,6 +5,6 @@ namespace WhaleSpotting.Models.Request;
 
 public class ApproveOrRejectPostRequest
 {
-    [Range(0, 2)]
+    [EnumDataType(typeof(ApprovalStatus))]
     public ApprovalStatus ApprovalStatus { get; set; }
 }
