@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WhaleSpotting.Attributes;
 using WhaleSpotting.Enums;
 using WhaleSpotting.Models.Request;
@@ -61,8 +62,15 @@ public class PostController : ControllerBase
         [FromHeader] int userId
     )
     {
-        var newPost = new PostResponse(await _postService.Create(createPostRequest, userId));
-        return CreatedAtAction(nameof(GetById), new { id = newPost.Id }, newPost);
+        try
+        {
+            var newPost = new PostResponse(await _postService.Create(createPostRequest, userId));
+            return CreatedAtAction(nameof(GetById), new { id = newPost.Id }, newPost);
+        }
+        catch (DbUpdateException)
+        {
+            return BadRequest("Species not recognised");
+        }
     }
 
     [HttpPatch("{id:int}")]
@@ -104,6 +112,10 @@ public class PostController : ControllerBase
         catch (UnauthorizedAccessException)
         {
             return Unauthorized();
+        }
+        catch (DbUpdateException)
+        {
+            return BadRequest("Species not recognised");
         }
     }
 }
