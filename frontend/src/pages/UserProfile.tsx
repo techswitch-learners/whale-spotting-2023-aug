@@ -80,7 +80,12 @@ export const UserProfile = () => {
           </div>
           <div className="user-info">
             <p>Name: {user.name}</p>
-            <p>Email: {user.email}</p>
+            <p>
+              Email:{" "}
+              <a className="user-info__email" href={`mailto:${user.email}`}>
+                {user.email}
+              </a>
+            </p>
           </div>
           <div>
             <UserPosts user={user} />
