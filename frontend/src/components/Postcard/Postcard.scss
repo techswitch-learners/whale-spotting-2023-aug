@@ -11,6 +11,7 @@
 
   @include devices(desktop) {
     flex-direction: row;
+    font-size: $desktop-font-size-button;
   }
 
   &__imagecontainer {
@@ -67,7 +68,7 @@
     border-radius: 1rem;
 
     &__title {
-      font-size: 1.8rem;
+      font-size: 1.2rem;
       margin: unset;
 
       @include devices(tablet) {
@@ -90,7 +91,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    justify-content: space-between;
+    justify-content: space-around;
     padding: $mobile-card-padding;
     color: $color-foreground-dark;
     width: 100%;
@@ -113,11 +114,115 @@
       height: 5rem;
       transform: rotate(-4deg);
       width: auto;
+      cursor: pointer;
 
       @include devices(tablet) {
+        top: -2.5rem;
+        right: 0.6rem;
+        height: 5rem;
       }
 
       @include devices(desktop) {
+        top: 1.5rem;
+        right: 1.5rem;
+        height: 8rem;
+        transform: rotate(+3deg);
+      }
+    }
+
+    &__form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      & > label {
+        display: flex;
+        gap: 1rem;
+      }
+
+      &__input {
+        border: none;
+        border-bottom: 1px solid $color-primary;
+        background-color: transparent;
+        font-size: $tablet-font-size-button;
+
+        @include devices(tablet) {
+          font-size: $desktop-font-size-button;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+
+      &__textarea {
+        border: none;
+        outline: none;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        width: 100%;
+        background-image:
+          -webkit-linear-gradient(left, $color-tertiary 0, transparent 0),
+          - webkit-linear-gradient(right, $color-tertiary 0, transparent 0),
+          - webkit-linear-gradient(
+              $color-tertiary 30px,
+              $color-primary 30px,
+              $color-primary 31px,
+              $color-tertiary 31px
+            );
+        background-image:
+          -moz-linear-gradient(left, $color-tertiary 0, transparent 0),
+          - moz-linear-gradient(right, $color-tertiary 0, transparent 0),
+          - moz-linear-gradient(
+              $color-tertiary 30px,
+              $color-primary 30px,
+              $color-primary 31px,
+              $color-tertiary 31px
+            );
+        background-image:
+          -ms-linear-gradient(left, $color-tertiary 0, transparent 0),
+          - ms-linear-gradient(right, $color-tertiary 0, transparent 0),
+          - ms-linear-gradient(
+              $color-tertiary 30px,
+              $color-primary 30px,
+              $color-primary 31px,
+              $color-tertiary 31px
+            );
+        background-image:
+          -o-linear-gradient(left, $color-tertiary 0, transparent 0),
+          - o-linear-gradient(right, $color-tertiary 0, transparent 0),
+          - o-linear-gradient(
+              $color-tertiary 30px,
+              $color-primary 30px,
+              $color-primary 31px,
+              $color-tertiary 31px
+            );
+        background-image: linear-gradient(
+            left,
+            $color-tertiary 0,
+            transparent 0
+          ),
+          linear-gradient(right, $color-tertiary 0, transparent 0),
+          linear-gradient(
+            $color-tertiary 30px,
+            $color-primary 30px,
+            $color-primary 31px,
+            $color-tertiary 31px
+          );
+        background-size:
+          100% 100%,
+          100% 100%,
+          100% 31px;
+        line-height: 31px;
+        font-size: $tablet-font-size-button;
+      }
+
+      @include devices(tablet) {
+        font-size: $desktop-font-size-button;
+      }
+
+      &__label {
       }
     }
 
@@ -155,4 +260,16 @@
   top: -8px;
   left: -8px;
   z-index: -1;
+}
+
+.from {
+  align-self: flex-end;
+}
+
+.towidth {
+  width: 30%;
+}
+
+.PostcardDownload {
+  padding: 1rem;
 }

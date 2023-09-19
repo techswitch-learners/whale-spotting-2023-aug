@@ -2,57 +2,131 @@ import PostData from "../../models/PostData";
 import { toShortDate } from "../../utils/DateConversion";
 import firstClassStamp from "../../assets/Stamp_1st_Class.png";
 import secondClassStamp from "../../assets/Stamp_2nd_Class.png";
+import { ChangeEvent, useEffect, useState } from "react";
+import { Margin, usePDF } from "react-to-pdf";
+import Button from "../UI/Button";
 import "./Postcard.scss";
-import { useEffect, useState } from "react";
-
 interface PostDataProps {
   postData: PostData;
 }
+
+interface PostCardForm {
+  from: string;
+  to: string;
+  message: string;
+}
+
 const stamps = [firstClassStamp, secondClassStamp];
-const random = Math.round(Math.random());
 
 const Postcard = ({ postData }: PostDataProps) => {
-  const [stamp, setStamp] = useState(stamps[Math.round(Math.random())]);
+  const [random, setRandom] = useState(Math.round(Math.random()));
+  const [stamp, setStamp] = useState(stamps[random]);
+  const [form, setForm] = useState<PostCardForm>({
+    from: "",
+    to: "",
+    message: "",
+  });
+
+  const { toPDF, targetRef } = usePDF({
+    filename: "whale-spotting-2023-july-postcard.pdf",
+    page: {
+      margin: Margin.SMALL,
+      format: "A4",
+      orientation: "landscape",
+    },
+    canvas: {
+      mimeType: "image/png",
+      qualityRatio: 1,
+    },
+  });
+
+  const formHandler = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const value = e.target.value;
+    setForm({
+      ...form,
+      [e.target.name]: value,
+    });
+  };
+
+  const downloadPostcard = () => {
+    toPDF();
+    console.log("Postcard Downloaded!");
+  };
 
   useEffect(() => {
-    setStamp(stamps[Math.round(Math.random())]);
-  }, []);
+    setStamp(stamps[random]);
+  }, [random]);
 
   return (
-    <div className="PostcardContainer">
-      <div className="PostcardContainer__imagecontainer">
-        <img
-          className="PostcardContainer__imagecontainer__image"
-          src={postData.imageUrl}
-          alt={`image of ${postData.species.name}`}
-        />
-        <div className="PostcardContainer__heading">
-          <h3 className="PostcardContainer__heading__title">
-            {postData.species.name}
-          </h3>
-          <p className="PostcardContainer__heading__bodyofwater">
-            {postData.bodyOfWater.name}
-          </p>
-          <p className="PostcardContainer__heading__date">
-            {toShortDate(postData.creationTimestamp)}
-          </p>
+    <>
+      <div ref={targetRef}>
+        <div className="PostcardContainer">
+          <div className="PostcardContainer__imagecontainer">
+            <img
+              className="PostcardContainer__imagecontainer__image"
+              src={postData.imageUrl}
+              alt={`image of ${postData.species.name}`}
+            />
+            <div className="PostcardContainer__heading">
+              <h3 className="PostcardContainer__heading__title">
+                {postData.species.name}
+              </h3>
+              <p className="PostcardContainer__heading__bodyofwater">
+                {postData.bodyOfWater.name} -{" "}
+                {toShortDate(postData.creationTimestamp)}
+              </p>
+            </div>
+          </div>
+          <div className="PostcardContainer__content">
+            <img
+              className="PostcardContainer__content__stamp"
+              src={stamp}
+              onClick={() => setRandom(random == 1 ? 0 : 1)}
+            />
+            <div className="PostcardContainer__content__form">
+              <label
+                htmlFor="to"
+                className="PostcardContainer__content__form__label"
+              >
+                TO:
+                <input
+                  className="PostcardContainer__content__form__input towidth"
+                  type="text"
+                  name="to"
+                  value={form.to}
+                  onChange={formHandler}
+                />
+              </label>
+              <label htmlFor="message">
+                <textarea
+                  rows={6}
+                  cols={10}
+                  className="PostcardContainer__content__form__textarea "
+                  name="message"
+                  value={form.message}
+                  onChange={formHandler}
+                />
+              </label>
+              <label htmlFor="from" className="from">
+                FROM:
+                <input
+                  className="PostcardContainer__content__form__input"
+                  type="text"
+                  name="from"
+                  value={form.from}
+                  onChange={formHandler}
+                />
+              </label>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="PostcardContainer__content">
-        <img
-          className="PostcardContainer__content__stamp"
-          src={stamp}
-          onClick={() => setStamp(random == 1 ? stamps[0] : stamps[1])}
-        />
-        <label>
-          <input
-            className="PostcardContainer__content__message"
-            type="text"
-            name="From"
-          />
-        </label>
+      <div className="PostcardDownload">
+        <Button onClick={downloadPostcard}>Download</Button>
       </div>
-    </div>
+    </>
   );
 };
 
