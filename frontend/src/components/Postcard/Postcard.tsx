@@ -5,8 +5,9 @@ import secondClassStamp from "../../assets/Stamp_2nd_Class.png";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Margin, usePDF } from "react-to-pdf";
 import Button from "../UI/Button";
-
+import useScreenSize from "../../utils/UseScreensize";
 import "./Postcard.scss";
+
 interface PostDataProps {
   postData: PostData;
 }
@@ -27,13 +28,17 @@ const Postcard = ({ postData }: PostDataProps) => {
     to: "",
     message: "",
   });
+  const [orientation, setOrientation] = useState<
+    "portrait" | "landscape" | "p" | "l"
+  >("landscape");
+  const screenSize = useScreenSize();
 
   const { toPDF, targetRef } = usePDF({
     filename: "whale-spotting-2023-july-postcard.pdf",
     page: {
       margin: Margin.SMALL,
       format: "A4",
-      orientation: "landscape",
+      orientation: `${orientation}`,
     },
     canvas: {
       mimeType: "image/png",
@@ -59,6 +64,12 @@ const Postcard = ({ postData }: PostDataProps) => {
   useEffect(() => {
     setStamp(stamps[random]);
   }, [random]);
+
+  useEffect(() => {
+    screenSize.height / screenSize.width >= 1
+      ? setOrientation("portrait")
+      : setOrientation("landscape");
+  }, [screenSize]);
 
   return (
     <>
