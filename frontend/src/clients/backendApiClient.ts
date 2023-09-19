@@ -47,6 +47,9 @@ export const registerNewUser = async (
 ): Promise<boolean> => {
   const response = await fetch(`${backendUrl}/User/`, {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({
       Username: username,
       Password: password,
@@ -82,6 +85,9 @@ export const createWhalePost = async (
 ): Promise<boolean> => {
   const response = await fetch(`${backendUrl}/Post`, {
     method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({
       date,
       lat,
