@@ -1,0 +1,12 @@
+.husky/
+backend/WhaleSpotting/bin/
+backend/WhaleSpotting/obj/
+backend/.gitignore
+backend/global.json
+frontend/
+node_modules/
+.gitignore
+Dockerfile
+package-lock.json
+package.json
+README.md

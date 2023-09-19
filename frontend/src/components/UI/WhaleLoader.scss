@@ -1,5 +1,9 @@
+@use "../../styles/mixins" as *;
+
 $whaley-loader-diameter: 15rem;
 $whaley-gutter: 2rem;
+
+$whaley-loader-desktop-width: 30rem;
 
 .WhaleLoader {
   width: $whaley-loader-diameter;
@@ -7,8 +11,13 @@ $whaley-gutter: 2rem;
   display: flex;
   flex-direction: column;
   gap: $whaley-gutter;
+  align-items: center;
 
   margin: auto;
+
+  @include devices(desktop) {
+    width: $whaley-loader-desktop-width;
+  }
 
   &__image {
     &__container {
