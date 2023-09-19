@@ -2,30 +2,38 @@ import PostData from "../../models/PostData";
 import Button from "../UI/Button";
 import fullscreenIcon from "../../assets/fullscreen_icon.svg";
 import { approveOrRejectPost } from "../../clients/backendApiClient";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Modal from "../UI/Modal";
 import ModifyPostModal from "./ModifyPostModal";
 import { toShortDate } from "../../utils/DateConversion";
 import ApprovalStatus from "../../enums/ApprovalStatus";
+import { LoginContext } from "../../context/LoginManager";
 import "./PendingPostModal.scss";
 
 interface PostDataProps {
   postData: PostData;
+  onModeratorAction: () => void;
 }
 
-const PendingPostModal = ({ postData }: PostDataProps) => {
+const PendingPostModal = ({
+  postData,
+  onModeratorAction: onCloseAction,
+}: PostDataProps) => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [modify, setModify] = useState<boolean>(false);
+  const loginContext = useContext(LoginContext);
 
   const handleApprove = async () => {
     try {
       const result = await approveOrRejectPost(
         postData.id,
         ApprovalStatus.Approved,
+        loginContext.encodedAuth,
       );
 
       if (result) {
-        window.location.reload();
+        //        window.location.reload();
+        onCloseAction();
       } else {
         setErrorMessage("Try again later");
       }
@@ -39,6 +47,7 @@ const PendingPostModal = ({ postData }: PostDataProps) => {
       const result = await approveOrRejectPost(
         postData.id,
         ApprovalStatus.Rejected,
+        loginContext.encodedAuth,
       );
 
       if (result) {

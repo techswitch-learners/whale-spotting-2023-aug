@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 import CardPost from "../components/Post/CardPost";
 import Modal from "../components/UI/Modal";
 import PendingPostModal from "../components/Post/PendingPostModal";
 import PostData from "../models/PostData";
 import { getAllPendingPosts } from "../clients/backendApiClient";
 import WhaleLoader from "../components/UI/WhaleLoader";
+import { LoginContext } from "../context/LoginManager";
 import "./PendingPosts.scss";
 
 export const PendingPosts = () => {
@@ -12,9 +13,10 @@ export const PendingPosts = () => {
   const [posts, setPosts] = useState<PostData[]>();
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState("");
+  const loginContext = useContext(LoginContext);
 
-  const fetchPendingPosts = async () => {
-    await getAllPendingPosts()
+  const fetchPendingPosts = useCallback(async () => {
+    await getAllPendingPosts(loginContext.encodedAuth)
       .then((postsData) => {
         setPosts(postsData.posts);
         if (postsData.posts.length === 0) {
@@ -25,11 +27,11 @@ export const PendingPosts = () => {
       })
       .catch(() => setMessage("Can't load posts at this time..."));
     setIsLoading(false);
-  };
+  }, [loginContext.encodedAuth]);
 
   useEffect(() => {
     fetchPendingPosts();
-  }, []);
+  }, [fetchPendingPosts]);
 
   return (
     <main>
@@ -51,7 +53,13 @@ export const PendingPosts = () => {
 
           {selectedPostDetails && (
             <Modal closeAction={() => setSelectedPostDetails(undefined)}>
-              <PendingPostModal postData={selectedPostDetails} />
+              <PendingPostModal
+                postData={selectedPostDetails}
+                onModeratorAction={() => {
+                  setSelectedPostDetails(undefined);
+                  fetchPendingPosts();
+                }}
+              />
             </Modal>
           )}
         </>

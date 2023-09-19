@@ -162,19 +162,25 @@ export const getAllEvents = async (): Promise<EventsData> => {
   return await response.json();
 };
 
-export const getAllPendingPosts = async (): Promise<PostsData> => {
-  const response = await fetch(`${backendUrl}/Post/pending`);
+export const getAllPendingPosts = async (
+  encodedAuth: string,
+): Promise<PostsData> => {
+  const response = await fetch(`${backendUrl}/Post/pending`, {
+    headers: { Authorization: encodedAuth },
+  });
   return await response.json();
 };
 
 export const approveOrRejectPost = async (
   id: number,
   approvalStatus: number,
+  encodedAuth: string,
 ): Promise<boolean> => {
   const response = await fetch(`${backendUrl}/Post/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
+      Authorization: encodedAuth,
     },
     body: JSON.stringify({
       approvalStatus,

@@ -47,6 +47,7 @@ public class PostController : ControllerBase
     }
 
     [HttpGet("pending")]
+    [RequiresAdminAuth]
     public IActionResult GetPending()
     {
         var posts = _postService.GetPending();
