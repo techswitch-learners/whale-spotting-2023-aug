@@ -88,8 +88,8 @@ public class PostController : ControllerBase
     public IActionResult Modify(
         [FromRoute] int id,
         [FromBody] ModifyPostRequest modifyPostRequest,
-        [FromHeader] int userId,
-        Role userRole
+        [FromHeader] Role userRole,
+        [FromHeader] int userId
     )
     {
         try

@@ -124,9 +124,6 @@ public class PostRepo : IPostRepo
     public void Modify(int id, ModifyPostRequest modifyPostRequest, int userId, Role userRole)
     {
         var post = GetById(id);
-        Console.WriteLine("THIS IS WHAT YOU ARE LOOKING FOR!!!!!!!!");
-        Console.WriteLine(userRole);
-        Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1111!!!!!!!!");
 
         if (userRole.Equals(Role.Admin) || post.User.Id == userId)
         {
