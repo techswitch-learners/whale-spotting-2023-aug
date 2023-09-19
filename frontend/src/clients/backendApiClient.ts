@@ -34,7 +34,7 @@ export const tryEncodedAuth = async (encodedAuth: string): Promise<boolean> => {
 };
 
 export const getUserById = async (id: number): Promise<Response> => {
-  const response = await fetch(`${backendUrl}/User/id/${id}`);
+  const response = await fetch(`${backendUrl}/User/${id}`);
   return response;
 };
 
@@ -107,6 +107,11 @@ export const getAllBodiesOfWater = async (): Promise<BodiesOfWaterData> => {
   return bodiesOfWaterData;
 };
 
+export const getBodyOfWaterByName = async (name: string): Promise<Response> => {
+  const response = await fetch(`${backendUrl}/BodyOfWater/${name}`);
+  return response;
+};
+
 export const getLatestPosts = async (): Promise<PostData[]> => {
   const response = await fetch(`${backendUrl}/Post/all`);
   const postsData = await response.json();
@@ -157,19 +162,25 @@ export const getAllEvents = async (): Promise<EventsData> => {
   return await response.json();
 };
 
-export const getAllPendingPosts = async (): Promise<PostsData> => {
-  const response = await fetch(`${backendUrl}/Post/pending`);
+export const getAllPendingPosts = async (
+  encodedAuth: string,
+): Promise<PostsData> => {
+  const response = await fetch(`${backendUrl}/Post/pending`, {
+    headers: { Authorization: encodedAuth },
+  });
   return await response.json();
 };
 
 export const approveOrRejectPost = async (
   id: number,
   approvalStatus: number,
+  encodedAuth: string,
 ): Promise<boolean> => {
   const response = await fetch(`${backendUrl}/Post/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
+      Authorization: encodedAuth,
     },
     body: JSON.stringify({
       approvalStatus,
@@ -186,11 +197,13 @@ export const modifyPost = async (
   speciesId: number,
   description: string,
   imageUrl: string,
+  encodedAuth: string,
 ): Promise<boolean> => {
   const response = await fetch(`${backendUrl}/Post/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
+      Authorization: encodedAuth,
     },
     body: JSON.stringify({
       date,

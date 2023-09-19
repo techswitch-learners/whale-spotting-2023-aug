@@ -3,8 +3,8 @@ import { useState, useEffect, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import logo from "/logo.png";
-import "./Navbar.scss";
 import { LoginContext } from "../context/LoginManager";
+import "./NavBar.scss";
 
 function Navbar() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
