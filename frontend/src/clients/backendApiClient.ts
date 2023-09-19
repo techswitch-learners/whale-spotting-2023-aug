@@ -135,20 +135,24 @@ export const getLeaderboard = async (): Promise<LeaderboardData> => {
 };
 
 export const createEvent = async (
+  name: string,
   startDate: Date,
-  duration: number,
+  durationInHours: number,
   location: string,
   link: string,
   imageUrl: string,
+  encodedAuth: string,
 ): Promise<boolean> => {
   const response = await fetch(`${backendUrl}/Event`, {
     headers: {
       "Content-Type": "application/json",
+      Authorization: encodedAuth,
     },
     method: "POST",
     body: JSON.stringify({
+      name,
       startDate,
-      duration,
+      durationInHours,
       location,
       link,
       imageUrl,
