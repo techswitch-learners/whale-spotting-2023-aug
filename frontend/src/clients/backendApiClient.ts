@@ -75,6 +75,11 @@ export const getAllSpecies = async (): Promise<SpeciesListData> => {
   return await response.json();
 };
 
+export const getSpeciesByName = async (name: string): Promise<Response> => {
+  const response = await fetch(`${backendUrl}/Species/${name}`);
+  return response;
+};
+
 export const createWhalePost = async (
   date: Date,
   lat: number,

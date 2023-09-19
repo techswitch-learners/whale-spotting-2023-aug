@@ -7,4 +7,5 @@ public class Species
     public string LatinName { get; set; } = null!;
     public string Description { get; set; } = null!;
     public List<Whale> Whales { get; set; } = null!;
+    public List<Post> Posts { get; set; } = null!;
 }

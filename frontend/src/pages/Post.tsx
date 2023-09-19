@@ -98,7 +98,9 @@ const Post = () => {
             <div className="Post__heading">
               <h3 className="Post__heading__title">{post.species.name}</h3>
               <p className="Post__heading__bodyofwater">
-                {post.bodyOfWater.name}
+                <a href={`#/search?bodyOfWater=${post.bodyOfWater.name}`}>
+                  {post.bodyOfWater.name}
+                </a>
               </p>
               <p className="Post__heading__date">
                 {toShortDate(post.creationTimestamp)}
