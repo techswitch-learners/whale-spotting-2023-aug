@@ -16,9 +16,8 @@ public class BodyOfWaterResponse
     }
 
     public BodyOfWaterResponse(BodyOfWater bodyOfWater, int userId)
+        : this(bodyOfWater)
     {
-        Id = bodyOfWater.Id;
-        Name = bodyOfWater.Name;
         Posts = bodyOfWater.Posts.Select(post => new PostResponse(post, userId)).ToList();
     }
 }
