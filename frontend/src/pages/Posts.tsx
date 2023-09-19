@@ -7,15 +7,17 @@ import { getAllPosts } from "../clients/backendApiClient";
 import WhaleLoader from "../components/UI/WhaleLoader";
 import FeaturedCarousel from "../components/UI/Carousel/FeaturedCarousel";
 import Button from "../components/UI/Button";
-import "./Posts.scss";
+import { Link } from "react-router-dom";
 import Modal from "../components/UI/Modal";
 import CardPostModal from "../components/Post/CardPostModal";
+import "./Posts.scss";
 
 export const Posts = () => {
   const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();
   const [postData, setPostData] = useState<PostData[]>();
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string>();
+  const [createButtonText, setCreateButtonText] = useState<string>("+");
 
   const fetchPosts = async () => {
     setIsLoading(true);
@@ -96,6 +98,15 @@ export const Posts = () => {
           </div>
         </section>
       )}
+      <Link
+        to="/posts/create"
+        className="create-post-button"
+        onMouseEnter={() => setCreateButtonText("Create a new post")}
+        onMouseLeave={() => setCreateButtonText("+")}
+        aria-label="create a new post"
+      >
+        {createButtonText}
+      </Link>
     </main>
   );
 };
