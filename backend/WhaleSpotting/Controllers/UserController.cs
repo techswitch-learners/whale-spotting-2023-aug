@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using WhaleSpotting.Models.Request;
 using WhaleSpotting.Models.Response;
 using WhaleSpotting.Services;
+using WhaleSpotting.Attributes;
 
 namespace WhaleSpotting.Controllers;
 
@@ -17,12 +18,13 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("{id:int}")]
-    public IActionResult GetById([FromRoute] int id)
+    [AllowGuest]
+    public IActionResult GetById([FromRoute] int id, [FromHeader] int userId)
     {
         try
         {
             var user = _userService.GetById(id);
-            return Ok(new UserResponse(user));
+            return Ok(new UserResponse(user, userId));
         }
         catch (ArgumentException)
         {

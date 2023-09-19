@@ -1,23 +1,45 @@
-import { convertLikesToString } from "../utils/LikeConversion";
 import PostData from "../models/PostData";
 import { toShortDate } from "../utils/DateConversion";
-import postIcon from "../assets/post_icon.png";
 import fullscreenIcon from "../assets/fullscreen_icon.svg";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getPostById } from "../clients/backendApiClient";
+import { getPostById, interactWithPost } from "../clients/backendApiClient";
 import WhaleLoader from "../components/UI/WhaleLoader";
 import Button from "../components/UI/Button";
 import ShareButtonExpandable from "../components/ShareButtonExpandable";
 import "./Post.scss";
+import InteractWithPost from "../components/Post/InteractWithPost";
+import { LoginContext } from "../context/LoginManager";
 
 const Post = () => {
   const [post, setPost] = useState<PostData>();
   const [loading, setLoading] = useState<boolean>(true);
   const [notFound, setNotFound] = useState<boolean>(false);
   const [otherError, setOtherError] = useState<boolean>(false);
+  const loginContext = useContext(LoginContext);
 
   const { postId } = useParams<{ postId: string }>();
+
+  const onLikeHandler = async () => {
+    if (postId) {
+      const postIdNumber = parseInt(postId);
+      if (loginContext.isLoggedIn) {
+        const interactionResult = await interactWithPost(
+          postIdNumber,
+          loginContext.encodedAuth,
+        );
+        if (interactionResult) {
+          if (post) {
+            setPost({
+              ...post,
+              hasInteractionFromCurrentUser: true,
+              interactionCount: post.interactionCount + 1,
+            });
+          }
+        }
+      }
+    }
+  };
 
   const fetchPost = useCallback(async () => {
     setNotFound(false);
@@ -117,8 +139,14 @@ const Post = () => {
             </div>
             <div className="Post__interactions">
               <div className="Post__interactions__likes">
-                <img src={postIcon} alt="whale icon" />
-                <span>{convertLikesToString(post.interactionCount)}</span>
+                <InteractWithPost
+                  postId={post.id}
+                  interactionCount={post.interactionCount}
+                  hasInteractionFromCurrentUser={
+                    post.hasInteractionFromCurrentUser
+                  }
+                  onPostLike={onLikeHandler}
+                />
               </div>
               <div>
                 <ShareButtonExpandable

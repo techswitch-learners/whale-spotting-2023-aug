@@ -20,4 +20,10 @@ public class UserResponse
         ProfileImageUrl = user.ProfileImageUrl;
         Posts = user.Posts.Select(post => new PostResponse(post)).ToList();
     }
+
+    public UserResponse(User user, int userId)
+        : this(user)
+    {
+        Posts = user.Posts.Select(post => new PostResponse(post, userId)).ToList();
+    }
 }

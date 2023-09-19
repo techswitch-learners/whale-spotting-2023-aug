@@ -33,12 +33,12 @@ public class PostController : ControllerBase
 
     [HttpGet("all")]
     [AllowGuest]
-    public IActionResult GetAll([FromHeader] int UserId)
+    public IActionResult GetAll([FromHeader] int userId)
     {
         try
         {
             var posts = _postService.GetAll();
-            return Ok(new PostsResponse(posts, UserId));
+            return Ok(new PostsResponse(posts, userId));
         }
         catch (ArgumentException)
         {

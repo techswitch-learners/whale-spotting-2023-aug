@@ -14,4 +14,11 @@ public class BodyOfWaterResponse
         Name = bodyOfWater.Name;
         Posts = bodyOfWater.Posts.Select(post => new PostResponse(post)).ToList();
     }
+
+    public BodyOfWaterResponse(BodyOfWater bodyOfWater, int userId)
+    {
+        Id = bodyOfWater.Id;
+        Name = bodyOfWater.Name;
+        Posts = bodyOfWater.Posts.Select(post => new PostResponse(post, userId)).ToList();
+    }
 }

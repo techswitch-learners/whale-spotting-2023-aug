@@ -1,8 +1,9 @@
 import { useSearchParams } from "react-router-dom";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useContext } from "react";
 import {
   getAllBodiesOfWater,
   getBodyOfWaterByName,
+  interactWithPost,
 } from "../clients/backendApiClient";
 import WhaleLoader from "../components/UI/WhaleLoader";
 import Button from "../components/UI/Button";
@@ -11,6 +12,7 @@ import CardPost from "../components/Post/CardPost";
 import Modal from "../components/UI/Modal";
 import CardPostModal from "../components/Post/CardPostModal";
 import PostData from "../models/PostData";
+import { LoginContext } from "../context/LoginManager";
 
 const SearchResults = () => {
   const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();
@@ -23,6 +25,37 @@ const SearchResults = () => {
   const [bodyOfWaterName, setBodyOfWaterName] = useState(
     searchParams.get("bodyOfWater"),
   );
+  const loginContext = useContext(LoginContext);
+
+  const onLikeHandler = async (postId: number) => {
+    if (loginContext.isLoggedIn) {
+      const interactionResult = await interactWithPost(
+        postId,
+        loginContext.encodedAuth,
+      );
+      if (interactionResult) {
+        const updatedPosts = bodyOfWater?.posts?.map((post) => {
+          return post.id == postId
+            ? {
+                ...post,
+                hasInteractionFromCurrentUser: true,
+                interactionCount: post.interactionCount + 1,
+              }
+            : post;
+        });
+        if (updatedPosts && bodyOfWater) {
+          setBodyOfWater({ ...bodyOfWater, posts: updatedPosts });
+        }
+
+        if (selectedPostDetails) {
+          const selectedPostData = updatedPosts?.find(
+            (post) => post.id === selectedPostDetails.id,
+          );
+          setSelectedPostDetails(selectedPostData);
+        }
+      }
+    }
+  };
 
   const fetchSearchResults = useCallback(async () => {
     setNotFound(false);
@@ -31,7 +64,7 @@ const SearchResults = () => {
 
     if (bodyOfWaterName) {
       setLoading(true);
-      await getBodyOfWaterByName(bodyOfWaterName)
+      await getBodyOfWaterByName(bodyOfWaterName, loginContext.encodedAuth)
         .then((response) => {
           if (response.ok) {
             response.json().then(setBodyOfWater);
@@ -47,7 +80,7 @@ const SearchResults = () => {
       setNotFound(true);
       setLoading(false);
     }
-  }, [bodyOfWaterName]);
+  }, [bodyOfWaterName, loginContext.encodedAuth]);
 
   useEffect(() => {
     fetchSearchResults();
@@ -121,13 +154,17 @@ const SearchResults = () => {
                   <CardPost
                     postData={post}
                     openModalAction={() => setSelectedPostDetails(post)}
+                    onPostLike={onLikeHandler}
                   />
                 );
               })}
           </div>
           {selectedPostDetails && (
             <Modal closeAction={() => setSelectedPostDetails(undefined)}>
-              <CardPostModal postData={selectedPostDetails} />
+              <CardPostModal
+                postData={selectedPostDetails}
+                onPostLike={onLikeHandler}
+              />
             </Modal>
           )}
         </div>

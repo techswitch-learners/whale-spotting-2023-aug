@@ -21,8 +21,8 @@ public class GuestHeaderFilter : IAuthorizationFilter
     {
         if (!_httpContextAccessor.HttpContext!.Request.Headers["Authorization"].Any())
         {
-            _httpContextAccessor.HttpContext.Request.Headers["UserId"] = "-1";
-            _httpContextAccessor.HttpContext.Request.Headers["UserRole"] = Role.Guest.ToString();
+            _httpContextAccessor.HttpContext.Request.Headers["userId"] = "-1";
+            _httpContextAccessor.HttpContext.Request.Headers["userRole"] = Role.Guest.ToString();
             return;
         }
 
@@ -38,20 +38,20 @@ public class GuestHeaderFilter : IAuthorizationFilter
         }
         catch (ArgumentException)
         {
-            _httpContextAccessor.HttpContext.Request.Headers["UserId"] = "-1";
-            _httpContextAccessor.HttpContext.Request.Headers["UserRole"] = Role.Guest.ToString();
+            _httpContextAccessor.HttpContext.Request.Headers["userId"] = "-1";
+            _httpContextAccessor.HttpContext.Request.Headers["userRole"] = Role.Guest.ToString();
             return;
         }
         var user = _authService.GetMatchingUser(auth.Username, auth.Password);
         if (user == null)
         {
-            _httpContextAccessor.HttpContext.Request.Headers["UserId"] = "-1";
-            _httpContextAccessor.HttpContext.Request.Headers["UserRole"] = Role.Guest.ToString();
+            _httpContextAccessor.HttpContext.Request.Headers["userId"] = "-1";
+            _httpContextAccessor.HttpContext.Request.Headers["userRole"] = Role.Guest.ToString();
             return;
         }
 
-        _httpContextAccessor.HttpContext.Request.Headers["UserId"] = user.Id.ToString();
-        _httpContextAccessor.HttpContext.Request.Headers["UserRole"] = user.Role.ToString();
+        _httpContextAccessor.HttpContext.Request.Headers["userId"] = user.Id.ToString();
+        _httpContextAccessor.HttpContext.Request.Headers["userRole"] = user.Role.ToString();
 
         return;
     }

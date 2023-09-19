@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useContext } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import Modal from "../UI/Modal";
 import CardPostModal from "../Post/CardPostModal";
-import { getAllPosts } from "../../clients/backendApiClient";
+import { getAllPosts, interactWithPost } from "../../clients/backendApiClient";
 import Button from "../UI/Button";
 import WhaleLoader from "../UI/WhaleLoader";
 import PostData from "../../models/PostData";
+import { LoginContext } from "../../context/LoginManager";
 import "./Map.scss";
 
 const Map = () => {
@@ -15,22 +16,51 @@ const Map = () => {
   const [errorMessage, setErrorMessage] = useState<string>();
   const [sortMethod, setSortMethod] = useState<"date" | "interactions">("date");
   const [numMarkers, setNumMarkers] = useState<number>(20);
+  const loginContext = useContext(LoginContext);
 
-  const fetchPosts = async () => {
+  const onLikeHandler = async (postId: number) => {
+    if (loginContext.isLoggedIn) {
+      const interactionResult = await interactWithPost(
+        postId,
+        loginContext.encodedAuth,
+      );
+      if (interactionResult) {
+        const updatedPosts = postData?.map((post) => {
+          return post.id == postId
+            ? {
+                ...post,
+                hasInteractionFromCurrentUser: true,
+                interactionCount: post.interactionCount + 1,
+              }
+            : post;
+        });
+        setPostData(updatedPosts);
+
+        if (selectedPostDetails) {
+          const selectedPostData = updatedPosts?.find(
+            (post) => post.id === selectedPostDetails.id,
+          );
+          setSelectedPostDetails(selectedPostData);
+        }
+      }
+    }
+  };
+
+  const fetchPosts = useCallback(async () => {
     setIsLoading(true);
     setPostData(undefined);
     setErrorMessage(undefined);
 
-    await getAllPosts()
+    await getAllPosts(loginContext.encodedAuth)
       .then((data) => setPostData(data.posts))
       .catch(() => setErrorMessage("Unable to load posts"));
 
     setIsLoading(false);
-  };
+  }, [loginContext.encodedAuth]);
 
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [fetchPosts]);
 
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSortMethod(e.target.value as "date" | "interactions");
@@ -131,7 +161,10 @@ const Map = () => {
       </MapContainer>
       {selectedPostDetails && (
         <Modal closeAction={() => setSelectedPostDetails(undefined)}>
-          <CardPostModal postData={selectedPostDetails} />
+          <CardPostModal
+            postData={selectedPostDetails}
+            onPostLike={onLikeHandler}
+          />
         </Modal>
       )}
     </div>
