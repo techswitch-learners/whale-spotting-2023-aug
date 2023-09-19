@@ -35,7 +35,9 @@ const CardPostModal = ({ postData }: PostDataProps) => {
             {postData.species.name}
           </h3>
           <p className="CardPostModal__heading__bodyofwater">
-            {postData.bodyOfWater.name}
+            <a href={`#/search?bodyOfWater=${postData.bodyOfWater.name}`}>
+              {postData.bodyOfWater.name}
+            </a>
           </p>
           <p className="CardPostModal__heading__date">
             {toShortDate(postData.creationTimestamp)}
