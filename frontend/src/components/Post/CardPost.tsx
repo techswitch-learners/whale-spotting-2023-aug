@@ -7,31 +7,33 @@ import "./CardPost.scss";
 interface PostDataProps {
   postData: PostData;
   openModalAction: () => void;
-  likePost: (postId: number) => void;
+  likePost?: (postId: number) => void;
 }
 
 const CardPost = ({ postData, openModalAction, likePost }: PostDataProps) => {
   return (
     <div className="CardPost">
-      <div className="CardPost__banner">
-        <div className="CardPost__banner__likes">
-          <InteractWithPost
-            postId={postData.id}
-            interactionCount={postData.interactionCount}
-            hasInteractionFromCurrentUser={
-              postData.hasInteractionFromCurrentUser
-            }
-            likePost={likePost}
-          />
+      {likePost && (
+        <div className="CardPost__banner">
+          <div className="CardPost__banner__likes">
+            <InteractWithPost
+              postId={postData.id}
+              interactionCount={postData.interactionCount}
+              hasInteractionFromCurrentUser={
+                postData.hasInteractionFromCurrentUser
+              }
+              likePost={likePost}
+            />
+          </div>
+          <div>
+            <ShareButtonExpandable
+              postData={postData}
+              size={24}
+              type={"sighting"}
+            />
+          </div>
         </div>
-        <div>
-          <ShareButtonExpandable
-            postData={postData}
-            size={24}
-            type={"sighting"}
-          />
-        </div>
-      </div>
+      )}
       <img
         className="CardPost__image"
         src={postData.imageUrl}

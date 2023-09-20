@@ -3,7 +3,7 @@ import likeIcon from "../../assets/likeIcon.svg";
 import { LoginContext } from "../../context/LoginManager";
 import "./InteractWithPost.scss";
 
-interface LikePostProps {
+interface InteractWithPostProps {
   interactionCount: number;
   postId: number;
   hasInteractionFromCurrentUser?: boolean;
@@ -15,7 +15,7 @@ const InteractWithPost = ({
   postId,
   hasInteractionFromCurrentUser,
   likePost,
-}: LikePostProps) => {
+}: InteractWithPostProps) => {
   const loginContext = useContext(LoginContext);
 
   return (
