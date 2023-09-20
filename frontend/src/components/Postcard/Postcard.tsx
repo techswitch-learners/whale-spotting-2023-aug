@@ -2,10 +2,11 @@ import PostData from "../../models/PostData";
 import { toShortDate } from "../../utils/DateConversion";
 import firstClassStamp from "../../assets/Stamp_1st_Class.png";
 import secondClassStamp from "../../assets/Stamp_2nd_Class.png";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState, useContext } from "react";
 import { Margin, usePDF } from "react-to-pdf";
 import Button from "../UI/Button";
 import useScreenSize from "../../utils/UseScreensize";
+import { LoginContext } from "../../context/LoginManager";
 import "./Postcard.scss";
 
 interface PostDataProps {
@@ -32,6 +33,7 @@ const Postcard = ({ postData }: PostDataProps) => {
     "portrait" | "landscape" | "p" | "l"
   >("landscape");
   const screenSize = useScreenSize();
+  const loginContext = useContext(LoginContext);
 
   const { toPDF, targetRef } = usePDF({
     filename: "whale-spotting-2023-july-postcard.pdf",
@@ -70,6 +72,15 @@ const Postcard = ({ postData }: PostDataProps) => {
       ? setOrientation("portrait")
       : setOrientation("landscape");
   }, [screenSize]);
+
+  useEffect(() => {
+    if (loginContext.isLoggedIn) {
+      setForm({
+        ...form,
+        from: loginContext.userName,
+      });
+    }
+  }, [loginContext, form]);
 
   return (
     <>
