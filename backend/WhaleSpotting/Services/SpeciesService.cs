@@ -6,7 +6,6 @@ namespace WhaleSpotting.Services;
 public interface ISpeciesService
 {
     List<Species> GetAll();
-    Species GetByName(string name);
 }
 
 public class SpeciesService : ISpeciesService
@@ -21,10 +20,5 @@ public class SpeciesService : ISpeciesService
     public List<Species> GetAll()
     {
         return _species.GetAll();
-    }
-
-    public Species GetByName(string name)
-    {
-        return _species.GetByName(name);
     }
 }

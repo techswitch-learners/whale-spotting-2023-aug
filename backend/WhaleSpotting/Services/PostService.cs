@@ -13,6 +13,7 @@ public interface IPostService
     List<Post> GetPending();
     void ApproveOrReject(int id, ApprovalStatus approvalStatus);
     void Modify(int id, ModifyPostRequest modifyPostRequest);
+    List<Post> Search(SearchPostsRequest searchPostsRequest);
 }
 
 public class PostService : IPostService
@@ -52,5 +53,10 @@ public class PostService : IPostService
     public void Modify(int id, ModifyPostRequest modifyPostRequest)
     {
         _posts.Modify(id, modifyPostRequest);
+    }
+
+    public List<Post> Search(SearchPostsRequest searchPostsRequest)
+    {
+        return _posts.Search(searchPostsRequest);
     }
 }

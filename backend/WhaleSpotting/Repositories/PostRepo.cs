@@ -14,6 +14,7 @@ public interface IPostRepo
     List<Post> GetPending();
     void ApproveOrReject(int id, ApprovalStatus approvalStatus);
     void Modify(int id, ModifyPostRequest modifyPostRequest);
+    List<Post> Search(SearchPostsRequest searchPostsRequest);
 }
 
 public class PostRepo : IPostRepo
@@ -133,5 +134,30 @@ public class PostRepo : IPostRepo
         post.ImageUrl = modifyPostRequest.ImageUrl;
         post.Description = modifyPostRequest.Description;
         _context.SaveChanges();
+    }
+
+    public List<Post> Search(SearchPostsRequest searchPostsRequest)
+    {
+        var query = _context.Posts
+            .Include(post => post.User)
+            .Include(post => post.BodyOfWater)
+            .Include(post => post.Species)
+            .Include(post => post.Interactions)
+            .Where(post => post.ApprovalStatus == ApprovalStatus.Approved);
+        if (!string.IsNullOrWhiteSpace(searchPostsRequest.BodyOfWaterName))
+        {
+            query = query.Where(
+                post =>
+                    post.BodyOfWater != null
+                    && post.BodyOfWater.Name == searchPostsRequest.BodyOfWaterName
+            );
+        }
+        if (!string.IsNullOrWhiteSpace(searchPostsRequest.SpeciesName))
+        {
+            query = query.Where(
+                post => post.Species != null && post.Species.Name == searchPostsRequest.SpeciesName
+            );
+        }
+        return query.ToList();
     }
 }

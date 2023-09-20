@@ -7,6 +7,7 @@ import PostsData from "../models/PostsData";
 import PostData from "../models/PostData";
 import LeaderboardData from "../models/LeaderboardData";
 import EventsData from "../models/EventsData";
+import SpeciesData from "../models/SpeciesData";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -72,12 +73,13 @@ export const getLatitudeLongitude = async (
 
 export const getAllSpecies = async (): Promise<SpeciesListData> => {
   const response = await fetch(`${backendUrl}/Species/all`);
-  return await response.json();
-};
-
-export const getSpeciesByName = async (name: string): Promise<Response> => {
-  const response = await fetch(`${backendUrl}/Species/${name}`);
-  return response;
+  const speciesData = await response.json();
+  if (speciesData) {
+    speciesData.speciesList.sort((a: SpeciesData, b: SpeciesData) => {
+      return a.name > b.name;
+    });
+  }
+  return speciesData;
 };
 
 export const createWhalePost = async (
@@ -223,4 +225,20 @@ export const modifyPost = async (
 export const getPostById = async (id: number): Promise<Response> => {
   const response = await fetch(`${backendUrl}/Post/${id}`);
   return response;
+};
+
+export const searchPosts = async (
+  bodyOfWaterName?: string,
+  speciesName?: string,
+): Promise<PostsData> => {
+  const url = `${backendUrl}/Post/search`;
+  const urlSearchParams = new URLSearchParams();
+  if (bodyOfWaterName) {
+    urlSearchParams.append("bodyOfWaterName", bodyOfWaterName);
+  }
+  if (speciesName) {
+    urlSearchParams.append("speciesName", speciesName);
+  }
+  const response = await fetch(`${url}?${urlSearchParams.toString()}`);
+  return response.json();
 };

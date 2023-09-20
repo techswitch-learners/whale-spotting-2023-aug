@@ -21,18 +21,4 @@ public class SpeciesController : ControllerBase
         var species = _speciesService.GetAll();
         return Ok(new SpeciesListResponse(species));
     }
-
-    [HttpGet("{name}")]
-    public IActionResult GetByName([FromRoute] string name)
-    {
-        try
-        {
-            var species = _speciesService.GetByName(name);
-            return Ok(new SpeciesResponse(species));
-        }
-        catch (ArgumentException)
-        {
-            return NotFound();
-        }
-    }
 }

@@ -88,4 +88,18 @@ public class PostController : ControllerBase
             return NotFound();
         }
     }
+
+    [HttpGet("search")]
+    public IActionResult Search([FromQuery] SearchPostsRequest searchPostsRequest)
+    {
+        try
+        {
+            var posts = _postService.Search(searchPostsRequest);
+            return Ok(new PostsResponse(posts));
+        }
+        catch (ArgumentException)
+        {
+            return NotFound();
+        }
+    }
 }

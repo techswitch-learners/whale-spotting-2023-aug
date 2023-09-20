@@ -21,6 +21,7 @@ public class SpeciesResponse
     public string LatinName { get; }
     public string Description { get; }
     public List<SpeciesWhale> Whales { get; }
+    public List<PostResponse> Posts { get; }
 
     public SpeciesResponse(Species species)
     {
@@ -29,5 +30,6 @@ public class SpeciesResponse
         LatinName = species.LatinName;
         Description = species.Description;
         Whales = species.Whales.Select(whale => new SpeciesWhale(whale)).ToList();
+        Posts = species.Posts.Select(post => new PostResponse(post)).ToList();
     }
 }

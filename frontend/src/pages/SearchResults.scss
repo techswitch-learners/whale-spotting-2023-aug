@@ -1,0 +1,9 @@
+.SearchResults {
+  padding: 3rem 0;
+
+  &__Filter {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+}

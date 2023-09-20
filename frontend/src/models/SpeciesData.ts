@@ -1,4 +1,4 @@
-import PostsData from "./PostsData";
+import PostData from "./PostData";
 
 interface SpeciesWhale {
   tagNumber: number;
@@ -11,7 +11,7 @@ interface SpeciesData {
   latinName: string;
   description: string;
   whales: SpeciesWhale[];
-  posts: PostsData;
+  posts: PostData[];
 }
 
 export default SpeciesData;

@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { getAllSpecies } from "../../clients/backendApiClient";
 import { useNavigate } from "react-router-dom";
 import Button from "../UI/Button";
-import "./SearchBySea.scss";
 import SpeciesData from "../../models/SpeciesData";
+import "./SearchBySpecies.scss";
 
-const SearchBySea = () => {
+const SearchBySpecies = () => {
   const [speciesList, setSpeciesList] = useState<SpeciesData[]>();
-  const [species, setSpecies] = useState<string>();
+  const [species, setSpecies] = useState<number>();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,15 +22,15 @@ const SearchBySea = () => {
 
   return (
     <section className="container">
-      <div className="SearchBySea">
-        <h3>Search For Posts by Sea/Ocean</h3>
-        <div className="SearchBySea-row">
+      <div className="SearchBySpecies">
+        <h3>Search For Posts by Species</h3>
+        <div className="SearchBySpecies-row">
           <label htmlFor="species">
             <select
-              className="SearchBySea__select"
+              className="SearchBySpecies__select"
               id="species"
               name="species"
-              onChange={(e) => setSpecies(e.target.value)}
+              onChange={(e) => setSpecies(parseInt(e.target.value))}
             >
               <option selected disabled>
                 Please select...
@@ -39,14 +39,12 @@ const SearchBySea = () => {
                 speciesList.map((species) => (
                   <option
                     key={species.id}
-                    className="SearchBySea__select__option"
-                    value={species.name}
-                    disabled={species.posts.posts.length === 0}
+                    className="SearchBySpecies__select__option"
+                    value={species.id}
+                    disabled={species.posts.length === 0}
                   >
                     {species.name +
-                      (species.posts.posts.length === 0
-                        ? " (no posts yet)"
-                        : "")}
+                      (species.posts.length === 0 ? " (no posts yet)" : "")}
                   </option>
                 ))}
             </select>
@@ -61,4 +59,4 @@ const SearchBySea = () => {
   );
 };
 
-export default SearchBySea;
+export default SearchBySpecies;
