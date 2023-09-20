@@ -1,17 +1,17 @@
-import { convertLikesToString } from "../../utils/LikeConversion";
 import PostData from "../../models/PostData";
 import { toShortDate } from "../../utils/DateConversion";
-import postIcon from "../../assets/post_icon.png";
 import fullscreenIcon from "../../assets/fullscreen_icon.svg";
 import ShareButtonExpandable from "../ShareButtonExpandable";
 import { Link } from "react-router-dom";
+import InteractWithPost from "./InteractWithPost";
 import "./CardPostModal.scss";
 
 interface PostDataProps {
   postData: PostData;
+  likePost: (postId: number) => void;
 }
 
-const CardPostModal = ({ postData }: PostDataProps) => {
+const CardPostModal = ({ postData, likePost }: PostDataProps) => {
   return (
     <div className="CardPostModal">
       <div className="CardPostModal__image__container">
@@ -58,8 +58,14 @@ const CardPostModal = ({ postData }: PostDataProps) => {
         </Link>
         <div className="CardPostModal__interactions">
           <div className="CardPostModal__interactions__likes">
-            <img src={postIcon} alt="whale icon" />
-            <span>{convertLikesToString(postData.interactionCount)}</span>
+            <InteractWithPost
+              postId={postData.id}
+              interactionCount={postData.interactionCount}
+              hasInteractionFromCurrentUser={
+                postData.hasInteractionFromCurrentUser
+              }
+              likePost={likePost}
+            />
           </div>
           <div>
             <ShareButtonExpandable

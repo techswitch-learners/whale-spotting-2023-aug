@@ -11,13 +11,13 @@ public class UserResponse
     public string ProfileImageUrl { get; }
     public List<PostResponse> Posts { get; }
 
-    public UserResponse(User user)
+    public UserResponse(User user, int? userId = null)
     {
         Id = user.Id;
         Username = user.Username;
         Email = user.Email;
         Name = user.Name;
         ProfileImageUrl = user.ProfileImageUrl;
-        Posts = user.Posts.Select(post => new PostResponse(post)).ToList();
+        Posts = user.Posts.Select(post => new PostResponse(post, userId)).ToList();
     }
 }

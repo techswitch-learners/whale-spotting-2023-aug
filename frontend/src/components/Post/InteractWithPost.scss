@@ -1,0 +1,40 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.LikePost {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  border: 0.125rem solid $color-secondary;
+  border-radius: 0.25rem;
+  background-color: $color-secondary;
+
+  text-align: center;
+
+  transition: background-color 0.25s;
+
+  cursor: pointer;
+
+  &__Icon {
+    margin: 0.2rem;
+    filter: invert(37%) sepia(64%) saturate(5346%) hue-rotate(311deg)
+      brightness(98%) contrast(98%);
+  }
+
+  &:hover {
+    background-color: $color-primary;
+    border: 0.125rem solid $color-background;
+    color: $color-foreground;
+  }
+
+  &:disabled {
+    background-color: rgba(172, 172, 172, 0.317);
+    border: 0.125rem solid $color-background;
+    color: $color-foreground;
+  }
+}

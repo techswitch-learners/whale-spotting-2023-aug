@@ -7,13 +7,13 @@ namespace WhaleSpotting.Services;
 
 public interface IPostService
 {
-    Task<Post> Create(CreatePostRequest createPostRequest);
+    Task<Post> Create(CreatePostRequest createPostRequest, int userId);
     Post GetById(int id);
     List<Post> GetAll();
     List<Post> GetPending();
     void ApproveOrReject(int id, ApprovalStatus approvalStatus);
-    void Modify(int id, ModifyPostRequest modifyPostRequest);
     List<Post> Search(SearchPostsRequest searchPostsRequest);
+    void Modify(int id, ModifyPostRequest modifyPostRequest, int userId, Role userRole);
 }
 
 public class PostService : IPostService
@@ -25,9 +25,9 @@ public class PostService : IPostService
         _posts = posts;
     }
 
-    public async Task<Post> Create(CreatePostRequest createPostRequest)
+    public async Task<Post> Create(CreatePostRequest createPostRequest, int userId)
     {
-        return await _posts.Create(createPostRequest);
+        return await _posts.Create(createPostRequest, userId);
     }
 
     public Post GetById(int id)
@@ -50,9 +50,9 @@ public class PostService : IPostService
         _posts.ApproveOrReject(id, approvalStatus);
     }
 
-    public void Modify(int id, ModifyPostRequest modifyPostRequest)
+    public void Modify(int id, ModifyPostRequest modifyPostRequest, int userId, Role userRole)
     {
-        _posts.Modify(id, modifyPostRequest);
+        _posts.Modify(id, modifyPostRequest, userId, userRole);
     }
 
     public List<Post> Search(SearchPostsRequest searchPostsRequest)

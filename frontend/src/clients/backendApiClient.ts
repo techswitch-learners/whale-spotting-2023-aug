@@ -34,8 +34,20 @@ export const tryEncodedAuth = async (encodedAuth: string): Promise<boolean> => {
   return response.ok;
 };
 
-export const getUserById = async (id: number): Promise<Response> => {
-  const response = await fetch(`${backendUrl}/User/${id}`);
+export const getUserById = async (
+  id: number,
+  encodedAuth?: string,
+): Promise<Response> => {
+  let response;
+  if (!encodedAuth) {
+    response = await fetch(`${backendUrl}/User/${id}`);
+  } else {
+    response = await fetch(`${backendUrl}/User/${id}`, {
+      headers: {
+        Authorization: encodedAuth,
+      },
+    });
+  }
   return response;
 };
 
@@ -84,27 +96,29 @@ export const getAllSpecies = async (): Promise<SpeciesListData> => {
 
 export const createWhalePost = async (
   date: Date,
-  lat: number,
-  lon: number,
-  species: number,
+  latitude: number,
+  longitude: number,
+  speciesId: number,
   description: string,
   imageUrl: string,
+  encodedAuth: string,
 ): Promise<boolean> => {
   const response = await fetch(`${backendUrl}/Post`, {
     method: "post",
     headers: {
       "Content-Type": "application/json",
+      Authorization: encodedAuth,
     },
     body: JSON.stringify({
       date,
-      lat,
-      lon,
-      species,
+      latitude,
+      longitude,
+      speciesId,
       description,
       imageUrl,
     }),
   });
-  return await response.json();
+  return response.ok;
 };
 
 export const getAllBodiesOfWater = async (): Promise<BodiesOfWaterData> => {
@@ -120,8 +134,20 @@ export const getAllBodiesOfWater = async (): Promise<BodiesOfWaterData> => {
   return bodiesOfWaterData;
 };
 
-export const getBodyOfWaterByName = async (name: string): Promise<Response> => {
-  const response = await fetch(`${backendUrl}/BodyOfWater/${name}`);
+export const getBodyOfWaterByName = async (
+  name: string,
+  encodedAuth?: string,
+): Promise<Response> => {
+  let response;
+  if (!encodedAuth) {
+    response = await fetch(`${backendUrl}/BodyOfWater/${name}`);
+  } else {
+    response = await fetch(`${backendUrl}/BodyOfWater/${name}`, {
+      headers: {
+        Authorization: encodedAuth,
+      },
+    });
+  }
   return response;
 };
 
@@ -143,20 +169,24 @@ export const getLeaderboard = async (): Promise<LeaderboardData> => {
 };
 
 export const createEvent = async (
+  name: string,
   startDate: Date,
-  duration: number,
+  durationInHours: number,
   location: string,
   link: string,
   imageUrl: string,
+  encodedAuth: string,
 ): Promise<boolean> => {
   const response = await fetch(`${backendUrl}/Event`, {
     headers: {
       "Content-Type": "application/json",
+      Authorization: encodedAuth,
     },
     method: "POST",
     body: JSON.stringify({
+      name,
       startDate,
-      duration,
+      durationInHours,
       location,
       link,
       imageUrl,
@@ -165,8 +195,17 @@ export const createEvent = async (
   return response.ok;
 };
 
-export const getAllPosts = async (): Promise<PostsData> => {
-  const response = await fetch(`${backendUrl}/Post/all`);
+export const getAllPosts = async (encodedAuth?: string): Promise<PostsData> => {
+  let response;
+  if (!encodedAuth) {
+    response = await fetch(`${backendUrl}/Post/all`);
+  } else {
+    response = await fetch(`${backendUrl}/Post/all`, {
+      headers: {
+        Authorization: encodedAuth,
+      },
+    });
+  }
   return await response.json();
 };
 
@@ -175,19 +214,25 @@ export const getAllEvents = async (): Promise<EventsData> => {
   return await response.json();
 };
 
-export const getAllPendingPosts = async (): Promise<PostsData> => {
-  const response = await fetch(`${backendUrl}/Post/pending`);
+export const getAllPendingPosts = async (
+  encodedAuth: string,
+): Promise<PostsData> => {
+  const response = await fetch(`${backendUrl}/Post/pending`, {
+    headers: { Authorization: encodedAuth },
+  });
   return await response.json();
 };
 
 export const approveOrRejectPost = async (
   id: number,
   approvalStatus: number,
+  encodedAuth: string,
 ): Promise<boolean> => {
   const response = await fetch(`${backendUrl}/Post/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
+      Authorization: encodedAuth,
     },
     body: JSON.stringify({
       approvalStatus,
@@ -199,24 +244,43 @@ export const approveOrRejectPost = async (
 export const modifyPost = async (
   id: number,
   date: Date,
-  lat: number,
-  lon: number,
+  latitude: number,
+  longitude: number,
   speciesId: number,
   description: string,
   imageUrl: string,
+  encodedAuth: string,
 ): Promise<boolean> => {
   const response = await fetch(`${backendUrl}/Post/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
+      Authorization: encodedAuth,
     },
     body: JSON.stringify({
       date,
-      lat,
-      lon,
+      latitude,
+      longitude,
       speciesId,
       description,
       imageUrl,
+    }),
+  });
+  return response.ok;
+};
+
+export const interactWithPost = async (
+  postId: number,
+  encodedAuth: string,
+): Promise<boolean> => {
+  const response = await fetch(`${backendUrl}/Interaction`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: encodedAuth,
+    },
+    body: JSON.stringify({
+      PostId: postId,
     }),
   });
   return response.ok;
@@ -230,7 +294,9 @@ export const getPostById = async (id: number): Promise<Response> => {
 export const searchPosts = async (
   bodyOfWaterName?: string,
   speciesName?: string,
+  encodedAuth?: string,
 ): Promise<PostsData> => {
+  let response;
   const url = `${backendUrl}/Post/search`;
   const urlSearchParams = new URLSearchParams();
   if (bodyOfWaterName) {
@@ -239,6 +305,14 @@ export const searchPosts = async (
   if (speciesName) {
     urlSearchParams.append("speciesName", speciesName);
   }
-  const response = await fetch(`${url}?${urlSearchParams.toString()}`);
-  return response.json();
+  if (!encodedAuth) {
+    response = await fetch(`${url}?${urlSearchParams.toString()}`);
+  } else {
+    response = await fetch(`${url}?${urlSearchParams.toString()}`, {
+      headers: {
+        Authorization: encodedAuth,
+      },
+    });
+  }
+  return await response.json();
 };

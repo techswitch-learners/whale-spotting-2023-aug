@@ -1,8 +1,9 @@
-import { useState, useEffect, useCallback } from "react";
-import UserData from "../models/UserData";
-import { getUserById } from "../clients/backendApiClient";
+import { useState, useEffect, useCallback, useContext } from "react";
+import { getUserById, interactWithPost } from "../clients/backendApiClient";
 import { useParams } from "react-router-dom";
+import { LoginContext } from "../context/LoginManager";
 import WhaleLoader from "../components/UI/WhaleLoader";
+import UserData from "../models/UserData";
 import Button from "../components/UI/Button";
 import UserPosts from "../components/User/UserPosts";
 import "./UserProfile.scss";
@@ -12,8 +13,32 @@ export const UserProfile = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [notFound, setNotFound] = useState<boolean>(false);
   const [otherError, setOtherError] = useState<boolean>(false);
+  const loginContext = useContext(LoginContext);
 
   const { userId } = useParams<{ userId: string }>();
+
+  const handleLike = async (postId: number) => {
+    if (loginContext.isLoggedIn) {
+      const interactionResult = await interactWithPost(
+        postId,
+        loginContext.encodedAuth,
+      );
+      if (interactionResult) {
+        const updatedPosts = user?.posts?.map((post) => {
+          return post.id == postId
+            ? {
+                ...post,
+                hasInteractionFromCurrentUser: true,
+                interactionCount: post.interactionCount + 1,
+              }
+            : post;
+        });
+        if (updatedPosts && user) {
+          setUser({ ...user, posts: updatedPosts });
+        }
+      }
+    }
+  };
 
   const fetchUser = useCallback(async () => {
     setNotFound(false);
@@ -22,7 +47,7 @@ export const UserProfile = () => {
 
     if (userId && !isNaN(parseInt(userId))) {
       setLoading(true);
-      await getUserById(parseInt(userId))
+      await getUserById(parseInt(userId), loginContext.encodedAuth)
         .then((response) => {
           if (response.ok) {
             response.json().then(setUser);
@@ -38,7 +63,7 @@ export const UserProfile = () => {
       setNotFound(true);
       setLoading(false);
     }
-  }, [userId]);
+  }, [userId, loginContext.encodedAuth]);
 
   useEffect(() => {
     fetchUser();
@@ -88,7 +113,7 @@ export const UserProfile = () => {
             </p>
           </div>
           <div>
-            <UserPosts user={user} />
+            <UserPosts posts={user.posts} likePost={handleLike} />
           </div>
         </div>
       ) : (
