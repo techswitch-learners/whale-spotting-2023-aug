@@ -1,4 +1,4 @@
-import { useEffect, useState, FormEvent } from "react";
+import { useEffect, useState, FormEvent, useContext } from "react";
 import w3w_logo from "../assets/w3w_logo.png";
 import {
   createWhalePost,
@@ -7,6 +7,8 @@ import {
 } from "../clients/backendApiClient";
 import Button from "../components/UI/Button";
 import SpeciesListData from "../models/SpeciesListData";
+import { LoginContext } from "../context/LoginManager";
+import { useNavigate } from "react-router-dom";
 import "./PostForm.scss";
 
 const PostForm = () => {
@@ -24,6 +26,8 @@ const PostForm = () => {
   const [speciesErrorMessage, setSpeciesErrorMessage] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [speciesListData, setSpeciesListData] = useState<SpeciesListData>();
+  const loginContext = useContext(LoginContext);
+  const navigate = useNavigate();
 
   const validW3wPattern = /^(\/\/\/)?[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]+$/g;
 
@@ -43,8 +47,11 @@ const PostForm = () => {
   }, [w3w]);
 
   useEffect(() => {
+    if (!loginContext.isLoggedIn) {
+      navigate("/login");
+    }
     getAllSpecies().then(setSpeciesListData);
-  }, []);
+  }, [loginContext.isLoggedIn, navigate]);
 
   const openW3W = () =>
     window.open("https://what3words.com/pretty.needed.chill", "_blank");
@@ -88,7 +95,15 @@ const PostForm = () => {
         );
     }
     if (lat && lon) {
-      createWhalePost(date, lat, lon, species, description, imageUrl)
+      createWhalePost(
+        date,
+        lat,
+        lon,
+        species,
+        description,
+        imageUrl,
+        loginContext.encodedAuth,
+      )
         .then(() => {
           setSuccessMessage("Thank you for your submission");
         })

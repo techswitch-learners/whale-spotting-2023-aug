@@ -86,24 +86,29 @@ export const getAllSpecies = async (): Promise<SpeciesListData> => {
 
 export const createWhalePost = async (
   date: Date,
-  lat: number,
-  lon: number,
-  species: number,
+  latitude: number,
+  longitude: number,
+  speciesId: number,
   description: string,
   imageUrl: string,
+  encodedAuth: string,
 ): Promise<boolean> => {
   const response = await fetch(`${backendUrl}/Post`, {
     method: "post",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: encodedAuth,
+    },
     body: JSON.stringify({
       date,
-      lat,
-      lon,
-      species,
+      latitude,
+      longitude,
+      speciesId,
       description,
       imageUrl,
     }),
   });
-  return await response.json();
+  return response.ok;
 };
 
 export const getAllBodiesOfWater = async (): Promise<BodiesOfWaterData> => {
@@ -154,20 +159,24 @@ export const getLeaderboard = async (): Promise<LeaderboardData> => {
 };
 
 export const createEvent = async (
+  name: string,
   startDate: Date,
-  duration: number,
+  durationInHours: number,
   location: string,
   link: string,
   imageUrl: string,
+  encodedAuth: string,
 ): Promise<boolean> => {
   const response = await fetch(`${backendUrl}/Event`, {
     headers: {
       "Content-Type": "application/json",
+      Authorization: encodedAuth,
     },
     method: "POST",
     body: JSON.stringify({
+      name,
       startDate,
-      duration,
+      durationInHours,
       location,
       link,
       imageUrl,
@@ -195,19 +204,25 @@ export const getAllEvents = async (): Promise<EventsData> => {
   return await response.json();
 };
 
-export const getAllPendingPosts = async (): Promise<PostsData> => {
-  const response = await fetch(`${backendUrl}/Post/pending`);
+export const getAllPendingPosts = async (
+  encodedAuth: string,
+): Promise<PostsData> => {
+  const response = await fetch(`${backendUrl}/Post/pending`, {
+    headers: { Authorization: encodedAuth },
+  });
   return await response.json();
 };
 
 export const approveOrRejectPost = async (
   id: number,
   approvalStatus: number,
+  encodedAuth: string,
 ): Promise<boolean> => {
   const response = await fetch(`${backendUrl}/Post/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
+      Authorization: encodedAuth,
     },
     body: JSON.stringify({
       approvalStatus,
@@ -219,21 +234,23 @@ export const approveOrRejectPost = async (
 export const modifyPost = async (
   id: number,
   date: Date,
-  lat: number,
-  lon: number,
+  latitude: number,
+  longitude: number,
   speciesId: number,
   description: string,
   imageUrl: string,
+  encodedAuth: string,
 ): Promise<boolean> => {
   const response = await fetch(`${backendUrl}/Post/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
+      Authorization: encodedAuth,
     },
     body: JSON.stringify({
       date,
-      lat,
-      lon,
+      latitude,
+      longitude,
       speciesId,
       description,
       imageUrl,
