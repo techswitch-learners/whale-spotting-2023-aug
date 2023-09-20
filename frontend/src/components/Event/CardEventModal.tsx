@@ -36,7 +36,7 @@ const CardEventModal = ({ eventData }: EventDataProps) => {
             {toShortDate(eventData.startDate)}
           </p>
           <p className="CardEventModal__heading__duration">
-            Duration: {eventData.durationInHours} days
+            Duration: {eventData.durationInHours} hours
           </p>
         </div>
         <Button
