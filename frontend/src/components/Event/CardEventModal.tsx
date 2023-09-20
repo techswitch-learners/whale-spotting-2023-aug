@@ -29,11 +29,12 @@ const CardEventModal = ({ eventData }: EventDataProps) => {
 
       <div className="CardEventModal__content">
         <div className="CardEventModal__heading">
-          <h3 className="CardEventModal__heading__title">
-            {eventData.location}
-          </h3>
+          <h3 className="CardEventModal__heading__title">{eventData.name}</h3>
           <p className="CardEventModal__heading__date">
             {toShortDate(eventData.startDate)}
+          </p>
+          <p className="CardEventModal__heading__location">
+            @ {eventData.location}
           </p>
           <p className="CardEventModal__heading__duration">
             Duration: {eventData.durationInHours} hours
