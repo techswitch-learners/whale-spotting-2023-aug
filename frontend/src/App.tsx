@@ -19,12 +19,14 @@ import Error403Page from "./pages/Error403Page.tsx";
 import Error404Page from "./pages/Error404Page.tsx";
 import "./App.scss";
 import "leaflet/dist/leaflet.js";
+import AdminTools from "./components/Admin/AdminTools.tsx";
 
 const App = () => {
   return (
     <Router>
       <LoginManager>
         <Navbar />
+        <AdminTools />
         <Routes>
           <Route index element={<Home />} />
           <Route path="/posts" element={<Posts />} />
