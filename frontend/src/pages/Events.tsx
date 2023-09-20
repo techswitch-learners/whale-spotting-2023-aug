@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
+import { getAllEvents } from "../clients/backendApiClient";
 import Modal from "../components/UI/Modal";
 import CardEventModal from "../components/Event/CardEventModal";
 import EventData from "../models/EventData";
-import { getAllEvents } from "../clients/backendApiClient";
 import WhaleLoader from "../components/UI/WhaleLoader";
 import Button from "../components/UI/Button";
 import CardEvent from "../components/Event/CardEvent";

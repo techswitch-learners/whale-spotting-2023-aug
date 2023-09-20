@@ -22,8 +22,12 @@ const EventForm = () => {
   useEffect(() => {
     if (!loginContext.isLoggedIn) {
       navigate("/login");
+    } else {
+      if (!loginContext.isAdmin) {
+        navigate("/forbidden");
+      }
     }
-  }, [loginContext.isLoggedIn, navigate]);
+  }, [loginContext.isLoggedIn, loginContext.isAdmin, navigate]);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
