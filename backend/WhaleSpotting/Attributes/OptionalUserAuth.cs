@@ -48,8 +48,6 @@ public class UserHeaderOptionalFilter : IAuthorizationFilter
 
         _httpContextAccessor.HttpContext.Request.Headers["userId"] = user.Id.ToString();
         _httpContextAccessor.HttpContext.Request.Headers["userRole"] = user.Role.ToString();
-
-        return;
     }
 }
 
