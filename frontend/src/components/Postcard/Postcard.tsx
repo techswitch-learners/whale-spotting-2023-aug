@@ -2,7 +2,7 @@ import PostData from "../../models/PostData";
 import { toShortDate } from "../../utils/DateConversion";
 import firstClassStamp from "../../assets/Stamp_1st_Class.png";
 import secondClassStamp from "../../assets/Stamp_2nd_Class.png";
-import { ChangeEvent, useEffect, useState, useContext, useMemo } from "react";
+import { ChangeEvent, useEffect, useState, useContext } from "react";
 import { Margin, usePDF } from "react-to-pdf";
 import Button from "../UI/Button";
 import useScreenSize from "../../utils/UseScreensize";
@@ -73,20 +73,17 @@ const Postcard = ({ postData }: PostDataProps) => {
       : setOrientation("landscape");
   }, [screenSize]);
 
-  const currentUsername = useMemo(() => {
-    if (loginContext.isLoggedIn) {
-      return loginContext.userName;
-    }
-  }, [loginContext.isLoggedIn, loginContext.userName]);
-
   useEffect(() => {
-    if (currentUsername) {
+    if (loginContext.encodedAuth) {
+      const currentUsername = atob(
+        loginContext.encodedAuth.slice("Basic ".length),
+      ).split(":")[0];
       setForm((prevState) => ({
         ...prevState,
         from: currentUsername,
       }));
     }
-  }, [currentUsername]);
+  }, [loginContext.encodedAuth]);
 
   return (
     <>

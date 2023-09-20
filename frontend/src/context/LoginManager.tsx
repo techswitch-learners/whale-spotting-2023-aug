@@ -5,7 +5,6 @@ export const LoginContext = createContext({
   encodedAuth: "",
   isLoggedIn: false,
   isAdmin: false,
-  userName: "",
   logIn: async (username: string, password: string) => {
     void username;
     void password;
@@ -21,7 +20,6 @@ interface LoginManagerProps {
 export function LoginManager(props: LoginManagerProps): JSX.Element {
   const [loggedIn, setLoggedIn] = useState(false);
   const [admin, setAdmin] = useState(false);
-  const [userName, setUserName] = useState("");
   const [encodedAuth, setEncodedAuth] = useState("");
 
   async function logIn(username: string, password: string) {
@@ -34,7 +32,6 @@ export function LoginManager(props: LoginManagerProps): JSX.Element {
     } else {
       setEncodedAuth(encodedAuthToTry);
       setLoggedIn(true);
-      setUserName(username);
       return true;
     }
   }
@@ -43,14 +40,12 @@ export function LoginManager(props: LoginManagerProps): JSX.Element {
     setEncodedAuth("");
     setAdmin(false);
     setLoggedIn(false);
-    setUserName("");
   }
 
   const context = {
     encodedAuth: encodedAuth,
     isLoggedIn: loggedIn,
     isAdmin: admin,
-    userName: userName,
     logIn: logIn,
     logOut: logOut,
   };
