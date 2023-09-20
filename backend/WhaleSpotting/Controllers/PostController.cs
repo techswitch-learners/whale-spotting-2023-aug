@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WhaleSpotting.Attributes;
 using WhaleSpotting.Models.Request;
 using WhaleSpotting.Models.Response;
@@ -56,8 +57,15 @@ public class PostController : ControllerBase
     [HttpPost("")]
     public async Task<IActionResult> Create([FromBody] CreatePostRequest createPostRequest)
     {
-        var newPost = new PostResponse(await _postService.Create(createPostRequest));
-        return CreatedAtAction(nameof(GetById), new { id = newPost.Id }, newPost);
+        try
+        {
+            var newPost = new PostResponse(await _postService.Create(createPostRequest));
+            return CreatedAtAction(nameof(GetById), new { id = newPost.Id }, newPost);
+        }
+        catch (DbUpdateException)
+        {
+            return BadRequest("Species not recognised");
+        }
     }
 
     [HttpPatch("{id:int}")]
@@ -88,6 +96,10 @@ public class PostController : ControllerBase
         catch (ArgumentException)
         {
             return NotFound();
+        }
+        catch (DbUpdateException)
+        {
+            return BadRequest("Species not recognised");
         }
     }
 }

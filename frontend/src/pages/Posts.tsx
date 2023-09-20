@@ -8,6 +8,7 @@ import WhaleLoader from "../components/UI/WhaleLoader";
 import FeaturedCarousel from "../components/UI/Carousel/FeaturedCarousel";
 import Button from "../components/UI/Button";
 import { LoginContext } from "../context/LoginManager";
+import { Link } from "react-router-dom";
 import Modal from "../components/UI/Modal";
 import CardPostModal from "../components/Post/CardPostModal";
 import "./Posts.scss";
@@ -18,6 +19,7 @@ export const Posts = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string>();
   const loginContext = useContext(LoginContext);
+  const [createButtonText, setCreateButtonText] = useState<string>("+");
 
   const onLikeHandler = async (postId: number) => {
     if (loginContext.isLoggedIn) {
@@ -131,6 +133,15 @@ export const Posts = () => {
           </div>
         </section>
       )}
+      <Link
+        to="/posts/create"
+        className="create-post-button"
+        onMouseEnter={() => setCreateButtonText("Create a new post")}
+        onMouseLeave={() => setCreateButtonText("+")}
+        aria-label="create a new post"
+      >
+        {createButtonText}
+      </Link>
     </main>
   );
 };
