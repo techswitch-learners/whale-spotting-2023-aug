@@ -8,8 +8,8 @@ import ShareButtonExpandable from "../ShareButtonExpandable";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import Modal from "../UI/Modal";
-import "./CardPostModal.scss";
 import Postcard from "../Postcard/Postcard";
+import "./CardPostModal.scss";
 
 interface PostDataProps {
   postData: PostData;

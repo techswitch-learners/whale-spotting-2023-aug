@@ -35,7 +35,7 @@
     left: 0.5rem;
     bottom: 0.5rem;
     cursor: pointer;
-    filter: invert(1);
+    filter: drop-shadow(0 0 5px black);
 
     @include devices(tablet) {
       height: 2.5rem;
@@ -58,7 +58,7 @@
     width: 1rem;
     right: 0.5rem;
     bottom: 0.5rem;
-    filter: invert(1);
+    filter: drop-shadow(0 0 5px black);
 
     @include devices(tablet) {
       height: 1.5rem;
