@@ -5,12 +5,12 @@ using WhaleSpotting.Helpers;
 
 namespace WhaleSpotting.Attributes;
 
-public class UserHeaderRequirementFilter : IAuthorizationFilter
+public class UserHeaderOptionalFilter : IAuthorizationFilter
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IAuthService _authService;
 
-    public UserHeaderRequirementFilter(
+    public UserHeaderOptionalFilter(
         IHttpContextAccessor httpContextAccessor,
         IAuthService authService
     )
@@ -23,7 +23,6 @@ public class UserHeaderRequirementFilter : IAuthorizationFilter
     {
         if (!_httpContextAccessor.HttpContext!.Request.Headers["Authorization"].Any())
         {
-            context.Result = new UnauthorizedObjectResult("Missing Authorization header");
             return;
         }
 
@@ -39,13 +38,11 @@ public class UserHeaderRequirementFilter : IAuthorizationFilter
         }
         catch (ArgumentException)
         {
-            context.Result = new UnauthorizedObjectResult("Invalid Authorization header");
             return;
         }
         var user = _authService.GetMatchingUser(auth.Username, auth.Password);
         if (user == null)
         {
-            context.Result = new UnauthorizedObjectResult("Invalid credentials");
             return;
         }
 
@@ -54,8 +51,8 @@ public class UserHeaderRequirementFilter : IAuthorizationFilter
     }
 }
 
-public class RequiresUserAuthAttribute : TypeFilterAttribute
+public class OptionalUserAuthAttribute : TypeFilterAttribute
 {
-    public RequiresUserAuthAttribute()
-        : base(typeof(UserHeaderRequirementFilter)) { }
+    public OptionalUserAuthAttribute()
+        : base(typeof(UserHeaderOptionalFilter)) { }
 }

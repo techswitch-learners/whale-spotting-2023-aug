@@ -33,8 +33,20 @@ export const tryEncodedAuth = async (encodedAuth: string): Promise<boolean> => {
   return response.ok;
 };
 
-export const getUserById = async (id: number): Promise<Response> => {
-  const response = await fetch(`${backendUrl}/User/${id}`);
+export const getUserById = async (
+  id: number,
+  encodedAuth?: string,
+): Promise<Response> => {
+  let response;
+  if (!encodedAuth) {
+    response = await fetch(`${backendUrl}/User/${id}`);
+  } else {
+    response = await fetch(`${backendUrl}/User/${id}`, {
+      headers: {
+        Authorization: encodedAuth,
+      },
+    });
+  }
   return response;
 };
 
@@ -107,8 +119,20 @@ export const getAllBodiesOfWater = async (): Promise<BodiesOfWaterData> => {
   return bodiesOfWaterData;
 };
 
-export const getBodyOfWaterByName = async (name: string): Promise<Response> => {
-  const response = await fetch(`${backendUrl}/BodyOfWater/${name}`);
+export const getBodyOfWaterByName = async (
+  name: string,
+  encodedAuth?: string,
+): Promise<Response> => {
+  let response;
+  if (!encodedAuth) {
+    response = await fetch(`${backendUrl}/BodyOfWater/${name}`);
+  } else {
+    response = await fetch(`${backendUrl}/BodyOfWater/${name}`, {
+      headers: {
+        Authorization: encodedAuth,
+      },
+    });
+  }
   return response;
 };
 
@@ -152,8 +176,17 @@ export const createEvent = async (
   return response.ok;
 };
 
-export const getAllPosts = async (): Promise<PostsData> => {
-  const response = await fetch(`${backendUrl}/Post/all`);
+export const getAllPosts = async (encodedAuth?: string): Promise<PostsData> => {
+  let response;
+  if (!encodedAuth) {
+    response = await fetch(`${backendUrl}/Post/all`);
+  } else {
+    response = await fetch(`${backendUrl}/Post/all`, {
+      headers: {
+        Authorization: encodedAuth,
+      },
+    });
+  }
   return await response.json();
 };
 
@@ -204,6 +237,23 @@ export const modifyPost = async (
       speciesId,
       description,
       imageUrl,
+    }),
+  });
+  return response.ok;
+};
+
+export const interactWithPost = async (
+  postId: number,
+  encodedAuth: string,
+): Promise<boolean> => {
+  const response = await fetch(`${backendUrl}/Interaction`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: encodedAuth,
+    },
+    body: JSON.stringify({
+      PostId: postId,
     }),
   });
   return response.ok;

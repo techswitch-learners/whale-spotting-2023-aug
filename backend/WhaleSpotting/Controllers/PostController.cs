@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WhaleSpotting.Attributes;
 using WhaleSpotting.Models.Request;
 using WhaleSpotting.Models.Response;
 using WhaleSpotting.Services;
@@ -32,12 +33,13 @@ public class PostController : ControllerBase
     }
 
     [HttpGet("all")]
-    public IActionResult GetAll()
+    [OptionalUserAuth]
+    public IActionResult GetAll([FromHeader] int? userId)
     {
         try
         {
             var posts = _postService.GetAll();
-            return Ok(new PostsResponse(posts));
+            return Ok(new PostsResponse(posts, userId));
         }
         catch (ArgumentException)
         {
