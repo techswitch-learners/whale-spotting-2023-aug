@@ -23,6 +23,8 @@
     "*.{ts,tsx,js,jsx,json,html,css,scss,md}": "npm run format"
   },
   "dependencies": {
+    "i18next": "^23.5.1",
+    "react-i18next": "^13.2.2",
     "react-modal": "^3.16.1"
   }
 }
