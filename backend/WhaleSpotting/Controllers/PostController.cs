@@ -33,8 +33,8 @@ public class PostController : ControllerBase
     }
 
     [HttpGet("all")]
-    [AllowGuest]
-    public IActionResult GetAll([FromHeader] int userId)
+    [OptionalUserAuth]
+    public IActionResult GetAll([FromHeader] int? userId)
     {
         try
         {

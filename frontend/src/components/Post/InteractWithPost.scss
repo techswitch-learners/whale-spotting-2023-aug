@@ -37,10 +37,4 @@
     border: 0.125rem solid $color-background;
     color: $color-foreground;
   }
-
-  @include devices(tablet) {
-  }
-
-  @include devices(desktop) {
-  }
 }

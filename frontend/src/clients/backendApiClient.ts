@@ -133,7 +133,6 @@ export const getBodyOfWaterByName = async (
       },
     });
   }
-
   return response;
 };
 

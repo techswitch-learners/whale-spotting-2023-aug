@@ -7,10 +7,10 @@ import "./CardPost.scss";
 interface PostDataProps {
   postData: PostData;
   openModalAction: () => void;
-  onPostLike: (postId: number) => void;
+  likePost: (postId: number) => void;
 }
 
-const CardPost = ({ postData, openModalAction, onPostLike }: PostDataProps) => {
+const CardPost = ({ postData, openModalAction, likePost }: PostDataProps) => {
   return (
     <div className="CardPost">
       <div className="CardPost__banner">
@@ -21,7 +21,7 @@ const CardPost = ({ postData, openModalAction, onPostLike }: PostDataProps) => {
             hasInteractionFromCurrentUser={
               postData.hasInteractionFromCurrentUser
             }
-            onPostLike={onPostLike}
+            likePost={likePost}
           />
         </div>
         <div>

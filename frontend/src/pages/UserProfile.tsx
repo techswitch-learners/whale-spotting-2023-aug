@@ -1,13 +1,12 @@
 import { useState, useEffect, useCallback, useContext } from "react";
-import UserData from "../models/UserData";
 import { getUserById, interactWithPost } from "../clients/backendApiClient";
 import { useParams } from "react-router-dom";
+import { LoginContext } from "../context/LoginManager";
 import WhaleLoader from "../components/UI/WhaleLoader";
+import UserData from "../models/UserData";
 import Button from "../components/UI/Button";
 import UserPosts from "../components/User/UserPosts";
-
 import "./UserProfile.scss";
-import { LoginContext } from "../context/LoginManager";
 
 export const UserProfile = () => {
   const [user, setUser] = useState<UserData>();
@@ -18,7 +17,7 @@ export const UserProfile = () => {
 
   const { userId } = useParams<{ userId: string }>();
 
-  const onLikeHandler = async (postId: number) => {
+  const handleLike = async (postId: number) => {
     if (loginContext.isLoggedIn) {
       const interactionResult = await interactWithPost(
         postId,
@@ -109,7 +108,7 @@ export const UserProfile = () => {
             <p>Email: {user.email}</p>
           </div>
           <div>
-            <UserPosts posts={user.posts} onPostLike={onLikeHandler} />
+            <UserPosts posts={user.posts} likePost={handleLike} />
           </div>
         </div>
       ) : (

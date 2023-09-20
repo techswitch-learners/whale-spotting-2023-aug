@@ -7,14 +7,14 @@ interface LikePostProps {
   interactionCount: number;
   postId: number;
   hasInteractionFromCurrentUser?: boolean;
-  onPostLike: (postId: number) => void;
+  likePost: (postId: number) => void;
 }
 
 const InteractWithPost = ({
   interactionCount,
   postId,
   hasInteractionFromCurrentUser,
-  onPostLike,
+  likePost,
 }: LikePostProps) => {
   const loginContext = useContext(LoginContext);
 
@@ -22,7 +22,7 @@ const InteractWithPost = ({
     <button
       disabled={hasInteractionFromCurrentUser || !loginContext.isLoggedIn}
       className="LikePost"
-      onClick={() => onPostLike(postId)}
+      onClick={() => likePost(postId)}
     >
       <img className="LikePost__Icon" src={likeIcon} alt="like icon" />
       {interactionCount}

@@ -5,6 +5,7 @@ import {
   getBodyOfWaterByName,
   interactWithPost,
 } from "../clients/backendApiClient";
+import { LoginContext } from "../context/LoginManager";
 import WhaleLoader from "../components/UI/WhaleLoader";
 import Button from "../components/UI/Button";
 import BodyOfWaterData from "../models/BodyOfWaterData";
@@ -12,7 +13,6 @@ import CardPost from "../components/Post/CardPost";
 import Modal from "../components/UI/Modal";
 import CardPostModal from "../components/Post/CardPostModal";
 import PostData from "../models/PostData";
-import { LoginContext } from "../context/LoginManager";
 
 const SearchResults = () => {
   const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();
@@ -27,7 +27,7 @@ const SearchResults = () => {
   );
   const loginContext = useContext(LoginContext);
 
-  const onLikeHandler = async (postId: number) => {
+  const handleLike = async (postId: number) => {
     if (loginContext.isLoggedIn) {
       const interactionResult = await interactWithPost(
         postId,
@@ -154,7 +154,7 @@ const SearchResults = () => {
                   <CardPost
                     postData={post}
                     openModalAction={() => setSelectedPostDetails(post)}
-                    onPostLike={onLikeHandler}
+                    likePost={handleLike}
                   />
                 );
               })}
@@ -163,7 +163,7 @@ const SearchResults = () => {
             <Modal closeAction={() => setSelectedPostDetails(undefined)}>
               <CardPostModal
                 postData={selectedPostDetails}
-                onPostLike={onLikeHandler}
+                likePost={handleLike}
               />
             </Modal>
           )}

@@ -8,10 +8,10 @@ import "./CardPostModal.scss";
 
 interface PostDataProps {
   postData: PostData;
-  onPostLike: (postId: number) => void;
+  likePost: (postId: number) => void;
 }
 
-const CardPostModal = ({ postData, onPostLike }: PostDataProps) => {
+const CardPostModal = ({ postData, likePost }: PostDataProps) => {
   return (
     <div className="CardPostModal">
       <div className="CardPostModal__image__container">
@@ -62,7 +62,7 @@ const CardPostModal = ({ postData, onPostLike }: PostDataProps) => {
               hasInteractionFromCurrentUser={
                 postData.hasInteractionFromCurrentUser
               }
-              onPostLike={onPostLike}
+              likePost={likePost}
             />
           </div>
           <div>

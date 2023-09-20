@@ -6,12 +6,7 @@ public class PostsResponse
 {
     public List<PostResponse> Posts { get; }
 
-    public PostsResponse(List<Post> posts)
-    {
-        Posts = posts.Select(post => new PostResponse(post)).ToList();
-    }
-
-    public PostsResponse(List<Post> posts, int userId)
+    public PostsResponse(List<Post> posts, int? userId = null)
     {
         Posts = posts.Select(post => new PostResponse(post, userId)).ToList();
     }

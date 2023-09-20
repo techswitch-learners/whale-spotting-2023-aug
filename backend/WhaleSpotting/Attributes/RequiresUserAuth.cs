@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using WhaleSpotting.Services;
 using WhaleSpotting.Helpers;
-using WhaleSpotting.Enums;
 
 namespace WhaleSpotting.Attributes;
 

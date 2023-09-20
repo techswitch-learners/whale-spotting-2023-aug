@@ -7,10 +7,10 @@ import "./UserPosts.scss";
 
 interface UserPostsProps {
   posts: PostData[];
-  onPostLike: (postId: number) => void;
+  likePost: (postId: number) => void;
 }
 
-export const UserPosts = ({ posts, onPostLike }: UserPostsProps) => {
+export const UserPosts = ({ posts, likePost }: UserPostsProps) => {
   const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export const UserPosts = ({ posts, onPostLike }: UserPostsProps) => {
                   <CardPost
                     postData={post}
                     openModalAction={() => setSelectedPostDetails(post)}
-                    onPostLike={onPostLike}
+                    likePost={likePost}
                   />
                 );
               })}
@@ -50,7 +50,7 @@ export const UserPosts = ({ posts, onPostLike }: UserPostsProps) => {
             <Modal closeAction={() => setSelectedPostDetails(undefined)}>
               <CardPostModal
                 postData={selectedPostDetails}
-                onPostLike={onPostLike}
+                likePost={likePost}
               />
             </Modal>
           )}

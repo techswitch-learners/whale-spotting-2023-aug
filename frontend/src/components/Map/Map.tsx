@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback, useContext } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { getAllPosts, interactWithPost } from "../../clients/backendApiClient";
+import { LoginContext } from "../../context/LoginManager";
 import Modal from "../UI/Modal";
 import CardPostModal from "../Post/CardPostModal";
-import { getAllPosts, interactWithPost } from "../../clients/backendApiClient";
 import Button from "../UI/Button";
 import WhaleLoader from "../UI/WhaleLoader";
 import PostData from "../../models/PostData";
-import { LoginContext } from "../../context/LoginManager";
 import "./Map.scss";
 
 const Map = () => {
@@ -18,7 +18,7 @@ const Map = () => {
   const [numMarkers, setNumMarkers] = useState<number>(20);
   const loginContext = useContext(LoginContext);
 
-  const onLikeHandler = async (postId: number) => {
+  const handleLike = async (postId: number) => {
     if (loginContext.isLoggedIn) {
       const interactionResult = await interactWithPost(
         postId,
@@ -161,10 +161,7 @@ const Map = () => {
       </MapContainer>
       {selectedPostDetails && (
         <Modal closeAction={() => setSelectedPostDetails(undefined)}>
-          <CardPostModal
-            postData={selectedPostDetails}
-            onPostLike={onLikeHandler}
-          />
+          <CardPostModal postData={selectedPostDetails} likePost={handleLike} />
         </Modal>
       )}
     </div>

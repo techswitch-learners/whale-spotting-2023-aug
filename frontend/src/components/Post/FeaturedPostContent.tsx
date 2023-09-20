@@ -9,13 +9,13 @@ import "./FeaturedPostContent.scss";
 interface PostDataProps {
   postData: PostData;
   openModalAction: () => void;
-  onPostLike: (postId: number) => void;
+  likePost: (postId: number) => void;
 }
 
 const FeaturedPostContent = ({
   postData,
   openModalAction,
-  onPostLike,
+  likePost,
 }: PostDataProps) => {
   return (
     <>
@@ -60,7 +60,7 @@ const FeaturedPostContent = ({
             hasInteractionFromCurrentUser={
               postData.hasInteractionFromCurrentUser
             }
-            onPostLike={onPostLike}
+            likePost={likePost}
           />
         </div>
         <div>

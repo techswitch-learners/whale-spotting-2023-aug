@@ -56,7 +56,7 @@ public class PostResponse
     public bool? HasInteractionFromCurrentUser { get; set; }
     public PostBodyOfWater? BodyOfWater { get; }
 
-    public PostResponse(Post post)
+    public PostResponse(Post post, int? userId = null)
     {
         Id = post.Id;
         User = new PostUser(post.User);
@@ -69,13 +69,7 @@ public class PostResponse
         ApprovalStatus = post.ApprovalStatus;
         InteractionCount = post.Interactions.Count;
         BodyOfWater = post.BodyOfWater != null ? new PostBodyOfWater(post.BodyOfWater) : null;
-    }
-
-    public PostResponse(Post post, int userId)
-        : this(post)
-    {
-        HasInteractionFromCurrentUser = post.Interactions.Any(
-            Interaction => Interaction.UserId == userId
-        );
+        HasInteractionFromCurrentUser =
+            userId != null && post.Interactions.Any(Interaction => Interaction.UserId == userId);
     }
 }

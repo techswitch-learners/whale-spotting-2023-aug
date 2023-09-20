@@ -2,16 +2,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using WhaleSpotting.Services;
 using WhaleSpotting.Helpers;
-using WhaleSpotting.Enums;
 
 namespace WhaleSpotting.Attributes;
 
-public class GuestHeaderFilter : IAuthorizationFilter
+public class UserHeaderOptionalFilter : IAuthorizationFilter
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IAuthService _authService;
 
-    public GuestHeaderFilter(IHttpContextAccessor httpContextAccessor, IAuthService authService)
+    public UserHeaderOptionalFilter(
+        IHttpContextAccessor httpContextAccessor,
+        IAuthService authService
+    )
     {
         _httpContextAccessor = httpContextAccessor;
         _authService = authService;
@@ -21,8 +23,6 @@ public class GuestHeaderFilter : IAuthorizationFilter
     {
         if (!_httpContextAccessor.HttpContext!.Request.Headers["Authorization"].Any())
         {
-            _httpContextAccessor.HttpContext.Request.Headers["userId"] = "-1";
-            _httpContextAccessor.HttpContext.Request.Headers["userRole"] = Role.Guest.ToString();
             return;
         }
 
@@ -38,15 +38,11 @@ public class GuestHeaderFilter : IAuthorizationFilter
         }
         catch (ArgumentException)
         {
-            _httpContextAccessor.HttpContext.Request.Headers["userId"] = "-1";
-            _httpContextAccessor.HttpContext.Request.Headers["userRole"] = Role.Guest.ToString();
             return;
         }
         var user = _authService.GetMatchingUser(auth.Username, auth.Password);
         if (user == null)
         {
-            _httpContextAccessor.HttpContext.Request.Headers["userId"] = "-1";
-            _httpContextAccessor.HttpContext.Request.Headers["userRole"] = Role.Guest.ToString();
             return;
         }
 
@@ -57,8 +53,8 @@ public class GuestHeaderFilter : IAuthorizationFilter
     }
 }
 
-public class AllowGuestAttribute : TypeFilterAttribute
+public class OptionalUserAuthAttribute : TypeFilterAttribute
 {
-    public AllowGuestAttribute()
-        : base(typeof(GuestHeaderFilter)) { }
+    public OptionalUserAuthAttribute()
+        : base(typeof(UserHeaderOptionalFilter)) { }
 }

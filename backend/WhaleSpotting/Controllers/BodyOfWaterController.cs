@@ -24,8 +24,8 @@ public class BodyOfWaterController : ControllerBase
     }
 
     [HttpGet("{name}")]
-    [AllowGuest]
-    public IActionResult GetByName([FromRoute] string name, [FromHeader] int userId)
+    [OptionalUserAuth]
+    public IActionResult GetByName([FromRoute] string name, [FromHeader] int? userId)
     {
         try
         {

@@ -21,7 +21,7 @@ export const Posts = () => {
   const loginContext = useContext(LoginContext);
   const [createButtonText, setCreateButtonText] = useState<string>("+");
 
-  const onLikeHandler = async (postId: number) => {
+  const handleLike = async (postId: number) => {
     if (loginContext.isLoggedIn) {
       const interactionResult = await interactWithPost(
         postId,
@@ -95,7 +95,7 @@ export const Posts = () => {
                     <FeaturedPostContent
                       postData={post}
                       openModalAction={() => setSelectedPostDetails(post)}
-                      onPostLike={onLikeHandler}
+                      likePost={handleLike}
                     />
                   </FeaturedFrame>
                 ))}
@@ -110,7 +110,7 @@ export const Posts = () => {
                   <CardPost
                     postData={post}
                     openModalAction={() => setSelectedPostDetails(post)}
-                    onPostLike={onLikeHandler}
+                    likePost={handleLike}
                   />
                 );
               })}
@@ -121,7 +121,7 @@ export const Posts = () => {
             <Modal closeAction={() => setSelectedPostDetails(undefined)}>
               <CardPostModal
                 postData={selectedPostDetails}
-                onPostLike={onLikeHandler}
+                likePost={handleLike}
               />
             </Modal>
           )}

@@ -1,15 +1,15 @@
-import PostData from "../models/PostData";
+import { LoginContext } from "../context/LoginManager";
 import { toShortDate } from "../utils/DateConversion";
-import fullscreenIcon from "../assets/fullscreen_icon.svg";
 import { useState, useEffect, useCallback, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getPostById, interactWithPost } from "../clients/backendApiClient";
+import fullscreenIcon from "../assets/fullscreen_icon.svg";
 import WhaleLoader from "../components/UI/WhaleLoader";
 import Button from "../components/UI/Button";
 import ShareButtonExpandable from "../components/ShareButtonExpandable";
-import "./Post.scss";
 import InteractWithPost from "../components/Post/InteractWithPost";
-import { LoginContext } from "../context/LoginManager";
+import PostData from "../models/PostData";
+import "./Post.scss";
 
 const Post = () => {
   const [post, setPost] = useState<PostData>();
@@ -20,7 +20,7 @@ const Post = () => {
 
   const { postId } = useParams<{ postId: string }>();
 
-  const onLikeHandler = async () => {
+  const handleLike = async () => {
     if (postId) {
       const postIdNumber = parseInt(postId);
       if (loginContext.isLoggedIn) {
@@ -145,7 +145,7 @@ const Post = () => {
                   hasInteractionFromCurrentUser={
                     post.hasInteractionFromCurrentUser
                   }
-                  onPostLike={onLikeHandler}
+                  likePost={handleLike}
                 />
               </div>
               <div>

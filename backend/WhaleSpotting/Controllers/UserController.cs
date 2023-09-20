@@ -18,8 +18,8 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("{id:int}")]
-    [AllowGuest]
-    public IActionResult GetById([FromRoute] int id, [FromHeader] int userId)
+    [OptionalUserAuth]
+    public IActionResult GetById([FromRoute] int id, [FromHeader] int? userId)
     {
         try
         {
