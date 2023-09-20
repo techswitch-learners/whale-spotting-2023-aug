@@ -89,6 +89,7 @@ const EventForm = () => {
             placeholder="Number of Hours eg. 2"
             id="duration"
             required
+            step="any"
             onChange={(event) => {
               setDuration(parseInt(event.target.value));
             }}
