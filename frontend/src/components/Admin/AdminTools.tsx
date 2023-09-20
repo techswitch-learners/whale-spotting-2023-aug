@@ -1,25 +1,16 @@
-import { useContext, useEffect, useState, useCallback } from "react";
+import { useContext, useEffect } from "react";
 import { LoginContext } from "../../context/LoginManager";
 import "./AdminTools.scss";
 import { NavLink } from "react-router-dom";
-import { getAllPendingPosts } from "../../clients/backendApiClient";
 
 const AdminTools = () => {
   const loginContext = useContext(LoginContext);
-  const [pendingPosts, setPendingPosts] = useState(0);
-
-  const getPendingPostCount = useCallback(async () => {
-    const pendingPosts = await getAllPendingPosts(loginContext.encodedAuth);
-    if (pendingPosts) {
-      setPendingPosts(pendingPosts.posts.length);
-    }
-  }, [loginContext.encodedAuth]);
 
   useEffect(() => {
     if (loginContext.isAdmin) {
-      getPendingPostCount();
+      loginContext.updatePendingPostCount(loginContext.encodedAuth);
     }
-  }, [loginContext.isAdmin, getPendingPostCount]);
+  }, [loginContext]);
 
   if (!loginContext.isAdmin) {
     return <></>;
@@ -34,8 +25,10 @@ const AdminTools = () => {
               to="/posts/pending"
             >
               Pending Posts{" "}
-              {pendingPosts > 0 && (
-                <span className="AdminTools__post-count">{pendingPosts}</span>
+              {loginContext.pendingPostCount > 0 && (
+                <span className="AdminTools__post-count">
+                  {loginContext.pendingPostCount}
+                </span>
               )}
             </NavLink>
           </li>
