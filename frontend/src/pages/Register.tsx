@@ -48,6 +48,7 @@ function RegisterPage() {
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
             required
+            minLength={2}
           />
         </div>
         <div className="form-group">
@@ -58,6 +59,7 @@ function RegisterPage() {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
+            maxLength={15}
           />
         </div>
         <div className="form-group">
@@ -78,6 +80,7 @@ function RegisterPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            minLength={8}
           />
         </div>
         <div className="form-group">
