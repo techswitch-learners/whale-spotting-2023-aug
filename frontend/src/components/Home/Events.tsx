@@ -3,9 +3,9 @@ import { getAllEvents } from "../../clients/backendApiClient";
 import { toShortDate } from "../../utils/DateConversion";
 import EventData from "../../models/EventData";
 import WhaleLoader from "../UI/WhaleLoader";
-import "./EventsAndLeaderboardSection.scss";
 import Modal from "../UI/Modal";
 import CardEventModal from "../Event/CardEventModal";
+import "./EventsAndLeaderboardSection.scss";
 
 const Events = () => {
   const [selectedEventDetails, setSelectedEventDetails] = useState<EventData>();
@@ -25,23 +25,20 @@ const Events = () => {
         <hr className="Board__Divider" />
         <div>
           <table className="Board__Table">
-            {!error && (
-              <div className="Board__Table__Row">
-                <div className="Board__Table__Row__Item Board__Table__Row__Item--heading">
-                  Name
-                </div>
-                <div className="Board__Table__Row__Item Board__Table__Row__Item--heading">
-                  Location
-                </div>
-                <div className="Board__Table__Row__Item Board__Table__Row__Item--heading">
-                  Date
-                </div>
-              </div>
-            )}
-
             {events ? (
-              events.map((event) => {
-                return (
+              <>
+                <div className="Board__Table__Row">
+                  <div className="Board__Table__Row__Item Board__Table__Row__Item--heading">
+                    Name
+                  </div>
+                  <div className="Board__Table__Row__Item Board__Table__Row__Item--heading">
+                    Location
+                  </div>
+                  <div className="Board__Table__Row__Item Board__Table__Row__Item--heading">
+                    Date
+                  </div>
+                </div>
+                {events.map((event) => (
                   <div
                     className="Board__Table__Row"
                     onClick={() => setSelectedEventDetails(event)}
@@ -60,8 +57,8 @@ const Events = () => {
                       {toShortDate(event.startDate)}
                     </div>
                   </div>
-                );
-              })
+                ))}
+              </>
             ) : (
               <div className="Board__Table__Row">
                 <WhaleLoader

@@ -22,25 +22,23 @@ export default function Leaderboard() {
         <hr className="Board__Divider" />
         <div>
           <div className="Board__Table">
-            {!error && (
-              <div className="Board__Table__Row">
-                <div className="Board__Table__Row__Item Board__Table__Row__Item--heading">
-                  User
-                </div>
-                <div className="Board__Table__Row__Item Board__Table__Row__Item--heading">
-                  Name
-                </div>
-                <div className="Board__Table__Row__Item Board__Table__Row__Item--heading">
-                  Posts
-                </div>
-                <div className="Board__Table__Row__Item Board__Table__Row__Item--heading">
-                  Likes
-                </div>
-              </div>
-            )}
             {leaderboard ? (
-              leaderboard.map((row) => {
-                return (
+              <>
+                <div className="Board__Table__Row">
+                  <div className="Board__Table__Row__Item Board__Table__Row__Item--heading">
+                    User
+                  </div>
+                  <div className="Board__Table__Row__Item Board__Table__Row__Item--heading">
+                    Name
+                  </div>
+                  <div className="Board__Table__Row__Item Board__Table__Row__Item--heading">
+                    Posts
+                  </div>
+                  <div className="Board__Table__Row__Item Board__Table__Row__Item--heading">
+                    Likes
+                  </div>
+                </div>
+                {leaderboard.map((row) => (
                   <Link to={`/users/${row.user.id}`}>
                     <div className="Board__Table__Row">
                       <div className="Board__Table__Row__Item">
@@ -61,8 +59,8 @@ export default function Leaderboard() {
                       <div className="Board__Table__Row__Item">{row.score}</div>
                     </div>
                   </Link>
-                );
-              })
+                ))}
+              </>
             ) : (
               <div className="Board__Table__Row">
                 <WhaleLoader

@@ -60,6 +60,10 @@
       gap: $mobile-card-padding;
       cursor: pointer;
 
+      .WhaleLoader {
+        width: 15rem;
+      }
+
       &__Item {
         display: flex;
         flex-direction: row;
