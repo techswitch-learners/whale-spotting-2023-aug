@@ -34,12 +34,13 @@ public class PostController : ControllerBase
     }
 
     [HttpGet("all")]
-    public IActionResult GetAll()
+    [OptionalUserAuth]
+    public IActionResult GetAll([FromHeader] int? userId)
     {
         try
         {
             var posts = _postService.GetAll();
-            return Ok(new PostsResponse(posts));
+            return Ok(new PostsResponse(posts, userId));
         }
         catch (ArgumentException)
         {

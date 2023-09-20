@@ -1,18 +1,22 @@
-import { convertLikesToString } from "../../utils/LikeConversion";
 import PostData from "../../models/PostData";
 import { toShortDate } from "../../utils/DateConversion";
-import ShareButtonExpandable from "../ShareButtonExpandable";
-import postIcon from "../../assets/post_icon.png";
 import Button from "../UI/Button";
+import InteractWithPost from "./InteractWithPost";
+import ShareButtonExpandable from "../ShareButtonExpandable";
 import { Link } from "react-router-dom";
 import "./FeaturedPostContent.scss";
 
 interface PostDataProps {
   postData: PostData;
   openModalAction: () => void;
+  likePost: (postId: number) => void;
 }
 
-const FeaturedPostContent = ({ postData, openModalAction }: PostDataProps) => {
+const FeaturedPostContent = ({
+  postData,
+  openModalAction,
+  likePost,
+}: PostDataProps) => {
   return (
     <>
       <div className="FeaturedPostContent__heading">
@@ -50,8 +54,14 @@ const FeaturedPostContent = ({ postData, openModalAction }: PostDataProps) => {
 
       <div className="FeaturedPostContent__interactions">
         <div className="FeaturedPostContent__interactions__likes">
-          <img src={postIcon} alt="whale icon" />
-          <span>{convertLikesToString(postData.interactionCount)}</span>
+          <InteractWithPost
+            postId={postData.id}
+            interactionCount={postData.interactionCount}
+            hasInteractionFromCurrentUser={
+              postData.hasInteractionFromCurrentUser
+            }
+            likePost={likePost}
+          />
         </div>
         <div>
           <ShareButtonExpandable
