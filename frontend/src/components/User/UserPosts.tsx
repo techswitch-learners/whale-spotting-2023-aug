@@ -1,30 +1,45 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CardPost from "../../components/Post/CardPost";
 import Modal from "../../components/UI/Modal";
 import CardPostModal from "../../components/Post/CardPostModal";
 import PostData from "../../models/PostData";
-import UserData from "../../models/UserData";
 import "./UserPosts.scss";
 
 interface UserPostsProps {
-  user: UserData;
+  posts: PostData[];
+  likePost: (postId: number) => void;
 }
 
-export const UserPosts = ({ user }: UserPostsProps) => {
+export const UserPosts = ({ posts, likePost }: UserPostsProps) => {
   const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();
+
+  useEffect(() => {
+    if (selectedPostDetails) {
+      const selectedPostData = posts?.find(
+        (post) => post.id === selectedPostDetails.id,
+      );
+      if (
+        selectedPostDetails.interactionCount !==
+        selectedPostData?.interactionCount
+      ) {
+        setSelectedPostDetails(selectedPostData);
+      }
+    }
+  }, [posts, selectedPostDetails]);
 
   return (
     <main>
       <h1>Posts</h1>
-      {user.posts && user.posts.length > 0 ? (
+      {posts && posts.length > 0 ? (
         <>
           <section>
             <div className="container PostsGallery">
-              {user.posts.map((post) => {
+              {posts.map((post) => {
                 return (
                   <CardPost
                     postData={post}
                     openModalAction={() => setSelectedPostDetails(post)}
+                    likePost={likePost}
                   />
                 );
               })}
@@ -33,7 +48,10 @@ export const UserPosts = ({ user }: UserPostsProps) => {
 
           {selectedPostDetails && (
             <Modal closeAction={() => setSelectedPostDetails(undefined)}>
-              <CardPostModal postData={selectedPostDetails} />
+              <CardPostModal
+                postData={selectedPostDetails}
+                likePost={likePost}
+              />
             </Modal>
           )}
         </>

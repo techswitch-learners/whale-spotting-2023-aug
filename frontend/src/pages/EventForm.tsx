@@ -1,22 +1,41 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useContext, useEffect } from "react";
 import Button from "../components/UI/Button";
 import { createEvent } from "../clients/backendApiClient";
+import { LoginContext } from "../context/LoginManager";
+import { useNavigate } from "react-router-dom";
 import "./EventForm.scss";
 
 const EventForm = () => {
   const today = new Date();
   const todayDateString = today.toISOString().slice(0, -4);
 
+  const [name, setName] = useState<string>("");
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [duration, setDuration] = useState<number>(NaN);
   const [location, setLocation] = useState<string>("");
   const [link, setlink] = useState<string>("");
   const [imageUrl, setimageUrl] = useState<string>("");
   const [message, setMessage] = useState<string>("");
+  const loginContext = useContext(LoginContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!loginContext.isLoggedIn) {
+      navigate("/login");
+    }
+  }, [loginContext.isLoggedIn, navigate]);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    createEvent(startDate, duration, location, link, imageUrl)
+    createEvent(
+      name,
+      startDate,
+      duration,
+      location,
+      link,
+      imageUrl,
+      loginContext.encodedAuth,
+    )
       .then((success) => {
         if (success) {
           setMessage("Thank you for your submission");
@@ -34,6 +53,20 @@ const EventForm = () => {
       <div className="container">
         <form className="submission-form" onSubmit={handleSubmit}>
           <h1>Create a new event</h1>
+
+          <label htmlFor="location" className="submission-form-children">
+            Name:
+          </label>
+          <input
+            type="text"
+            placeholder="Name of Event"
+            id="name"
+            required
+            onChange={(event) => {
+              setName(event.target.value);
+            }}
+          />
+
           <label htmlFor="startDate" className="submission-form-children">
             Start Date:
           </label>
@@ -52,7 +85,7 @@ const EventForm = () => {
           </label>
           <input
             type="number"
-            placeholder="Number of Days eg. 2"
+            placeholder="Number of Hours eg. 2"
             id="duration"
             required
             onChange={(event) => {

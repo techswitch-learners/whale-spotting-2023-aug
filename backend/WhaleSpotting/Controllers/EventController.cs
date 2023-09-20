@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using WhaleSpotting.Attributes;
 using WhaleSpotting.Models.Request;
 using WhaleSpotting.Models.Response;
 using WhaleSpotting.Services;
@@ -38,6 +39,7 @@ public class EventController : ControllerBase
     }
 
     [HttpPost("")]
+    [RequiresAdminAuth]
     public IActionResult Create([FromBody] CreateEventRequest createEventRequest)
     {
         var newEvent = new EventResponse(_eventService.Create(createEventRequest));

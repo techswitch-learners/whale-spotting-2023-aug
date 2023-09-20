@@ -1,6 +1,6 @@
+import { useState, useEffect, FormEvent, useContext } from "react";
 import PostData from "../../models/PostData";
 import Button from "../UI/Button";
-import { useState, useEffect, FormEvent } from "react";
 import SpeciesListData from "../../models/SpeciesListData";
 import w3w_logo from "../../assets/w3w_logo.png";
 import {
@@ -9,16 +9,18 @@ import {
   modifyPost,
   approveOrRejectPost,
 } from "../../clients/backendApiClient";
-import "./ModifyPostModal.scss";
 import ApprovalStatus from "../../enums/ApprovalStatus";
+import { LoginContext } from "../../context/LoginManager";
+import "./ModifyPostModal.scss";
 
 const validW3wPattern = /^(\/\/\/)?[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]+$/g;
 
 interface PostDataProps {
   postData: PostData;
+  completeEdit: () => void;
 }
 
-const ModifyPostModal = ({ postData }: PostDataProps) => {
+const ModifyPostModal = ({ postData, completeEdit }: PostDataProps) => {
   const today = new Date();
   const todayDateString = today.toISOString().slice(0, -1);
 
@@ -35,6 +37,7 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [speciesListData, setSpeciesListData] = useState<SpeciesListData>();
   const [toApprove, setToApprove] = useState<boolean>(false);
+  const loginContext = useContext(LoginContext);
 
   useEffect(() => {
     if (w3w && validW3wPattern.test(w3w)) {
@@ -105,23 +108,37 @@ const ModifyPostModal = ({ postData }: PostDataProps) => {
       return;
     }
 
-    modifyPost(id, date, lat, lon, speciesId, description, imageUrl).then(
-      () => {
-        if (toApprove) {
-          try {
-            approveOrRejectPost(id, ApprovalStatus.Approved).then(() => {
-              setSuccessMessage("Post update and approval successful");
-              window.location.reload();
-            });
-          } catch (error) {
-            setSuccessMessage("Unable to approve post, please try again");
+    modifyPost(
+      id,
+      date,
+      lat,
+      lon,
+      speciesId,
+      description,
+      imageUrl,
+      loginContext.encodedAuth,
+    ).then(async () => {
+      if (toApprove) {
+        try {
+          const success = await approveOrRejectPost(
+            id,
+            ApprovalStatus.Approved,
+            loginContext.encodedAuth,
+          );
+          if (success) {
+            setSuccessMessage("Post update and approval successful");
+            completeEdit();
+          } else {
+            setSuccessMessage("Unsuccessful");
           }
-        } else {
-          setSuccessMessage("Post successfully updated");
-          window.location.reload();
+        } catch (error) {
+          setSuccessMessage("Unable to approve post, please try again");
         }
-      },
-    );
+      } else {
+        setSuccessMessage("Post successfully updated");
+        completeEdit();
+      }
+    });
   };
 
   useEffect(() => {
