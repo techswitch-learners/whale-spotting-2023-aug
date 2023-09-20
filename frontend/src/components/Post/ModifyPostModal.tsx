@@ -258,9 +258,7 @@ const ModifyPostModal = ({ postData, completeEdit }: PostDataProps) => {
             name="description"
             value={description}
             onChange={(event) => setDescription(event.target.value)}
-          >
-            {""}
-          </textarea>
+          />
 
           <label htmlFor="imageUrl" className="submission-form-children">
             Upload your image
