@@ -28,12 +28,37 @@
     object-fit: cover;
   }
 
+  &__postcard {
+    position: absolute;
+    height: 2rem;
+    width: 2rem;
+    left: 0.5rem;
+    bottom: 0.5rem;
+    cursor: pointer;
+    filter: drop-shadow(0 0 5px black);
+
+    @include devices(tablet) {
+      height: 2.5rem;
+      width: 2.5rem;
+      left: 1rem;
+      bottom: 1rem;
+    }
+
+    @include devices(desktop) {
+      height: 3rem;
+      width: 3rem;
+      left: 1rem;
+      bottom: 1rem;
+    }
+  }
+
   &__fullscreen {
     position: absolute;
     height: 1rem;
     width: 1rem;
     right: 0.5rem;
     bottom: 0.5rem;
+    filter: drop-shadow(0 0 5px black);
 
     @include devices(tablet) {
       height: 1.5rem;
