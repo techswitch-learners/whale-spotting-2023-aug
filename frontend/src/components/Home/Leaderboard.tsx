@@ -21,61 +21,59 @@ export default function Leaderboard() {
         <h3 className="Board__Title">Leaderboard</h3>
         <hr className="Board__Divider" />
         <div>
-          <table className="Board__Table">
-            <tr>
-              <th>User</th>
-              <th>Name</th>
-              <th>Posts</th>
-              <th>Interactions</th>
-              <th>Link</th>
-            </tr>
+          <div className="Board__Table">
             {leaderboard ? (
-              leaderboard.map((row) => {
-                return (
-                  <tr className="Board__Item">
-                    <td>
-                      <Link to={`/users/${row.user.id}`}>
-                        <img
-                          className="Item_Thumbnail"
-                          src={row.user.profileImageUrl}
-                          alt=""
-                        />
-                      </Link>
-                    </td>
-                    <td>{row.user.username}</td>
-                    <td>{row.postCount}</td>
-                    <td>{row.score}</td>
-                    <td className="Board__Item__svg">
-                      <Link to={`/users/${row.user.id}`}>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth="1.5"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"
+              <>
+                <div className="Board__Table__Row">
+                  <div className="Board__Table__Row__Item Board__Table__Row__Item--heading">
+                    User
+                  </div>
+                  <div className="Board__Table__Row__Item Board__Table__Row__Item--heading">
+                    Name
+                  </div>
+                  <div className="Board__Table__Row__Item Board__Table__Row__Item--heading">
+                    Posts
+                  </div>
+                  <div className="Board__Table__Row__Item Board__Table__Row__Item--heading">
+                    Likes
+                  </div>
+                </div>
+                {leaderboard.map((row) => (
+                  <Link to={`/users/${row.user.id}`}>
+                    <div className="Board__Table__Row">
+                      <div className="Board__Table__Row__Item">
+                        <Link to={`/users/${row.user.id}`}>
+                          <img
+                            className="Item_Thumbnail"
+                            src={row.user.profileImageUrl}
+                            alt=""
                           />
-                        </svg>
-                      </Link>
-                    </td>
-                  </tr>
-                );
-              })
+                        </Link>
+                      </div>
+                      <div className="Board__Table__Row__Item">
+                        {row.user.username}
+                      </div>
+                      <div className="Board__Table__Row__Item">
+                        {row.postCount}
+                      </div>
+                      <div className="Board__Table__Row__Item">{row.score}</div>
+                    </div>
+                  </Link>
+                ))}
+              </>
             ) : (
-              <WhaleLoader
-                isLoading={!error}
-                message={
-                  error
-                    ? "Could not load leaderboard at this time"
-                    : "Loading..."
-                }
-              />
+              <div className="Board__Table__Row">
+                <WhaleLoader
+                  isLoading={!error}
+                  message={
+                    error
+                      ? "Could not load leaderboard at this time"
+                      : "Loading..."
+                  }
+                />
+              </div>
             )}
-          </table>
+          </div>
         </div>
       </div>
     </>
