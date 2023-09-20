@@ -44,14 +44,14 @@ const PostForm = () => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
-    if (!w3w && !lat && !lon) {
+    if (!w3w && isNaN(lat) && isNaN(lon)) {
       setLocationErrorMessage(
         "Please provide either what3words or a latitude and longitude",
       );
       return;
     }
 
-    if ((!lat && lon) || (!lon && lat)) {
+    if ((isNaN(lat) && !isNaN(lon)) || (isNaN(lon) && !isNaN(lat))) {
       setLocationErrorMessage("Please fill both latitude and longitude");
       return;
     }
@@ -80,7 +80,7 @@ const PostForm = () => {
         );
     }
 
-    if (lat && lon) {
+    if (!isNaN(lat) && !isNaN(lon)) {
       createWhalePost(
         date,
         lat,

@@ -40,40 +40,18 @@ const ModifyPostModal = ({ postData, completeEdit }: PostDataProps) => {
   const loginContext = useContext(LoginContext);
 
   useEffect(() => {
-    if (w3w && validW3wPattern.test(w3w)) {
-      let words;
-      if (w3w.startsWith("///")) {
-        words = w3w.slice(3);
-      } else {
-        words = w3w;
-      }
-      getLatitudeLongitude(words)
-        .then((data) => {
-          if (!isNaN(data.lat) && !isNaN(data.lng)) {
-            setLat(data.lat);
-            setLon(data.lng);
-          } else {
-            setLocationErrorMessage("Please enter a valid what3words");
-            setLat(NaN);
-            setLon(NaN);
-          }
-        })
-        .catch(() =>
-          setLocationErrorMessage("Please enter a valid what3words"),
-        );
-    } else if (w3w && !validW3wPattern.test(w3w)) {
-      setLocationErrorMessage("Please enter a valid what3words");
-    } else {
-      setLocationErrorMessage("");
-    }
-  }, [w3w]);
-
-  useEffect(() => {
     getAllSpecies().then(setSpeciesListData);
   }, []);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
+
+    if (!w3w && isNaN(lat) && isNaN(lon)) {
+      setLocationErrorMessage(
+        "Please provide either what3words or a latitude and longitude",
+      );
+      return;
+    }
 
     if ((isNaN(lat) && !isNaN(lon)) || (isNaN(lon) && !isNaN(lat))) {
       setLocationErrorMessage("Please fill both latitude and longitude");
@@ -88,7 +66,7 @@ const ModifyPostModal = ({ postData, completeEdit }: PostDataProps) => {
     if (w3w && !validW3wPattern.test(w3w)) {
       setLocationErrorMessage("Please enter a valid what3words");
       return;
-    } else if (w3w && validW3wPattern.test(w3w)) {
+    } else if (w3w) {
       let words;
       if (w3w.startsWith("///")) {
         words = w3w.slice(3);
