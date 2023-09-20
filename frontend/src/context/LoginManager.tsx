@@ -32,6 +32,11 @@ export function LoginManager(props: LoginManagerProps): JSX.Element {
     } else {
       setEncodedAuth(encodedAuthToTry);
       setLoggedIn(true);
+      if (validLogin.role === 1) {
+        setAdmin(true);
+      } else {
+        setAdmin(false);
+      }
       return true;
     }
   }

@@ -7,6 +7,7 @@ import PostsData from "../models/PostsData";
 import PostData from "../models/PostData";
 import LeaderboardData from "../models/LeaderboardData";
 import EventsData from "../models/EventsData";
+import AuthData from "../models/AuthData";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -24,13 +25,20 @@ export const getAllUsers = async (): Promise<UsersData> => {
   return response.json();
 };
 
-export const tryEncodedAuth = async (encodedAuth: string): Promise<boolean> => {
+export const tryEncodedAuth = async (
+  encodedAuth: string,
+): Promise<AuthData> => {
+  let data = null;
   const response = await fetch(`${backendUrl}/Auth/`, {
     headers: {
       Authorization: encodedAuth,
     },
   });
-  return response.ok;
+
+  if (response.ok) {
+    data = await response.json();
+  }
+  return data;
 };
 
 export const getUserById = async (
