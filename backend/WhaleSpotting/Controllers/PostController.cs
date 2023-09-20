@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WhaleSpotting.Attributes;
+using WhaleSpotting.Enums;
 using WhaleSpotting.Models.Request;
 using WhaleSpotting.Models.Response;
 using WhaleSpotting.Services;
@@ -48,6 +49,7 @@ public class PostController : ControllerBase
     }
 
     [HttpGet("pending")]
+    [RequiresAdminAuth]
     public IActionResult GetPending()
     {
         var posts = _postService.GetPending();
@@ -55,11 +57,15 @@ public class PostController : ControllerBase
     }
 
     [HttpPost("")]
-    public async Task<IActionResult> Create([FromBody] CreatePostRequest createPostRequest)
+    [RequiresUserAuth]
+    public async Task<IActionResult> Create(
+        [FromBody] CreatePostRequest createPostRequest,
+        [FromHeader] int userId
+    )
     {
         try
         {
-            var newPost = new PostResponse(await _postService.Create(createPostRequest));
+            var newPost = new PostResponse(await _postService.Create(createPostRequest, userId));
             return CreatedAtAction(nameof(GetById), new { id = newPost.Id }, newPost);
         }
         catch (DbUpdateException)
@@ -69,6 +75,7 @@ public class PostController : ControllerBase
     }
 
     [HttpPatch("{id:int}")]
+    [RequiresAdminAuth]
     public IActionResult ApproveOrReject(
         [FromRoute] int id,
         [FromBody] ApproveOrRejectPostRequest approveOrRejectPostRequest
@@ -86,16 +93,26 @@ public class PostController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
-    public IActionResult Modify([FromRoute] int id, [FromBody] ModifyPostRequest modifyPostRequest)
+    [RequiresUserAuth]
+    public IActionResult Modify(
+        [FromRoute] int id,
+        [FromBody] ModifyPostRequest modifyPostRequest,
+        [FromHeader] Role userRole,
+        [FromHeader] int userId
+    )
     {
         try
         {
-            _postService.Modify(id, modifyPostRequest);
+            _postService.Modify(id, modifyPostRequest, userId, userRole);
             return Ok();
         }
         catch (ArgumentException)
         {
             return NotFound();
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return Unauthorized();
         }
         catch (DbUpdateException)
         {

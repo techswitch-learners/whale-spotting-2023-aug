@@ -33,7 +33,7 @@ const CardEventModal = ({ eventData }: EventDataProps) => {
           <p className="CardEventModal__heading__date">
             {toShortDate(eventData.startDate)}
           </p>
-          <p className="CardEventModal__heading__duration">
+          <p className="CardEventModal__heading__location">
             @ {eventData.location}
           </p>
           <p className="CardEventModal__heading__duration">

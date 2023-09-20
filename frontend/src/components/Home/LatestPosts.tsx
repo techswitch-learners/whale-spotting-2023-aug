@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { getLatestPosts } from "../../clients/backendApiClient";
 import PostData from "../../models/PostData";
 import { toShortDate } from "../../utils/DateConversion";
-import "./LatestPosts.scss";
 import WhaleLoader from "../UI/WhaleLoader";
+import { Link } from "react-router-dom";
+import "./LatestPosts.scss";
 
 export default function LatestPosts() {
   const [latestPosts, setLatestPosts] = useState<PostData[]>();
@@ -24,17 +25,19 @@ export default function LatestPosts() {
           {latestPosts ? (
             latestPosts.map((post) => {
               return (
-                <div key={post.id} className="LatestPostCard">
-                  <div className="LatestPostCard_ImgContainer">
-                    <img
-                      className="LatestPostCard__ImgContainer__Img"
-                      src={post.imageUrl}
-                      alt={`Image of ${post.species.name}`}
-                    />
+                <Link to={`/posts/${post.id}`}>
+                  <div key={post.id} className="LatestPostCard">
+                    <div className="LatestPostCard_ImgContainer">
+                      <img
+                        className="LatestPostCard__ImgContainer__Img"
+                        src={post.imageUrl}
+                        alt={`Image of ${post.species.name}`}
+                      />
+                    </div>
+                    <p>Spotter: {post.user.name}</p>
+                    <p>Date : {toShortDate(post.creationTimestamp)}</p>
                   </div>
-                  <p>Spotter: {post.user.name}</p>
-                  <p>Date : {toShortDate(post.creationTimestamp)}</p>
-                </div>
+                </Link>
               );
             })
           ) : (
