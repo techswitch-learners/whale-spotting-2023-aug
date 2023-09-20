@@ -11,6 +11,8 @@ import { LoginContext } from "../context/LoginManager";
 import { useNavigate } from "react-router-dom";
 import "./PostForm.scss";
 
+const validW3wPattern = /^(\/\/\/)?[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]+$/g;
+
 const PostForm = () => {
   const today = new Date();
   const todayDateString = today.toISOString().slice(0, -1);
@@ -28,23 +30,6 @@ const PostForm = () => {
   const [speciesListData, setSpeciesListData] = useState<SpeciesListData>();
   const loginContext = useContext(LoginContext);
   const navigate = useNavigate();
-
-  const validW3wPattern = /^(\/\/\/)?[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]+$/g;
-
-  useEffect(() => {
-    let words;
-    if (w3w.startsWith("///")) {
-      words = w3w.slice(3);
-    } else {
-      words = w3w;
-    }
-    getLatitudeLongitude(words)
-      .then((data) => {
-        setLat(data.lat);
-        setLon(data.lng);
-      })
-      .catch(() => setLocationErrorMessage("Please enter a valid what3words"));
-  }, [w3w]);
 
   useEffect(() => {
     if (!loginContext.isLoggedIn) {
@@ -78,7 +63,7 @@ const PostForm = () => {
 
     if (w3w && !validW3wPattern.test(w3w)) {
       setLocationErrorMessage("Please enter a valid what3words");
-    } else if (w3w && validW3wPattern.test(w3w)) {
+    } else if (w3w) {
       let words;
       if (w3w.startsWith("///")) {
         words = w3w.slice(3);
@@ -94,6 +79,7 @@ const PostForm = () => {
           setLocationErrorMessage("Please enter a valid what3words"),
         );
     }
+
     if (lat && lon) {
       createWhalePost(
         date,
@@ -168,6 +154,8 @@ const PostForm = () => {
           <div className="latlon-container">
             <input
               type="number"
+              min={-90}
+              max={90}
               id="lat"
               name="lat"
               placeholder="Latitude"
@@ -176,6 +164,8 @@ const PostForm = () => {
             />
             <input
               type="number"
+              min={-180}
+              max={180}
               id="lon"
               name="lon"
               placeholder="Longitude"
@@ -206,7 +196,7 @@ const PostForm = () => {
               ))}
           </select>
 
-          <label htmlFor="date" className="submission-form-children">
+          <label htmlFor="description" className="submission-form-children">
             Description
           </label>
           <textarea
@@ -221,7 +211,7 @@ const PostForm = () => {
             {""}
           </textarea>
 
-          <label htmlFor="date" className="submission-form-children">
+          <label htmlFor="imageUrl" className="submission-form-children">
             Upload your image
           </label>
           <input
