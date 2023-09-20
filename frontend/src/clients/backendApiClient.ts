@@ -87,8 +87,8 @@ export const getAllSpecies = async (): Promise<SpeciesListData> => {
 export const createWhalePost = async (
   date: Date,
   latitude: number,
-  Longitude: number,
-  SpeciesId: number,
+  longitude: number,
+  speciesId: number,
   description: string,
   imageUrl: string,
   encodedAuth: string,
@@ -102,13 +102,13 @@ export const createWhalePost = async (
     body: JSON.stringify({
       date,
       latitude,
-      Longitude,
-      SpeciesId,
+      longitude,
+      speciesId,
       description,
       imageUrl,
     }),
   });
-  return await response.ok;
+  return response.ok;
 };
 
 export const getAllBodiesOfWater = async (): Promise<BodiesOfWaterData> => {
@@ -234,8 +234,8 @@ export const approveOrRejectPost = async (
 export const modifyPost = async (
   id: number,
   date: Date,
-  lat: number,
-  lon: number,
+  latitude: number,
+  longitude: number,
   speciesId: number,
   description: string,
   imageUrl: string,
@@ -249,8 +249,8 @@ export const modifyPost = async (
     },
     body: JSON.stringify({
       date,
-      lat,
-      lon,
+      latitude,
+      longitude,
       speciesId,
       description,
       imageUrl,

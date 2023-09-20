@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using WhaleSpotting.Attributes;
-using WhaleSpotting.Enums;
 using WhaleSpotting.Models.Request;
 using WhaleSpotting.Models.Response;
 using WhaleSpotting.Services;

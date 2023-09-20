@@ -1,9 +1,9 @@
 import { useState, FormEvent, useContext, useEffect } from "react";
 import Button from "../components/UI/Button";
 import { createEvent } from "../clients/backendApiClient";
-import "./EventForm.scss";
 import { LoginContext } from "../context/LoginManager";
 import { useNavigate } from "react-router-dom";
+import "./EventForm.scss";
 
 const EventForm = () => {
   const today = new Date();

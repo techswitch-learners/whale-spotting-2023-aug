@@ -1,6 +1,6 @@
+import { useState, useEffect, FormEvent, useContext } from "react";
 import PostData from "../../models/PostData";
 import Button from "../UI/Button";
-import { useState, useEffect, FormEvent, useContext } from "react";
 import SpeciesListData from "../../models/SpeciesListData";
 import w3w_logo from "../../assets/w3w_logo.png";
 import {
@@ -9,18 +9,18 @@ import {
   modifyPost,
   approveOrRejectPost,
 } from "../../clients/backendApiClient";
-import "./ModifyPostModal.scss";
 import ApprovalStatus from "../../enums/ApprovalStatus";
 import { LoginContext } from "../../context/LoginManager";
+import "./ModifyPostModal.scss";
 
 const validW3wPattern = /^(\/\/\/)?[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]+$/g;
 
 interface PostDataProps {
   postData: PostData;
-  onEditComplete: () => void;
+  completeEdit: () => void;
 }
 
-const ModifyPostModal = ({ postData, onEditComplete }: PostDataProps) => {
+const ModifyPostModal = ({ postData, completeEdit }: PostDataProps) => {
   const today = new Date();
   const todayDateString = today.toISOString().slice(0, -1);
 
@@ -120,14 +120,14 @@ const ModifyPostModal = ({ postData, onEditComplete }: PostDataProps) => {
     ).then(async () => {
       if (toApprove) {
         try {
-          const result = await approveOrRejectPost(
+          const success = await approveOrRejectPost(
             id,
             ApprovalStatus.Approved,
             loginContext.encodedAuth,
           );
-          if (result) {
+          if (success) {
             setSuccessMessage("Post update and approval successful");
-            onEditComplete();
+            completeEdit();
           } else {
             setSuccessMessage("Unsuccessful");
           }
@@ -136,7 +136,7 @@ const ModifyPostModal = ({ postData, onEditComplete }: PostDataProps) => {
         }
       } else {
         setSuccessMessage("Post successfully updated");
-        onEditComplete();
+        completeEdit();
       }
     });
   };

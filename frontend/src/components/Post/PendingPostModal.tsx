@@ -12,10 +12,13 @@ import "./PendingPostModal.scss";
 
 interface PostDataProps {
   postData: PostData;
-  onModeratorAction: () => void;
+  closeModalAndRefresh: () => void;
 }
 
-const PendingPostModal = ({ postData, onModeratorAction }: PostDataProps) => {
+const PendingPostModal = ({
+  postData,
+  closeModalAndRefresh,
+}: PostDataProps) => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [modify, setModify] = useState<boolean>(false);
   const loginContext = useContext(LoginContext);
@@ -29,7 +32,7 @@ const PendingPostModal = ({ postData, onModeratorAction }: PostDataProps) => {
       );
 
       if (result) {
-        onModeratorAction();
+        closeModalAndRefresh();
       } else {
         setErrorMessage("Try again later");
       }
@@ -47,7 +50,7 @@ const PendingPostModal = ({ postData, onModeratorAction }: PostDataProps) => {
       );
 
       if (result) {
-        onModeratorAction();
+        closeModalAndRefresh();
       } else {
         setErrorMessage("Try again later");
       }
@@ -135,9 +138,9 @@ const PendingPostModal = ({ postData, onModeratorAction }: PostDataProps) => {
         <Modal closeAction={() => setModify(false)}>
           <ModifyPostModal
             postData={postData}
-            onEditComplete={() => {
+            completeEdit={() => {
               setModify(false);
-              onModeratorAction();
+              closeModalAndRefresh();
             }}
           />
         </Modal>

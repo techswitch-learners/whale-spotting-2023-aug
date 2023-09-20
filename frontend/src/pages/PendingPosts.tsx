@@ -55,7 +55,7 @@ export const PendingPosts = () => {
             <Modal closeAction={() => setSelectedPostDetails(undefined)}>
               <PendingPostModal
                 postData={selectedPostDetails}
-                onModeratorAction={() => {
+                closeModalAndRefresh={() => {
                   setSelectedPostDetails(undefined);
                   fetchPendingPosts();
                 }}
