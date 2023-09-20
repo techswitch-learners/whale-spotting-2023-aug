@@ -156,6 +156,7 @@ const PostForm = () => {
               type="number"
               min={-90}
               max={90}
+              step="any"
               id="lat"
               name="lat"
               placeholder="Latitude"
@@ -166,6 +167,7 @@ const PostForm = () => {
               type="number"
               min={-180}
               max={180}
+              step="any"
               id="lon"
               name="lon"
               placeholder="Longitude"
@@ -203,7 +205,6 @@ const PostForm = () => {
             id="description"
             required
             rows={4}
-            cols={50}
             name="description"
             value={description}
             onChange={(event) => setDescription(event.target.value)}

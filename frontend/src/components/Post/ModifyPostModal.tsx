@@ -202,6 +202,9 @@ const ModifyPostModal = ({ postData, completeEdit }: PostDataProps) => {
           <div className="latlon-container">
             <input
               type="number"
+              min={-90}
+              max={90}
+              step="any"
               id="lat"
               name="lat"
               placeholder="Latitude"
@@ -210,6 +213,9 @@ const ModifyPostModal = ({ postData, completeEdit }: PostDataProps) => {
             />
             <input
               type="number"
+              min={-180}
+              max={180}
+              step="any"
               id="lon"
               name="lon"
               placeholder="Longitude"
@@ -241,7 +247,7 @@ const ModifyPostModal = ({ postData, completeEdit }: PostDataProps) => {
               ))}
           </select>
 
-          <label htmlFor="date" className="submission-form-children">
+          <label htmlFor="description" className="submission-form-children">
             Description
           </label>
           <textarea
@@ -249,7 +255,6 @@ const ModifyPostModal = ({ postData, completeEdit }: PostDataProps) => {
             id="description"
             required
             rows={8}
-            cols={50}
             name="description"
             value={description}
             onChange={(event) => setDescription(event.target.value)}
@@ -257,7 +262,7 @@ const ModifyPostModal = ({ postData, completeEdit }: PostDataProps) => {
             {""}
           </textarea>
 
-          <label htmlFor="date" className="submission-form-children">
+          <label htmlFor="imageUrl" className="submission-form-children">
             Upload your image
           </label>
           <input
