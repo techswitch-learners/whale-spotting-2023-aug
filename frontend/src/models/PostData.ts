@@ -16,6 +16,7 @@ interface PostData {
   description: string;
   approvalStatus: number;
   interactionCount: number;
+  hasInteractionFromCurrentUser?: boolean;
   bodyOfWater: {
     id: number;
     name: string;

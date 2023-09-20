@@ -9,11 +9,11 @@ namespace WhaleSpotting.Repositories;
 public interface IPostRepo
 {
     Post GetById(int id);
-    Task<Post> Create(CreatePostRequest createPostRequest);
+    Task<Post> Create(CreatePostRequest createPostRequest, int userId);
     List<Post> GetAll();
     List<Post> GetPending();
     void ApproveOrReject(int id, ApprovalStatus approvalStatus);
-    void Modify(int id, ModifyPostRequest modifyPostRequest);
+    void Modify(int id, ModifyPostRequest modifyPostRequest, int userId, Role userRole);
 }
 
 public class PostRepo : IPostRepo
@@ -66,12 +66,12 @@ public class PostRepo : IPostRepo
             .ToList();
     }
 
-    public async Task<Post> Create(CreatePostRequest createPostRequest)
+    public async Task<Post> Create(CreatePostRequest createPostRequest, int userId)
     {
-        var user = _context.Users.SingleOrDefault(user => user.Id == createPostRequest.UserId);
+        var user = _context.Users.SingleOrDefault(user => user.Id == userId);
         if (user == null)
         {
-            throw new ArgumentException($"User with id {createPostRequest.UserId} doesn't exist");
+            throw new ArgumentException($"User with id {userId} doesn't exist");
         }
 
         var species =
@@ -121,17 +121,25 @@ public class PostRepo : IPostRepo
         _context.SaveChanges();
     }
 
-    public void Modify(int id, ModifyPostRequest modifyPostRequest)
+    public void Modify(int id, ModifyPostRequest modifyPostRequest, int userId, Role userRole)
     {
         var post = GetById(id);
-        post.Latitude = modifyPostRequest.Latitude;
-        post.Longitude = modifyPostRequest.Longitude;
-        var species = _context.Species.SingleOrDefault(
-            species => species.Id == modifyPostRequest.SpeciesId
-        );
-        post.Species = species;
-        post.ImageUrl = modifyPostRequest.ImageUrl;
-        post.Description = modifyPostRequest.Description;
-        _context.SaveChanges();
+
+        if (userRole.Equals(Role.Admin) || post.User.Id == userId)
+        {
+            post.Latitude = modifyPostRequest.Latitude;
+            post.Longitude = modifyPostRequest.Longitude;
+            var species = _context.Species.SingleOrDefault(
+                species => species.Id == modifyPostRequest.SpeciesId
+            );
+            post.Species = species;
+            post.ImageUrl = modifyPostRequest.ImageUrl;
+            post.Description = modifyPostRequest.Description;
+            _context.SaveChanges();
+        }
+        else
+        {
+            throw new UnauthorizedAccessException();
+        }
     }
 }
