@@ -3,7 +3,7 @@
 @use "../../styles/typography" as *;
 @use "../../styles/variables" as *;
 
-.SearchBy {
+.Search {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,6 +25,22 @@
     padding: $desktop-gutter;
     border-radius: $desktop-border-radius;
     margin-top: $desktop-card-padding;
+  }
+
+  &__row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+
+    @include devices(tablet) {
+      flex-direction: row;
+    }
+
+    @include devices(desktop) {
+      flex-direction: row;
+    }
   }
 
   &__select {
@@ -68,21 +84,5 @@
         border: 2px solid $color-success;
       }
     }
-  }
-}
-
-.SearchBySpecies-row {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 30px;
-
-  @include devices(tablet) {
-    flex-direction: row;
-  }
-
-  @include devices(desktop) {
-    flex-direction: row;
   }
 }

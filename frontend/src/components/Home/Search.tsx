@@ -39,13 +39,13 @@ const Search = () => {
 
   return (
     <section className="container">
-      <div className="SearchBy">
+      <div className="Search">
         <h3>Search For Posts</h3>
-        <div className="SearchBy-row">
+        <div className="Search__row">
           <label htmlFor="bodyOfWater">
             By Sea/Ocean:
             <select
-              className="SearchBy__select"
+              className="Search__select"
               id="bodyOfWater"
               name="bodyOfWater"
               onChange={(e) => setBodyOfWater(e.target.value)}
@@ -57,7 +57,7 @@ const Search = () => {
                 bodiesOfWater.map((bodyOfWater) => (
                   <option
                     key={bodyOfWater.id}
-                    className="SearchBy__select__option"
+                    className="Search__select__option"
                     value={bodyOfWater.name}
                     disabled={bodyOfWater.posts.length === 0}
                   >
@@ -70,7 +70,7 @@ const Search = () => {
           <label htmlFor="species">
             By Species:
             <select
-              className="SearchBy__select"
+              className="Search__select"
               id="species"
               name="species"
               onChange={(e) => setSpecies(e.target.value)}
@@ -82,7 +82,7 @@ const Search = () => {
                 speciesList.map((species) => (
                   <option
                     key={species.id}
-                    className="SearchBy__select__option"
+                    className="Search__select__option"
                     value={species.name}
                     disabled={species.posts.length === 0}
                   >
