@@ -8,6 +8,7 @@ public interface IEventRepo
     Event Create(CreateEventRequest createEventRequest);
     Event GetById(int id);
     List<Event> GetAll();
+    List<Event> GetLatest();
 }
 
 public class EventRepo : IEventRepo
@@ -52,5 +53,14 @@ public class EventRepo : IEventRepo
     public List<Event> GetAll()
     {
         return _context.Events.ToList();
+    }
+
+    public List<Event> GetLatest()
+    {
+        return _context.Events
+            .Where(e => e.StartDate >= DateTime.Today)
+            .OrderBy(e => e.StartDate)
+            .Take(10)
+            .ToList();
     }
 }
