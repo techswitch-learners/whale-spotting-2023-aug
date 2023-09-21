@@ -9,8 +9,6 @@ export const Home = () => {
       <LatestPosts />
       <Search />
       <EventandLeaderboardSection />
-
-      {/* Footer */}
     </>
   );
 };
