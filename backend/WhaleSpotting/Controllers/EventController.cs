@@ -47,7 +47,6 @@ public class EventController : ControllerBase
     }
 
     [HttpGet("latest")]
-    [OptionalUserAuth]
     public IActionResult GetLatest()
     {
         var events = _eventService.GetLatest();
