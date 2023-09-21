@@ -119,12 +119,18 @@ const Post = () => {
           <div className="Post__content">
             <div className="Post__heading">
               <h3 className="Post__heading__title">
-                <Link to={`/posts?species=${post.species.name}`}>
+                <Link
+                  to={`/posts?species=${encodeURIComponent(post.species.name)}`}
+                >
                   {post.species.name}
                 </Link>
               </h3>
               <p className="Post__heading__bodyofwater">
-                <Link to={`/posts?bodyOfWater=${post.bodyOfWater.name}`}>
+                <Link
+                  to={`/posts?bodyOfWater=${encodeURIComponent(
+                    post.bodyOfWater.name,
+                  )}`}
+                >
                   {post.bodyOfWater.name}
                 </Link>
               </p>
