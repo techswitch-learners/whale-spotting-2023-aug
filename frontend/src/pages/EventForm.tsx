@@ -1,8 +1,8 @@
 import { useState, FormEvent, useContext, useEffect } from "react";
-import Button from "../components/UI/Button";
 import { createEvent } from "../clients/backendApiClient";
 import { LoginContext } from "../context/LoginManager";
 import { useNavigate } from "react-router-dom";
+import Button from "../components/UI/Button";
 import "./EventForm.scss";
 
 const EventForm = () => {
@@ -43,6 +43,11 @@ const EventForm = () => {
       .then((success) => {
         if (success) {
           setMessage("Thank you for your submission");
+          setName("");
+          setDuration(NaN);
+          setLocation("");
+          setlink("");
+          setimageUrl("");
         } else {
           setMessage("Please check the information provided");
         }
@@ -63,6 +68,7 @@ const EventForm = () => {
           </label>
           <input
             type="text"
+            value={name}
             minLength={1}
             placeholder="Name of Event"
             id="name"
@@ -86,10 +92,11 @@ const EventForm = () => {
           />
 
           <label htmlFor="duration" className="submission-form-children">
-            Duration:
+            Duration in Hours:
           </label>
           <input
             type="number"
+            value={duration}
             placeholder="Number of Hours eg. 2"
             id="duration"
             required
@@ -104,6 +111,7 @@ const EventForm = () => {
           </label>
           <input
             type="text"
+            value={location}
             minLength={2}
             placeholder="eg. John O' Groats"
             id="location"
@@ -118,6 +126,7 @@ const EventForm = () => {
           </label>
           <input
             type="url"
+            value={link}
             id="link"
             required
             onChange={(event) => {
@@ -130,6 +139,7 @@ const EventForm = () => {
           </label>
           <input
             type="url"
+            value={imageUrl}
             id="imageUrl"
             required
             onChange={(event) => {
