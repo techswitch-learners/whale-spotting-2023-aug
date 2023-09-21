@@ -1,16 +1,17 @@
 import { useContext, useEffect } from "react";
 import { LoginContext } from "../../context/LoginManager";
+import { NavLink, useLocation } from "react-router-dom";
 import "./AdminTools.scss";
-import { NavLink } from "react-router-dom";
 
 const AdminTools = () => {
   const loginContext = useContext(LoginContext);
+  const location = useLocation();
 
   useEffect(() => {
     if (loginContext.isAdmin) {
       loginContext.updatePendingPostCount(loginContext.encodedAuth);
     }
-  }, [loginContext]);
+  }, [loginContext, location]);
 
   if (!loginContext.isAdmin) {
     return <></>;
