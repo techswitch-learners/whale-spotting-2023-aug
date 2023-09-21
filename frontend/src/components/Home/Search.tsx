@@ -7,13 +7,13 @@ import BodyOfWaterData from "../../models/BodyOfWaterData";
 import SpeciesData from "../../models/SpeciesData";
 import { useNavigate } from "react-router-dom";
 import Button from "../UI/Button";
-import "./SearchBy.scss";
+import "./Search.scss";
 
-const SearchBy = () => {
+const Search = () => {
   const [bodiesOfWater, setBodiesOfWater] = useState<BodyOfWaterData[]>();
   const [bodyOfWater, setBodyOfWater] = useState<string>();
   const [speciesList, setSpeciesList] = useState<SpeciesData[]>();
-  const [species, setSpecies] = useState<number>();
+  const [species, setSpecies] = useState<string>();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,15 +26,15 @@ const SearchBy = () => {
   }, []);
 
   const searchHandler = () => {
-    if (bodyOfWater && !species) {
-      navigate(`/search?bodyOfWater=${bodyOfWater}`);
-    } else if (!bodyOfWater && species) {
-      navigate(`/search?species=${species}`);
-    } else if (bodyOfWater && species) {
-      navigate(`/search?bodyOfWater=${bodyOfWater}&species=${species}`);
-    } else {
-      navigate(`/search`);
+    const url = `/posts`;
+    const urlSearchParams = new URLSearchParams();
+    if (bodyOfWater) {
+      urlSearchParams.append("bodyOfWater", bodyOfWater);
     }
+    if (species) {
+      urlSearchParams.append("species", species);
+    }
+    navigate(`${url}?${urlSearchParams.toString()}`);
   };
 
   return (
@@ -73,7 +73,7 @@ const SearchBy = () => {
               className="SearchBy__select"
               id="species"
               name="species"
-              onChange={(e) => setSpecies(parseInt(e.target.value))}
+              onChange={(e) => setSpecies(e.target.value)}
             >
               <option selected disabled>
                 Please select...
@@ -83,7 +83,7 @@ const SearchBy = () => {
                   <option
                     key={species.id}
                     className="SearchBy__select__option"
-                    value={species.id}
+                    value={species.name}
                     disabled={species.posts.length === 0}
                   >
                     {species.name +
@@ -101,4 +101,4 @@ const SearchBy = () => {
   );
 };
 
-export default SearchBy;
+export default Search;
