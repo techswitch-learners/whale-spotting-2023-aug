@@ -21,8 +21,5 @@
     "*.cs": "dotnet csharpier",
     "*.{ts,tsx}": "npm run lint",
     "*.{ts,tsx,js,jsx,json,html,css,scss,md}": "npm run format"
-  },
-  "dependencies": {
-    "react-modal": "^3.16.1"
   }
 }
