@@ -69,6 +69,7 @@ const EventForm = () => {
           </label>
           <input
             type="text"
+            value={name}
             minLength={1}
             placeholder="Name of Event"
             id="name"
@@ -92,10 +93,11 @@ const EventForm = () => {
           />
 
           <label htmlFor="duration" className="submission-form-children">
-            Duration:
+            Duration in Hours:
           </label>
           <input
             type="number"
+            value={duration}
             placeholder="Number of Hours eg. 2"
             id="duration"
             required
@@ -110,6 +112,7 @@ const EventForm = () => {
           </label>
           <input
             type="text"
+            value={location}
             minLength={2}
             placeholder="eg. John O' Groats"
             id="location"
@@ -124,6 +127,7 @@ const EventForm = () => {
           </label>
           <input
             type="url"
+            value={link}
             id="link"
             required
             onChange={(event) => {
@@ -136,6 +140,7 @@ const EventForm = () => {
           </label>
           <input
             type="url"
+            value={imageUrl}
             id="imageUrl"
             required
             onChange={(event) => {
