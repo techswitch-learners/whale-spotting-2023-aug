@@ -11,7 +11,6 @@ import MapPage from "./pages/MapPage.tsx";
 import UserProfile from "./pages/UserProfile.tsx";
 import PostForm from "./pages/PostForm";
 import EventForm from "./pages/EventForm.tsx";
-import SearchResults from "./pages/SearchResults.tsx";
 import PendingPosts from "./pages/PendingPosts.tsx";
 import Post from "./pages/Post.tsx";
 import Footer from "./components/Footer/Footer.tsx";
@@ -30,7 +29,6 @@ const App = () => {
           <Route path="/events" element={<Events />} />
           <Route path="/users" element={<Users />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/search" element={<SearchResults />} />
           <Route path="/register" element={<Register />} />
           <Route path="/map" element={<MapPage />} />
           <Route path="/users/:userId" element={<UserProfile />} />

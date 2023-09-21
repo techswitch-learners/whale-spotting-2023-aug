@@ -1,44 +1,9 @@
-@use "../styles/variables" as *;
-@use "../styles/mixins" as *;
+.SearchResults {
+  padding: 3rem 0;
 
-.PostsGallery {
-  @include cardGallery();
-}
-
-.Posts {
-  &__loader {
+  &__Filter {
     display: flex;
-    gap: 2rem;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  &__None__heading {
-    text-align: center;
-  }
-}
-
-.create-post-button {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 10px 20px;
-  cursor: pointer;
-  z-index: 1000;
-  border-radius: 50%;
-  width: 3.5rem;
-  height: 3.5rem;
-  background-color: $color-secondary;
-  display: flex;
-  align-items: center;
-  font-size: 3rem;
-  font-weight: $boldWeight;
-  font-family: "Poiret One", sans-serif;
-
-  &:hover {
-    width: auto;
-    border-radius: 25px;
-    font-weight: $regularWeight;
-    font-size: 1rem;
+    flex-direction: row;
+    justify-content: space-around;
   }
 }
