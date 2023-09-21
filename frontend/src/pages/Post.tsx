@@ -117,6 +117,7 @@ const Post = () => {
                 className="CardPostModal__postcard"
                 src={postcardIcon}
                 onClick={() => setSelectedPostCardDetails(post)}
+                alt="Generate postcard for this post"
               />
               <a href={post.imageUrl} target="_blank">
                 <img
