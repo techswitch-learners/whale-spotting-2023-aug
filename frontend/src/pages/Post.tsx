@@ -105,82 +105,80 @@ const Post = () => {
   return (
     <div className="Post-container">
       {post ? (
-        <>
-          <div className="Post">
-            <div className="Post__image__container">
+        <div className="Post">
+          <div className="Post__image__container">
+            <img
+              className="Post__image"
+              src={post.imageUrl}
+              alt={`image of ${post.species.name}`}
+            />
+            <img
+              className="CardPostModal__postcard"
+              src={postcardIcon}
+              onClick={() => setSelectedPostCardDetails(post)}
+              alt="Generate postcard for this post"
+            />
+            <a href={post.imageUrl} target="_blank">
               <img
-                className="Post__image"
-                src={post.imageUrl}
-                alt={`image of ${post.species.name}`}
+                className="CardPostModal__fullscreen"
+                src={fullscreenIcon}
+                alt="Show image fullscreen"
               />
-              <img
-                className="CardPostModal__postcard"
-                src={postcardIcon}
-                onClick={() => setSelectedPostCardDetails(post)}
-                alt="Generate postcard for this post"
-              />
-              <a href={post.imageUrl} target="_blank">
-                <img
-                  className="CardPostModal__fullscreen"
-                  src={fullscreenIcon}
-                  alt="Show image fullscreen"
-                />
-              </a>
-            </div>
-            <div className="Post__content">
-              <div className="Post__heading">
-                <h3 className="Post__heading__title">
-                  <Link to={`/search?bodyOfWater=${post.bodyOfWater.name}`}>
-                    {post.species.name}
-                  </Link>
-                </h3>
-                <p className="Post__heading__bodyofwater">
-                  <Link to={`/search?bodyOfWater=${post.bodyOfWater.name}`}>
-                    {post.bodyOfWater.name}
-                  </Link>
-                </p>
-                <p className="Post__heading__date">
-                  {toShortDate(post.creationTimestamp)}
-                </p>
-              </div>
-              <p className="Post__description">{post.description}</p>
-              <div className="Post__user">
-                <p className="Post__text">{post.user.name}</p>
-                <div className="Post__user__image-container">
-                  <img
-                    className="Post__user__image"
-                    src={post.user.profileImageUrl}
-                    alt={`${post.user.name}'s profile picture`}
-                  />
-                </div>
-              </div>
-              <div className="Post__interactions">
-                <div className="Post__interactions__likes">
-                  <InteractWithPost
-                    postId={post.id}
-                    interactionCount={post.interactionCount}
-                    hasInteractionFromCurrentUser={
-                      post.hasInteractionFromCurrentUser
-                    }
-                    likePost={handleLike}
-                  />
-                </div>
-                <div>
-                  <ShareButtonExpandable
-                    postData={post}
-                    size={36}
-                    type={"sighting"}
-                  />
-                </div>
-              </div>
-            </div>
-            {selectedPostCardDetails && (
-              <Modal closeAction={() => setSelectedPostCardDetails(undefined)}>
-                <Postcard postData={selectedPostCardDetails} />
-              </Modal>
-            )}
+            </a>
           </div>
-        </>
+          <div className="Post__content">
+            <div className="Post__heading">
+              <h3 className="Post__heading__title">
+                <Link to={`/search?bodyOfWater=${post.bodyOfWater.name}`}>
+                  {post.species.name}
+                </Link>
+              </h3>
+              <p className="Post__heading__bodyofwater">
+                <Link to={`/search?bodyOfWater=${post.bodyOfWater.name}`}>
+                  {post.bodyOfWater.name}
+                </Link>
+              </p>
+              <p className="Post__heading__date">
+                {toShortDate(post.creationTimestamp)}
+              </p>
+            </div>
+            <p className="Post__description">{post.description}</p>
+            <div className="Post__user">
+              <p className="Post__text">{post.user.name}</p>
+              <div className="Post__user__image-container">
+                <img
+                  className="Post__user__image"
+                  src={post.user.profileImageUrl}
+                  alt={`${post.user.name}'s profile picture`}
+                />
+              </div>
+            </div>
+            <div className="Post__interactions">
+              <div className="Post__interactions__likes">
+                <InteractWithPost
+                  postId={post.id}
+                  interactionCount={post.interactionCount}
+                  hasInteractionFromCurrentUser={
+                    post.hasInteractionFromCurrentUser
+                  }
+                  likePost={handleLike}
+                />
+              </div>
+              <div>
+                <ShareButtonExpandable
+                  postData={post}
+                  size={36}
+                  type={"sighting"}
+                />
+              </div>
+            </div>
+          </div>
+          {selectedPostCardDetails && (
+            <Modal closeAction={() => setSelectedPostCardDetails(undefined)}>
+              <Postcard postData={selectedPostCardDetails} />
+            </Modal>
+          )}
+        </div>
       ) : (
         <p>Loading...</p>
       )}
