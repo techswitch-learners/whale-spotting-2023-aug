@@ -1,11 +1,14 @@
 import { LoginContext } from "../context/LoginManager";
 import { toShortDate } from "../utils/DateConversion";
 import { useState, useEffect, useCallback, useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { getPostById, interactWithPost } from "../clients/backendApiClient";
+import postcardIcon from "../assets/postcard_icon.svg";
 import fullscreenIcon from "../assets/fullscreen_icon.svg";
 import WhaleLoader from "../components/UI/WhaleLoader";
 import Button from "../components/UI/Button";
+import Modal from "../components/UI/Modal";
+import Postcard from "../components/Postcard/Postcard";
 import ShareButtonExpandable from "../components/ShareButtonExpandable";
 import InteractWithPost from "../components/Post/InteractWithPost";
 import PostData from "../models/PostData";
@@ -13,6 +16,8 @@ import "./Post.scss";
 
 const Post = () => {
   const [post, setPost] = useState<PostData>();
+  const [selectedPostCardDetails, setSelectedPostCardDetails] =
+    useState<PostData>();
   const [loading, setLoading] = useState<boolean>(true);
   const [notFound, setNotFound] = useState<boolean>(false);
   const [otherError, setOtherError] = useState<boolean>(false);
@@ -107,36 +112,55 @@ const Post = () => {
               src={post.imageUrl}
               alt={`image of ${post.species.name}`}
             />
+            <img
+              className="CardPostModal__postcard"
+              src={postcardIcon}
+              onClick={() => setSelectedPostCardDetails(post)}
+              alt="Generate postcard for this post"
+            />
             <a href={post.imageUrl} target="_blank">
               <img
-                className="Post__fullscreen"
+                className="CardPostModal__fullscreen"
                 src={fullscreenIcon}
                 alt="Show image fullscreen"
               />
             </a>
           </div>
-
           <div className="Post__content">
             <div className="Post__heading">
-              <h3 className="Post__heading__title">{post.species.name}</h3>
+              <h3 className="Post__heading__title">
+                <Link
+                  to={`/posts?species=${encodeURIComponent(post.species.name)}`}
+                >
+                  {post.species.name}
+                </Link>
+              </h3>
               <p className="Post__heading__bodyofwater">
-                {post.bodyOfWater.name}
+                <Link
+                  to={`/posts?bodyOfWater=${encodeURIComponent(
+                    post.bodyOfWater.name,
+                  )}`}
+                >
+                  {post.bodyOfWater.name}
+                </Link>
               </p>
               <p className="Post__heading__date">
                 {toShortDate(post.creationTimestamp)}
               </p>
             </div>
             <p className="Post__description">{post.description}</p>
-            <div className="Post__user">
-              <p className="Post__text">{post.user.name}</p>
-              <div className="Post__user__image-container">
-                <img
-                  className="Post__user__image"
-                  src={post.user.profileImageUrl}
-                  alt={`${post.user.name}'s profile picture`}
-                />
+            <Link to={`/users/${post.user.id}`}>
+              <div className="Post__user">
+                <p className="Post__text">{post.user.name}</p>
+                <div className="Post__user__image-container">
+                  <img
+                    className="Post__user__image"
+                    src={post.user.profileImageUrl}
+                    alt={`${post.user.name}'s profile picture`}
+                  />
+                </div>
               </div>
-            </div>
+            </Link>
             <div className="Post__interactions">
               <div className="Post__interactions__likes">
                 <InteractWithPost
@@ -157,6 +181,11 @@ const Post = () => {
               </div>
             </div>
           </div>
+          {selectedPostCardDetails && (
+            <Modal closeAction={() => setSelectedPostCardDetails(undefined)}>
+              <Postcard postData={selectedPostCardDetails} />
+            </Modal>
+          )}
         </div>
       ) : (
         <p>Loading...</p>

@@ -74,6 +74,7 @@
 
   &__heading {
     margin: 0 auto;
+    text-align: center;
 
     &__title {
       font-size: 3rem;
@@ -84,6 +85,10 @@
     }
 
     &__date {
+      text-align: center;
+    }
+
+    &__location {
       text-align: center;
     }
 

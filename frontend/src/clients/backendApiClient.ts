@@ -8,6 +8,7 @@ import PostData from "../models/PostData";
 import LeaderboardData from "../models/LeaderboardData";
 import EventsData from "../models/EventsData";
 import AuthData from "../models/AuthData";
+import SpeciesData from "../models/SpeciesData";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -27,18 +28,16 @@ export const getAllUsers = async (): Promise<UsersData> => {
 
 export const tryEncodedAuth = async (
   encodedAuth: string,
-): Promise<AuthData> => {
-  let data = null;
+): Promise<AuthData | null> => {
   const response = await fetch(`${backendUrl}/Auth/`, {
     headers: {
       Authorization: encodedAuth,
     },
   });
-
   if (response.ok) {
-    data = await response.json();
+    return await response.json();
   }
-  return data;
+  return null;
 };
 
 export const getUserById = async (
@@ -67,6 +66,9 @@ export const registerNewUser = async (
 ): Promise<boolean> => {
   const response = await fetch(`${backendUrl}/User/`, {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({
       Username: username,
       Password: password,
@@ -84,12 +86,22 @@ export const getLatitudeLongitude = async (
   words: string,
 ): Promise<LatitudeLongitude> => {
   const response = await fetch(`${backendUrl}/What3Words/?words=${words}`);
-  return await response.json();
+  if (response.ok) {
+    return await response.json();
+  } else {
+    throw new Error("Latitude and longitude not found");
+  }
 };
 
 export const getAllSpecies = async (): Promise<SpeciesListData> => {
   const response = await fetch(`${backendUrl}/Species/all`);
-  return await response.json();
+  const speciesData = await response.json();
+  if (speciesData) {
+    speciesData.speciesList.sort((a: SpeciesData, b: SpeciesData) => {
+      return a.name > b.name;
+    });
+  }
+  return speciesData;
 };
 
 export const createWhalePost = async (
@@ -287,4 +299,30 @@ export const interactWithPost = async (
 export const getPostById = async (id: number): Promise<Response> => {
   const response = await fetch(`${backendUrl}/Post/${id}`);
   return response;
+};
+
+export const searchPosts = async (
+  bodyOfWaterName?: string,
+  speciesName?: string,
+  encodedAuth?: string,
+): Promise<PostsData> => {
+  let response;
+  const url = `${backendUrl}/Post/search`;
+  const urlSearchParams = new URLSearchParams();
+  if (bodyOfWaterName) {
+    urlSearchParams.append("bodyOfWaterName", bodyOfWaterName);
+  }
+  if (speciesName) {
+    urlSearchParams.append("speciesName", speciesName);
+  }
+  if (!encodedAuth) {
+    response = await fetch(`${url}?${urlSearchParams.toString()}`);
+  } else {
+    response = await fetch(`${url}?${urlSearchParams.toString()}`, {
+      headers: {
+        Authorization: encodedAuth,
+      },
+    });
+  }
+  return await response.json();
 };

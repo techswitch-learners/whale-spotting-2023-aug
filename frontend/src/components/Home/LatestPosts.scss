@@ -7,6 +7,18 @@
   margin-top: $mobile-gutter;
 }
 
+.sub-heading {
+  font-size: 1rem;
+
+  @include devices(tablet) {
+    font-size: 1.5rem;
+  }
+
+  @include devices(desktop) {
+    font-size: 2rem;
+  }
+}
+
 .LatestPostsRow {
   display: flex;
   flex-direction: row;
@@ -21,10 +33,13 @@
   position: relative;
   border-radius: $mobile-border-radius;
   padding: $mobile-card-padding 0;
+  cursor: pointer;
 
   &__ImgContainer {
     &__Img {
-      max-width: 50vw;
+      height: 10rem;
+      width: 14rem;
+      object-fit: cover;
 
       @include devices(tablet) {
         max-width: 38vw;
@@ -33,7 +48,6 @@
       @include devices(desktop) {
         width: 400px;
         height: 300px;
-        object-fit: contain;
       }
     }
   }

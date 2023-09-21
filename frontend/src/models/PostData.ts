@@ -1,3 +1,5 @@
+import ApprovalStatus from "../enums/ApprovalStatus";
+
 interface PostData {
   id: number;
   user: {
@@ -14,7 +16,7 @@ interface PostData {
   };
   imageUrl: string;
   description: string;
-  approvalStatus: number;
+  approvalStatus: ApprovalStatus;
   interactionCount: number;
   hasInteractionFromCurrentUser?: boolean;
   bodyOfWater: {

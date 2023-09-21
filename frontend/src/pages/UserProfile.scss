@@ -16,12 +16,24 @@
 
 .user-profile-image {
   border-radius: 50%;
-  max-width: 25%;
   height: auto;
   margin-right: 4rem;
   margin-bottom: 4rem;
+  width: 10rem;
+  height: 10rem;
+  object-position: center center;
+  object-fit: cover;
+
+  @include devices(desktop) {
+    width: 15rem;
+    height: 15rem;
+  }
 }
 
 .user-info {
   color: $color-primary;
+
+  &__email:hover {
+    color: $color-secondary;
+  }
 }
