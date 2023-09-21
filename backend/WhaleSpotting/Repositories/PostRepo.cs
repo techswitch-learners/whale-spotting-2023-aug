@@ -72,13 +72,6 @@ public class PostRepo : IPostRepo
                 )
                 : null;
 
-        var whale =
-            createPostRequest.WhaleId != null
-                ? _context.Whales.SingleOrDefault(
-                    whale => whale.TagNumber == createPostRequest.WhaleId
-                )
-                : null;
-
         var bodyOfWater = await _bodyOfWaterService.GetByLocation(
             createPostRequest.Latitude,
             createPostRequest.Longitude
@@ -90,7 +83,6 @@ public class PostRepo : IPostRepo
             Latitude = createPostRequest.Latitude,
             Longitude = createPostRequest.Longitude,
             Species = species,
-            Whale = whale,
             ImageUrl = createPostRequest.ImageUrl,
             Description = createPostRequest.Description,
             BodyOfWater = bodyOfWater,

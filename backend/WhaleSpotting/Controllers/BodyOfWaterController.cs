@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using WhaleSpotting.Models.Response;
 using WhaleSpotting.Services;
-using WhaleSpotting.Attributes;
 
 namespace WhaleSpotting.Controllers;
 
@@ -21,20 +20,5 @@ public class BodyOfWaterController : ControllerBase
     {
         var bodiesOfWater = _bodyOfWaterService.GetAll();
         return Ok(new BodiesOfWaterResponse(bodiesOfWater));
-    }
-
-    [HttpGet("{name}")]
-    [OptionalUserAuth]
-    public IActionResult GetByName([FromRoute] string name, [FromHeader] int? userId)
-    {
-        try
-        {
-            var bodyOfWater = _bodyOfWaterService.GetByName(name);
-            return Ok(new BodyOfWaterResponse(bodyOfWater, userId));
-        }
-        catch (ArgumentException)
-        {
-            return NotFound();
-        }
     }
 }

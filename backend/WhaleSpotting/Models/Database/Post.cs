@@ -12,8 +12,6 @@ public class Post
     public DateTime CreationTimestamp { get; set; }
     public int? SpeciesId { get; set; }
     public Species? Species { get; set; }
-    public int? WhaleTagNumber { get; set; }
-    public Whale? Whale { get; set; }
     public string ImageUrl { get; set; } = null!;
     public string Description { get; set; } = null!;
     public ApprovalStatus ApprovalStatus { get; set; }

@@ -59,10 +59,10 @@ const Search = () => {
                     key={bodyOfWater.id}
                     className="Search__select__option"
                     value={bodyOfWater.name}
-                    disabled={bodyOfWater.posts.length === 0}
+                    disabled={!bodyOfWater.hasPosts}
                   >
                     {bodyOfWater.name +
-                      (bodyOfWater.posts.length === 0 ? " (no posts yet)" : "")}
+                      (bodyOfWater.hasPosts ? "" : " (no posts yet)")}
                   </option>
                 ))}
             </select>
@@ -84,10 +84,9 @@ const Search = () => {
                     key={species.id}
                     className="Search__select__option"
                     value={species.name}
-                    disabled={species.posts.length === 0}
+                    disabled={!species.hasPosts}
                   >
-                    {species.name +
-                      (species.posts.length === 0 ? " (no posts yet)" : "")}
+                    {species.name + (species.hasPosts ? "" : " (no posts yet)")}
                   </option>
                 ))}
             </select>
