@@ -45,4 +45,11 @@ public class EventController : ControllerBase
         var newEvent = new EventResponse(_eventService.Create(createEventRequest));
         return CreatedAtAction(nameof(GetById), new { id = newEvent.Id }, newEvent);
     }
+
+    [HttpGet("latest")]
+    public IActionResult GetLatest()
+    {
+        var events = _eventService.GetLatest();
+        return Ok(new EventsResponse(events));
+    }
 }

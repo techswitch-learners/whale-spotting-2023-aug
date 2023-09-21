@@ -224,6 +224,11 @@ export const getAllEvents = async (): Promise<EventsData> => {
   return await response.json();
 };
 
+export const getLatestEvents = async (): Promise<EventsData> => {
+  const response = await fetch(`${backendUrl}/Event/latest`);
+  return await response.json();
+};
+
 export const getAllPendingPosts = async (
   encodedAuth: string,
 ): Promise<PostsData> => {

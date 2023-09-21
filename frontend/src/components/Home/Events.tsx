@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllEvents } from "../../clients/backendApiClient";
+import { getLatestEvents } from "../../clients/backendApiClient";
 import { toShortDate } from "../../utils/DateConversion";
 import EventData from "../../models/EventData";
 import WhaleLoader from "../UI/WhaleLoader";
@@ -13,7 +13,7 @@ const Events = () => {
   const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
-    getAllEvents()
+    getLatestEvents()
       .then((data) => setEvents(data.events))
       .catch(() => setError(true));
   }, []);

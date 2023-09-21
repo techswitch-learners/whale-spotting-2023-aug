@@ -9,6 +9,7 @@ public interface IEventService
     Event Create(CreateEventRequest createEventRequest);
     Event GetById(int id);
     List<Event> GetAll();
+    List<Event> GetLatest();
 }
 
 public class EventService : IEventService
@@ -33,5 +34,10 @@ public class EventService : IEventService
     public List<Event> GetAll()
     {
         return _events.GetAll();
+    }
+
+    public List<Event> GetLatest()
+    {
+        return _events.GetLatest();
     }
 }
