@@ -36,9 +36,9 @@ function Navbar() {
     <nav>
       <div className="navbar-wrapper">
         <div className="navbar-left">
-          <NavLink to="/" onClick={closeMobileMenu}>
+          <Link to="/" onClick={closeMobileMenu}>
             <img src={logo} alt="Whale Icon" className="whale-icon" />
-          </NavLink>
+          </Link>
         </div>
         <div className="navbar-right">
           <div className="mobile-menu-icon" onClick={toggleMobileMenu}>
