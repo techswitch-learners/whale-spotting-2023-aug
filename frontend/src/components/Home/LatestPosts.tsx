@@ -20,7 +20,7 @@ export default function LatestPosts() {
     <section className="LatestPosts section-dark">
       <div className="container">
         <h2>Latest Spottings</h2>
-        <h4>Explore the latest sightings</h4>
+        <h3 className="sub-heading">Explore the latest sightings</h3>
         <div className="LatestPostsRow">
           {latestPosts ? (
             latestPosts.map((post) => {
