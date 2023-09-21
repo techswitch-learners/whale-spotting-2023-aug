@@ -5,9 +5,7 @@
   align-items: center;
   justify-content: center;
 
-  height: 2rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding: 1rem 2rem;
 
   border: 0.125rem solid $color-secondary;
   border-radius: 0.25rem;
@@ -30,11 +28,9 @@
 
   @include devices(tablet) {
     font-size: $tablet-font-size-button;
-    height: 2.5rem;
   }
 
   @include devices(desktop) {
     font-size: $desktop-font-size-button;
-    height: 3rem;
   }
 }
