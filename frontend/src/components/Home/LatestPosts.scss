@@ -7,6 +7,18 @@
   margin-top: $mobile-gutter;
 }
 
+.sub-heading {
+  font-size: 1rem;
+
+  @include devices(tablet) {
+    font-size: 1.5rem;
+  }
+
+  @include devices(desktop) {
+    font-size: 2rem;
+  }
+}
+
 .LatestPostsRow {
   display: flex;
   flex-direction: row;
