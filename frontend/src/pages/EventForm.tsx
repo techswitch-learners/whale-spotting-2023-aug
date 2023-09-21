@@ -44,7 +44,6 @@ const EventForm = () => {
         if (success) {
           setMessage("Thank you for your submission");
           setName("");
-          setStartDate(new Date());
           setDuration(NaN);
           setLocation("");
           setlink("");
