@@ -14,6 +14,8 @@ public interface IPostRepo
     void ApproveOrReject(int id, ApprovalStatus approvalStatus);
     List<Post> Search(SearchPostsRequest searchPostsRequest);
     void Modify(int id, ModifyPostRequest modifyPostRequest, int userId, Role userRole);
+    List<Post> GetAll();
+    List<Post> GetLatest();
 }
 
 public class PostRepo : IPostRepo
@@ -155,5 +157,30 @@ public class PostRepo : IPostRepo
             );
         }
         return query.ToList();
+    }
+
+    public List<Post> GetAll()
+    {
+        return _context.Posts
+            .Include(post => post.User)
+            .Include(post => post.Species)
+            .Include(post => post.Interactions)
+            .Include(post => post.BodyOfWater)
+            .Where(post => post.ApprovalStatus == ApprovalStatus.Approved)
+            .ToList();
+    }
+
+    public List<Post> GetLatest()
+    {
+        var latest = _context.Posts
+            .OrderByDescending(p => p.CreationTimestamp)
+            .Include(post => post.User)
+            .Include(post => post.Species)
+            .Include(post => post.Interactions)
+            .Include(post => post.BodyOfWater)
+            .Where(post => post.ApprovalStatus == ApprovalStatus.Approved)
+            .Take(5)
+            .ToList();
+        return latest;
     }
 }

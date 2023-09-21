@@ -13,6 +13,8 @@ public interface IPostService
     void ApproveOrReject(int id, ApprovalStatus approvalStatus);
     List<Post> Search(SearchPostsRequest searchPostsRequest);
     void Modify(int id, ModifyPostRequest modifyPostRequest, int userId, Role userRole);
+    List<Post> GetAll();
+    List<Post> GetLatest();
 }
 
 public class PostService : IPostService
@@ -52,5 +54,15 @@ public class PostService : IPostService
     public List<Post> Search(SearchPostsRequest searchPostsRequest)
     {
         return _posts.Search(searchPostsRequest);
+    }
+
+    public List<Post> GetAll()
+    {
+        return _posts.GetAll();
+    }
+
+    public List<Post> GetLatest()
+    {
+        return _posts.GetLatest();
     }
 }
