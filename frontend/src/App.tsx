@@ -14,6 +14,7 @@ import EventForm from "./pages/EventForm.tsx";
 import PendingPosts from "./pages/PendingPosts.tsx";
 import Post from "./pages/Post.tsx";
 import Footer from "./components/Footer/Footer.tsx";
+import Error403Page from "./pages/Error403Page.tsx";
 import Error404Page from "./pages/Error404Page.tsx";
 import "./App.scss";
 import "leaflet/dist/leaflet.js";
@@ -36,6 +37,7 @@ const App = () => {
           <Route path="/events/create" element={<EventForm />} />
           <Route path="/posts/pending" element={<PendingPosts />} />
           <Route path="/posts/:postId" element={<Post />} />
+          <Route path="/forbidden" element={<Error403Page />} />
           <Route path="/*" element={<Error404Page />} />
         </Routes>
         <Footer />
