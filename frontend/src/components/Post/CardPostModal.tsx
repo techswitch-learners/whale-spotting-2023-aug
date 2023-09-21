@@ -31,6 +31,7 @@ const CardPostModal = ({ postData, likePost }: PostDataProps) => {
             className="CardPostModal__postcard"
             src={postcardIcon}
             onClick={() => setSelectedPostCardDetails(postData)}
+            alt="Generate postcard for this post"
           />
           <a href={postData.imageUrl} target="_blank">
             <img
