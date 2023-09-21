@@ -7,9 +7,7 @@ namespace WhaleSpotting.Services;
 
 public interface IBodyOfWaterService
 {
-    BodyOfWater GetByName(string name);
     List<BodyOfWater> GetAll();
-    BodyOfWater Create(CreateBodyOfWaterRequest createBodyOfWaterRequest);
     Task<BodyOfWater?> GetByLocation(double lat, double lon);
 }
 
@@ -26,19 +24,9 @@ public class BodyOfWaterService : IBodyOfWaterService
         _client = new HttpClient();
     }
 
-    public BodyOfWater GetByName(string name)
-    {
-        return _bodiesOfWater.GetByName(name);
-    }
-
     public List<BodyOfWater> GetAll()
     {
         return _bodiesOfWater.GetAll();
-    }
-
-    public BodyOfWater Create(CreateBodyOfWaterRequest createBodyOfWaterRequest)
-    {
-        return _bodiesOfWater.Create(createBodyOfWaterRequest);
     }
 
     public async Task<BodyOfWater?> GetByLocation(double lat, double lon)
@@ -67,5 +55,15 @@ public class BodyOfWaterService : IBodyOfWaterService
         {
             return null;
         }
+    }
+
+    private BodyOfWater GetByName(string name)
+    {
+        return _bodiesOfWater.GetByName(name);
+    }
+
+    private BodyOfWater Create(CreateBodyOfWaterRequest createBodyOfWaterRequest)
+    {
+        return _bodiesOfWater.Create(createBodyOfWaterRequest);
     }
 }

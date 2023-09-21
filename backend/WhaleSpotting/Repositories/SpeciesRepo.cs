@@ -20,7 +20,6 @@ public class SpeciesRepo : ISpeciesRepo
     public List<Species> GetAll()
     {
         return _context.Species
-            .Include(species => species.Whales)
             .Include(species => species.Posts)
             .ThenInclude(posts => posts.Interactions)
             .Include(species => species.Posts)

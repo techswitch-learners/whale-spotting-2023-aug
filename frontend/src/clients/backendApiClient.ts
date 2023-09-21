@@ -12,15 +12,6 @@ import SpeciesData from "../models/SpeciesData";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-export const checkBackendConnection = async (): Promise<boolean> => {
-  try {
-    await fetch(`${backendUrl}/Auth`);
-  } catch {
-    return false;
-  }
-  return true;
-};
-
 export const getAllUsers = async (): Promise<UsersData> => {
   const response = await fetch(`${backendUrl}/User/all`);
   return response.json();
@@ -96,11 +87,9 @@ export const getLatitudeLongitude = async (
 export const getAllSpecies = async (): Promise<SpeciesListData> => {
   const response = await fetch(`${backendUrl}/Species/all`);
   const speciesData = await response.json();
-  if (speciesData) {
-    speciesData.speciesList.sort((a: SpeciesData, b: SpeciesData) => {
-      return a.name > b.name;
-    });
-  }
+  speciesData.speciesList.sort((a: SpeciesData, b: SpeciesData) =>
+    a.name > b.name ? 1 : a.name < b.name ? -1 : 0,
+  );
   return speciesData;
 };
 
@@ -134,31 +123,11 @@ export const createWhalePost = async (
 export const getAllBodiesOfWater = async (): Promise<BodiesOfWaterData> => {
   const response = await fetch(`${backendUrl}/BodyOfWater/all`);
   const bodiesOfWaterData = await response.json();
-  if (bodiesOfWaterData) {
-    bodiesOfWaterData.bodiesOfWater.sort(
-      (a: BodyOfWaterData, b: BodyOfWaterData) => {
-        return a.name > b.name;
-      },
-    );
-  }
+  bodiesOfWaterData.bodiesOfWater.sort(
+    (a: BodyOfWaterData, b: BodyOfWaterData) =>
+      a.name > b.name ? 1 : a.name < b.name ? -1 : 0,
+  );
   return bodiesOfWaterData;
-};
-
-export const getBodyOfWaterByName = async (
-  name: string,
-  encodedAuth?: string,
-): Promise<Response> => {
-  let response;
-  if (!encodedAuth) {
-    response = await fetch(`${backendUrl}/BodyOfWater/${name}`);
-  } else {
-    response = await fetch(`${backendUrl}/BodyOfWater/${name}`, {
-      headers: {
-        Authorization: encodedAuth,
-      },
-    });
-  }
-  return response;
 };
 
 export const getLatestPosts = async (): Promise<PostData[]> => {
