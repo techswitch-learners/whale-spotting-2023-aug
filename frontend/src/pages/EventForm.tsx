@@ -1,8 +1,8 @@
 import { useState, FormEvent, useContext, useEffect } from "react";
-import Button from "../components/UI/Button";
 import { createEvent } from "../clients/backendApiClient";
 import { LoginContext } from "../context/LoginManager";
 import { useNavigate } from "react-router-dom";
+import Button from "../components/UI/Button";
 import "./EventForm.scss";
 
 const EventForm = () => {
@@ -43,6 +43,12 @@ const EventForm = () => {
       .then((success) => {
         if (success) {
           setMessage("Thank you for your submission");
+          setName("");
+          setStartDate(new Date());
+          setDuration(NaN);
+          setLocation("");
+          setlink("");
+          setimageUrl("");
         } else {
           setMessage("Please check the information provided");
         }
