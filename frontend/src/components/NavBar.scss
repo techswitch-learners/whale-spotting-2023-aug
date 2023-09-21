@@ -103,14 +103,13 @@
 .navbar-links a {
   padding: 0.25rem 1rem;
   text-decoration: none;
-  color: $color-primary;
+  color: #222f59;
   font-size: $mobile-font-size-navbar;
   font-weight: $boldWeight;
 
   @include devices(tablet) {
     padding: 0.35rem 1rem;
     text-decoration: none;
-    color: $color-primary;
     font-size: $tablet-font-size-navbar;
     font-weight: $boldWeight;
   }
@@ -118,7 +117,6 @@
   @include devices(desktop) {
     padding: 0.5rem 1rem;
     text-decoration: none;
-    color: $color-primary;
     font-size: $desktop-font-size-navbar;
     font-weight: $boldWeight;
   }
