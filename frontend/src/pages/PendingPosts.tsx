@@ -70,6 +70,7 @@ export const PendingPosts = () => {
                 closeModalAndRefresh={() => {
                   setSelectedPostDetails(undefined);
                   fetchPendingPosts();
+                  loginContext.updatePendingPostCount(loginContext.encodedAuth);
                 }}
               />
             </Modal>

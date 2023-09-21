@@ -16,6 +16,7 @@ import Post from "./pages/Post.tsx";
 import Footer from "./components/Footer/Footer.tsx";
 import Error403Page from "./pages/Error403Page.tsx";
 import Error404Page from "./pages/Error404Page.tsx";
+import AdminTools from "./components/Admin/AdminTools.tsx";
 import "./App.scss";
 import "leaflet/dist/leaflet.js";
 
@@ -24,6 +25,7 @@ const App = () => {
     <Router>
       <LoginManager>
         <Navbar />
+        <AdminTools />
         <Routes>
           <Route index element={<Home />} />
           <Route path="/posts" element={<Posts />} />
