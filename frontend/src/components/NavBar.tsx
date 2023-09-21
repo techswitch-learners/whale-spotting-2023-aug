@@ -111,16 +111,6 @@ function Navbar() {
                 </NavLink>
               )}
             </li>
-            <li>
-              <NavLink
-                className={({ isActive }) => (isActive ? "active-page" : "")}
-                to="/search"
-                aria-label="Search"
-                onClick={closeMobileMenu}
-              >
-                🔎
-              </NavLink>
-            </li>
           </ul>
         </div>
       </div>
