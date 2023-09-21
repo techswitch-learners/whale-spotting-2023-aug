@@ -9,7 +9,6 @@ public interface IPostService
 {
     Task<Post> Create(CreatePostRequest createPostRequest, int userId);
     Post GetById(int id);
-    List<Post> GetAll();
     List<Post> GetPending();
     void ApproveOrReject(int id, ApprovalStatus approvalStatus);
     List<Post> Search(SearchPostsRequest searchPostsRequest);
@@ -33,11 +32,6 @@ public class PostService : IPostService
     public Post GetById(int id)
     {
         return _posts.GetById(id);
-    }
-
-    public List<Post> GetAll()
-    {
-        return _posts.GetAll();
     }
 
     public List<Post> GetPending()

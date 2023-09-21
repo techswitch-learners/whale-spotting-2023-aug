@@ -10,7 +10,6 @@ public interface IPostRepo
 {
     Post GetById(int id);
     Task<Post> Create(CreatePostRequest createPostRequest, int userId);
-    List<Post> GetAll();
     List<Post> GetPending();
     void ApproveOrReject(int id, ApprovalStatus approvalStatus);
     List<Post> Search(SearchPostsRequest searchPostsRequest);
@@ -43,17 +42,6 @@ public class PostRepo : IPostRepo
         {
             throw new ArgumentException($"Post with ID {id} not found");
         }
-    }
-
-    public List<Post> GetAll()
-    {
-        return _context.Posts
-            .Include(post => post.User)
-            .Include(post => post.Species)
-            .Include(post => post.Interactions)
-            .Include(post => post.BodyOfWater)
-            .Where(post => post.ApprovalStatus == ApprovalStatus.Approved)
-            .ToList();
     }
 
     public List<Post> GetPending()

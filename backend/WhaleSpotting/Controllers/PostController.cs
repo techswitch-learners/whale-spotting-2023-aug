@@ -33,14 +33,6 @@ public class PostController : ControllerBase
         }
     }
 
-    [HttpGet("all")]
-    [OptionalUserAuth]
-    public IActionResult GetAll([FromHeader] int? userId)
-    {
-        var posts = _postService.GetAll();
-        return Ok(new PostsResponse(posts, userId));
-    }
-
     [HttpGet("pending")]
     [RequiresAdminAuth]
     public IActionResult GetPending()
