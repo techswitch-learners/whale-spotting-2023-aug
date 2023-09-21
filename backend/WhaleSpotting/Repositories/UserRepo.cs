@@ -27,11 +27,17 @@ public class UserRepo : IUserRepo
         try
         {
             return _context.Users
-                .Include(user => user.Posts)
+                .Include(
+                    user => user.Posts.Where(post => post.ApprovalStatus == ApprovalStatus.Approved)
+                )
                 .ThenInclude(post => post.Interactions)
-                .Include(user => user.Posts)
+                .Include(
+                    user => user.Posts.Where(post => post.ApprovalStatus == ApprovalStatus.Approved)
+                )
                 .ThenInclude(post => post.Species)
-                .Include(user => user.Posts)
+                .Include(
+                    user => user.Posts.Where(post => post.ApprovalStatus == ApprovalStatus.Approved)
+                )
                 .ThenInclude(post => post.BodyOfWater)
                 .Single(user => user.Id == id);
         }

@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { getLatestPosts } from "../../clients/backendApiClient";
 import PostData from "../../models/PostData";
 import { toShortDate } from "../../utils/DateConversion";
-import { Link } from "react-router-dom";
 import WhaleLoader from "../UI/WhaleLoader";
+import { Link } from "react-router-dom";
 import "./LatestPosts.scss";
 
 export default function LatestPosts() {
