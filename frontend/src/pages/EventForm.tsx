@@ -54,11 +54,12 @@ const EventForm = () => {
         <form className="submission-form" onSubmit={handleSubmit}>
           <h1>Create a new event</h1>
 
-          <label htmlFor="location" className="submission-form-children">
+          <label htmlFor="name" className="submission-form-children">
             Name:
           </label>
           <input
             type="text"
+            minLength={1}
             placeholder="Name of Event"
             id="name"
             required
@@ -88,6 +89,7 @@ const EventForm = () => {
             placeholder="Number of Hours eg. 2"
             id="duration"
             required
+            step="any"
             onChange={(event) => {
               setDuration(parseInt(event.target.value));
             }}
@@ -98,6 +100,7 @@ const EventForm = () => {
           </label>
           <input
             type="text"
+            minLength={2}
             placeholder="eg. John O' Groats"
             id="location"
             required

@@ -80,7 +80,11 @@ export const getLatitudeLongitude = async (
   words: string,
 ): Promise<LatitudeLongitude> => {
   const response = await fetch(`${backendUrl}/What3Words/?words=${words}`);
-  return await response.json();
+  if (response.ok) {
+    return await response.json();
+  } else {
+    throw new Error("Latitude and longitude not found");
+  }
 };
 
 export const getAllSpecies = async (): Promise<SpeciesListData> => {

@@ -15,6 +15,6 @@ public class ModifyPostRequest
     [Url]
     public string ImageUrl { get; set; } = null!;
 
-    [MinLength(5)]
+    [MinLength(1)]
     public string Description { get; set; } = null!;
 }
