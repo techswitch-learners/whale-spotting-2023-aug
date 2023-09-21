@@ -10,9 +10,9 @@ public interface IPostRepo
 {
     Post GetById(int id);
     Task<Post> Create(CreatePostRequest createPostRequest, int userId);
-    List<Post> GetAll();
     List<Post> GetPending();
     void ApproveOrReject(int id, ApprovalStatus approvalStatus);
+    List<Post> Search(SearchPostsRequest searchPostsRequest);
     void Modify(int id, ModifyPostRequest modifyPostRequest, int userId, Role userRole);
 }
 
@@ -42,17 +42,6 @@ public class PostRepo : IPostRepo
         {
             throw new ArgumentException($"Post with ID {id} not found");
         }
-    }
-
-    public List<Post> GetAll()
-    {
-        return _context.Posts
-            .Include(post => post.User)
-            .Include(post => post.Species)
-            .Include(post => post.Interactions)
-            .Include(post => post.BodyOfWater)
-            .Where(post => post.ApprovalStatus == ApprovalStatus.Approved)
-            .ToList();
     }
 
     public List<Post> GetPending()
@@ -141,5 +130,30 @@ public class PostRepo : IPostRepo
         {
             throw new UnauthorizedAccessException();
         }
+    }
+
+    public List<Post> Search(SearchPostsRequest searchPostsRequest)
+    {
+        var query = _context.Posts
+            .Include(post => post.User)
+            .Include(post => post.BodyOfWater)
+            .Include(post => post.Species)
+            .Include(post => post.Interactions)
+            .Where(post => post.ApprovalStatus == ApprovalStatus.Approved);
+        if (!string.IsNullOrWhiteSpace(searchPostsRequest.BodyOfWaterName))
+        {
+            query = query.Where(
+                post =>
+                    post.BodyOfWater != null
+                    && post.BodyOfWater.Name == searchPostsRequest.BodyOfWaterName
+            );
+        }
+        if (!string.IsNullOrWhiteSpace(searchPostsRequest.SpeciesName))
+        {
+            query = query.Where(
+                post => post.Species != null && post.Species.Name == searchPostsRequest.SpeciesName
+            );
+        }
+        return query.ToList();
     }
 }

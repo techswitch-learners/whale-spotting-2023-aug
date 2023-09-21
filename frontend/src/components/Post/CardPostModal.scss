@@ -133,6 +133,10 @@
     justify-content: flex-end;
     gap: 1rem;
 
+    &:hover {
+      color: $color-secondary;
+    }
+
     &__image-container {
       height: 3.5rem;
       width: 3.5rem;

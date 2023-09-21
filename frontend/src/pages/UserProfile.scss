@@ -32,4 +32,8 @@
 
 .user-info {
   color: $color-primary;
+
+  &__email:hover {
+    color: $color-secondary;
+  }
 }

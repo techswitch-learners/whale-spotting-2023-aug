@@ -33,21 +33,6 @@ public class PostController : ControllerBase
         }
     }
 
-    [HttpGet("all")]
-    [OptionalUserAuth]
-    public IActionResult GetAll([FromHeader] int? userId)
-    {
-        try
-        {
-            var posts = _postService.GetAll();
-            return Ok(new PostsResponse(posts, userId));
-        }
-        catch (ArgumentException)
-        {
-            return NotFound();
-        }
-    }
-
     [HttpGet("pending")]
     [RequiresAdminAuth]
     public IActionResult GetPending()
@@ -118,5 +103,16 @@ public class PostController : ControllerBase
         {
             return BadRequest("Species not recognised");
         }
+    }
+
+    [HttpGet("search")]
+    [OptionalUserAuth]
+    public IActionResult Search(
+        [FromHeader] int? userId,
+        [FromQuery] SearchPostsRequest searchPostsRequest
+    )
+    {
+        var posts = _postService.Search(searchPostsRequest);
+        return Ok(new PostsResponse(posts, userId));
     }
 }

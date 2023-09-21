@@ -1,25 +1,35 @@
-import { useState, useEffect, useContext, useCallback } from "react";
-import CardPost from "../components/Post/CardPost";
-import PostData from "../models/PostData";
-import FeaturedPostContent from "../components/Post/FeaturedPostContent";
-import FeaturedFrame from "../components/UI/FeaturedFrame";
-import { getAllPosts, interactWithPost } from "../clients/backendApiClient";
-import WhaleLoader from "../components/UI/WhaleLoader";
-import FeaturedCarousel from "../components/UI/Carousel/FeaturedCarousel";
-import Button from "../components/UI/Button";
+import { useSearchParams } from "react-router-dom";
+import { useCallback, useEffect, useState, useContext } from "react";
+import {
+  getAllBodiesOfWater,
+  getAllSpecies,
+  searchPosts,
+  interactWithPost,
+} from "../clients/backendApiClient";
 import { LoginContext } from "../context/LoginManager";
-import { Link } from "react-router-dom";
+import WhaleLoader from "../components/UI/WhaleLoader";
+import Button from "../components/UI/Button";
+import BodyOfWaterData from "../models/BodyOfWaterData";
+import CardPost from "../components/Post/CardPost";
 import Modal from "../components/UI/Modal";
 import CardPostModal from "../components/Post/CardPostModal";
+import PostData from "../models/PostData";
+import SpeciesData from "../models/SpeciesData";
 import "./Posts.scss";
 
-export const Posts = () => {
+const Posts = () => {
   const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();
-  const [postData, setPostData] = useState<PostData[]>();
-  const [isLoading, setIsLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState<string>();
+  const [searchResults, setSearchResults] = useState<PostData[]>();
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
+  const [speciesList, setSpeciesList] = useState<SpeciesData[]>();
+  const [bodiesOfWater, setBodiesOfWater] = useState<BodyOfWaterData[]>();
+  const [searchParams] = useSearchParams();
+  const [bodyOfWaterName, setBodyOfWaterName] = useState(
+    searchParams.get("bodyOfWater"),
+  );
+  const [speciesName, setSpeciesName] = useState(searchParams.get("species"));
   const loginContext = useContext(LoginContext);
-  const [createButtonText, setCreateButtonText] = useState<string>("+");
 
   const handleLike = async (postId: number) => {
     if (loginContext.isLoggedIn) {
@@ -28,7 +38,7 @@ export const Posts = () => {
         loginContext.encodedAuth,
       );
       if (interactionResult) {
-        const updatedPosts = postData?.map((post) => {
+        const updatedPosts = searchResults?.map((post) => {
           return post.id == postId
             ? {
                 ...post,
@@ -37,7 +47,7 @@ export const Posts = () => {
               }
             : post;
         });
-        setPostData(updatedPosts);
+        setSearchResults(updatedPosts);
 
         if (selectedPostDetails) {
           const selectedPostData = updatedPosts?.find(
@@ -49,32 +59,50 @@ export const Posts = () => {
     }
   };
 
-  const fetchPosts = useCallback(async () => {
-    setIsLoading(true);
-    setPostData(undefined);
-    setErrorMessage(undefined);
+  const fetchSearchResults = useCallback(async () => {
+    setError(false);
+    setSearchResults(undefined);
 
-    await getAllPosts(loginContext.encodedAuth)
-      .then((data) => setPostData(data.posts))
-      .catch(() => setErrorMessage("Unable to load posts"));
-
-    setIsLoading(false);
-  }, [loginContext.encodedAuth]);
+    await searchPosts(
+      bodyOfWaterName ?? undefined,
+      speciesName ?? undefined,
+      loginContext.encodedAuth,
+    )
+      .then((data) => {
+        setSearchResults(data.posts);
+      })
+      .catch(() => {
+        setError(true);
+      });
+    setLoading(false);
+  }, [bodyOfWaterName, speciesName, loginContext.encodedAuth]);
 
   useEffect(() => {
-    fetchPosts();
-  }, [fetchPosts]);
+    fetchSearchResults();
+  }, [fetchSearchResults]);
 
-  if (isLoading || errorMessage) {
+  useEffect(() => {
+    getAllBodiesOfWater()
+      .then((response) => setBodiesOfWater(response.bodiesOfWater))
+      .catch();
+    getAllSpecies()
+      .then((response) => setSpeciesList(response.speciesList))
+      .catch();
+  }, []);
+
+  if (loading || error) {
     return (
       <main>
+        <h1>Search for Posts</h1>
         <section className="section-dark">
           <div className="container Posts__loader">
             <WhaleLoader
-              isLoading={isLoading}
-              message={isLoading ? "Loading..." : errorMessage}
+              isLoading={loading}
+              message={
+                loading ? "Loading..." : "Couldn't fetch posts at this time."
+              }
             />
-            {errorMessage && <Button onClick={fetchPosts}>Try Again</Button>}
+            {error && <Button onClick={fetchSearchResults}>Try Again</Button>}
           </div>
         </section>
       </main>
@@ -82,67 +110,96 @@ export const Posts = () => {
   }
 
   return (
-    <main>
-      <h1>Sightings</h1>
-      {postData && postData.length > 0 ? (
-        <>
-          <section className="section-dark">
-            <div className="container">
-              <h2>Featured Sightings</h2>
-              <FeaturedCarousel
-                featuredItems={postData.slice(0, 5).map((post) => (
-                  <FeaturedFrame imageUrl={post.imageUrl}>
-                    <FeaturedPostContent
+    <>
+      <h1>Search for Posts</h1>
+      <section className="container">
+        <div className="Search">
+          <div className="Search__row">
+            <label htmlFor="bodyOfWater">
+              By Sea/Ocean:
+              <select
+                className="Search__select"
+                id="bodyOfWater"
+                name="bodyOfWater"
+                value={bodyOfWaterName ?? undefined}
+                onChange={(e) => setBodyOfWaterName(e.target.value)}
+              >
+                <option value="">Please select...</option>
+                {bodiesOfWater &&
+                  bodiesOfWater.map((bodyOfWater) => (
+                    <option
+                      key={bodyOfWater.id}
+                      className="Search__select__option"
+                      value={bodyOfWater.name}
+                      disabled={bodyOfWater.posts.length === 0}
+                    >
+                      {bodyOfWater.name +
+                        (bodyOfWater.posts.length === 0
+                          ? " (no posts yet)"
+                          : "")}
+                    </option>
+                  ))}
+              </select>
+            </label>
+            <label htmlFor="species">
+              By Species:
+              <select
+                className="Search__select"
+                id="species"
+                name="species"
+                value={speciesName ?? undefined}
+                onChange={(e) => setSpeciesName(e.target.value)}
+              >
+                <option value="">Please select...</option>
+                {speciesList &&
+                  speciesList.map((species) => (
+                    <option
+                      key={species.id}
+                      className="Search__select__option"
+                      value={species.name}
+                      disabled={species.posts.length === 0}
+                    >
+                      {species.name +
+                        (species.posts.length === 0 ? " (no posts yet)" : "")}
+                    </option>
+                  ))}
+              </select>
+            </label>
+          </div>
+        </div>
+        {searchResults && searchResults.length > 0 ? (
+          <div className="SearchResults">
+            <h2 className="SearchResults__Header">{`Posts${
+              speciesName ? " for " + speciesName : ""
+            }${bodyOfWaterName ? " in " + bodyOfWaterName : ""}`}</h2>
+            <div className="container PostsGallery">
+              {searchResults &&
+                searchResults.map((post) => {
+                  return (
+                    <CardPost
                       postData={post}
                       openModalAction={() => setSelectedPostDetails(post)}
                       likePost={handleLike}
                     />
-                  </FeaturedFrame>
-                ))}
-              />
+                  );
+                })}
             </div>
-          </section>
-
-          <section>
-            <div className="container PostsGallery">
-              {postData.map((post) => {
-                return (
-                  <CardPost
-                    postData={post}
-                    openModalAction={() => setSelectedPostDetails(post)}
-                    likePost={handleLike}
-                  />
-                );
-              })}
-            </div>
-          </section>
-
-          {selectedPostDetails && (
-            <Modal closeAction={() => setSelectedPostDetails(undefined)}>
-              <CardPostModal
-                postData={selectedPostDetails}
-                likePost={handleLike}
-              />
-            </Modal>
-          )}
-        </>
-      ) : (
-        <section className="section-dark">
-          <div className="container">
-            <h2 className="Posts__None__heading">No Posts Found</h2>
+            {selectedPostDetails && (
+              <Modal closeAction={() => setSelectedPostDetails(undefined)}>
+                <CardPostModal
+                  postData={selectedPostDetails}
+                  likePost={handleLike}
+                />
+              </Modal>
+            )}
           </div>
-        </section>
-      )}
-      <Link
-        to="/posts/create"
-        className="create-post-button"
-        onMouseEnter={() => setCreateButtonText("Create a new post")}
-        onMouseLeave={() => setCreateButtonText("+")}
-        aria-label="create a new post"
-      >
-        {createButtonText}
-      </Link>
-    </main>
+        ) : (
+          <div className="SearchResults">
+            <h2 className="SearchResults__Header">No posts found</h2>
+          </div>
+        )}
+      </section>
+    </>
   );
 };
 
