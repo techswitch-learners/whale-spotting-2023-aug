@@ -92,6 +92,12 @@ const PostForm = () => {
     )
       .then(() => {
         setSuccessMessage("Thank you for your submission. Awaiting approval.");
+        setW3w("");
+        setLat(NaN);
+        setLon(NaN);
+        setSpeciesId(NaN);
+        setDescription("");
+        setImageUrl("");
       })
       .catch(() => {
         setSuccessMessage("Please check the information provided");
@@ -192,10 +198,11 @@ const PostForm = () => {
           <select
             name="species"
             id="species"
+            value={speciesId}
             required
             onChange={(event) => setSpeciesId(parseInt(event.target.value))}
           >
-            <option selected disabled>
+            <option value={NaN} disabled>
               {speciesListData ? "Choose species" : "Choose species (loading)"}
             </option>
             {speciesListData?.speciesList
