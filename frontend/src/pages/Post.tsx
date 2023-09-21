@@ -1,7 +1,7 @@
 import { LoginContext } from "../context/LoginManager";
 import { toShortDate } from "../utils/DateConversion";
 import { useState, useEffect, useCallback, useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { getPostById, interactWithPost } from "../clients/backendApiClient";
 import postcardIcon from "../assets/postcard_icon.svg";
 import fullscreenIcon from "../assets/fullscreen_icon.svg";
@@ -121,7 +121,7 @@ const Post = () => {
               />
               <a href={post.imageUrl} target="_blank">
                 <img
-                  className="Post__fullscreen"
+                  className="CardPostModal__fullscreen"
                   src={fullscreenIcon}
                   alt="Show image fullscreen"
                 />
@@ -129,9 +129,15 @@ const Post = () => {
             </div>
             <div className="Post__content">
               <div className="Post__heading">
-                <h3 className="Post__heading__title">{post.species.name}</h3>
+                <h3 className="Post__heading__title">
+                  <Link to={`/search?bodyOfWater=${post.bodyOfWater.name}`}>
+                    {post.species.name}
+                  </Link>
+                </h3>
                 <p className="Post__heading__bodyofwater">
-                  {post.bodyOfWater.name}
+                  <Link to={`/search?bodyOfWater=${post.bodyOfWater.name}`}>
+                    {post.bodyOfWater.name}
+                  </Link>
                 </p>
                 <p className="Post__heading__date">
                   {toShortDate(post.creationTimestamp)}
@@ -168,14 +174,12 @@ const Post = () => {
                 </div>
               </div>
             </div>
-          </div>
-          <>
             {selectedPostCardDetails && (
               <Modal closeAction={() => setSelectedPostCardDetails(undefined)}>
                 <Postcard postData={selectedPostCardDetails} />
               </Modal>
             )}
-          </>
+          </div>
         </>
       ) : (
         <p>Loading...</p>
