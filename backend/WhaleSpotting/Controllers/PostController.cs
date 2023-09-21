@@ -115,4 +115,20 @@ public class PostController : ControllerBase
         var posts = _postService.Search(searchPostsRequest);
         return Ok(new PostsResponse(posts, userId));
     }
+
+    [HttpGet("all")]
+    [OptionalUserAuth]
+    public IActionResult GetAll([FromHeader] int? userId)
+    {
+        var posts = _postService.GetAll();
+        return Ok(new PostsResponse(posts, userId));
+    }
+
+    [HttpGet("latest")]
+    [OptionalUserAuth]
+    public IActionResult GetLatest([FromHeader] int? userId)
+    {
+        var posts = _postService.GetLatest();
+        return Ok(new PostsResponse(posts, userId));
+    }
 }
