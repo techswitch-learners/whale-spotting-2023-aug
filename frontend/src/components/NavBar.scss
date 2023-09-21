@@ -82,6 +82,7 @@
   right: 0;
   background-color: $color-secondary;
   flex-direction: column;
+  z-index: 5;
 
   @include devices(tablet) {
     top: 6rem;
