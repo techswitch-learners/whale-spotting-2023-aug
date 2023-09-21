@@ -119,12 +119,12 @@ const Post = () => {
           <div className="Post__content">
             <div className="Post__heading">
               <h3 className="Post__heading__title">
-                <Link to={`/search?species=${post.species.name}`}>
+                <Link to={`/posts?species=${post.species.name}`}>
                   {post.species.name}
                 </Link>
               </h3>
               <p className="Post__heading__bodyofwater">
-                <Link to={`/search?bodyOfWater=${post.bodyOfWater.name}`}>
+                <Link to={`/posts?bodyOfWater=${post.bodyOfWater.name}`}>
                   {post.bodyOfWater.name}
                 </Link>
               </p>
@@ -133,8 +133,8 @@ const Post = () => {
               </p>
             </div>
             <p className="Post__description">{post.description}</p>
-            <div className="Post__user">
-              <Link to={`/search?users/${post.user.id}`}>
+            <Link to={`/users/${post.user.id}`}>
+              <div className="Post__user">
                 <p className="Post__text">{post.user.name}</p>
                 <div className="Post__user__image-container">
                   <img
@@ -143,8 +143,8 @@ const Post = () => {
                     alt={`${post.user.name}'s profile picture`}
                   />
                 </div>
-              </Link>
-            </div>
+              </div>
+            </Link>
             <div className="Post__interactions">
               <div className="Post__interactions__likes">
                 <InteractWithPost
