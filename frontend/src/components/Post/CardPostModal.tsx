@@ -44,14 +44,10 @@ const CardPostModal = ({ postData, likePost }: PostDataProps) => {
         <div className="CardPostModal__content">
           <div className="CardPostModal__heading">
             <h3 className="CardPostModal__heading__title">
-              <Link to={`/search?species=${postData.species.name}`}>
-                {postData.species.name}
-              </Link>
+              {postData.species.name}
             </h3>
             <p className="CardPostModal__heading__bodyofwater">
-              <Link to={`/search?bodyOfWater=${postData.bodyOfWater.name}`}>
-                {postData.bodyOfWater.name}
-              </Link>
+              {postData.bodyOfWater.name}
             </p>
             <p className="CardPostModal__heading__date">
               {toShortDate(postData.creationTimestamp)}

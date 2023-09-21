@@ -102,10 +102,6 @@
     &__title {
       font-size: 1.8rem;
 
-      &:hover {
-        color: $color-secondary;
-      }
-
       @include devices(tablet) {
         font-size: 2.5rem;
       }
@@ -113,10 +109,6 @@
 
     &__bodyofwater {
       text-align: right;
-
-      &:hover {
-        color: $color-secondary;
-      }
     }
 
     &__date {

@@ -37,15 +37,8 @@ public class PostController : ControllerBase
     [OptionalUserAuth]
     public IActionResult GetAll([FromHeader] int? userId)
     {
-        try
-        {
-            var posts = _postService.GetAll();
-            return Ok(new PostsResponse(posts, userId));
-        }
-        catch (ArgumentException)
-        {
-            return NotFound();
-        }
+        var posts = _postService.GetAll();
+        return Ok(new PostsResponse(posts, userId));
     }
 
     [HttpGet("pending")]
@@ -127,14 +120,7 @@ public class PostController : ControllerBase
         [FromQuery] SearchPostsRequest searchPostsRequest
     )
     {
-        try
-        {
-            var posts = _postService.Search(searchPostsRequest);
-            return Ok(new PostsResponse(posts, userId));
-        }
-        catch (ArgumentException)
-        {
-            return NotFound();
-        }
+        var posts = _postService.Search(searchPostsRequest);
+        return Ok(new PostsResponse(posts, userId));
     }
 }
