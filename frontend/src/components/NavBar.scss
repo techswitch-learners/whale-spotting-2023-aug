@@ -71,6 +71,8 @@
   @include devices(desktop) {
     display: flex;
     color: $color-primary;
+    margin: 0;
+    padding: 0;
   }
 }
 
