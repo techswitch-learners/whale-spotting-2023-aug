@@ -15,12 +15,12 @@ import "./ModifyPostModal.scss";
 
 const validW3wPattern = /^(\/\/\/)?[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]+$/g;
 
-interface PostDataProps {
+interface ModifyPostModalProps {
   postData: PostData;
   completeEdit: () => void;
 }
 
-const ModifyPostModal = ({ postData, completeEdit }: PostDataProps) => {
+const ModifyPostModal = ({ postData, completeEdit }: ModifyPostModalProps) => {
   const today = new Date();
   const todayDateString = today.toISOString().slice(0, -1);
 
@@ -43,30 +43,11 @@ const ModifyPostModal = ({ postData, completeEdit }: PostDataProps) => {
     getAllSpecies().then(setSpeciesListData);
   }, []);
 
-  const handleSubmit = (event: FormEvent) => {
-    event.preventDefault();
-
-    if (!w3w && isNaN(lat) && isNaN(lon)) {
-      setLocationErrorMessage(
-        "Please provide either what3words or a latitude and longitude",
-      );
-      return;
-    }
-
-    if ((isNaN(lat) && !isNaN(lon)) || (isNaN(lon) && !isNaN(lat))) {
-      setLocationErrorMessage("Please fill both latitude and longitude");
-      return;
-    }
-
-    if (isNaN(speciesId)) {
-      setSpeciesErrorMessage("Please select a species");
-      return;
-    }
-
-    if (w3w && !validW3wPattern.test(w3w)) {
+  const populateLatLon = () => {
+    if (!w3w || !validW3wPattern.test(w3w)) {
       setLocationErrorMessage("Please enter a valid what3words");
       return;
-    } else if (w3w) {
+    } else {
       let words;
       if (w3w.startsWith("///")) {
         words = w3w.slice(3);
@@ -81,8 +62,27 @@ const ModifyPostModal = ({ postData, completeEdit }: PostDataProps) => {
         .catch(() =>
           setLocationErrorMessage("Please enter a valid what3words"),
         );
-    } else if (isNaN(lat) && isNaN(lon)) {
-      setLocationErrorMessage("Please enter a valid location or what3words");
+    }
+  };
+
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
+    setLocationErrorMessage("");
+    setSuccessMessage("");
+    setSpeciesErrorMessage("");
+
+    if (isNaN(lat) && isNaN(lon)) {
+      setLocationErrorMessage("Please provide a latitude and longitude");
+      return;
+    }
+
+    if ((isNaN(lat) && !isNaN(lon)) || (isNaN(lon) && !isNaN(lat))) {
+      setLocationErrorMessage("Please fill both latitude and longitude");
+      return;
+    }
+
+    if (isNaN(speciesId)) {
+      setSpeciesErrorMessage("Please select a species");
       return;
     }
 
@@ -120,10 +120,10 @@ const ModifyPostModal = ({ postData, completeEdit }: PostDataProps) => {
   };
 
   useEffect(() => {
-    if (!isNaN(lat) && !isNaN(lon)) {
+    if (w3w || (!isNaN(lat) && !isNaN(lon))) {
       setLocationErrorMessage("");
     }
-  }, [lat, lon]);
+  }, [w3w, lat, lon]);
 
   useEffect(() => {
     setSpeciesErrorMessage("");
@@ -148,35 +148,12 @@ const ModifyPostModal = ({ postData, completeEdit }: PostDataProps) => {
           />
 
           <div className="location-container submission-form-children">
-            <p>
-              <label htmlFor="location">Location</label>
-              <a
-                href="https://what3words.com/pretty.needed.chill"
-                target="popup"
-              >
-                <img
-                  src={w3w_logo}
-                  className="w3w-logo"
-                  alt="what 3 words logo, click here to open the page"
-                />
-                (click to open what3words)
-              </a>
-            </p>
+            <label htmlFor="location">Location</label>
             <span className=" error-message location-error-message">
               {locationErrorMessage}
             </span>
           </div>
-          <input
-            type="text"
-            id="w3w"
-            name="w3w"
-            placeholder="Enter your what3words"
-            value={w3w}
-            onChange={(event) => {
-              setW3w(event.target.value);
-            }}
-          />
-          <span>or</span>
+
           <div className="latlon-container">
             <input
               type="number"
@@ -186,7 +163,7 @@ const ModifyPostModal = ({ postData, completeEdit }: PostDataProps) => {
               id="lat"
               name="lat"
               placeholder="Latitude"
-              value={lat}
+              value={isNaN(lat) ? "" : lat}
               onChange={(event) => setLat(parseFloat(event.target.value))}
             />
             <input
@@ -197,9 +174,34 @@ const ModifyPostModal = ({ postData, completeEdit }: PostDataProps) => {
               id="lon"
               name="lon"
               placeholder="Longitude"
-              value={lon}
+              value={isNaN(lon) ? "" : lon}
               onChange={(event) => setLon(parseFloat(event.target.value))}
             />
+          </div>
+          <label htmlFor="w3w" className="submission-form-children">
+            (Optional) Get values from{" "}
+            <a
+              className="w3w__link"
+              href="https://what3words.com/pretty.needed.chill"
+              target="_blank"
+            >
+              <img src={w3w_logo} alt="What3Words" />
+            </a>
+          </label>
+          <div className="w3w-container">
+            <input
+              type="text"
+              id="w3w"
+              name="w3w"
+              placeholder="Enter your what3words"
+              value={w3w}
+              onChange={(event) => {
+                setW3w(event.target.value);
+              }}
+            />
+            <Button type="button" role="link" onClick={populateLatLon}>
+              <small>Get&nbsp;values</small>
+            </Button>
           </div>
 
           <label htmlFor="species" className="submission-form-children">
