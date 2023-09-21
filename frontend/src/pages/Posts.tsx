@@ -16,6 +16,7 @@ import CardPostModal from "../components/Post/CardPostModal";
 import PostData from "../models/PostData";
 import SpeciesData from "../models/SpeciesData";
 import "./Posts.scss";
+import CreatePostButton from "../components/UI/CreatePostButton";
 
 const Posts = () => {
   const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();
@@ -198,6 +199,8 @@ const Posts = () => {
             <h2 className="SearchResults__Header">No posts found</h2>
           </div>
         )}
+
+        <CreatePostButton />
       </section>
     </>
   );
