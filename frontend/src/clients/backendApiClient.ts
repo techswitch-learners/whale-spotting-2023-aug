@@ -28,18 +28,16 @@ export const getAllUsers = async (): Promise<UsersData> => {
 
 export const tryEncodedAuth = async (
   encodedAuth: string,
-): Promise<AuthData> => {
-  let data = null;
+): Promise<AuthData | null> => {
   const response = await fetch(`${backendUrl}/Auth/`, {
     headers: {
       Authorization: encodedAuth,
     },
   });
-
   if (response.ok) {
-    data = await response.json();
+    return await response.json();
   }
-  return data;
+  return null;
 };
 
 export const getUserById = async (

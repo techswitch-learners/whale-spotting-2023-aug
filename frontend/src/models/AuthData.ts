@@ -1,5 +1,7 @@
+import Role from "../enums/Role";
+
 interface AuthData {
-  role: number;
+  role: Role;
 }
 
 export default AuthData;

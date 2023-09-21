@@ -6,8 +6,8 @@ import PostData from "../models/PostData";
 import { getAllPendingPosts } from "../clients/backendApiClient";
 import WhaleLoader from "../components/UI/WhaleLoader";
 import { LoginContext } from "../context/LoginManager";
-import "./PendingPosts.scss";
 import { useNavigate } from "react-router-dom";
+import "./PendingPosts.scss";
 
 export const PendingPosts = () => {
   const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();
@@ -20,10 +20,8 @@ export const PendingPosts = () => {
   const fetchPendingPosts = useCallback(async () => {
     if (!loginContext.isLoggedIn) {
       navigate("/login");
-    } else {
-      if (!loginContext.isAdmin) {
-        navigate("/forbidden");
-      }
+    } else if (!loginContext.isAdmin) {
+      navigate("/forbidden");
     }
     await getAllPendingPosts(loginContext.encodedAuth)
       .then((postsData) => {
@@ -36,7 +34,12 @@ export const PendingPosts = () => {
       })
       .catch(() => setMessage("Can't load posts at this time..."));
     setIsLoading(false);
-  }, [loginContext, navigate]);
+  }, [
+    loginContext.isAdmin,
+    loginContext.isLoggedIn,
+    loginContext.encodedAuth,
+    navigate,
+  ]);
 
   useEffect(() => {
     fetchPendingPosts();

@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useState } from "react";
 import { tryEncodedAuth } from "../clients/backendApiClient";
+import Role from "../enums/Role";
 
 export const LoginContext = createContext({
   encodedAuth: "",
@@ -32,11 +33,7 @@ export function LoginManager(props: LoginManagerProps): JSX.Element {
     } else {
       setEncodedAuth(encodedAuthToTry);
       setLoggedIn(true);
-      if (validLogin.role === 1) {
-        setAdmin(true);
-      } else {
-        setAdmin(false);
-      }
+      setAdmin(validLogin.role === Role.Admin);
       return true;
     }
   }
