@@ -15,8 +15,8 @@ import Modal from "../components/UI/Modal";
 import CardPostModal from "../components/Post/CardPostModal";
 import PostData from "../models/PostData";
 import SpeciesData from "../models/SpeciesData";
-import "./Posts.scss";
 import CreatePostButton from "../components/UI/CreatePostButton";
+import "./Posts.scss";
 
 const Posts = () => {
   const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();
