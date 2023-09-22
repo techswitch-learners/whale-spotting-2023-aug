@@ -12,17 +12,31 @@ import "./Search.scss";
 const Search = () => {
   const [bodiesOfWater, setBodiesOfWater] = useState<BodyOfWaterData[]>();
   const [bodyOfWater, setBodyOfWater] = useState<string>();
+  const [bodyOfWaterSelectText, setBodyOfWaterSelectText] =
+    useState<string>("Loading...");
+  const [speciesSelectText, setSpeciesSelectText] =
+    useState<string>("Loading...");
   const [speciesList, setSpeciesList] = useState<SpeciesData[]>();
   const [species, setSpecies] = useState<string>();
   const navigate = useNavigate();
 
   useEffect(() => {
     getAllBodiesOfWater()
-      .then((response) => setBodiesOfWater(response.bodiesOfWater))
-      .catch();
+      .then((response) => {
+        setBodiesOfWater(response.bodiesOfWater);
+        setBodyOfWaterSelectText("Please select...");
+      })
+      .catch(() => {
+        setBodyOfWaterSelectText("Failed to load :(");
+      });
     getAllSpecies()
-      .then((response) => setSpeciesList(response.speciesList))
-      .catch();
+      .then((response) => {
+        setSpeciesList(response.speciesList);
+        setSpeciesSelectText("Please select...");
+      })
+      .catch(() => {
+        setSpeciesSelectText("Failed to load :(");
+      });
   }, []);
 
   const searchHandler = () => {
@@ -51,7 +65,7 @@ const Search = () => {
               onChange={(e) => setBodyOfWater(e.target.value)}
             >
               <option selected disabled>
-                Please select...
+                {bodyOfWaterSelectText}
               </option>
               {bodiesOfWater &&
                 bodiesOfWater.map((bodyOfWater) => (
@@ -76,7 +90,7 @@ const Search = () => {
               onChange={(e) => setSpecies(e.target.value)}
             >
               <option selected disabled>
-                Please select...
+                {speciesSelectText}
               </option>
               {speciesList &&
                 speciesList.map((species) => (
