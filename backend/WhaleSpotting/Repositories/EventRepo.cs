@@ -52,7 +52,7 @@ public class EventRepo : IEventRepo
 
     public List<Event> GetAll()
     {
-        return _context.Events.ToList();
+        return _context.Events.OrderBy(e => e.StartDate).ToList();
     }
 
     public List<Event> GetLatest()
