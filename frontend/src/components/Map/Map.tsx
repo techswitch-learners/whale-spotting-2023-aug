@@ -8,11 +8,11 @@ import CardPostModal from "../Post/CardPostModal";
 import Button from "../UI/Button";
 import WhaleLoader from "../UI/WhaleLoader";
 import PostData from "../../models/PostData";
-
+import mapIcon from "../../assets/whaleIcon.svg";
 import "./Map.scss";
 
-const ICON = icon({
-  iconUrl: "./whaleIcon.svg",
+const Icon = icon({
+  iconUrl: mapIcon,
   iconSize: [36, 36],
 });
 
@@ -157,7 +157,7 @@ const Map = () => {
             <Marker
               key={index}
               position={[data.latitude, data.longitude]}
-              icon={ICON}
+              icon={Icon}
             >
               <Popup className="custom-popup">
                 <img
