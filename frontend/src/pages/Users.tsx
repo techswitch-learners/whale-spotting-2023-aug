@@ -5,6 +5,7 @@ import UsersData from "../models/UsersData";
 import WhaleLoader from "../components/UI/WhaleLoader";
 import Button from "../components/UI/Button";
 import "../components/Post/CardPost.scss";
+import "./Users.scss";
 
 export const Users = () => {
   const [usersData, setUsersData] = useState<UsersData>();
