@@ -2,12 +2,19 @@ import { useState, useEffect, useCallback, useContext } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { getAllPosts, interactWithPost } from "../../clients/backendApiClient";
 import { LoginContext } from "../../context/LoginManager";
+import { icon } from "leaflet";
 import Modal from "../UI/Modal";
 import CardPostModal from "../Post/CardPostModal";
 import Button from "../UI/Button";
 import WhaleLoader from "../UI/WhaleLoader";
 import PostData from "../../models/PostData";
+
 import "./Map.scss";
+
+const ICON = icon({
+  iconUrl: "./whaleIcon.svg",
+  iconSize: [36, 36],
+});
 
 const Map = () => {
   const [selectedPostDetails, setSelectedPostDetails] = useState<PostData>();
@@ -147,7 +154,11 @@ const Map = () => {
         />
         {limitedData &&
           limitedData.map((data, index) => (
-            <Marker key={index} position={[data.latitude, data.longitude]}>
+            <Marker
+              key={index}
+              position={[data.latitude, data.longitude]}
+              icon={ICON}
+            >
               <Popup className="custom-popup">
                 <img
                   src={data.imageUrl}
