@@ -24,7 +24,7 @@ const Events = () => {
         <h3 className="Board__Title">Events</h3>
         <hr className="Board__Divider" />
         <div>
-          <table className="Board__Table">
+          <div className="Board__Table">
             {events ? (
               <>
                 <div className="Board__Table__Row">
@@ -69,7 +69,7 @@ const Events = () => {
                 />
               </div>
             )}
-          </table>
+          </div>
         </div>
       </div>
 

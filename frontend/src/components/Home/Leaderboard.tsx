@@ -39,13 +39,13 @@ export default function Leaderboard() {
                   </div>
                 </div>
                 {leaderboard.map((row) => (
-                  <Link to={`/users/${row.user.id}`}>
+                  <Link to={`/users/${row.user.id}`} key={row.user.id}>
                     <div className="Board__Table__Row">
                       <div className="Board__Table__Row__Item">
                         <img
                           className="Item_Thumbnail"
                           src={row.user.profileImageUrl}
-                          alt=""
+                          alt={`${row.user.name} Profile Image`}
                         />
                       </div>
                       <div className="Board__Table__Row__Item">
