@@ -4,7 +4,6 @@ import CardUser from "../components/User/CardUser";
 import UsersData from "../models/UsersData";
 import WhaleLoader from "../components/UI/WhaleLoader";
 import Button from "../components/UI/Button";
-import "../components/Post/CardPost.scss";
 import "./Users.scss";
 
 export const Users = () => {
@@ -12,16 +11,21 @@ export const Users = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
 
-  useEffect(() => {
-    getAllUsers()
+  const fetchUsers = async () => {
+    setLoading(true);
+    setError(false);
+    await getAllUsers()
       .then((data) => {
         setUsersData(data);
-        setLoading(false);
       })
       .catch(() => {
         setError(true);
-        setLoading(false);
       });
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchUsers();
   }, []);
 
   if (loading || error) {
@@ -36,11 +40,7 @@ export const Users = () => {
                 loading ? "Loading..." : "Couldn't fetch users at this time."
               }
             />
-            {error && (
-              <Button onClick={() => window.location.reload()}>
-                Try Again
-              </Button>
-            )}
+            {error && <Button onClick={fetchUsers}>Try Again</Button>}
           </div>
         </section>
       </main>

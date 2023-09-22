@@ -21,7 +21,7 @@ export const Events = () => {
 
     await getAllEvents()
       .then((data) => setEventData(data.events))
-      .catch(() => setErrorMessage("Unable to load events"));
+      .catch(() => setErrorMessage("Couldn't fetch events at this time."));
 
     setIsLoading(false);
   };
