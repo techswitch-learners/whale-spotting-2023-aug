@@ -23,9 +23,11 @@ const FeaturedPostContent = ({
         <h3 className="FeaturedPostContent__heading__title">
           {postData.species.name}
         </h3>
-        <p className="FeaturedPostContent__heading__bodyofwater">
-          {postData.bodyOfWater.name}
-        </p>
+        {postData.bodyOfWater && (
+          <p className="FeaturedPostContent__heading__bodyofwater">
+            {postData.bodyOfWater.name}
+          </p>
+        )}
         <p className="FeaturedPostContent__heading__date">
           {toShortDate(postData.creationTimestamp)}
         </p>

@@ -47,9 +47,11 @@ const CardPostModal = ({ postData, likePost }: PostDataProps) => {
             <h3 className="CardPostModal__heading__title">
               {postData.species.name}
             </h3>
-            <p className="CardPostModal__heading__bodyofwater">
-              {postData.bodyOfWater.name}
-            </p>
+            {postData.bodyOfWater && (
+              <p className="CardPostModal__heading__bodyofwater">
+                {postData.bodyOfWater.name}
+              </p>
+            )}
             <p className="CardPostModal__heading__date">
               {toShortDate(postData.creationTimestamp)}
             </p>

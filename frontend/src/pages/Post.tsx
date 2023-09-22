@@ -136,13 +136,15 @@ const Post = () => {
                 </Link>
               </h3>
               <p className="Post__heading__bodyofwater">
-                <Link
-                  to={`/posts?bodyOfWater=${encodeURIComponent(
-                    post.bodyOfWater.name,
-                  )}`}
-                >
-                  {post.bodyOfWater.name}
-                </Link>
+                {post.bodyOfWater && (
+                  <Link
+                    to={`/posts?bodyOfWater=${encodeURIComponent(
+                      post.bodyOfWater.name,
+                    )}`}
+                  >
+                    {post.bodyOfWater.name}
+                  </Link>
+                )}
               </p>
               <p className="Post__heading__date">
                 {toShortDate(post.creationTimestamp)}

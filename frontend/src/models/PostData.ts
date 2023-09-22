@@ -19,7 +19,7 @@ interface PostData {
   approvalStatus: ApprovalStatus;
   interactionCount: number;
   hasInteractionFromCurrentUser?: boolean;
-  bodyOfWater: {
+  bodyOfWater?: {
     id: number;
     name: string;
   };
