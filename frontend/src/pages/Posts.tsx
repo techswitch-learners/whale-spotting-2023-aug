@@ -194,10 +194,11 @@ const Posts = () => {
           </div>
         ) : (
           <div className="SearchResults">
-            <h2 className="SearchResults__Header">No posts found</h2>
+            <h2 className="SearchResults__Header">
+              {searchResults ? "No posts found" : "Loading..."}
+            </h2>
           </div>
         )}
-
         <CreatePostButton />
       </section>
     </>
