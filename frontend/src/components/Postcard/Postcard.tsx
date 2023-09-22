@@ -106,7 +106,8 @@ const Postcard = ({ postData }: PostDataProps) => {
                   {postData.species.name}
                 </h3>
                 <p className="PostcardContainer__heading__bodyofwater">
-                  {postData.bodyOfWater.name} -{" "}
+                  {postData.bodyOfWater &&
+                    `${postData.bodyOfWater.name} - ${" "}`}
                   {toShortDate(postData.creationTimestamp)}
                 </p>
               </div>
