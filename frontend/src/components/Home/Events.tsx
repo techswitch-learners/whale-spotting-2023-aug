@@ -29,7 +29,7 @@ const Events = () => {
               <>
                 <div className="Board__Table__Row">
                   <div className="Board__Table__Row__Item Board__Table__Row__Item--heading">
-                    Name
+                    Event
                   </div>
                   <div className="Board__Table__Row__Item Board__Table__Row__Item--heading">
                     Location
