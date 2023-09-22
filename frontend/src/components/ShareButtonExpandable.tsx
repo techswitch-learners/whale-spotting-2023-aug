@@ -26,7 +26,9 @@ const ShareButtonExpandable = ({ postData, size, type }: PostDataProps) => {
       />
       <div className={`share-links ${showShareMenu ? "active" : ""}`}>
         <ShareButton
-          url={`http://localhost:5173/whale-spotting-2023-aug/#/posts/${postData.id}`}
+          url={`${window.location.protocol}//${window.location.hostname}${
+            window.location.port ? ":" + window.location.port : ""
+          }${window.location.pathname}#/posts/${postData.id}`}
           size={size}
           type={type}
         />
