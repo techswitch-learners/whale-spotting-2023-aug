@@ -101,7 +101,7 @@ const PendingPostModal = ({
             <div className="PendingPostModal__user__image-container">
               <img
                 className="PendingPostModal__user__image"
-                src="https://itsnotacareer.files.wordpress.com/2021/12/for-profile.jpg?w=816"
+                src={postData.user.profileImageUrl}
                 alt={`${postData.user.name}'s profile picture`}
               />
             </div>
